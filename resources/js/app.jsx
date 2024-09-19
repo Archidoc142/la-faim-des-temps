@@ -12,7 +12,7 @@ import { I18nextProvider } from 'react-i18next';
 
 i18next.init({
     interpolation: {escapeValue: true},
-    lng: "fr", // Changer par variable pour automatiser
+    lng: (document.cookie.split('; ').find(row => row.startsWith('lng=')) || 'lng=fr').split('=')[1],
     resources: {
         fr: {
             global: global_fr

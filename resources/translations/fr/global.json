@@ -1,13 +1,16 @@
 {
     "Accueil": {
-        "body":  "Bonjour Monde!",
-        "np": "N'importe quoi..."
+
     },
-    "Test": {
-        "the": "Un Test",
-        "trap": "{{count}} trape",
-        "traps": "{{count}} trapes",
-        "name": "Il y a {{count}} {{name}}"
+    "Header": {
+        "accueil": "Accueil",
+        "menu": "Menu",
+        "valeurs": "Nos valeurs",
+        "producteurs": "Nos producteurs",
+        "histoire": "Notre histoire",
+        "avis": "Votre avis",
+        "date": "DATE LIMITE POUR COMMANDER :",
+        "connexion" : "Se connecter"
     },
     "Compte": {
         "inscription": "S'inscrire",

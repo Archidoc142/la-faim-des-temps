@@ -1,7 +1,7 @@
 import { Link, Head } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 
-export default function Compte({ auth }) {
+export default function Compte() {
 
     const [t, i18n] = useTranslation("global");
 
