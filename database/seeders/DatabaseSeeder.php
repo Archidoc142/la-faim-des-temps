@@ -20,15 +20,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 */
+
         $this->call([
-
-
+            SaisonSeeder::class,
+            ImageSeeder::class,
+            ImageSaisonSeeder::class,
+            ProducteurSeeder::class,
             LangueSeeder::class,
             FormatSeeder::class,
             FormatLangueSeeder::class,
             ProduitSeeder::class,
             ProduitLangueSeeder::class,
         ]);
-
     }
 }

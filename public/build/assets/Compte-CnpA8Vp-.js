@@ -1,0 +1,1 @@
+import{j as t,Y as o}from"./app-YjWIOk_X.js";import{u as e}from"./useTranslation-DFyUcmOo.js";function m({auth:s}){return e("global"),t.jsx("div",{className:"Compte",children:t.jsx(o,{title:"Compte"})})}export{m as default};

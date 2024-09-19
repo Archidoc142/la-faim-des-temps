@@ -31,14 +31,31 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'prenom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
+            'nom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
+            'email' => 'required|string|lowercase|email|max:128|unique:'.User::class,
+            'telephone' => 'numeric|digits:10',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ],[
+            'nom.required' => 'Veuillez entrer un nom de famille.',
+            'nom.max' => 'Le nom de famille ne peut pas dépasser 64 caractères.',
+            'nom.regex' => 'Le format du nom de famille entré est invalide.',
+
+            'prenom.required' => 'Veuillez entrer un prénom.',
+            'prenom.max' => 'Le prénom ne peut pas dépasser 64 caractères.',
+            'prenom.regex' => 'Le format du prénom entré est invalide.',
+
+            'courriel.required' => 'Veuillez entrer un courriel.',
+            'courriel.regex' => 'Le format du courriel entré est invalide.',
+
+            'telephone.digits' => 'Le numéro de téléphone doit respecter le format (xxx) xxx-xxxx.',
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
             'email' => $request->email,
+            'telephone' => $request->telephone,
             'password' => Hash::make($request->password),
         ]);
 
@@ -46,6 +63,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('accueil', absolute: false));
     }
 }

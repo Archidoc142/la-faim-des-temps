@@ -1,0 +1,1 @@
+import{j as a,Y as r}from"./app-YjWIOk_X.js";import{u as t}from"./useTranslation-DFyUcmOo.js";function n({auth:e}){return t("global"),a.jsx("div",{className:"Panier",children:a.jsx(r,{title:"Panier"})})}export{n as default};

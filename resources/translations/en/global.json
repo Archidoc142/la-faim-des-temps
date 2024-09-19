@@ -1,12 +1,26 @@
 {
     "Accueil": {
-        "body":  "Hello World!",
-        "np": "Anything..."
+
     },
-    "Test": {
-        "the": "It's a test",
-        "trap": "{{count}} trap",
-        "traps": "{{count}} traps",
-        "name": "There's {{count}} {{name}}"
+    "Header": {
+        "accueil": "Home",
+        "menu": "Menu",
+        "valeurs": "Our values",
+        "producteurs": "Our producers",
+        "histoire": "Our story",
+        "avis": "Your opinion",
+        "date": "LIMIT DATE TO ORDER :",
+        "connexion" : "Login"
+    },
+    "Compte": {
+        "inscription": "Register",
+        "prenom": "First name",
+        "nom": "Last name",
+        "courriel": "Email address",
+        "telephone": "Phone number",
+        "mdp": "Password",
+        "confirmer_mdp": "Confirm password",
+        "deja_inscrit": "Already registered?"
     }
+
 }

@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "i18next": "^23.15.1",
-        "react-i18next": "^15.0.2"
+        "react-i18next": "^15.0.2",
+        "react-phone-input-auto-format": "^0.1.0"
     }
 }
