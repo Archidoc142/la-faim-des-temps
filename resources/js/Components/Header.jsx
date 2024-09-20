@@ -61,19 +61,26 @@ export default function Header() {
 
                     <div className='flex items-center justify-evenly gap-1'>
                         {/* User*/}
-                        <Link href='/compte' className='items-center flex gap-4'>
+                        <Link href={ user ?
+                                 user.data.role === "admin" ? "/admin" : "/compte" :
+                                 "/login"}
+                            className='items-center flex gap-4'>
+
                             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#929292" strokeWidth="2">
                               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                               <circle cx="12" cy="7" r="4"></circle>
                             </svg>
 
-                            <p className='text-white hidden sm:block text-xs xl:text-base'><strong>{user ? user.name : t("Header.connexion")}</strong></p>
+                            <p className='text-white hidden sm:block text-xs xl:text-base'><strong>
+                                {user ?
+                                    user.data.role === "admin" ? "Admin" : user.data.prenom + " " + user.data.nom :
+                                    t("Header.connexion")}</strong></p>
                         </Link>
 
 
                         {/* Panier*/}
                         <Link href='/panier'>
-                            <svg className='ml-4' width="28" height="28" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2">
+                            <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2">
                               <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
                                        M10 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0
                                        M18 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
@@ -100,9 +107,13 @@ export default function Header() {
             </div>
 
             {/* flash*/}
-            <div className='py-4 text-sm text-white bg-[#BB285C] text-center'>
-                <p><strong>{t("Header.date")}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
-            </div>
+
+            { user && user.data.role === "client" &&
+                <div className='py-4 text-sm text-white bg-[#BB285C] text-center'>
+                    <p><strong>{t("Header.date")}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
+                </div>
+            }
+
         </header>
     );
 }

@@ -90,7 +90,7 @@ export default function Register() {
                     <PhoneInput
                         id="telephone"
                         onChange={(tel) => { setData('telephone', normalize(tel)); console.log(data.telephone)}}
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                     />
 
                     <InputError message={errors.telephone} className="mt-2" />
