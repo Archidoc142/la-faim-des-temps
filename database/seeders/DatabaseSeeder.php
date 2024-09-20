@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SecteurCode;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,7 +25,12 @@ class DatabaseSeeder extends Seeder
             SaisonSeeder::class,
             ImageSeeder::class,
             ImageSaisonSeeder::class,
-            ProducteurSeeder::class
+            ProducteurSeeder::class,
+            EtatCommandeSeeder::class,
+            HoraireOuvertureSeeder::class,
+            SecteurSeeder::class,
+            SecteurCodeSeeder::class,
+            TarifLivraisonSeeder::class,
         ]);
     }
 }
