@@ -36,9 +36,9 @@ export default function Header() {
     }
 
     return (
-        <header>
+        <header className='border-b border-[#9b9b9b]'>
             <div className='flex'>
-                <img className='hidden lg:block w-auto max-h-[80px] lg:max-h-[70px] mx-2' src={logo} alt="logo-rect-img" />
+                <img className='hidden lg:block w-auto max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" />
 
                 <div className='flex items-center flex-nowrap justify-between w-full max-h-[80px] lg:max-h-[70px] bg-[#041a37] pl-6 xl:pl-8'>
                     {/* Menu*/}
