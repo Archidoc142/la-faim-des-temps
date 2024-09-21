@@ -13,12 +13,16 @@ class HoraireOuvertureSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('tarif_livraison')->insert([
+        DB::table('horaire_ouverture')->insert([
             ['jour' => 'Lundi',
-             'ouvert' => false],
+             'ouvert' => false,
+             'heure_ouverture' => NULL,
+             'heure_fermeture' => NULL],
 
             ['jour' => 'Mardi',
-             'ouvert' => false],
+             'ouvert' => false,
+             'heure_ouverture' => NULL,
+             'heure_fermeture' => NULL],
 
             ['jour' => 'Mercredi',
              'ouvert' => true,
@@ -36,10 +40,14 @@ class HoraireOuvertureSeeder extends Seeder
              'heure_fermeture' => '17:00'],
 
             ['jour' => 'Samedi',
-             'ouvert' => false],
+             'ouvert' => false,
+             'heure_ouverture' => NULL,
+             'heure_fermeture' => NULL],
 
             ['jour' => 'Dimanche',
-             'ouvert' => false],
+             'ouvert' => false,
+             'heure_ouverture' => NULL,
+             'heure_fermeture' => NULL],
         ]);
     }
 }

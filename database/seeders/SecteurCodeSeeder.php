@@ -16,23 +16,23 @@ class SecteurCodeSeeder extends Seeder
         DB::table('secteur_code')->insert([
             // Fleurimont
             ['code' => 'J1E',
-             'id_secteur' => 0],
+             'id_secteur' => 1],
             ['code' => 'J1G',
-             'id_secteur' => 0],
+             'id_secteur' => 1],
 
             // Centre-ville
             ['code' => 'J1H',
-             'id_secteur' => 1],
+             'id_secteur' => 2],
             ['code' => 'J1J',
-             'id_secteur' => 1],
+             'id_secteur' => 2],
             ['code' => 'J1K',
-             'id_secteur' => 1],
+             'id_secteur' => 2],
             ['code' => 'J1L',
-             'id_secteur' => 1],
+             'id_secteur' => 2],
 
             // Rock Forest
             ['code' => 'J1N',
-            'id_secteur' => 2],
+            'id_secteur' => 3],
         ]);
     }
 }

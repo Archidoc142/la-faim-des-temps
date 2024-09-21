@@ -13,7 +13,7 @@ class LangueSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('langues')->insert([
+        DB::table('langue')->insert([
             [
                 'code' => 'fr',
                 'nom' => 'Français',

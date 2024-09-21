@@ -13,7 +13,7 @@ class ProduitSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('produits')->insert([
+        DB::table('produit')->insert([
             [
                 'nom' => 'Soupe',
                 'dansMenu' => true
