@@ -48,7 +48,7 @@ export default function Header() {
                         </svg>
                     </button>
 
-                    <div className='hidden lg:block flex'>
+                    <div className='hidden lg:flex'>
                         <div className='text-[#b7b6a9] flex gap-8 xl:gap-12 items-center'>
                             <Link className={`text-xs xl:text-base ${url === '/' ? 'text-white' : false}`} href='/'><strong>{t("Header.accueil")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/menu' ? 'text-white' : false}`} href='/menu'><strong>{t("Header.menu")}</strong></Link>
