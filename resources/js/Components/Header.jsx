@@ -108,11 +108,12 @@ export default function Header() {
 
             {/* flash*/}
 
-            { user && user.data.role === "client" &&
+            { !url.includes("/admin") ?
                 <div className='py-4 text-sm text-white bg-[#BB285C] text-center'>
                     <p><strong>{t("Header.date")}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
-                </div>
+                </div> : ""
             }
+
 
         </header>
     );

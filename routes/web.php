@@ -29,7 +29,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::get('/admin', function() { return redirect()->route('admin.clients');})->name('admin.accueil');
-    Route::get('/admin/clients', [ClientController::class, 'index'])->name('admin.clients');
+
+    Route::controller(ClientController::class)->group(function() {
+        Route::get('/admin/clients', 'index')->name('admin.clients');
+    });
 });
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);

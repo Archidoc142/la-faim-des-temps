@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ClientResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,7 +16,7 @@ class ClientController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Clients', [
-            'clients' => User::Clients()
+            'clients' => ClientResource::collection(User::Clients())
         ]);
     }
 
