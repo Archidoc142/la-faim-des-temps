@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('langue', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('code');
-            $table->string('nom');
+        Schema::create('etat_commande', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom', length: 64);
+            $table->timestamps();
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('langue');
+        Schema::dropIfExists('etat_commande');
     }
 };

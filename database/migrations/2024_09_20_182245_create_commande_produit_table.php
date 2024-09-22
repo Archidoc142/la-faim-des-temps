@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('produit_langue');
-
-        Schema::create('produit_langue', function (Blueprint $table) {
+        Schema::create('commande_produit', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_produit')->unsigned();
-            $table->bigInteger('id_langue')->unsigned();
-            $table->string('description');
+            $table->bigInteger('id_commande')->unsigned();
+            $table->float('prix_vente');
         });
 
-        Schema::table('produit_langue', function (Blueprint $table) {
+        Schema::table('commande_produit', function (Blueprint $table) {
             $table->foreign('id_produit')->references('id')->on('produit');
-            $table->foreign('id_langue')->references('id')->on('langue');
+            $table->foreign('id_commande')->references('id')->on('commande');
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produit_langue');
+        Schema::dropIfExists('commande_produit');
     }
 };

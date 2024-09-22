@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('formats', function (Blueprint $table) {
+        Schema::create('format', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->decimal('montant', 10, 2);
         });
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formats');
+        Schema::dropIfExists('format');
     }
 };

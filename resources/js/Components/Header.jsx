@@ -36,19 +36,19 @@ export default function Header() {
     }
 
     return (
-        <header>
+        <header className='border-b border-[#9b9b9b]'>
             <div className='flex'>
-                <img className='hidden md:block w-auto max-h-[80px] lg:max-h-[70px] mx-2' src={logo} alt="logo-rect-img" />
+                <img className='hidden lg:block w-auto max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" />
 
                 <div className='flex items-center flex-nowrap justify-between w-full max-h-[80px] lg:max-h-[70px] bg-[#041a37] pl-6 xl:pl-8'>
                     {/* Menu*/}
-                    <button onClick={toggleMenu} className='sm:hidden'>
+                    <button onClick={toggleMenu} className='lg:hidden'>
                         <svg className='mx-4' width="34" height="34" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2">
                           <path d="M3 6 H21 M3 12 H21 M3 18 H21"/>
                         </svg>
                     </button>
 
-                    <div className='hidden sm:block flex'>
+                    <div className='hidden lg:block flex'>
                         <div className='text-[#b7b6a9] flex gap-8 xl:gap-12 items-center'>
                             <Link className={`text-xs xl:text-base ${url === '/' ? 'text-white' : false}`} href='/'><strong>{t("Header.accueil")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/menu' ? 'text-white' : false}`} href='/menu'><strong>{t("Header.menu")}</strong></Link>
@@ -97,7 +97,7 @@ export default function Header() {
             </div>
 
 
-            <div id='menu' className='sm:hidden hidden text-center text-lg absolute'>
+            <div id='menu' className='lg:hidden hidden text-center text-lg absolute'>
                 <Link className={`block hover:bg-[#dfdfdf] w-screen py-4 border-y-2 border-[#dfdfdf] ${url === '/' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/'>{t("Header.accueil")}</Link>
                 <Link className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/menu' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/menu'>{t("Header.menu")}</Link>
                 <Link className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/valeurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/valeurs'>{t("Header.valeurs")}</Link>

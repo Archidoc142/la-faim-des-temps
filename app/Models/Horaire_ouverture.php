@@ -5,22 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Format extends Model
+class horaire_ouverture extends Model
 {
     use HasFactory;
-    protected $table = 'format';
+
+    protected $table = 'horaire_ouverture';
     protected $primaryKey = 'id';
     public $timestamps = false;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'montant',
-        'nom',
-        'description'
+        'jour',
+        'ouvert',
     ];
-
 }
