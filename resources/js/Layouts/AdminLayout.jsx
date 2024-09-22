@@ -8,7 +8,7 @@ export default function AdminLayout({ children, title }) {
     return(
         <>
             <Head title={title}/>
-            <div className='bg-red-900 h-14 flex items-center justify-center'>
+            <div className='bg-[#7A163C] h-14 flex items-center justify-center'>
                 <h1 className='text-white font-bold text-center text-2xl'>Menu administrateur</h1>
             </div>
 
