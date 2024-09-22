@@ -8,12 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Saison extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'saison';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
+    protected $fillable = [
+        'nom'
+    ];
+
     public function images() {
-        return $this->belongsToMany(Image::class);
+        return $this->belongsToMany(Image::class, 'image_saison', 'id_saison', 'id_image');
     }
 }

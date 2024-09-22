@@ -13,8 +13,15 @@ class Image extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
+    protected $fillable = [
+        'nom_fichier',
+        'legende',
+        'vitrine',
+        'saisonnier'
+    ];
+
     public function saisons() {
-        return $this->belongsToMany(Saison::class);
+        return $this->belongsToMany(Saison::class, 'image_saison', 'id_image', 'id_saison');
     }
 
     public function producteurs() {

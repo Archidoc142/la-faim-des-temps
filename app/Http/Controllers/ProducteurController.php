@@ -14,7 +14,9 @@ class ProducteurController extends Controller
     public function index()
     {
         $producteurs = Producteur::all();
-        return inertia('Producteurs', ['producteurs' => $producteurs]);
+        return Inertia::render('Producteur/Producteurs', [
+            'producteurs' => $producteurs
+        ]);
     }
 
     /**
