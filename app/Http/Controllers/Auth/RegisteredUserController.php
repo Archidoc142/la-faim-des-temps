@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
             'prenom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
             'nom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
             'email' => 'required|string|lowercase|email|max:128|unique:'.User::class,
-            'telephone' => 'numeric|digits:10',
+            'telephone' => 'nullable|numeric|digits:10',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ],[
             'nom.required' => 'Veuillez entrer un nom de famille.',

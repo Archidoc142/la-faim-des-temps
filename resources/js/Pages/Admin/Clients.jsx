@@ -7,14 +7,14 @@ export default function Clients({clients}) {
 
   return (
     <AdminLayout title="Clients">
-        <table className="border w-full">
+        <table className="border w-full table-fixed">
             <thead>
                 <tr>
-                    <HeadCell title="Nom" width="60"/>
-                    <HeadCell title="Prénom" width="60"/>
-                    <HeadCell title="Courriel" width="48"/>
-                    <HeadCell title="Téléphone" width="36"/>
-                    <HeadCell title="Date de création"  width="36"/>
+                    <HeadCell title="Nom" width="96"/>
+                    <HeadCell title="Prénom" width="96"/>
+                    <HeadCell title="Courriel" width="72"/>
+                    <HeadCell title="Téléphone" width="48"/>
+                    <HeadCell title="Date de création" width="60"/>
                     <HeadActionCell/>
                 </tr>
             </thead>

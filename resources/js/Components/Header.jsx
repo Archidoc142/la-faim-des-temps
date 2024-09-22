@@ -73,7 +73,7 @@ export default function Header() {
 
                             <p className='text-white hidden sm:block text-xs xl:text-base'><strong>
                                 {user ?
-                                    user.data.role === "admin" ? "Admin" : user.data.prenom + " " + user.data.nom :
+                                    user.data.role === "admin" ? "Admin" : user.data.prenom :
                                     t("Header.connexion")}</strong></p>
                         </Link>
 
