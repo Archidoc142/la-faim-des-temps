@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SecteurCode;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -33,6 +34,11 @@ class DatabaseSeeder extends Seeder
             FormatLangueSeeder::class,
             ProduitSeeder::class,
             ProduitLangueSeeder::class,
+            EtatCommandeSeeder::class,
+            HoraireOuvertureSeeder::class,
+            SecteurSeeder::class,
+            SecteurCodeSeeder::class,
+            TarifLivraisonSeeder::class,
         ]);
     }
 }

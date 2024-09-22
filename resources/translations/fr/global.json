@@ -21,5 +21,15 @@
         "mdp": "Mot de passe",
         "confirmer_mdp": "Confirmer le mot de passe",
         "deja_inscrit": "Déjà inscrit?"
+    },
+    "Login": {
+        "title1": "Bienvenue à",
+        "title2": "La faim des temps",
+        "mdp_oublie" : "Mot de passe oublié?",
+        "creer_compte" : "Pas encore de compte? Créez-en un!",
+        "connexion" : "Connexion",
+        "email" : "Courriel",
+        "mdp" : "Mot de passe",
+        "souvenir" : "Se souvenir de moi"
     }
 }

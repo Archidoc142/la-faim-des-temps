@@ -9,7 +9,7 @@ class Langue extends Model
 {
     use HasFactory;
 
-    protected $table = 'langues';
+    protected $table = 'langue';
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $guarded = ['id'];
