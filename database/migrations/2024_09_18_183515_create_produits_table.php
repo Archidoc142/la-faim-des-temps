@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produits', function (Blueprint $table) {
+        Schema::create('produit', function (Blueprint $table) {
            // $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->string('nom');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produits');
+        Schema::dropIfExists('produit');
     }
 };

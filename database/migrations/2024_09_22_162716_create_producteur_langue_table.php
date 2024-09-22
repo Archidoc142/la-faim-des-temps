@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('produit_langue');
-
-        Schema::create('produit_langue', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('id_produit')->unsigned();
-            $table->bigInteger('id_langue')->unsigned();
+        Schema::create('producteur_langue', function (Blueprint $table) {
+            $table->primary(['id_producteur', 'id_langue']);
+            $table->unsignedBigInteger('id_producteur');
+            $table->unsignedBigInteger('id_langue');
             $table->string('description');
         });
 
-        Schema::table('produit_langue', function (Blueprint $table) {
-            $table->foreign('id_produit')->references('id')->on('produit');
+        Schema::table('producteur_langue', function (Blueprint $table) {
+            $table->foreign('id_producteur')->references('id')->on('producteur');
             $table->foreign('id_langue')->references('id')->on('langue');
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produit_langue');
+        Schema::dropIfExists('producteur_langue');
     }
 };

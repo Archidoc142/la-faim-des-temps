@@ -12,4 +12,11 @@ class Producteur extends Model
     protected $table = 'producteur';
     protected $primaryKey = 'id';
     public $timestamps = false;
+
+    protected $fillable = [
+        'nom',
+        'adresse',
+        'telephone',
+        'id_image'
+    ];
 }
