@@ -19,4 +19,15 @@ class Producteur extends Model
         'telephone',
         'id_image'
     ];
+
+    public function langues()
+    {
+        return $this->belongsToMany(Langue::class, 'producteur_langue', 'id_producteur', 'id_langue')
+                    ->withPivot('description');
+    }
+
+    public function image()
+    {
+        return $this->belongsTo(Image::class, 'id_image', 'id');
+    }
 }
