@@ -23,8 +23,4 @@ class Image extends Model
     public function saisons() {
         return $this->belongsToMany(Saison::class, 'image_saison', 'id_image', 'id_saison');
     }
-
-    public function producteurs() {
-        return $this->hasMany(Producteur::class);
-    }
 }
