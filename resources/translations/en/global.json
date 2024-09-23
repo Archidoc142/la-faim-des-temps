@@ -13,6 +13,8 @@
         "connexion" : "Login"
     },
     "Compte": {
+        "titre": "FIRST TIME?",
+        "bienvenue": "Welcome to La faim des temps",
         "inscription": "Register",
         "prenom": "First name",
         "nom": "Last name",
