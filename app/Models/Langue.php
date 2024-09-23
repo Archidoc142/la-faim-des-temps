@@ -13,4 +13,15 @@ class Langue extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $guarded = ['id'];
+
+    protected $fillable = [
+        'nom',
+        'code'
+    ];
+
+    public function producteurs()
+    {
+        return $this->belongsToMany(Producteur::class, 'producteur_langue', 'id_langue', 'id_producteur')
+                    ->withPivot('description');
+    }
 }
