@@ -12,9 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('image_saison', function (Blueprint $table) {
-            $table->primary(['image_id', 'saison_id']);
-            $table->foreignId('image_id');
-            $table->foreignId('saison_id');
+            $table->primary(['id_image', 'id_saison']);
+            $table->unsignedBigInteger('id_image');
+            $table->unsignedBigInteger('id_saison');
+        });
+
+        Schema::table('image_saison', function (Blueprint $table) {
+            $table->foreign('id_image')->references('id')->on('image');
+            $table->foreign('id_saison')->references('id')->on('saison');
         });
     }
 

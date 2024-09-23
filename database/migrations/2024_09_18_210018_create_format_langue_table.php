@@ -20,8 +20,8 @@ return new class extends Migration
         });
 
         Schema::table('format_langue', function (Blueprint $table) {
-            $table->foreign('id_format')->references('id')->on('formats');
-            $table->foreign('id_langue')->references('id')->on('langues');
+            $table->foreign('id_format')->references('id')->on('format');
+            $table->foreign('id_langue')->references('id')->on('langue');
         });
     }
 

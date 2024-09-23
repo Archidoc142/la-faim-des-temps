@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Format extends Model
 {
     use HasFactory;
-    protected $table = 'formats';
+    protected $table = 'format';
     protected $primaryKey = 'id';
     public $timestamps = false;
 

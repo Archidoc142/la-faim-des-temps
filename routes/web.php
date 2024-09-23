@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
+use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -25,5 +27,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(EnsureUserIsAdmin::class)->group(function() {
+    Route::get('/admin', function() { return redirect()->route('admin.clients');})->name('admin.accueil');
+
+    Route::controller(ClientController::class)->group(function() {
+        Route::get('/admin/clients', 'index')->name('admin.clients');
+    });
+});
+
 Route::get('/producteurs', [ProducteurController::class, 'index']);
+
 require __DIR__.'/auth.php';

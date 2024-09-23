@@ -13,7 +13,7 @@ class FormatSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('formats')->insert([
+        DB::table('format')->insert([
             /*[
                 'id' => 1,
                 'montant' => '10'

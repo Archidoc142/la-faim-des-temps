@@ -21,8 +21,8 @@ return new class extends Migration
         });
 
         Schema::table('produit_langue', function (Blueprint $table) {
-            $table->foreign('id_produit')->references('id')->on('produits');
-            $table->foreign('id_langue')->references('id')->on('langues');
+            $table->foreign('id_produit')->references('id')->on('produit');
+            $table->foreign('id_langue')->references('id')->on('langue');
         });
     }
 

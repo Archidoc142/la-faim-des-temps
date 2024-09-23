@@ -23,6 +23,15 @@
         "mdp": "Password",
         "confirmer_mdp": "Confirm password",
         "deja_inscrit": "Already registered?"
+    },
+    "Login": {
+        "title1": "Welcome to",
+        "title2": "La faim des temps",
+        "mdp_oublie" : "Forgot your password?",
+        "creer_compte" : "No account yet? Create one!",
+        "connexion" : "Login",
+        "email" : "Email",
+        "mdp" : "Password",
+        "souvenir" : "Remember me"
     }
-
 }
