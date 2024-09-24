@@ -6,7 +6,7 @@ export default function DefaultLayout({ children }) {
         <>
             <Header/>
 
-            <main>{children}</main>
+            <main className=''>{children}</main>
 
             <Footer/>
         </>

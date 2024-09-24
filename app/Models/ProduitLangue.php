@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Produit_Langue extends Pivot
+class ProduitLangue extends Pivot
 {
-    protected $table = 'produit_langue';
+    protected $table = 'ProduitLangue';
     protected $primaryKey = 'id';
     public $incrementing = true;
     public $timestamps = false;

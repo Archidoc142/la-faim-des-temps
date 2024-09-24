@@ -13,7 +13,7 @@ class FormatLangueSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('format_langue')->insert([
+        DB::table('FormatLangue')->insert([
             # FRANÇAIS #
             [
                 'id_langue' => '1',
