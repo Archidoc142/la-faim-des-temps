@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tarif_livraison;
+use App\Models\TarifLivraison;
 use Illuminate\Http\Request;
 
 class TarifLivraisonController extends Controller
@@ -34,7 +34,7 @@ class TarifLivraisonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(tarif_livraison $tarif_livraison)
+    public function show(TarifLivraison $TarifLivraison)
     {
         //
     }
@@ -42,7 +42,7 @@ class TarifLivraisonController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(tarif_livraison $tarif_livraison)
+    public function edit(TarifLivraison $TarifLivraison)
     {
         //
     }
@@ -50,7 +50,7 @@ class TarifLivraisonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, tarif_livraison $tarif_livraison)
+    public function update(Request $request, TarifLivraison $TarifLivraison)
     {
         //
     }
@@ -58,7 +58,7 @@ class TarifLivraisonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(tarif_livraison $tarif_livraison)
+    public function destroy(TarifLivraison $TarifLivraison)
     {
         //
     }

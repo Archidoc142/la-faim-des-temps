@@ -12,10 +12,17 @@ export default function Header() {
     const user = usePage().props.auth.user;
 
     let d = new Date();
-    d.setDate(d.getDate() + (1 + 7 - d.getDay()) % 7);
+
+    useEffect(() => {
+        if (d.getDay() == 1 && d.getHours() > 15) {
+            d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
+        } else {
+            d.setDate(d.getDate() + (1 + 7 - d.getDay()) % 7);
+        }
+    }, [])
+
     const options = { weekday: 'long', day: 'numeric', month: 'long' };
     const tempDate = d.toLocaleDateString('fr-FR', options) + ' à 16:00';
-
     const [date, setDate] = useState(tempDate)
 
     useEffect(() => {
@@ -33,6 +40,10 @@ export default function Header() {
 
     const toggleMenu = () => {
         document.getElementById('menu').classList.toggle('hidden');
+    }
+
+    const handleClosure = () => {
+        document.getElementById('menu').classList.add('hidden');
     }
 
     return (
@@ -66,7 +77,7 @@ export default function Header() {
                                  "/login"}
                             className='items-center flex gap-4'>
 
-                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#929292" strokeWidth="2">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke={user ? user.data.role === "admin" ? "#BB285C" : "#75A9F9" :"#929292"} strokeWidth="2" id="iconUser">
                               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                               <circle cx="12" cy="7" r="4"></circle>
                             </svg>
@@ -80,7 +91,7 @@ export default function Header() {
 
                         {/* Panier*/}
                         <Link href='/panier'>
-                            <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2">
+                            <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" fill='transparent' stroke="#fff" strokeWidth="2">
                               <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
                                        M10 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0
                                        M18 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
@@ -98,12 +109,12 @@ export default function Header() {
 
 
             <div id='menu' className='lg:hidden hidden text-center text-lg absolute'>
-                <Link className={`block hover:bg-[#dfdfdf] w-screen py-4 border-y-2 border-[#dfdfdf] ${url === '/' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/'>{t("Header.accueil")}</Link>
-                <Link className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/menu' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/menu'>{t("Header.menu")}</Link>
-                <Link className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/valeurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/valeurs'>{t("Header.valeurs")}</Link>
-                <Link className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/producteurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/producteurs'>{t("Header.producteurs")}</Link>
-                <Link className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/histoire' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/histoire'>{t("Header.histoire")}</Link>
-                <Link className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/avis' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/avis'>{t("Header.avis")}</Link>
+                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] w-screen py-4 border-y-2 border-[#dfdfdf] ${url === '/' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/'>{t("Header.accueil")}</Link>
+                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/menu' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/menu'>{t("Header.menu")}</Link>
+                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/valeurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/valeurs'>{t("Header.valeurs")}</Link>
+                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/producteurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/producteurs'>{t("Header.producteurs")}</Link>
+                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/histoire' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/histoire'>{t("Header.histoire")}</Link>
+                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/avis' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/avis'>{t("Header.avis")}</Link>
             </div>
 
             {/* flash*/}
@@ -113,8 +124,6 @@ export default function Header() {
                     <p><strong>{t("Header.date")}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
                 </div> : ""
             }
-
-
         </header>
     );
 }
