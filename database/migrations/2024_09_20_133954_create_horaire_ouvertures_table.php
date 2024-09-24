@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('horaire_ouverture', function (Blueprint $table) {
+        Schema::create('HoraireOuverture', function (Blueprint $table) {
             $table->id();
             $table->string('jour', length: 16);
             $table->boolean('ouvert');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('horaire_ouverture');
+        Schema::dropIfExists('HoraireOuverture');
     }
 };

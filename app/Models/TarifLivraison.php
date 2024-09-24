@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tarif_livraison extends Model
+class TarifLivraison extends Model
 {
     use HasFactory;
 
-    protected $table = 'tarif_livraison';
+    protected $table = 'TarifLivraison';
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [
