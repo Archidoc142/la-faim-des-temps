@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('FormatLangue', function (Blueprint $table) {
+        Schema::create('format_langue', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_format')->unsigned();
             $table->bigInteger('id_langue')->unsigned();
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('description');
         });
 
-        Schema::table('FormatLangue', function (Blueprint $table) {
+        Schema::table('format_langue', function (Blueprint $table) {
             $table->foreign('id_format')->references('id')->on('format');
             $table->foreign('id_langue')->references('id')->on('langue');
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('FormatLangue');
+        Schema::dropIfExists('format_langue');
     }
 };
