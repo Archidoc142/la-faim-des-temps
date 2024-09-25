@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Format;
-use App\Models\Format_Langue;
+use App\Models\FormatLangue;
 use App\Models\Produit;
-use App\Models\Produit_Langue;
+use App\Models\ProduitLangue;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -20,8 +20,8 @@ class ProduitController extends Controller
         //$produits = Produit::with('description', 'allFormats')->get();
         $produits = Produit::all();
         $formats = Format::all();
-        $prodDesc = Produit_Langue::all();
-        $langFormats = Format_Langue::all();
+        $prodDesc = ProduitLangue::all();
+        $langFormats = FormatLangue::all();
 
       /*  dump($produits);
         dump($formats);
