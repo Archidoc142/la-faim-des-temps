@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.stoke {
+    font-family: "Stoke", serif;
+}
+
+.arsenal {
+    font-family: "Arsenal", sans-serif;
+}

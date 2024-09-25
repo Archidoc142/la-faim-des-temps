@@ -26,7 +26,7 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <div className='h-screen md:p-8 xl:px-[8rem]'>
+        <div className='h-full md:p-8 xl:px-[8rem]'>
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}

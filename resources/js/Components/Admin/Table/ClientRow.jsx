@@ -1,11 +1,10 @@
 import ActionCell from "./ActionCell"
 import Cell from "./Cell"
-import { Option } from "./Option"
 
 export default function ClientRow({client}) {
 
     const options = [
-        new Option("Consulter", "/admin/client/" + client.id)
+        {label: "Consulter", route: "/admin/client/" + client.id}
     ]
 
     return (
