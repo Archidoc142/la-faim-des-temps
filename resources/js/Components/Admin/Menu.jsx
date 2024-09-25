@@ -9,6 +9,7 @@ export default function Menu() {
         <MenuItem name="Images" routeName="clients"/>
         <MenuItem name="Commentaires" routeName="clients"/>
         <MenuItem name="Tarifs" routeName="clients"/>
+        <MenuItem name="QuickBooks" routeName="quickbooks"></MenuItem>
     </div>
   )
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
+use App\Http\Controllers\QuickBooksController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use Illuminate\Foundation\Application;
@@ -33,6 +34,11 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::controller(ClientController::class)->group(function() {
         Route::get('/admin/clients', 'index')->name('admin.clients');
         Route::get('/admin/client/{id}', 'show')->name('admin.client');
+    });
+
+    Route::controller(QuickBooksController::class)->group(function() {
+        Route::get('/admin/quickbooks', 'index')->name('admin.quickbooks');
+        Route::get('/admin/quickbooks/callback', 'callback')->name('admin.quickbooks.callback');
     });
 });
 
