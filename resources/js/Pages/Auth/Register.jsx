@@ -39,16 +39,16 @@ export default function Register() {
                 <table className='border-none md: border-2 border-[#BB285C] border-separate w-full'>
                     <thead>
                         <tr>
-                            <th className="text-2xl border-b-2 border-[#BB285C] md:border-2  py-2 rounded-t-2xl" colSpan={2}>{t("Compte.titre")}</th>
+                            <th className="bg-white text-2xl border-b-2 border-[#BB285C] md:border-2  py-2 rounded-t-2xl" colSpan={2}>{t("Compte.titre")}</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <tr className='md:grid grid-cols-[35%_65%]'>
-                            <td className='hidden md:flex border-2 border-[#BB285C] items-center rounded-bl-2xl'>
+                            <td className='bg-white hidden md:flex border-2 border-[#BB285C] items-center rounded-bl-2xl'>
                                 <img src={logoBig} alt="La faim des temps logo-big-img" />
                             </td>
-                            <td className='border-t-2 border-r-0 border-b-0 md:border-r-2 md:border-y-2 border-[#BB285C] p-10 rounded-br-2xl grid'>
+                            <td className='bg-white border-t-2 border-r-0 border-b-0 rounded-b-2xl md:border-r-2 md:border-y-2 border-[#BB285C] p-10 md:rounded-bl-none grid'>
                                 <div className='text-xl font-bold w-full text-center md:text-start'>{t("Compte.bienvenue")}</div>
 
                                 <form onSubmit={submit} className='bg-[#F7F6F6] p-10 md:p-20 md:pb-10 mt-5'>

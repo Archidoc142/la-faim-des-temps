@@ -3,8 +3,10 @@
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
+use App\Http\Controllers\ProduitController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
+use App\Models\Produit;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -12,6 +14,8 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Accueil', []);
 })->name('accueil');
+
+Route::get('/menu', [ProduitController::class, 'index']);
 
 Route::get('/panier', function () {
     return Inertia::render('Panier', []);

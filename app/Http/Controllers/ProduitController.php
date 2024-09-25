@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Format;
+use App\Models\Format_Langue;
 use App\Models\Produit;
-use App\Http\Requests\StoreProduitRequest;
-use App\Http\Requests\UpdateProduitRequest;
+use App\Models\Produit_Langue;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProduitController extends Controller
 {
@@ -14,6 +17,24 @@ class ProduitController extends Controller
     public function index()
     {
         //
+        //$produits = Produit::with('description', 'allFormats')->get();
+        $produits = Produit::all();
+        $formats = Format::all();
+        $prodDesc = Produit_Langue::all();
+        $langFormats = Format_Langue::all();
+
+      /*  dump($produits);
+        dump($formats);
+        dump($prodDesc);
+        dump($langFormats);*/
+
+
+        return Inertia::render('Menu', [
+            'produits' => $produits,
+            'formats' => $formats,
+            'prodDesc' => $prodDesc,
+            'langFormats' => $langFormats
+        ]);
     }
 
     /**
@@ -27,7 +48,7 @@ class ProduitController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProduitRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -51,7 +72,7 @@ class ProduitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProduitRequest $request, Produit $produit)
+    public function update(Request $request, Produit $produit)
     {
         //
     }
