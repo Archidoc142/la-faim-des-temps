@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class horaire_ouverture extends Model
+class HoraireOuverture extends Model
 {
     use HasFactory;
 
-    protected $table = 'horaire_ouverture';
+    protected $table = 'HoraireOuverture';
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [

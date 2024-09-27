@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\horaire_ouverture;
+use App\Models\HoraireOuverture;
 use Illuminate\Auth\Access\Response;
 
 class HoraireOuverturePolicy
@@ -19,7 +19,7 @@ class HoraireOuverturePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, horaire_ouverture $horaireOuverture): bool
+    public function view(User $user, HoraireOuverture $horaireOuverture): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class HoraireOuverturePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, horaire_ouverture $horaireOuverture): bool
+    public function update(User $user, HoraireOuverture $horaireOuverture): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class HoraireOuverturePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, horaire_ouverture $horaireOuverture): bool
+    public function delete(User $user, HoraireOuverture $horaireOuverture): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class HoraireOuverturePolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, horaire_ouverture $horaireOuverture): bool
+    public function restore(User $user, HoraireOuverture $horaireOuverture): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class HoraireOuverturePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, horaire_ouverture $horaireOuverture): bool
+    public function forceDelete(User $user, HoraireOuverture $horaireOuverture): bool
     {
         //
     }

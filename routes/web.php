@@ -6,6 +6,7 @@ use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
+use App\Models\Produit;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,6 +14,8 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Accueil', []);
 })->name('accueil');
+
+Route::get('/menu', [ProduitController::class, 'index']);
 
 Route::get('/panier', function () {
     return Inertia::render('Panier', []);
@@ -33,6 +36,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 
     Route::controller(ClientController::class)->group(function() {
         Route::get('/admin/clients', 'index')->name('admin.clients');
+        Route::get('/admin/client/{id}', 'show')->name('admin.client');
     });
 });
 

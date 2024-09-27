@@ -22,4 +22,19 @@ class Produit extends Model
         'nom',
         'description'
     ];
+
+    public function langues()
+    {
+        return $this->belongsToMany(Langue::class, 'produit_langue', 'id_produit', 'id_langue')
+                    ->withPivot('description');
+    }
+
+    public function description() {
+        return Produit_Langue::select('description')->get();
+    }
+
+    public function formats() {
+       // return Format::all();
+        return $this->hasMany(Format::class);
+    }
 }

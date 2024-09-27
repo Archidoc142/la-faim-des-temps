@@ -17,7 +17,9 @@ class ProduitFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nom' => $this->faker->name(),
+           // 'description' => $this->faker->text(),
+            'dansMenu' => $this->faker->boolean(),
         ];
     }
 }

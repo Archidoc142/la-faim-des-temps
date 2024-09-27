@@ -39,9 +39,11 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Request $request, int $id)
     {
-        //
+        return Inertia::Render('Admin/Client', [
+            'client' => new ClientResource(User::find($id))
+        ]);
     }
 
     /**

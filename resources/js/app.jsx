@@ -25,6 +25,10 @@ i18next.init({
 
 const appName = import.meta.env.VITE_APP_NAME || 'La faim des temps';
 
+if (localStorage.getItem("panier") === null) {
+    localStorage.setItem("panier", JSON.stringify([]));
+}
+
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
