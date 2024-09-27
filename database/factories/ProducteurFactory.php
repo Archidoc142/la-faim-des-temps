@@ -20,7 +20,7 @@ class ProducteurFactory extends Factory
             'nom' => $this->faker->name(),
             'adresse' => $this->faker->address(),
             'url' => $this->faker->url(),
-            'id_image' => $this->faker->numberBetween(1, 5)
+            'id_image' => $this->faker->numberBetween(1, 2)
         ];
     }
 }

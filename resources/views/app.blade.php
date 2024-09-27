@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Montaga&display=swap" rel="stylesheet"> <!-- Font de titre-->
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"> <!-- Font de base-->
         <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap" rel="stylesheet"> <!-- Font du menu -->
+        <link href="https://fonts.googleapis.com/css2?family=Angkor&display=swap" rel="stylesheet"> <!-- Font Nos valeurs -->
 
         <!-- Scripts -->
         @routes
