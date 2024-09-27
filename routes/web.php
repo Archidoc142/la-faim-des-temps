@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\PanierController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use App\Models\Produit;
@@ -17,9 +18,7 @@ Route::get('/', function () {
 
 Route::get('/menu', [ProduitController::class, 'index']);
 
-Route::get('/panier', function () {
-    return Inertia::render('Panier', []);
-})->middleware(EnsureUserIsLoggedIn::class);
+Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
 
 Route::get('/compte', function () {
     return Inertia::render('Compte', []);
