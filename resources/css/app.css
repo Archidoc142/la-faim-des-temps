@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.angkor-regular {
+    font-family: "Angkor", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 .stoke {
     font-family: "Stoke", serif;
 }

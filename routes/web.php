@@ -42,4 +42,8 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);
 
+Route::get('/valeurs', function () {
+    return Inertia::render('Valeur/Valeurs', []);
+})->name('valeurs');
+
 require __DIR__.'/auth.php';
