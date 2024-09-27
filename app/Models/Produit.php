@@ -12,7 +12,7 @@ class Produit extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -22,4 +22,19 @@ class Produit extends Model
         'nom',
         'description'
     ];
+
+    public function langues()
+    {
+        return $this->belongsToMany(Langue::class, 'produit_langue', 'id_produit', 'id_langue')
+                    ->withPivot('description');
+    }
+
+    public function description() {
+        return ProduitLangue::select('description')->get();
+    }
+
+    public function formats() {
+       // return Format::all();
+        return $this->hasMany(Format::class);
+    }
 }

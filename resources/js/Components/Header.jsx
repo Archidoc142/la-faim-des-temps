@@ -13,19 +13,19 @@ export default function Header() {
 
     let d = new Date();
 
+    const options = { weekday: 'long', day: 'numeric', month: 'long' };
+    const tempDate = d.toLocaleDateString('fr-FR', options) + ' à 16:00';
+    const [date, setDate] = useState(tempDate)
+
+    // Format la date pour avoir le prochain lundi
+    // Si langue = fr - langue affiché en (fr)
     useEffect(() => {
         if (d.getDay() == 1 && d.getHours() > 15) {
             d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
         } else {
             d.setDate(d.getDate() + (1 + 7 - d.getDay()) % 7);
         }
-    }, [])
 
-    const options = { weekday: 'long', day: 'numeric', month: 'long' };
-    const tempDate = d.toLocaleDateString('fr-FR', options) + ' à 16:00';
-    const [date, setDate] = useState(tempDate)
-
-    useEffect(() => {
         if (i18n.language === 'fr') {
             setDate(d.toLocaleDateString('fr-FR', options) + ' à 16:00')
         } else {
@@ -63,7 +63,7 @@ export default function Header() {
                         <div className='text-[#b7b6a9] flex gap-8 xl:gap-12 items-center'>
                             <Link className={`text-xs xl:text-base ${url === '/' ? 'text-white' : false}`} href='/'><strong>{t("Header.accueil")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/menu' ? 'text-white' : false}`} href='/menu'><strong>{t("Header.menu")}</strong></Link>
-                            <Link className={`text-xs xl:text-base ${url === 'valeurs/' ? 'text-white' : false}`} href='/valeurs'><strong>{t("Header.valeurs")}</strong></Link>
+                            <Link className={`text-xs xl:text-base ${url === '/valeurs' ? 'text-white' : false}`} href='/valeurs'><strong>{t("Header.valeurs")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/producteurs' ? 'text-white' : false}`} href='/producteurs'><strong>{t("Header.producteurs")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/histoire' ? 'text-white' : false}`} href='/histoire'><strong>{t("Header.histoire")}</strong></Link>
                         </div>

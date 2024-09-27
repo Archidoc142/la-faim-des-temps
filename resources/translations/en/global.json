@@ -33,5 +33,19 @@
         "email" : "Email",
         "mdp" : "Password",
         "souvenir" : "Remember me"
+    },
+    "Menu": {
+        "titre": "Weekly caterer menu",
+        "sous-titre": "Save time and energy with our ready to heat up meals delivered to your homes!",
+        "portion": "COST BY PORTION",
+        "recuperer": "TWO WAYS TO COLLECT YOUR ORDER",
+        "menu-titre": "Menu of the week",
+        "add-panier" : "ADD TO CART",
+        "go-panier" : "GO TO MY CART",
+        "formats" : "SIZES",
+        "plat-principaux" : "Main dishes"
+    },
+    "Panier": {
+        "vide": "Empty"
     }
 }

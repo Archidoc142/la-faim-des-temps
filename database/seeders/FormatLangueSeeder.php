@@ -13,7 +13,7 @@ class FormatLangueSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('FormatLangue')->insert([
+        DB::table('format_langue')->insert([
             # FRANÇAIS #
             [
                 'id_langue' => '1',
@@ -62,19 +62,19 @@ class FormatLangueSeeder extends Seeder
             [
                 'id_langue' => '2',
                 'id_format' => '3',
-                'nom' => 'Individual format',
+                'nom' => 'Individual size',
                 'description' => 'for 1 person'
             ],
             [
                 'id_langue' => '2',
                 'id_format' => '4',
-                'nom' => 'One-on-one format',
+                'nom' => 'One-on-one size',
                 'description' => 'for 2 people'
             ],
             [
                 'id_langue' => '2',
                 'id_format' => '5',
-                'nom' => 'Family format',
+                'nom' => 'Family size',
                 'description' => 'for 4 people'
             ],
         ]);

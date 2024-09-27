@@ -17,7 +17,9 @@ class FormatFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'montant' => $this->faker->number_format(2, 10),
+            'nom' => $this->faker->name(),
+            'description' => $this->faker->text(),
         ];
     }
 }

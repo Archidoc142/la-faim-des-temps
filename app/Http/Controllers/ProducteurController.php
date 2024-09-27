@@ -14,6 +14,7 @@ class ProducteurController extends Controller
     public function index()
     {
         $producteurs = Producteur::with('image')->get();
+
         return Inertia::render('Producteur/Producteurs', [
             'producteurs' => $producteurs
         ]);

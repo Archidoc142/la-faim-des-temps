@@ -33,5 +33,19 @@
         "email" : "Courriel",
         "mdp" : "Mot de passe",
         "souvenir" : "Se souvenir de moi"
+    },
+    "Menu": {
+        "titre": "Menu traiteur hebdomadaire",
+        "sous-titre": "Sauvez temps et énergie avec nos plats prêt à réchauffer livrés chez vous!",
+        "portion": "COÛT DES PORTIONS",
+        "recuperer" : "DEUX MÉTHODES POUR RÉCUPÉRER VOTRE COMMANDE",
+        "menu-titre": "Menu de la semaine",
+        "add-panier" : "AJOUTER AU PANIER",
+        "go-panier" : "ALLER À MON PANIER",
+        "formats" : "FORMATS",
+        "plat-principaux" : "Plat principaux"
+    },
+    "Panier": {
+        "vide": "Vide"
     }
 }

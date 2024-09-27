@@ -15,9 +15,9 @@ export default function Footer() {
     const newH = usePage().props.horaire;
 
     return (
-        <footer className='Footer w-full border-t-2 border-gray-500 bg-[#0a1732] px-10 pt-6 flex text-center 2xl:text-2xl'>
+        <footer className='Footer w-full border-t-2 border-gray-500 bg-[#0a1732] px-10 pt-6 flex text-center'>
             {/* Bloc image*/}
-            <div className='hidden lg:block w-[30%] max-w-[300px] 2xl:max-w-[400px]'>
+            <div className='hidden lg:block w-[30%] max-w-[300px]'>
                 <img src={logoBig} alt="img-logo-big" className='w-5/6 mb-6' />
             </div>
 

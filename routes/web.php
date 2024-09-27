@@ -3,8 +3,11 @@
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
+use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\PanierController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
+use App\Models\Produit;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,9 +16,9 @@ Route::get('/', function () {
     return Inertia::render('Accueil', []);
 })->name('accueil');
 
-Route::get('/panier', function () {
-    return Inertia::render('Panier', []);
-})->middleware(EnsureUserIsLoggedIn::class);
+Route::get('/menu', [ProduitController::class, 'index']);
+
+Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
 
 Route::get('/compte', function () {
     return Inertia::render('Compte', []);
@@ -37,5 +40,9 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 });
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);
+
+Route::get('/valeurs', function () {
+    return Inertia::render('Valeur/Valeurs', []);
+})->name('valeurs');
 
 require __DIR__.'/auth.php';
