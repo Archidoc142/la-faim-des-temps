@@ -44,5 +44,8 @@
         "go-panier" : "ALLER À MON PANIER",
         "formats" : "FORMATS",
         "plat-principaux" : "Plat principaux"
+    },
+    "Panier": {
+        "vide": "Vide"
     }
 }

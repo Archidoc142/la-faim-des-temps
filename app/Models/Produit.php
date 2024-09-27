@@ -12,7 +12,7 @@ class Produit extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -30,7 +30,7 @@ class Produit extends Model
     }
 
     public function description() {
-        return Produit_Langue::select('description')->get();
+        return ProduitLangue::select('description')->get();
     }
 
     public function formats() {

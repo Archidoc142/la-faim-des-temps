@@ -44,5 +44,8 @@
         "go-panier" : "GO TO MY CART",
         "formats" : "SIZES",
         "plat-principaux" : "Main dishes"
+    },
+    "Panier": {
+        "vide": "Empty"
     }
 }

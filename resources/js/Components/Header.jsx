@@ -13,19 +13,19 @@ export default function Header() {
 
     let d = new Date();
 
+    const options = { weekday: 'long', day: 'numeric', month: 'long' };
+    const tempDate = d.toLocaleDateString('fr-FR', options) + ' à 16:00';
+    const [date, setDate] = useState(tempDate)
+
+    // Format la date pour avoir le prochain lundi
+    // Si langue = fr - langue affiché en (fr)
     useEffect(() => {
         if (d.getDay() == 1 && d.getHours() > 15) {
             d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
         } else {
             d.setDate(d.getDate() + (1 + 7 - d.getDay()) % 7);
         }
-    }, [])
 
-    const options = { weekday: 'long', day: 'numeric', month: 'long' };
-    const tempDate = d.toLocaleDateString('fr-FR', options) + ' à 16:00';
-    const [date, setDate] = useState(tempDate)
-
-    useEffect(() => {
         if (i18n.language === 'fr') {
             setDate(d.toLocaleDateString('fr-FR', options) + ' à 16:00')
         } else {
