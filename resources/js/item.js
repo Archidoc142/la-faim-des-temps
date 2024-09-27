@@ -1,11 +1,7 @@
 export default class Item {
-    constructor(nom, qte, format) {
-        this.nom = nom;
+    constructor(produitId, qte, formatId) {
+        this.produitId = produitId;
         this.qte = qte;
-        this.format = format;
-    }
-
-    addQte() {
-        this.qte = this.qte + 1
+        this.formatId = formatId;
     }
 }
