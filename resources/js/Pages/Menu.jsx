@@ -44,6 +44,9 @@ export default function Menu({ produits, formats, prodDesc, langFormats }) {
 
     }
 
+
+
+
     return (
         <div className='Menu bg-white'>
 
@@ -170,6 +173,9 @@ export default function Menu({ produits, formats, prodDesc, langFormats }) {
                 <h2 className='text-xl text-[#BB285C] text-center font-bold mb-8'>{t("Menu.recuperer")}</h2>
                 <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center p-3 max-w-[1000px]'>
 
+                    <div className='bg-[#EBEBEB] rounded-2xl p-5 mb-20 justify-center text-center max-w-[1000px] md:w-auto'>
+                        <h3></h3>
+                    </div>
                 </div>
             </div>
 
@@ -179,4 +185,5 @@ export default function Menu({ produits, formats, prodDesc, langFormats }) {
 
         </div>
     );
+
 }

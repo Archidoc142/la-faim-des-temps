@@ -43,6 +43,13 @@
         "add-panier" : "ADD TO CART",
         "go-panier" : "GO TO MY CART",
         "formats" : "SIZES",
-        "plat-principaux" : "Main dishes"
+        "plat-principaux" : "Main dishes",
+        "livr-titre" : "HOME DELIVERY",
+        "livr-p" : "A different menu every Friday morning; Simply contact us by email or via our website to place your order and receive the dishes you want in the portions you want. An excellent way to save time, energy and avoid waste (yes yes, we see your soft carrots begging you not to order pizza).",
+        "livr-heure" : "Home delivery is between 3:00 p.m. and 6:00 p.m. on Friday, ",
+        "livr-sherb" : "for orders under $60.00,",
+        "livr-info" : "Please leave an appropriately sized cooler visible outside for your order.",
+        "venir-titre" : "COME SEE US",
+        "venir-p" : "You can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choice of fine charcuterie."
     }
 }
