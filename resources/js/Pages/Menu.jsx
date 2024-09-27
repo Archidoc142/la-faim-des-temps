@@ -22,8 +22,19 @@ export default function Menu({ produits, formats, prodDesc, langFormats }) {
     const frPrinc = prodDesc.filter(desc => desc.id_langue == 1 && desc.id_produit > 2);
     const enPrinc = prodDesc.filter(desc => desc.id_langue == 2 && desc.id_produit > 2);
 
+    const moisArr = [["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+    ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]];
+    var vendredi = new Date();
+    vendredi.setDate(vendredi.getDate() + (5 + 7 - vendredi.getDay()) % 7);
+
+    const jvendredi = vendredi.getDate();
+    const mvendredi = moisArr[0][vendredi.getMonth()]
+
+    console.log(jvendredi, mvendredi);
+
+
     // console.log(enBase, platPrinc, EnFormats, FrFormats);
-    console.log(frPrinc, enPrinc);
+    //console.log(frPrinc, enPrinc);
 
 
     var bodyFormats = [];
@@ -55,7 +66,7 @@ export default function Menu({ produits, formats, prodDesc, langFormats }) {
     // Key 1 = produit - Key 2 = format
     function checkKeys(panier, key1, key2) {
         const found = panier.some(item => {
-            if(item["produitId"] === key1 && item["formatId"] === key2) {
+            if (item["produitId"] === key1 && item["formatId"] === key2) {
                 item["qte"] += 1;
                 return true;
             }
@@ -105,7 +116,7 @@ export default function Menu({ produits, formats, prodDesc, langFormats }) {
 
                 </div>
                 {/* PLAT PRINCIPAUX */}
-                <div className='border-2 border-[#EBEBEB] rounded-2xl p-5 mb-20 justify-center text-center max-w-[1000px] md:w-auto'>
+                <div className='border-2 border-[#EBEBEB] rounded-2xl p-5 mb-20 justify-center text-center max-w-[1000px] md:m-auto'>
                     <h3 className='text-2xl text-[#FFD8AD] font-semibold pb-2'>{t("Menu.plat-principaux")} - {formats.map(f => (f.id > 2 ? Math.trunc(f.montant) + (f.id < formats.length ? "/" : "") : ""))}$</h3>
                     {i18n.language === "fr" ?
                         frPrinc.map(produit => (
@@ -185,20 +196,27 @@ export default function Menu({ produits, formats, prodDesc, langFormats }) {
             </div>
 
             {/*Récupérer ta commande*/}
-            <div className='p-10 !pt-5 md:p-20 m-auto'>
-                <h2 className='text-xl text-[#BB285C] text-center font-bold mb-8'>{t("Menu.recuperer")}</h2>
-                <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center p-3 max-w-[1000px]'>
+            <div className='p-10 !pt-5 w-fit m-auto md:p-20'>
+                <h2 className='text-2xl text-[#BB285C] text-center font-bold mb-8'>{t("Menu.recuperer")}</h2>
 
-                    <div className='bg-[#EBEBEB] rounded-2xl p-5 mb-20 justify-center text-center max-w-[1000px] md:w-auto'>
-                        <h3></h3>
+                <div className='bg-[#EBEBEB] rounded-2xl p-10 mb-12 max-w-[1000px] md:w-auto'>
+                    <h3 className='text-xl text-center font-bold mb-5'>{t("Menu.livr-titre")}</h3>
+                    <p>{t("Menu.livr-p")}</p>
+                    <br />
+                    <br />
+                    <p className='mb-5'>{t("Menu.livr-heure")}<b>{i18n.language == 'fr' ? jvendredi + " " + moisArr[0][vendredi.getMonth()] : moisArr[1][vendredi.getMonth()] + " " + jvendredi}</b>.</p>
+                    <div className='mb-5'>
+                        <p><b>{t("Menu.livr-titre-sherb")} : </b> $</p>
+                        <p><b>{t("Menu.livr-titre-autre")} : </b> $</p>
                     </div>
+                    <p className='text-[#BB285C] italic'>{t("Menu.livr-info")}</p>
+                </div>
+
+                <div className='bg-[#EBEBEB] rounded-2xl p-10 justify-center max-w-[1000px] md:w-auto'>
+                    <h3 className='text-xl text-center font-bold mb-5'>{t("Menu.venir-titre")}</h3>
+                    <p>{t("Menu.venir-p")}</p>
                 </div>
             </div>
-
-
-
-
-
         </div>
     );
 
