@@ -15,7 +15,6 @@ class Commande extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [
-        'date_heure',
         'livraison',
         'frais_livraison',
         'total',
