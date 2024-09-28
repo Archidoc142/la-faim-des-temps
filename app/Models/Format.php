@@ -23,15 +23,14 @@ class Format extends Model
         'description'
     ];
 
-    public function langues()
+    public function langue($lang)
     {
-        return $this->belongsToMany(Langue::class, 'format_langue', 'id_format', 'id_langue')
-                    ->withPivot('description', 'nom');
-    }
+        $id = Langue::where('code', $lang)->first()->id;
 
-    public function user()
-    {
-        return $this->belongsTo(Produit::class);
+        return $this->belongsToMany(Langue::class, 'format_langue', 'id_format', 'id_langue')
+                    ->withPivot('description', 'nom')
+                    ->where('id_langue', $id)
+                    ->first();
     }
 
 }

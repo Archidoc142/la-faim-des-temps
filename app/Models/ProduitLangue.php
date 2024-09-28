@@ -16,4 +16,9 @@ class ProduitLangue extends Pivot
     {
         return $this->belongsTo(Produit::class, 'id_produit');
     }
+
+    public function langue(): BelongsTo
+    {
+        return $this->belongsTo(Langue::class, 'id_langue');
+    }
 }

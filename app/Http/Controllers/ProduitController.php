@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProduitRessource;
+use App\Http\Resources\ProduitsResource;
 use App\Models\Format;
 use App\Models\FormatLangue;
 use App\Models\Produit;
@@ -33,7 +35,8 @@ class ProduitController extends Controller
             'produits' => $produits,
             'formats' => $formats,
             'prodDesc' => $prodDesc,
-            'langFormats' => $langFormats
+            'langFormats' => $langFormats,
+            'menu' => ProduitRessource::collection(Produit::ProduitsWithLang())
         ]);
     }
 
