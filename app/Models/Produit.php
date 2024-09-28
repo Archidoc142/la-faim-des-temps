@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Produit extends Model
 {
@@ -23,18 +24,28 @@ class Produit extends Model
         'description'
     ];
 
-    public function langues()
+    public function lang($lang)
     {
+        $id = Langue::where('code', $lang)->first()->id;
+
         return $this->belongsToMany(Langue::class, 'produit_langue', 'id_produit', 'id_langue')
-                    ->withPivot('description');
+        ->where('id_langue', $id)
+        ->withPivot('description')->first();
     }
 
-    public function description() {
-        return ProduitLangue::select('description')->get();
+    public function langue()
+    {
+        return $this->belongsToMany(Langue::class, 'produit_langue', 'id_produit', 'id_langue')
+        ->withPivot('description');
     }
 
     public function formats() {
-       // return Format::all();
-        return $this->hasMany(Format::class);
+        return $this->belongsToMany(Format::class, 'produit_format', 'id_produit', 'id_format')->get();
     }
+
+    public static function ProduitsWithLang()
+    {
+        return Produit::whereHas('langue')->get();
+    }
+
 }

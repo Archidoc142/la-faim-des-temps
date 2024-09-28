@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             SecteurSeeder::class,
             SecteurCodeSeeder::class,
             TarifLivraisonSeeder::class,
+            ProduitFormatSeeder::class
         ]);
     }
 }

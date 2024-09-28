@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import Item from '../item'
 import MenuBase from '@/Components/MenuBase';
 
-export default function Menu({ produits, formats, prodDesc, langFormats }) {
+export default function Menu({ produits, formats, prodDesc, langFormats, menu }) {
 
+    console.log(menu)
     const [t, i18n] = useTranslation("global");
 
     //séparer les formats selon la langue
