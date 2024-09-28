@@ -16,7 +16,7 @@ return new class extends Migration
             $table->smallInteger('no_civique');
             $table->string('rue', length: 128);
             $table->smallInteger('appartement')->nullable();
-            $table->char('code_postal', length: 6);
+            $table->char('code_postal', length: 7);
             $table->bigInteger('id_secteur_code')->unsigned();
             $table->timestamps();
         });
