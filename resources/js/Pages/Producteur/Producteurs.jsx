@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import Title from "./InfoText/Title";
 import Text from "./InfoText/Text";
+import PaginationBar from '@/Components/PaginationBar';
 
 export default function Producteur( { producteurs }) {
     const imgFile = '/img/';
@@ -13,7 +14,7 @@ export default function Producteur( { producteurs }) {
 
             <h1>Nos Producteurs</h1>
 
-            {producteurs.map(producteur => (
+            {producteurs.data.map(producteur => (
                 <div key={producteur.id}>
                     <div
                         className={`${producteur.id % 2 === 0 ? 'bg-[#7A163C80]' : ''} my-5 rounded-lg m-3 py-4 sm:m-8`}
@@ -35,6 +36,7 @@ export default function Producteur( { producteurs }) {
                     <hr />
                 </div>
             ))}
+            <PaginationBar links={producteurs.links}/>
         </div>
         </>
     )
