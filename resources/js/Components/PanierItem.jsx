@@ -1,19 +1,111 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export default function PanierItem({produit, format, quantity}) {
+export default function PanierItem({ produit, id, formatId, quantity, panier, setPanier, calcul }) {
 
-    const [t, i18n] = useTranslation("global");
+    const [t, i18n] = useTranslation("global")
     const [qte, setQte] = useState(quantity)
+    const [ln, setLn] = useState(i18n.language)
 
-    return(
+    // Format du produit
+    const [f, setF] = useState(produit.formats.find((f) => f.id == formatId))
+
+    const addQte = () => {
+        updateQte(qte + 1)
+    }
+
+    const reduceQte = () => {
+        if (qte > 1) {
+            updateQte(qte - 1)
+        }
+    }
+
+    const changeFormatId = (e) => {
+        updateFormat(parseInt(e.target.value))
+        setF(produit.formats.find((f) => f.id == e.target.value))
+    }
+
+    const deleteItem = () => {
+        setPanier((p) => {
+            const filteredPanier = p.filter((i) => i.id !== id)
+            updatePanier(filteredPanier)
+            return filteredPanier
+        });
+    }
+
+    const updatePanier = (updatedPanier) => {
+        const mappedPanier = updatedPanier.map(item => {
+            if (item.id === id) {
+                return { ...item }
+            }
+            return item
+        });
+        localStorage.setItem("panier", JSON.stringify(mappedPanier))
+    };
+
+    const updateQte = (newQte) => {
+        const mappedPanier = panier.map(item => {
+            if (item.id === id) {
+                return { ...item, qte: newQte }
+            }
+            return item
+        });
+        setPanier(mappedPanier)
+        localStorage.setItem("panier", JSON.stringify(mappedPanier))
+        setQte(newQte)
+    };
+
+    const updateFormat = (newFormat) => {
+        const mappedPanier = panier.map(item => {
+            if (item.id === id) {
+                return { ...item, formatId: newFormat }
+            }
+            return item
+        });
+        setPanier(mappedPanier)
+        localStorage.setItem("panier", JSON.stringify(mappedPanier))
+    };
+
+    useEffect(() => {
+        calcul()
+    }, [qte, f, panier])
+
+    return (
         <div className='border-b-[1px] border-gray-500 mb-4'>
             <div className="flex justify-between text-white lg:font-bold mb-2">
-                <p className='lg:text-xl'>{produit.id_produit < 3 ? format.nom : produit.description}</p>
-                <p>{format.montant * qte}$</p>
+                <p className='lg:text-xl'>{produit.id < 3 ? produit.formats[0].nom[ln] : produit.nom}</p>
+                <div className='flex'><p className='cost'>{f.montant * qte}</p><p>$</p></div>
             </div>
-            <div className="flex justify-between mb-2">
-                <select></select>
+
+            <div className="flex justify-between items-center mb-2">
+                <div>
+                    {produit.id < 3 ?
+                        <p>{produit.description[ln]}</p> :
+
+                        <select defaultValue={f.id} onChange={(e) => changeFormatId(e)}>
+                            {produit.formats.map((format, i) => (
+                                <option
+                                    key={i}
+                                    value={format.id}
+                                >
+                                    {format.nom[ln]}
+                                </option>
+                            ))}
+                        </select>
+                    }
+                </div>
+
+                <div className='flex gap-4'>
+                    <svg width="20" height="24" viewBox="0 0 464 596" onClick={deleteItem} className='cursor-pointer'>
+                        <path id="Sélection" fill="red" d="M 1.00,34.00 C 1.00,34.00 108.00,34.00 108.00,34.00 110.09,34.00 113.06,34.12 115.00,33.40 118.34,32.17 122.42,27.58 125.00,25.00 129.06,20.95 145.43,3.81 149.00,2.02 151.43,0.81 154.35,1.01 157.00,1.00 157.00,1.00 308.00,1.00 308.00,1.00 310.65,1.01 313.57,0.81 316.00,2.02 319.57,3.81 335.94,20.95 340.00,25.00 345.28,30.27 347.18,33.85 355.00,34.00 355.00,34.00 464.00,34.00 464.00,34.00 464.00,34.00 464.00,99.00 464.00,99.00 464.00,99.00 1.00,99.00 1.00,99.00 1.00,99.00 1.00,34.00 1.00,34.00 Z M 34.00,133.00 C 34.00,133.00 431.00,133.00 431.00,133.00 431.00,133.00 431.00,395.00 431.00,395.00 431.00,395.00 431.00,527.00 431.00,527.00 430.58,562.39 405.20,594.94 368.00,595.00 368.00,595.00 97.00,595.00 97.00,595.00 86.36,594.98 79.45,593.04 70.00,588.24 45.98,576.06 34.04,553.37 34.00,527.00 34.00,527.00 34.00,133.00 34.00,133.00 Z M 303.00,247.00 C 303.00,247.00 277.00,272.00 277.00,272.00 277.00,272.00 232.00,317.00 232.00,317.00 227.55,310.78 215.94,299.94 210.00,294.00 210.00,294.00 180.00,264.28 180.00,264.28 180.00,264.28 168.00,253.02 168.00,253.02 166.49,251.58 164.24,249.20 162.00,249.20 158.78,249.20 151.45,257.55 149.00,260.00 149.00,260.00 115.00,295.00 115.00,295.00 115.00,295.00 166.00,346.00 166.00,346.00 166.00,346.00 178.99,358.17 178.99,358.17 178.99,358.17 182.96,364.00 182.96,364.00 182.96,364.00 178.99,370.00 178.99,370.00 178.99,370.00 166.00,383.00 166.00,383.00 166.00,383.00 134.00,415.00 134.00,415.00 134.00,415.00 115.00,435.00 115.00,435.00 115.00,435.00 149.00,469.00 149.00,469.00 151.45,471.45 158.78,479.80 162.00,479.80 164.24,479.80 166.49,477.42 168.00,475.98 168.00,475.98 181.00,463.00 181.00,463.00 181.00,463.00 233.00,411.00 233.00,411.00 233.00,411.00 268.00,447.00 268.00,447.00 268.00,447.00 303.00,481.00 303.00,481.00 313.83,470.17 342.46,444.53 350.00,434.00 350.00,434.00 299.00,383.00 299.00,383.00 299.00,383.00 286.01,370.00 286.01,370.00 284.59,368.52 282.04,366.20 282.04,364.00 282.04,360.79 293.30,350.70 296.00,348.00 296.00,348.00 335.00,309.00 335.00,309.00 337.68,306.32 347.80,297.38 347.80,294.00 347.80,290.78 339.45,283.45 337.00,281.00 337.00,281.00 303.00,247.00 303.00,247.00 Z" />
+                    </svg>
+
+                    <div className='flex border-black border-[1px] items-center bg-white'>
+                        <button className='w-6 bg-[#D6D6D6] hover:bg-[#929292] border-black border-r-[1px]' onClick={reduceQte}>-</button>
+                        <p className='text-xs w-12 text-center'>{qte}</p>
+                        <button className='w-6 bg-[#D6D6D6] hover:bg-[#929292] border-black border-l-[1px]' onClick={addQte}>+</button>
+                    </div>
+                </div>
             </div>
         </div>
     )

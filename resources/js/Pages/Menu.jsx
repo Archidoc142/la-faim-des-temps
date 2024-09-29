@@ -60,7 +60,6 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
         let panier = JSON.parse(localStorage.getItem("panier"))
         checkKeys(panier, produit, format)
 
-        localStorage.removeItem("panier")
         localStorage.setItem("panier", JSON.stringify(panier))
     }
 
@@ -75,7 +74,8 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
         });
         // Si aucun doublon - créer nouvel élément
         if (!found) {
-            panier.push(new Item(key1, 1, key2))
+            const lastId = panier.length > 0 ? panier[panier.length - 1]['id'] : 0;
+            panier.push(new Item(lastId + 1, key1, 1, key2));
         }
     }
 
