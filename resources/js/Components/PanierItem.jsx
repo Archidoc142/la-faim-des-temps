@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export default function PanierItem({ produit, id, formatId, quantity, panier, setPanier, calcul }) {
+export default function PanierItem({ produit, id, formatId, quantity, panier, setPanier, calcul, ln }) {
 
     const [t, i18n] = useTranslation("global")
     const [qte, setQte] = useState(quantity)
-    const [ln, setLn] = useState(i18n.language)
-
-    // Format du produit
     const [f, setF] = useState(produit.formats.find((f) => f.id == formatId))
 
     const addQte = () => {
@@ -21,8 +18,15 @@ export default function PanierItem({ produit, id, formatId, quantity, panier, se
     }
 
     const changeFormatId = (e) => {
-        updateFormat(parseInt(e.target.value))
+        const mappedPanier = panier.map(item => {
+            if (item.id === id) {
+                return { ...item, formatId: parseInt(e.target.value) }
+            }
+            return item
+        });
+        setPanier(mappedPanier)
         setF(produit.formats.find((f) => f.id == e.target.value))
+        localStorage.setItem("panier", JSON.stringify(mappedPanier))
     }
 
     const deleteItem = () => {
@@ -55,17 +59,6 @@ export default function PanierItem({ produit, id, formatId, quantity, panier, se
         setQte(newQte)
     };
 
-    const updateFormat = (newFormat) => {
-        const mappedPanier = panier.map(item => {
-            if (item.id === id) {
-                return { ...item, formatId: newFormat }
-            }
-            return item
-        });
-        setPanier(mappedPanier)
-        localStorage.setItem("panier", JSON.stringify(mappedPanier))
-    };
-
     useEffect(() => {
         calcul()
     }, [qte, f, panier])
@@ -74,7 +67,7 @@ export default function PanierItem({ produit, id, formatId, quantity, panier, se
         <div className='border-b-[1px] border-gray-500 mb-4'>
             <div className="flex justify-between text-white lg:font-bold mb-2">
                 <p className='lg:text-xl'>{produit.id < 3 ? produit.formats[0].nom[ln] : produit.nom}</p>
-                <div className='flex'><p className='cost'>{f.montant * qte}</p><p>$</p></div>
+                <p className='cost'>{f.montant * qte}$</p>
             </div>
 
             <div className="flex justify-between items-center mb-2">

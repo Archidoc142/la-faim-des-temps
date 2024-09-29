@@ -33,11 +33,11 @@ export default function Panier({ produits }) {
 
             {panier.length > 0 ?
                 <>
-                    {panier.map((item, i) => {
+                    {panier.map(item => {
                         const p = produits.data.find((p) => p.id == item['produitId'])
 
                         return <PanierItem
-                            key={i}
+                            key={item['id']}
                             produit={p}
                             id={item['id']}
                             formatId={item['formatId']}
@@ -46,7 +46,8 @@ export default function Panier({ produits }) {
                             setPanier={setPanier}
                             total={total}
                             setTotal={setTotal}
-                            calcul={calculateCost} />
+                            calcul={calculateCost}
+                            ln={i18n.language} />
                     })}
 
                     <div className='text-white text-right mt-8'>
