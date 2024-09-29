@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export default function PanierItem({ produit, id, formatId, quantity, panier, setPanier, calcul }) {
+export default function PanierItem({ produit, id, formatId, quantity, panier, setPanier, calcul, ln }) {
 
     const [t, i18n] = useTranslation("global")
     const [qte, setQte] = useState(quantity)
-    const [ln, setLn] = useState(i18n.language)
-
-    // Format du produit
     const [f, setF] = useState(produit.formats.find((f) => f.id == formatId))
 
     const addQte = () => {
@@ -21,8 +18,15 @@ export default function PanierItem({ produit, id, formatId, quantity, panier, se
     }
 
     const changeFormatId = (e) => {
-        updateFormat(parseInt(e.target.value))
+        const mappedPanier = panier.map(item => {
+            if (item.id === id) {
+                return { ...item, formatId: parseInt(e.target.value) }
+            }
+            return item
+        });
+        setPanier(mappedPanier)
         setF(produit.formats.find((f) => f.id == e.target.value))
+        localStorage.setItem("panier", JSON.stringify(mappedPanier))
     }
 
     const deleteItem = () => {
@@ -55,45 +59,36 @@ export default function PanierItem({ produit, id, formatId, quantity, panier, se
         setQte(newQte)
     };
 
-    const updateFormat = (newFormat) => {
-        const mappedPanier = panier.map(item => {
-            if (item.id === id) {
-                return { ...item, formatId: newFormat }
-            }
-            return item
-        });
-        setPanier(mappedPanier)
-        localStorage.setItem("panier", JSON.stringify(mappedPanier))
-    };
-
     useEffect(() => {
         calcul()
     }, [qte, f, panier])
 
     return (
-        <div className='border-b-[1px] border-gray-500 mb-4'>
-            <div className="flex justify-between text-white lg:font-bold mb-2">
-                <p className='lg:text-xl'>{produit.id < 3 ? produit.formats[0].nom[ln] : produit.nom}</p>
-                <div className='flex'><p className='cost'>{f.montant * qte}</p><p>$</p></div>
+        <div className='border-b-[1px] border-gray-500 mb-4 font-bold'>
+            <div className="flex justify-between gap-6 text-white mb-2">
+                <p className='lg:text-xl'>{produit.id < 3 ? produit.formats[0].nom[ln] : produit.description[ln]}</p>
+                <p className='cost'>{f.montant * qte}$</p>
             </div>
 
-            <div className="flex justify-between items-center mb-2">
-                <div>
-                    {produit.id < 3 ?
-                        <p>{produit.description[ln]}</p> :
+            <div className="flex justify-between gap-6 items-center mb-3">
+                {produit.id < 3 ?
+                    <p className='text-gray-400 text-sm'>{produit.description[ln]}</p> :
 
-                        <select defaultValue={f.id} onChange={(e) => changeFormatId(e)}>
-                            {produit.formats.map((format, i) => (
-                                <option
-                                    key={i}
-                                    value={format.id}
-                                >
-                                    {format.nom[ln]}
-                                </option>
-                            ))}
-                        </select>
-                    }
-                </div>
+                    <select
+                        defaultValue={f.id}
+                        onChange={(e) => changeFormatId(e)}
+                        className='rounded-md py-[4px]'
+                    >
+                        {produit.formats.map((format, i) => (
+                            <option
+                                key={i}
+                                value={format.id}
+                            >
+                                {format.nom[ln]}
+                            </option>
+                        ))}
+                    </select>
+                }
 
                 <div className='flex gap-4'>
                     <svg width="20" height="24" viewBox="0 0 464 596" onClick={deleteItem} className='cursor-pointer'>
@@ -101,9 +96,15 @@ export default function PanierItem({ produit, id, formatId, quantity, panier, se
                     </svg>
 
                     <div className='flex border-black border-[1px] items-center bg-white'>
-                        <button className='w-6 bg-[#D6D6D6] hover:bg-[#929292] border-black border-r-[1px]' onClick={reduceQte}>-</button>
+                        <button
+                            className='w-6 bg-[#D6D6D6] hover:bg-[#929292] border-black border-r-[1px]'
+                            onClick={reduceQte}>-</button>
+
                         <p className='text-xs w-12 text-center'>{qte}</p>
-                        <button className='w-6 bg-[#D6D6D6] hover:bg-[#929292] border-black border-l-[1px]' onClick={addQte}>+</button>
+
+                        <button
+                            className='w-6 bg-[#D6D6D6] hover:bg-[#929292] border-black border-l-[1px]'
+                            onClick={addQte}>+</button>
                     </div>
                 </div>
             </div>
