@@ -108,7 +108,7 @@ export default function Header() {
             </div>
 
 
-            <div id='menu' className='lg:hidden hidden text-center text-lg absolute'>
+            <div id='menu' className='lg:hidden hidden text-center text-lg absolute z-20'>
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] w-screen py-4 border-y-2 border-[#dfdfdf] ${url === '/' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/'>{t("Header.accueil")}</Link>
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/menu' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/menu'>{t("Header.menu")}</Link>
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/valeurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/valeurs'>{t("Header.valeurs")}</Link>

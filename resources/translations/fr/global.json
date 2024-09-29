@@ -55,6 +55,9 @@
         "venir-p" : "Vous pouvez également passer en boutique entre 16:00 et 17:00 pour récupérer votre commande sur place. Profitez-en pour vous procurer de quoi faire l'apéro en revenant chez vous parmi notre choix de charcuteries fines."
     },
     "Panier": {
-        "vide": "Vide"
+        "vide": "Vide",
+        "titre": "Mon panier",
+        "total": "Sous-total",
+        "pass": "Passer ma commande"
     }
 }

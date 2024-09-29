@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\FormatRessource;
 use App\Http\Resources\ProduitRessource;
-use App\Models\FormatLangue;
-use App\Models\ProduitLangue;
-use Illuminate\Http\Request;
+use App\Models\Produit;
 use Inertia\Inertia;
 
 class PanierController extends Controller
@@ -16,12 +13,10 @@ class PanierController extends Controller
      */
     public function index()
     {
-        $produits = ProduitRessource::collection(ProduitLangue::all());
-        $formats = FormatRessource::collection(FormatLangue::all());
+        $produits = ProduitRessource::collection(Produit::ProduitsWithLang());
 
         return Inertia::render('Panier', [
             'produits' => $produits,
-            'formats' => $formats
         ]);
     }
 }

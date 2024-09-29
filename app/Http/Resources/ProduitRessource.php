@@ -16,10 +16,12 @@ class ProduitRessource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "id_produit" => $this->id_produit,
-            "id_langue" => $this->id_langue,
-            "description" => $this->description,
-            "nom" => $this->produit->nom,
+            "nom" => $this->nom,
+            "description" => [
+                "fr" => $this->lang("fr")->pivot->description,
+                "en" => $this->lang("en")->pivot->description
+            ],
+            "formats" => FormatResource::collection($this->formats())
         ];
     }
 }
