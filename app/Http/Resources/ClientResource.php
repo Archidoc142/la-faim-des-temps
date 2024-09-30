@@ -25,6 +25,7 @@ class ClientResource extends JsonResource
             "nom" => $this->nom,
             "prenom" => $this->prenom,
             "telephone" => $formattedPhone,
+            "telephone_plain" => $phone,
             "email" => $this->email,
             "created_at" => date('Y/m/d', strtotime($this->created_at)),
             "created_at_hour" => date('Y/m/d H:i', strtotime($this->created_at))

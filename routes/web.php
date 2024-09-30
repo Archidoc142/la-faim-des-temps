@@ -37,6 +37,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::controller(ClientController::class)->group(function() {
         Route::get('/admin/clients', 'index')->name('admin.clients');
         Route::get('/admin/client/{id}', 'show')->name('admin.client');
+        Route::get('/admin/client/edit/{id}', 'update')->name('admin.client.edit');
     });
 
     Route::controller(CommandeController::class)->group(function() {

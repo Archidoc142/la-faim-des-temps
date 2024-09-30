@@ -59,7 +59,7 @@ class ClientController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        dd($request);
     }
 
     /**
