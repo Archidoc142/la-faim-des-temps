@@ -48,10 +48,10 @@ export default function Header() {
 
     return (
         <header className='border-b border-[#9b9b9b]'>
-            <div className='flex'>
-                <img className='hidden lg:block w-auto max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" />
+            <div className='flex bg-white'>
+                <img className='hidden lg:block w-auto self-center max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" />
 
-                <div className='flex items-center flex-nowrap justify-between w-full max-h-[80px] lg:max-h-[70px] bg-[#041a37] pl-6 xl:pl-8'>
+                <div className='flex py-10 items-center flex-nowrap justify-between w-full max-h-[80px] lg:max-h-[70px] bg-[#041a37] pl-6 xl:pl-8'>
                     {/* Menu*/}
                     <button onClick={toggleMenu} className='lg:hidden'>
                         <svg className='mx-4' width="34" height="34" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2">
@@ -120,7 +120,7 @@ export default function Header() {
             {/* flash*/}
 
             { !url.includes("/admin") ?
-                <div className='py-4 text-sm text-white bg-[#BB285C] text-center'>
+                <div className='py-3 text-sm text-white bg-[#BB285C] text-center'>
                     <p><strong>{t("Header.date")}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
                 </div> : ""
             }

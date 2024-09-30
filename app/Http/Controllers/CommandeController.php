@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Commande;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use App\Http\Resources\CommandeResource;
 
 class CommandeController extends Controller
 {
@@ -12,7 +14,11 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        //
+        $commandes = Commande::with('user')->get();
+
+        return Inertia::render('Admin/Commandes', [
+            'commandes' => CommandeResource::collection($commandes)
+        ]);
     }
 
     /**
