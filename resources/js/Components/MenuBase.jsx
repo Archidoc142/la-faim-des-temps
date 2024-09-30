@@ -6,9 +6,9 @@ export default function MenuBase({produitId, formatId, produit, formats, otherFo
 
     return (
         <>
-            <div key={produit.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center md:w-auto'>
-                <h3 className='text-2xl text-[#FFD8AD] font-semibold pb-2 imperial'>{formats.map(f => (f.id_format == produit.id_produit ? f.nom : ""))} - {otherFormats.map(f => (f.id == produit.id_produit ? Math.trunc(f.montant) : ""))}$</h3>
-                <p className='text-white text-lg pb-2'>{produit.description}</p>
+            <div key={produit.id} className='border-2 border-[#EBEBEB] rounded-2xl p-7 justify-center text-center md:w-auto'>
+                <h3 className='text-[#FFD8AD] pb-5 imperial text-4xl lg:text-5xl'>{formats.map(f => (f.id_format == produit.id_produit ? f.nom : ""))} - {otherFormats.map(f => (f.id == produit.id_produit ? Math.trunc(f.montant) : ""))}$</h3>
+                <p className='text-white text-lg pb-3'>{produit.description}</p>
                 <button
                     onClick={() => putPanier(formatId, produitId)}
                     className="inline-block w-fit mt-3 p-2 text-xs text-white font-semibold border-2 border-[#BB285C] bg-[#BB285C] hover:bg-transparent hover:text-[#BB285C] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 justify-self-center"
