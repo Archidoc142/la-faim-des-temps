@@ -139,7 +139,7 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
                                         {console.log("id" + produit.id, "id-liste" + (produit.id - frPrinc[0].id), "cont" +
                                             bodyFormats[produit.id_produit - frPrinc[0].id])}
                                         {FrFormats.map(format => format.id > 2 ? (
-                                            <tr onClick={() => putPanier(format.id, produit.id_produit)} key={format.id} className='cursor-pointer border-2 border-[#BB285C] rounded-2xl p-5 justify-center text-start'>
+                                            <tr onClick={() => putPanier(format.id_format, produit.id_produit)} key={format.id} className='cursor-pointer border-2 border-[#BB285C] rounded-2xl p-5 justify-center text-start'>
                                                 <td className='py-1 px-2 border-x-2 border-b-2 border-[#BB285C] bg-white hover:bg-[#F8ECE0] hover:text-[#7A163C] flex flex-nowrap items-center justify-between'>
                                                     <p className='mr-5 text-lg'>{format.nom} ({formats.map(f => (f.id == format.id_format ? Math.trunc(f.montant) : ""))}$)</p>
                                                     <div className='hover:path:fill-slate-600'>
