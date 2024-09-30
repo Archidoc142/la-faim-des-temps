@@ -18,32 +18,32 @@ class ProduitLangueSeeder extends Seeder
             [
                 'id_langue' => '1',
                 'id_produit' => '1',
-                'description' => 'description une soupe'
+                'description' => 'Crème de chou-fleur'
             ],
             [
                 'id_langue' => '1',
                 'id_produit' => '2',
-                'description' => 'description du plat du chef'
+                'description' => 'Pâtes fraîches façon carbonara aux oeufs de canard et prosciutto'
             ],
             [
                 'id_langue' => '1',
                 'id_produit' => '8',
-                'description' => 'description d\'un plat de pizza'
+                'description' => 'Médaillons de porc sauce aux petits fruits nordiques sur riz aux légumes'
             ],
             [
                 'id_langue' => '1',
                 'id_produit' => '6',
-                'description' => 'description d\'un plat de riz'
+                'description' => 'Nouilles au beurre, légume et jambon'
             ],
             [
                 'id_langue' => '1',
                 'id_produit' => '14',
-                'description' => 'description d\'un plat de boeuf en sauce'
+                'description' => 'Rôti de boeuf sauce au poivre sur purée de pommes de terre'
             ],
             [
                 'id_langue' => '1',
                 'id_produit' => '3',
-                'description' => 'description d\'un plat de mac and cheese'
+                'description' => 'Pizza végé aux pois-chiches, épinard et feta'
             ],
 
 
@@ -52,32 +52,32 @@ class ProduitLangueSeeder extends Seeder
             [
                 'id_langue' => '2',
                 'id_produit' => '1',
-                'description' => 'description of soup'
+                'description' => 'Cauliflower cream'
             ],
             [
                 'id_langue' => '2',
                 'id_produit' => '2',
-                'description' => 'description of the chef\'s dish'
+                'description' => 'Fresh carbonara pasta with duck eggs and prosciutto'
             ],
             [
                 'id_langue' => '2',
                 'id_produit' => '8',
-                'description' => 'description of a pizza dish'
+                'description' => 'Pork medallions with Nordic berry sauce on vegetable rice'
             ],
             [
                 'id_langue' => '2',
                 'id_produit' => '6',
-                'description' => 'description of a rice dish'
+                'description' => 'Buttered noodles with vegetables and ham'
             ],
             [
                 'id_langue' => '2',
                 'id_produit' => '14',
-                'description' => 'description of a meat in sauce dish'
+                'description' => 'Roast beef with pepper sauce on mashed potatoes'
             ],
             [
                 'id_langue' => '2',
                 'id_produit' => '3',
-                'description' => 'description of a mac and cheese dish'
+                'description' => 'Veggie pizza with chickpeas, spinach and feta'
             ],
 
 

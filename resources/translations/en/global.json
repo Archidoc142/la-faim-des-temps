@@ -55,6 +55,9 @@
         "venir-p" : "You can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choice of fine charcuterie."
     },
     "Panier": {
-        "vide": "Empty"
+        "vide": "Empty",
+        "titre": "My cart",
+        "total": "Grand total",
+        "pass": "Pass my order"
     }
 }

@@ -14,7 +14,7 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        $commandes = Commande::with('user')->get();
+        $commandes = Commande::with('user')->latest()->paginate(5);
 
         return Inertia::render('Admin/Commandes', [
             'commandes' => CommandeResource::collection($commandes)

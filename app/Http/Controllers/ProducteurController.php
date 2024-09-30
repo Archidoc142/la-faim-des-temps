@@ -13,7 +13,7 @@ class ProducteurController extends Controller
      */
     public function index()
     {
-        $producteurs = Producteur::with('image')->get();
+        $producteurs = Producteur::with('image')->paginate(5);
 
         return Inertia::render('Producteur/Producteurs', [
             'producteurs' => $producteurs
