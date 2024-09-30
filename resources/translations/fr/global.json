@@ -22,7 +22,7 @@
         "telephone": "Téléphone",
         "mdp": "Mot de passe",
         "confirmer_mdp": "Confirmer le mot de passe",
-        "deja_inscrit": "Déjà inscrit?"
+        "deja_inscrit": "Déjà inscrit? (Se connecter)"
     },
     "Login": {
         "title1": "Bienvenue à",
