@@ -23,12 +23,19 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $phone = null;
+        if(rand(0,1))
+            $phone = substr(preg_replace('/[^0-9]/', '', fake()->unique()->phoneNumber()), -10);
+
         return [
-            'name' => fake()->name(),
+            'nom' => fake()->unique()->lastName(),
+            'prenom' => fake()->firstName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'telephone' => $phone,
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            "id_role" => 1
         ];
     }
 

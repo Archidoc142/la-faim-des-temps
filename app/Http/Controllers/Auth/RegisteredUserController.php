@@ -45,8 +45,8 @@ class RegisteredUserController extends Controller
             'prenom.max' => 'Le prénom ne peut pas dépasser 64 caractères.',
             'prenom.regex' => 'Le format du prénom entré est invalide.',
 
-            'courriel.required' => 'Veuillez entrer un courriel.',
-            'courriel.regex' => 'Le format du courriel entré est invalide.',
+            'email.required' => 'Veuillez entrer un courriel.',
+            'email.regex' => 'Le format du courriel entré est invalide.',
 
             'telephone.digits' => 'Le numéro de téléphone doit respecter le format (xxx) xxx-xxxx.',
         ]);
