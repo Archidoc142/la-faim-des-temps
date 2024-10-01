@@ -22,7 +22,7 @@
         "telephone": "Phone number",
         "mdp": "Password",
         "confirmer_mdp": "Confirm password",
-        "deja_inscrit": "Already registered?"
+        "deja_inscrit": "Already registered? (Login)"
     },
     "Login": {
         "title1": "Welcome to",
