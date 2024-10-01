@@ -32,6 +32,7 @@ export default function ActionCell({id, options, editable, setEditMode, editable
                         setMenuVisible(false);
                         setEditMode(false);
                         setEditableId(0);
+                        setToggledMenuId(0);
                     }}>
                         <img src={exit} alt="Annuler" width={18}/>
                     </button>
