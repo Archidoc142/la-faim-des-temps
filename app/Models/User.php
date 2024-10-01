@@ -56,6 +56,6 @@ class User extends Authenticatable
 
     public static function Clients()
     {
-        return User::where('id_role', 1)->get();
+        return User::where('id_role', 1);
     }
 }

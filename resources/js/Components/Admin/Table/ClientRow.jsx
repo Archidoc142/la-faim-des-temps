@@ -3,7 +3,7 @@ import ActionCell from "./ActionCell"
 import Cell from "./Cell"
 import EditableCell from "./EditableCell";
 
-export default function ClientRow({ client, editableId, seteditableId, data, setData }) {
+export default function ClientRow({ client, editableId, seteditableId, data, setData, resetData, toggledMenuId, setToggledMenuId, page }) {
 
     const options = [
         {label: "Consulter", route: "/admin/client/" + client.id}
@@ -13,6 +13,7 @@ export default function ClientRow({ client, editableId, seteditableId, data, set
 
     const setClientData = () => {
         setData({
+            "page": page,
             "id": client.id,
             "prenom": client.prenom,
             "nom": client.nom,
@@ -21,16 +22,6 @@ export default function ClientRow({ client, editableId, seteditableId, data, set
         })
     }
 
-    const resetClientData = () =>
-    {
-        setData({
-            "id": "",
-            "prenom": "",
-            "nom": "",
-            "email": "",
-            "telephone": ""
-        })
-    }
 
     return (
         <tr className="h-10">
@@ -59,7 +50,8 @@ export default function ClientRow({ client, editableId, seteditableId, data, set
                 setEditMode={setEditMode}
                 setEditableId={seteditableId}
                 setData={setClientData}
-                resetData={resetClientData}
+                resetData={resetData}
+                toggledMenuId={toggledMenuId}setToggledMenuId={setToggledMenuId}
             />
         </tr>
     )
