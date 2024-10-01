@@ -35,6 +35,7 @@ export default function Clients({clients}) {
         if(Object.keys(errors).length == 0)
         {
             seteditableId(0);
+            setToggledMenuId(0);
         }
         else
         {
