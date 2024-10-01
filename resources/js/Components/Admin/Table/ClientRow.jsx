@@ -51,7 +51,7 @@ export default function ClientRow({ client, editableId, seteditableId, data, set
                 setEditableId={seteditableId}
                 setData={setClientData}
                 resetData={resetData}
-                toggledMenuId={toggledMenuId} setToggledMenuId={setToggledMenuId}
+                toggledMenuId={toggledMenuId}setToggledMenuId={setToggledMenuId}
             />
         </tr>
     )

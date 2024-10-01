@@ -20,6 +20,7 @@ export default function ActionCell({id, options, editable, setEditMode, editable
         else
         {
             setMenuVisible(false);
+            setToggledMenuId(0);
         }
     }
 
