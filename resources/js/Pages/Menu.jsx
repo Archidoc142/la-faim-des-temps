@@ -25,10 +25,10 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
 
     // Format la date pour avoir le prochain vendredi
     useEffect(() => {
-       /* if (d.getDay() == 1 && d.getHours() > 15) {
-            d.setDate(d.getDate() + (((5 + 7 - d.getDay()) % 7) || 7));
-        } else {*/
-            d.setDate(d.getDate() + (5 + 7 - d.getDay()) % 7);
+        /* if (d.getDay() == 1 && d.getHours() > 15) {
+             d.setDate(d.getDate() + (((5 + 7 - d.getDay()) % 7) || 7));
+         } else {*/
+        d.setDate(d.getDate() + (5 + 7 - d.getDay()) % 7);
         //}
 
         if (i18n.language === 'fr') {
@@ -126,7 +126,7 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
                 </div>
             </div>
 
-                        {/*Menu de la semaine*/}
+            {/*Menu de la semaine*/}
             <div className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7'>
                 <h2 className='text-[#FFD8AD] text-center my-8 imperial text-6xl md:text-7xl md:my-12'>{t("Menu.menu-titre")}</h2>
                 <div className='m-auto justify-center pb-10 grid gap-10 grid-cols-1 md:grid-cols-2 max-w-[1000px]'>

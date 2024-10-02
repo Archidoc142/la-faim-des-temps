@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $user
             ],
-            'horaire' => HoraireOuverture::all()
+            'horaire' => HoraireOuverture::all(),
         ];
     }
 }
