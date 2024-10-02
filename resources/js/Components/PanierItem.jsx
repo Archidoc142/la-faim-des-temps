@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export default function PanierItem({ produit, id, formatId, quantity, panier, setPanier, calcul, ln }) {
+export default function PanierItem({ produit, id, formatId, quantity, panier, setPanier, calcul, ln, showMessageFlash }) {
 
     const [t, i18n] = useTranslation("global")
     const [qte, setQte] = useState(quantity)
@@ -30,6 +30,9 @@ export default function PanierItem({ produit, id, formatId, quantity, panier, se
     }
 
     const deleteItem = () => {
+        // À modifié
+        showMessageFlash(3, "L'item à été supprimé", true)
+
         setPanier((p) => {
             const filteredPanier = p.filter((i) => i.id !== id)
             updatePanier(filteredPanier)

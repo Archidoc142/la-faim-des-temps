@@ -14,7 +14,7 @@ export default function PanierFinalisation({setBoxVisible}) {
 
             {/* Content*/}
             <div className="absolute w-full h-screen flex justify-center top-0 left-0 p-4">
-                <div className="fixed top-[30%] bg-white w-[500px] p-4 rounded-lg border-black border-2">
+                <div className="fixed top-[15%] bg-white w-[500px] p-4 rounded-lg border-black border-2">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="font-bold text-2xl">Passer une commande</h2>
 
