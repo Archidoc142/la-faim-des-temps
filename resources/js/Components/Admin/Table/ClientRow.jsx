@@ -6,7 +6,7 @@ import EditableCell from "./EditableCell";
 export default function ClientRow({ client, editableId, seteditableId, data, setData, resetData, toggledMenuId, setToggledMenuId, page }) {
 
     const options = [
-        {label: "Consulter", route: "/admin/client/" + client.id}
+        { label: "Consulter", route: "/admin/client/" + client.id + "?prevPage=" + page }
     ]
 
     const [editMode, setEditMode] = useState(false);
