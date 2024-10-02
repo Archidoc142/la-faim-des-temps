@@ -12,6 +12,8 @@ use App\Models\ProduitLangue;
 use App\Models\TarifLivraison;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
+
 
 class ProduitController extends Controller
 {
@@ -25,7 +27,7 @@ class ProduitController extends Controller
         $tarifs = TarifLivraison::all();
         $formats = Format::all();
         $langFormats = FormatLangue::all();
-
+        $categories = Produit::all();
       /*  dump($produits);
         dump($formats);
         dump($prodDesc);
@@ -33,10 +35,11 @@ class ProduitController extends Controller
 
 
         return Inertia::render('Menu', [
-            'formats' => $formats, /*FormatResource::collection(Format::FormatsWithLang()),*/
+            'formats' => $formats,
             'langFormats' => $langFormats,
             'tarifs' => $tarifs,
-            'menu' => ProduitRessource::collection(Produit::ProduitsWithLang())
+            'menu' => ProduitRessource::collection(Produit::ProduitsDansMenu()),
+            'categories' => $categories,
         ]);
     }
 
@@ -77,7 +80,49 @@ class ProduitController extends Controller
      */
     public function update(Request $request, Produit $produit)
     {
-        //
+        dd($request);
+        //$produits = $request;
+
+        /*$rules = [
+            'prenom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
+            'nom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
+            'telephone' => 'nullable|numeric|digits:10'
+        ];
+
+        $messages = [
+            'nom.required' => 'Veuillez entrer un nom de famille.',
+            'nom.max' => 'Le nom de famille ne peut pas dépasser 64 caractères.',
+            'nom.regex' => 'Le format du nom de famille entré est invalide.',
+
+            'prenom.required' => 'Veuillez entrer un prénom.',
+            'prenom.max' => 'Le prénom ne peut pas dépasser 64 caractères.',
+            'prenom.regex' => 'Le format du prénom entré est invalide.',
+
+            'telephone.digits' => 'Le numéro de téléphone doit contenir 10 chiffres.',
+            'telephone.numeric' => 'Le numéro de téléphone doit contenir 10 chiffres.'
+        ];
+
+        if($client->email != $request->email)
+        {
+            $messages['email.required'] = 'Veuillez entrer un courriel.';
+            $messages['email.email'] = 'Veuillez entrer un courriel valide.';
+            $messages['email.regex'] = 'Le format du courriel entré est invalide.';
+            $messages['email.unique'] = 'Le courriel appartient déjà à un autre client.';
+        }
+
+        $validation = Validator::make($request->all(), $rules, $messages);
+
+        if ($validation->fails())
+            return back()->withErrors($validation->errors())->withInput();
+
+        $client->nom = $request->nom;
+        $client->prenom = $request->prenom;
+        $client->email = $request->email;
+        $client->telephone = $request->telephone;
+
+        $client->save();
+
+        return redirect("/menu" . $request->page);*/
     }
 
     /**

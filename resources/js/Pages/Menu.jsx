@@ -1,13 +1,57 @@
-import { Link, Head } from '@inertiajs/react';
+import { Link, Head, usePage, useForm, router } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from "react";
 import Item from '../item'
 import MenuBase from '@/Components/MenuBase';
 import MenuPrinc from '@/Components/MenuPrinc';
+import MenuForm from '@/Components/MenuForm';
+import action from '../../../public/icons/action.png';
 
-export default function Menu({ formats, langFormats, tarifs, menu }) {
+export default function Menu({ formats, langFormats, tarifs, menu, categories }) {
 
-    console.log(menu, formats, tarifs)
+    const { data, setData, post, processing, errors, reset } = useForm([
+        {
+            "id": 1,
+            "fr": "",
+            "en": ""
+        },
+        {
+            "id": 2,
+            "fr": "",
+            "en": ""
+        },
+        {
+            "id": menu.data[2].id,
+            "fr": menu.data[2].description.fr,
+            "en": menu.data[2].description.en
+        },
+        {
+            "id": menu.data[3].id,
+            "fr": menu.data[3].description.fr,
+            "en": menu.data[3].description.en
+        },
+        {
+            "id": menu.data[4].id,
+            "fr": menu.data[4].description.fr,
+            "en": menu.data[4].description.en
+        },
+        {
+            "id": menu.data[5].id,
+            "fr": menu.data[5].description.fr,
+            "en": menu.data[5].description.en
+        }
+    ]);
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route('menu.update'));
+    };
+
+    const user = usePage().props.auth.user;
+
+    //console.log(menu, formats, tarifs);
+
     const [t, i18n] = useTranslation("global");
 
     //séparer les formats selon la langue
@@ -22,6 +66,8 @@ export default function Menu({ formats, langFormats, tarifs, menu }) {
     const tempDate = d.toLocaleDateString('fr-FR', optionsDel);
     const [dateDelivery, setDateDelivery] = useState(tempDate)
     const [dateAdmin, setDateAdmin] = useState(tempDate)
+
+    const [editMode, setEditMode] = useState(false)
 
     // Format la date pour avoir le prochain vendredi
     useEffect(() => {
@@ -88,8 +134,6 @@ export default function Menu({ formats, langFormats, tarifs, menu }) {
                                 <p className='font-semibold pb-2'>{format.nom}</p>
                                 <p className='text-sm pb-2'>{format.description}</p>
                                 <p className='text-[#2E6FED] font-semibold text-lg'>{formats.map(f => (f.id == format.id_format ? (Math.trunc(f.montant)) : ""))}$</p>
-                                {/*                                <p className='text-[#2E6FED] font-semibold text-lg'>{formats.map(f => (f.id == format.id_format ? (i18n.language == 'fr' ? Math.trunc(f.montant) + "$" : "$" + Math.trunc(f.montant)) : ""))}$</p>
-                                 */}
                             </div>
                         ))
 
@@ -130,27 +174,50 @@ export default function Menu({ formats, langFormats, tarifs, menu }) {
 
             {/*Menu de la semaine*/}
             <div className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7'>
+                <form onSubmit={submit}>
+
                 <h2 className='text-[#FFD8AD] text-center my-8 imperial text-6xl md:text-7xl lg:text-8xl md:my-12'>{t("Menu.menu-titre")}</h2>
+                { user && user.data.role == "admin" ?
+                <>
+                    {editMode ?
+                        <button type='submit' className='text-white bg-blue-300'>Enregistrer</button>
+                        : <button type='button' className='text-white bg-blue-300' onClick={(e) => {e.preventDefault(); setEditMode(true)}}>Modifier le menu</button>
+                    }
+                </> : null
+                }
+
                 <div className='m-auto justify-center pb-10 grid gap-10 grid-cols-1 md:grid-cols-2 max-w-[1000px]'>
                     {/* SOUPE + PLAT DU CHEF */}
+
                     <MenuBase
                         produit={menu.data[0]}
                         putPanier={putPanier}
+                        editable={editMode}
+                        setData={setData}
+                        data={data}
                     />
                     <MenuBase
                         produit={menu.data[1]}
                         putPanier={putPanier}
+                        editable={editMode}
+                        setData={setData}
+                        data={data}
                     />
+
                 </div>
-                {/* PLAT PRINCIPAUX */}
+                {/* PLATS PRINCIPAUX */}
                 <div className='border-2 border-[#EBEBEB] rounded-2xl p-7 justify-center text-center w-[100%] md:max-w-[1000px] md:m-auto'>
                     <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl lg:text-6xl'>{t("Menu.plat-principaux")}</h3>
 
-                    {menu.data.map(produit => (
+                    {menu.data.map((produit) => (
                         <div key={produit.id}>{produit.id > 2 ?
                             <MenuPrinc
                                 produit={menu.data[menu.data.findIndex(data => data.id === produit.id)]}
                                 putPanier={putPanier}
+                                editable={editMode}
+                                setData={setData}
+                                categories={categories}
+                                data={data}
                             />
                             : ""}
                         </div>
@@ -163,6 +230,7 @@ export default function Menu({ formats, langFormats, tarifs, menu }) {
                 >
                     {t("Menu.go-panier")}
                 </Link>
+                </form>
             </div>
         </div>
     );

@@ -27,12 +27,12 @@ class ProduitLangueSeeder extends Seeder
             ],
             [
                 'id_langue' => '1',
-                'id_produit' => '8',
+                'id_produit' => '10',
                 'description' => 'Médaillons de porc sauce aux petits fruits nordiques sur riz aux légumes'
             ],
             [
                 'id_langue' => '1',
-                'id_produit' => '6',
+                'id_produit' => '5',
                 'description' => 'Nouilles au beurre, légume et jambon'
             ],
             [
@@ -42,7 +42,7 @@ class ProduitLangueSeeder extends Seeder
             ],
             [
                 'id_langue' => '1',
-                'id_produit' => '3',
+                'id_produit' => '8',
                 'description' => 'Pizza végé aux pois-chiches, épinard et feta'
             ],
 
@@ -61,12 +61,12 @@ class ProduitLangueSeeder extends Seeder
             ],
             [
                 'id_langue' => '2',
-                'id_produit' => '8',
+                'id_produit' => '10',
                 'description' => 'Pork medallions with Nordic berry sauce on vegetable rice'
             ],
             [
                 'id_langue' => '2',
-                'id_produit' => '6',
+                'id_produit' => '5',
                 'description' => 'Buttered noodles with vegetables and ham'
             ],
             [
@@ -76,7 +76,7 @@ class ProduitLangueSeeder extends Seeder
             ],
             [
                 'id_langue' => '2',
-                'id_produit' => '3',
+                'id_produit' => '8',
                 'description' => 'Veggie pizza with chickpeas, spinach and feta'
             ],
 

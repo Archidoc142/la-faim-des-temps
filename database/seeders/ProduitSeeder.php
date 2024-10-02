@@ -32,7 +32,7 @@ class ProduitSeeder extends Seeder
             ],
             [
                 'nom' => 'Plat de pâtes',
-                'dansMenu' => false
+                'dansMenu' => true
             ],
             [
                 'nom' => 'Plat de riz',
@@ -44,7 +44,7 @@ class ProduitSeeder extends Seeder
             ],
             [
                 'nom' => 'Pizza',
-                'dansMenu' => false
+                'dansMenu' => true
             ],
             [
                 'nom' => 'Plat de couscous',
@@ -52,7 +52,7 @@ class ProduitSeeder extends Seeder
             ],
             [
                 'nom' => 'Mijoté de porc',
-                'dansMenu' => false
+                'dansMenu' => true
             ],
             [
                 'nom' => 'Mijoté de bœuf',
@@ -68,7 +68,7 @@ class ProduitSeeder extends Seeder
             ],
             [
                 'nom' => 'Bœuf en sauce',
-                'dansMenu' => false
+                'dansMenu' => true
             ],
             [
                 'nom' => 'Porc en sauce',
