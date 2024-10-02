@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return User::where('id_role', 1);
     }
+
+    public function commandes()
+    {
+        return $this->hasMany(Commande::class, "id_utilisateur");
+    }
 }

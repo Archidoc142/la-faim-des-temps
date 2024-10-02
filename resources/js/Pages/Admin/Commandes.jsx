@@ -3,9 +3,12 @@ import HeadCell from "@/Components/Admin/Table/HeadCell";
 import CommandeRow from "@/Components/Admin/Table/CommandeRow";
 import HeadActionCell from "@/Components/Admin/Table/HeadActionCell";
 import PaginationBar from "@/Components/PaginationBar";
+import { useState } from "react"
 
 export default function Commandes({commandes}) {
 console.log(commandes)
+const [ toggledMenuId, setToggledMenuId ] = useState(0);
+
 return (
     <AdminLayout title="Commandes">
         {commandes.data.length === 0 ? (
@@ -23,7 +26,7 @@ return (
                         </tr>
                     </thead>
                     <tbody>
-                        {commandes.data.map((c, i) => <CommandeRow commande={c} key={i} />
+                        {commandes.data.map((c, i) => <CommandeRow commande={c} key={i} showClient={true} toggledMenuId={toggledMenuId} setToggledMenuId={setToggledMenuId}/>
                         )}
                     </tbody>
                 </table>

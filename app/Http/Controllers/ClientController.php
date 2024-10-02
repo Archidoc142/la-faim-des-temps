@@ -44,9 +44,20 @@ class ClientController extends Controller
      */
     public function show(Request $request, int $id)
     {
-        return Inertia::Render('Admin/Client', [
-            'client' => new ClientResource(User::find($id))
-        ]);
+        $client = User::find($id);
+        $commandes = $client->commandes()->paginate(6);
+
+        $prevPage = $request->prevPage;
+
+        if(is_null($prevPage))
+            $prevPage = "";
+
+        if(!is_null($client))
+            return Inertia::Render('Admin/Client', [
+                'client' => new ClientResource(User::find($id)),
+                'commandes' => $commandes,
+                'prevPage' => $prevPage
+            ]);
     }
 
     /**
