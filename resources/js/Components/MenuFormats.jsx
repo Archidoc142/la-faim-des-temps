@@ -15,7 +15,7 @@ export default function MenuFormats({ produitId, formats, putPanier }) {
     return (
         <>
             <div key={formats.id} className='h-min self-end border border-[#BB285C] hover:border-white hover:cursor-pointer mt-5 md:mt-0' /*className='pb-2 mt-5 justify-between text-start md:flex md:w-auto md:mt-0'*/>
-                <table className='w-full md:mt-0 min-w-40 md:w-auto'>
+                <table className='w-full md:mt-0 md:w-60'>
                     <thead onClick={() => toggleState() /*setIsSizesOpen(!isSizesOpen)*/}>
                         <tr>
                             <th className='p-1 text-sm text-white font-semibold border-2 border-[#BB285C] bg-[#BB285C]'>{t("Menu.formats")}</th>
@@ -24,7 +24,7 @@ export default function MenuFormats({ produitId, formats, putPanier }) {
                     <tbody>
                         {isSizesOpen && (formats.map(format => (
                             <tr onClick={() => putPanier(format.id, produitId)} key={format.id} className='cursor-pointer border-2 border-[#BB285C] rounded-2xl p-5 justify-center text-start'>
-                                <td className='py-1 px-2 border-x-2 border-b-2 border-[#BB285C] bg-white hover:bg-[#f7f0e9] flex flex-nowrap items-center justify-between'>
+                                <td className='py-1 px-2 border-x-2 border-b-2 border-[#BB285C] bg-white hover:bg-[#f7ede4] flex flex-nowrap items-center justify-between'>
                                     <p className='mr-5'>{i18n.language == 'fr' ? format.nom.fr + " (" + Math.trunc(format.montant) + "$)" : format.nom.en + " ($" + Math.trunc(format.montant) + ")"} </p>
                                     <div>
                                         <svg width="20px" height="20px" viewBox="0 0 256 256">

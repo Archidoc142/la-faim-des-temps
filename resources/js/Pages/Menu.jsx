@@ -5,9 +5,9 @@ import Item from '../item'
 import MenuBase from '@/Components/MenuBase';
 import MenuPrinc from '@/Components/MenuPrinc';
 
-export default function Menu({ produits, formats, prodDesc, langFormats, menu }) {
+export default function Menu({ formats, langFormats, tarifs, menu }) {
 
-    console.log(menu)
+    console.log(menu, formats, tarifs)
     const [t, i18n] = useTranslation("global");
 
     //séparer les formats selon la langue
@@ -25,10 +25,10 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
 
     // Format la date pour avoir le prochain vendredi
     useEffect(() => {
-       /* if (d.getDay() == 1 && d.getHours() > 15) {
-            d.setDate(d.getDate() + (((5 + 7 - d.getDay()) % 7) || 7));
-        } else {*/
-            d.setDate(d.getDate() + (5 + 7 - d.getDay()) % 7);
+        /* if (d.getDay() == 1 && d.getHours() > 15) {
+             d.setDate(d.getDate() + (((5 + 7 - d.getDay()) % 7) || 7));
+         } else {*/
+        d.setDate(d.getDate() + (5 + 7 - d.getDay()) % 7);
         //}
 
         if (i18n.language === 'fr') {
@@ -62,6 +62,8 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
         if (!found) {
             const lastId = panier.length > 0 ? panier[panier.length - 1]['id'] : 0;
             panier.push(new Item(lastId + 1, key1, 1, key2));
+
+            //POPUP????
         }
     }
 
@@ -78,7 +80,7 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
 
             {/*Coût des portions*/}
             <div className='p-10 md:p-20 m-auto'>
-                <h2 className='text-xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
+                <h2 className='text-2xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
                 <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center max-w-[1000px]'>
                     {i18n.language === "fr" ?
                         FrFormats.map(format => (
@@ -114,8 +116,8 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
                     <br />
                     <p className='mb-5'>{t("Menu.livr-heure")}<b>{dateDelivery}</b>.</p>
                     <div className='mb-5'>
-                        <p><b>{t("Menu.livr-titre-sherb")} : </b>{dateAdmin} $</p>
-                        <p><b>{t("Menu.livr-titre-autre")} : </b> $</p>
+                        <p><b>{t("Menu.livr-titre-sherb")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[0].montant}.00{i18n.language == "fr" ? "$" : ""} {t("Menu.livr-sherb")}</p>
+                        <p><b>{t("Menu.livr-titre-autre")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[1].montant}.00{i18n.language == "fr" ? "$" : ""}</p>
                     </div>
                     <p className='text-[#BB285C] italic'>{t("Menu.livr-info")}</p>
                 </div>
@@ -126,9 +128,9 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
                 </div>
             </div>
 
-                        {/*Menu de la semaine*/}
+            {/*Menu de la semaine*/}
             <div className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7'>
-                <h2 className='text-[#FFD8AD] text-center my-8 imperial text-6xl md:text-7xl md:my-12'>{t("Menu.menu-titre")}</h2>
+                <h2 className='text-[#FFD8AD] text-center my-8 imperial text-6xl md:text-7xl lg:text-8xl md:my-12'>{t("Menu.menu-titre")}</h2>
                 <div className='m-auto justify-center pb-10 grid gap-10 grid-cols-1 md:grid-cols-2 max-w-[1000px]'>
                     {/* SOUPE + PLAT DU CHEF */}
                     <MenuBase
@@ -142,7 +144,7 @@ export default function Menu({ produits, formats, prodDesc, langFormats, menu })
                 </div>
                 {/* PLAT PRINCIPAUX */}
                 <div className='border-2 border-[#EBEBEB] rounded-2xl p-7 justify-center text-center w-[100%] md:max-w-[1000px] md:m-auto'>
-                    <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl md:text-6xl'>{t("Menu.plat-principaux")}</h3>
+                    <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl lg:text-6xl'>{t("Menu.plat-principaux")}</h3>
 
                     {menu.data.map(produit => (
                         <div key={produit.id}>{produit.id > 2 ?

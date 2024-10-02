@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FormatResource;
 use App\Http\Resources\ProduitRessource;
 use App\Http\Resources\ProduitsResource;
 use App\Models\Format;
 use App\Models\FormatLangue;
 use App\Models\Produit;
 use App\Models\ProduitLangue;
+use App\Models\TarifLivraison;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -20,9 +22,8 @@ class ProduitController extends Controller
     {
         //
         //$produits = Produit::with('description', 'allFormats')->get();
-        $produits = Produit::all();
+        $tarifs = TarifLivraison::all();
         $formats = Format::all();
-        $prodDesc = ProduitLangue::all();
         $langFormats = FormatLangue::all();
 
       /*  dump($produits);
@@ -32,10 +33,9 @@ class ProduitController extends Controller
 
 
         return Inertia::render('Menu', [
-            'produits' => $produits,
-            'formats' => $formats,
-            'prodDesc' => $prodDesc,
+            'formats' => $formats, /*FormatResource::collection(Format::FormatsWithLang()),*/
             'langFormats' => $langFormats,
+            'tarifs' => $tarifs,
             'menu' => ProduitRessource::collection(Produit::ProduitsWithLang())
         ]);
     }
