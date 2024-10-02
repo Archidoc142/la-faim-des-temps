@@ -49,7 +49,7 @@ export default function Header() {
     return (
         <header className='border-b border-[#9b9b9b]'>
             <div className='flex bg-white'>
-                <img className='hidden lg:block w-auto self-center max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" />
+                <a href="/" className='content-center'><img className='hidden lg:block w-auto self-center max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" /></a>
 
                 <div className='flex py-10 items-center flex-nowrap justify-between w-full max-h-[80px] lg:max-h-[70px] bg-[#041a37] pl-6 xl:pl-8'>
                     {/* Menu*/}

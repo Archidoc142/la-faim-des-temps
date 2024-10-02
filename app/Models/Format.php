@@ -33,4 +33,9 @@ class Format extends Model
                     ->first();
     }
 
+    public static function FormatsWithLang()
+    {
+        return Format::whereHas('langue')->get();
+    }
+
 }
