@@ -3,12 +3,14 @@ import { useTranslation } from 'react-i18next';
 
 import Item from '../item'
 import PanierItem from '@/Components/PanierItem';
+import PanierFinalisation from '@/Components/PanierFinalisation';
 import { useState, useEffect } from 'react';
 
 export default function Panier({ produits }) {
     const [t, i18n] = useTranslation("global")
     const [panier, setPanier] = useState(JSON.parse(localStorage.getItem("panier")))
     const [total, setTotal] = useState(0)
+    const [boxVisible, setBoxVisible] = useState(false)
 
     const calculateCost = () => {
         const totalCost = panier.reduce((acc, item) => {
@@ -44,7 +46,6 @@ export default function Panier({ produits }) {
                             quantity={item['qte']}
                             panier={panier}
                             setPanier={setPanier}
-                            total={total}
                             setTotal={setTotal}
                             calcul={calculateCost}
                             ln={i18n.language} />
@@ -54,8 +55,15 @@ export default function Panier({ produits }) {
                         <p className='text-2xl'>{t("Panier.total")}</p>
                         <p className='mb-4 text-4xl font-bold'>{total}$</p>
 
-                        <button className='bg-[#7A163C] text-2xl px-4 py-2 border-black border-[1px]'>{t("Panier.pass")}</button>
+                        <button
+                            className='bg-[#7A163C] text-2xl px-4 py-2 border-black border-[1px]'
+                            onClick={() => setBoxVisible(true)}
+                        >
+                            {t("Panier.pass")}
+                        </button>
                     </div>
+
+                    {boxVisible ? <PanierFinalisation setBoxVisible={setBoxVisible}/> : null}
                 </>
 
                 : <p className='text-[#929292] font-bold text-xl'>{t("Panier.vide")}</p>
