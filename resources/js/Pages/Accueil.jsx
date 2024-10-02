@@ -6,7 +6,6 @@ import AccueilImg from '@/Components/AccueilImg';
 import ferme from '../../../public/img/ferme.jpg'
 import assiette from '../../../public/img/assiette.jpg'
 
-
 export default function Accueil() {
 
     const [t, i18n] = useTranslation("global");
@@ -15,7 +14,7 @@ export default function Accueil() {
         <>
             <Head title="Accueil"/>
 
-            <div className='flex h-[37rem] lg:h-[48rem] bg-[url("img/accueil.jpg")] bg-cover'>
+            <div className='flex h-[37rem] lg:h-[48rem] bg-[url("../../../img/accueil.jpg")] bg-cover'>
                 <div className='bg-white py-16 bg-opacity-75 my-auto w-full lg:py-10'>
                     <h1 className='w-80 m-auto font-serif text-[#04203f] leading-tight text-center text-5xl lg:w-[42rem]'>Votre option traiteur et plats cuisinés au Centro</h1>
                     <div className='flex justify-center'>

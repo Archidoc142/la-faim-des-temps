@@ -6,7 +6,7 @@ import { Link, Head } from '@inertiajs/react'
 import back from '../../../public/icons/back.png'
 import { useState } from 'react'
 
-export default function AdminLayout({ children, title, clientPage }) {
+export default function AdminLayout({ children, title, clientPage, prevPage }) {
 
     const [menuVisible, setMenuVisible] = useState(true);
 
@@ -28,10 +28,10 @@ export default function AdminLayout({ children, title, clientPage }) {
                 <div className='flex-grow p-8 bg-white'>
                     <div className='flex w-full'>
                         { clientPage ?
-                            <a href="#" onClick={() => history.back()} className='mr-6'>
+                            <Link href={"/admin/clients?page=" + prevPage } className='mr-6'>
                                 <img src={back} alt="Précédent" width={48} />
-                            </a> :
-                        ""}
+                            </Link> : null
+                        }
                         <h1 className="text-4xl font-bold mb-8">{title}</h1>
                     </div>
 

@@ -49,7 +49,7 @@ export default function ActionCell({id, options, editable, setEditMode, editable
 
                 {
                     menuVisible && id == toggledMenuId ?
-                    <div className='absolute bg-white border border-solid border-gray-300 rounded shadow-lg text-black -bottom-14 right-1/4 w-32 z-10 py-1'>
+                    <div className='absolute bg-white border border-solid border-gray-300 rounded shadow-lg text-black top-7 right-1/4 w-32 z-10 py-1'>
                         { options.map((o, i) =>
                             <Link href={o.route} key={i}>
                                 <p className='flex items-center justify-center w-full py-1 hover:bg-gray-300'>
