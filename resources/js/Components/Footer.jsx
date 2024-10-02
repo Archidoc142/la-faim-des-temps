@@ -15,7 +15,7 @@ export default function Footer() {
     const newH = usePage().props.horaire;
 
     return (
-        <footer className='Footer w-full border-t-2 border-gray-500 bg-[#0a1732] px-10 pt-6 flex text-center'>
+        <footer className='Footer w-full border-t-2 border-gray-500 bg-[#0a1732] p-7 flex text-center'>
             {/* Bloc image*/}
             <div className='hidden lg:block w-[30%] max-w-[300px]'>
                 <img src={logoBig} alt="img-logo-big" className='w-5/6 mb-6' />
@@ -41,7 +41,7 @@ export default function Footer() {
                             <p className='arsenal italic text-white text-xl font-bold'>Entrez dans notre ruelle méconnue!</p>
                         </div>
 
-                        <div className='flex p-6 lg:p-0 justify-center lg:justify-normal gap-6 2xl:justify-center'>
+                        <div className='mt-2 flex p-6 lg:p-0 justify-center lg:justify-normal gap-6 2xl:justify-center'>
                             <InstagramLogo />
                             <FacebookLogo />
                         </div>
