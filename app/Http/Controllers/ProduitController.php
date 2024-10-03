@@ -38,7 +38,7 @@ class ProduitController extends Controller
             'formats' => $formats,
             'langFormats' => $langFormats,
             'tarifs' => $tarifs,
-            'menu' => ProduitRessource::collection(Produit::ProduitsDansMenu()),
+            'produits' => ProduitRessource::collection(Produit::all()),
             'categories' => $categories,
         ]);
     }

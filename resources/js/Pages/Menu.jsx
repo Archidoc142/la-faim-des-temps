@@ -7,38 +7,40 @@ import MenuPrinc from '@/Components/MenuPrinc';
 import MenuForm from '@/Components/MenuForm';
 import action from '../../../public/icons/action.png';
 
-export default function Menu({ formats, langFormats, tarifs, menu, categories }) {
+export default function Menu({ formats, langFormats, tarifs, produits }) {
+
+    const menu = produits.data.filter((p) => p.dansMenu);
 
     const { data, setData, post, processing, errors, reset } = useForm([
         {
-            "id": 1,
-            "fr": "",
-            "en": ""
+            "id": menu[0].id,
+            "fr": menu[0].description.fr,
+            "en": menu[0].description.en
         },
         {
-            "id": 2,
-            "fr": "",
-            "en": ""
+            "id": menu[1].id,
+            "fr": menu[1].description.fr,
+            "en": menu[1].description.en
         },
         {
-            "id": menu.data[2].id,
-            "fr": menu.data[2].description.fr,
-            "en": menu.data[2].description.en
+            "id": menu[2].id,
+            "fr": menu[2].description.fr,
+            "en": menu[2].description.en
         },
         {
-            "id": menu.data[3].id,
-            "fr": menu.data[3].description.fr,
-            "en": menu.data[3].description.en
+            "id": menu[3].id,
+            "fr": menu[3].description.fr,
+            "en": menu[3].description.en
         },
         {
-            "id": menu.data[4].id,
-            "fr": menu.data[4].description.fr,
-            "en": menu.data[4].description.en
+            "id": menu[4].id,
+            "fr": menu[4].description.fr,
+            "en": menu[4].description.en
         },
         {
-            "id": menu.data[5].id,
-            "fr": menu.data[5].description.fr,
-            "en": menu.data[5].description.en
+            "id": menu[5].id,
+            "fr": menu[5].description.fr,
+            "en": menu[5].description.en
         }
     ]);
 
@@ -190,14 +192,14 @@ export default function Menu({ formats, langFormats, tarifs, menu, categories })
                     {/* SOUPE + PLAT DU CHEF */}
 
                     <MenuBase
-                        produit={menu.data[0]}
+                        produit={menu[0]}
                         putPanier={putPanier}
                         editable={editMode}
                         setData={setData}
                         data={data}
                     />
                     <MenuBase
-                        produit={menu.data[1]}
+                        produit={menu[1]}
                         putPanier={putPanier}
                         editable={editMode}
                         setData={setData}
@@ -209,19 +211,23 @@ export default function Menu({ formats, langFormats, tarifs, menu, categories })
                 <div className='border-2 border-[#EBEBEB] rounded-2xl p-7 justify-center text-center w-[100%] md:max-w-[1000px] md:m-auto'>
                     <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl lg:text-6xl'>{t("Menu.plat-principaux")}</h3>
 
-                    {menu.data.map((produit) => (
-                        <div key={produit.id}>{produit.id > 2 ?
-                            <MenuPrinc
-                                produit={menu.data[menu.data.findIndex(data => data.id === produit.id)]}
-                                putPanier={putPanier}
-                                editable={editMode}
-                                setData={setData}
-                                categories={categories}
-                                data={data}
-                            />
-                            : ""}
-                        </div>
-                    ))}
+                    {
+                        menu.map((produit, i) => (
+                            <div key={produit.id}>{produit.id > 2 ?
+                                <MenuPrinc
+                                    produit={menu[menu.findIndex(data => data.id === produit.id)]}
+                                    putPanier={putPanier}
+                                    editable={editMode}
+                                    setData={setData}
+                                    categories={produits.data}
+                                    data={data}
+                                    formIndex={i+1}
+                                    key={produit.id}
+                                />
+                                : ""}
+                            </div>
+                        ))
+                    }
                 </div>
 
                 <Link

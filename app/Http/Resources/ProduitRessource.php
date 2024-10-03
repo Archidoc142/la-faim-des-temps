@@ -21,7 +21,8 @@ class ProduitRessource extends JsonResource
                 "fr" => $this->lang("fr")->pivot->description,
                 "en" => $this->lang("en")->pivot->description
             ],
-            "formats" => FormatResource::collection($this->formats())
+            "formats" => FormatResource::collection($this->formats()),
+            "dansMenu" => boolval($this->dansMenu)
         ];
     }
 }

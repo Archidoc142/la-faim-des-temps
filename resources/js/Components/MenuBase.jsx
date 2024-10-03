@@ -5,12 +5,21 @@ import autoprefixer from 'autoprefixer';
 export default function MenuBase({ produit, putPanier, editable, setData, data }) {
 
     const [t, i18n] = useTranslation("global");
-    /*const [descriptionFr, setDescriptionFr] = useState([])
-    const [descriptionEn, setDescriptionEn] = useState([])
+
+    const [descriptionFr, setDescriptionFr] = useState(produit.description.fr);
+    const [descriptionEn, setDescriptionEn] = useState(produit.description.en);
 
     useEffect(() => {
+        const newData = data;
+        newData[produit.id - 1].fr = descriptionFr;
+        setData(newData);
+    }, [descriptionFr]);
 
-    })*/
+    useEffect(() => {
+        const newData = data;
+        newData[produit.id - 1].en = descriptionEn;
+        setData(newData);
+    }, [descriptionEn]);
 
     return (
         <>
@@ -20,28 +29,12 @@ export default function MenuBase({ produit, putPanier, editable, setData, data }
                 {editable ?
                     <div className='flex flex-col'>
                         <label htmlFor={produit.id + "fr"} className='text-start text-gray-300'>Français</label>
-                        <textarea rows={2} name={produit.id + "fr"} id={produit.id + "fr"} defaultValue={produit.description.fr}
-                        onChange={(e) => {
-                            let newData = data;
-                            const id = produit.id;
-                            if(newData[id] == null)
-                                newData[id] = {}
-
-                            newData[id].fr = e.target.value;
-                            setData(newData);
-                        }}></textarea>
+                        <textarea rows={2} name={produit.id + "fr"} id={produit.id + "fr"} value={descriptionFr}
+                        onChange={(e) => {setDescriptionFr(e.target.value)}}></textarea>
 
                         <label htmlFor={produit.id + "fr"} className='text-start text-gray-300 mt-2'>Anglais</label>
-                        <textarea rows={2} name={produit.id + "fr"} id={produit.id + "en"} defaultValue={produit.description.en}
-                        onChange={(e) => {
-                            let newData = data;
-                            const id = produit.id;
-                            if(newData[id] == null)
-                                newData[id] = {}
-
-                            newData[id].en = e.target.value;
-                            setData(newData);
-                        }}></textarea>
+                        <textarea rows={2} name={produit.id + "fr"} id={produit.id + "en"} value={descriptionEn}
+                        onChange={(e) => {setDescriptionEn(e.target.value)}}></textarea>
                     </div>
                     :
                     <p className='text-white text-lg pb-3'>{i18n.language == 'fr' ? produit.description.fr : produit.description.en}</p>
