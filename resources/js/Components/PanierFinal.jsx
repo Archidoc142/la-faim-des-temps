@@ -40,8 +40,13 @@ export default function PanierFinal({ prix, adresse, setBoxVisible }) {
                     </div>
                 </div>
 
-                <h3 className="font-bold text-3xl mb-2">{t("Panier.adresse")}:</h3>
-                <p>{adresse.nom}</p>
+                {
+                    adresse.id != 0 ?
+                        <div>
+                            <h3 className="font-bold text-3xl mb-2">{t("Panier.adresse")}:</h3>
+                            <p>{adresse.nom + " (" + adresse.code_postal + ")"}</p>
+                        </div> : <div className="mb-8"></div>
+                }
 
                 <div className="text-left px-8 mt-2 mb-4">
                     <h4 className="font-bold mb-2">{t("Panier.allergen")}</h4>

@@ -7,7 +7,7 @@ export default function PanierChoix({ setContentBox, setBoxVisible, setAdresse }
     const [t, i18n] = useTranslation("global")
 
     const handleCueilletteChoice = () => {
-        setAdresse({id: 1, nom:"297 Rue King Ouest", montant: 0})
+        setAdresse({id: 0, nom:"297 Rue King Ouest", montant: 0, code_postal: ""})
         setContentBox(2)
     }
 
@@ -27,7 +27,7 @@ export default function PanierChoix({ setContentBox, setBoxVisible, setAdresse }
                 <div
                     className="bg-[#AAA] rounded-xl w-[48%] sm:w-[50%] h-[180] sm:h-[200px] flex flex-col text-center cursor-pointer hover:bg-gray-500"
                     onClick={() => setContentBox(1)}>
-                    <Camion  text={t("Panier.camion")} />
+                    <Camion  text={t("Panier.livraison")} />
                 </div>
 
                 <div

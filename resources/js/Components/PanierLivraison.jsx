@@ -34,6 +34,7 @@ export default function PanierLivraison({ setContentBox, setBoxVisible, adresses
                                 nom={nom}
                                 setContentBox={setContentBox}
                                 setAdresse={setAdresse}
+                                code_postal={adresse.code_postal}
                             />
                         : null
                     )

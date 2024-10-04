@@ -33,7 +33,8 @@ class AdressesResource extends JsonResource
             "nom" => $this->no_civique . " " . $this->rue,
             "no_app" => $this->appartement,
             "montant" => $montant,
-            "visible" => $this->visible
+            "visible" => $this->visible,
+            "code_postal" => $this->code_postal
         ];
     }
 }

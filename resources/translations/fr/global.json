@@ -60,7 +60,6 @@
         "total": "Sous-total",
         "pass": "Passer ma commande",
         "choice": "Comment voulez-vous recevoir votre commande ?",
-        "camion": "Camion",
         "cueillette" : "Cueillette",
         "finaliser" : "Finaliser la commande...",
         "article" : "Articles",
@@ -72,6 +71,7 @@
         "address" : "À quelle adresse voulez-vous recevoir votre commande?",
         "info" : "Un montant s'applique à la livraison sur les commandes en dessous de 60$ au secteur de Sherbrooke.",
         "add" : "Ajouter une adresse",
-        "alertSuccess" : "Êtes-vous sûr de vouloir supprimer cette adresse ?"
+        "alertSuccess" : "Êtes-vous sûr de vouloir supprimer cette adresse ?",
+        "flashDelete" : "Le plat a été retiré du panier"
     }
 }
