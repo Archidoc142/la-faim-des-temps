@@ -58,8 +58,10 @@ class AdresseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Adresse $adresse)
+    public function destroy(int $id)
     {
-        //
+        $adresse = Adresse::find($id);
+        $adresse->visible = false;
+        $adresse->save();
     }
 }

@@ -25,3 +25,8 @@
 .imperial {
     font-family: "Imperial Script";
 }
+
+
+.trash-can:hover path {
+    fill: red;
+}

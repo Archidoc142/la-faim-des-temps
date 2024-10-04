@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\ProfileController;
@@ -52,5 +53,7 @@ Route::get('/producteurs', [ProducteurController::class, 'index']);
 Route::get('/valeurs', function () {
     return Inertia::render('Valeur/Valeurs', []);
 })->name('valeurs');
+
+Route::delete('/adresse/{id}', [AdresseController::class, 'destroy']);
 
 require __DIR__.'/auth.php';
