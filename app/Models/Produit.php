@@ -48,4 +48,8 @@ class Produit extends Model
         return Produit::whereHas('langue')->get();
     }
 
+    public static function ProduitsDansMenu() {
+        return Produit::where('dansMenu', 1)->get();
+    }
+
 }

@@ -24,7 +24,7 @@ export default function MenuFormats({ produitId, formats, putPanier }) {
                     <tbody>
                         {isSizesOpen && (formats.map(format => (
                             <tr onClick={() => putPanier(format.id, produitId)} key={format.id} className='cursor-pointer border-2 border-[#BB285C] rounded-2xl p-5 justify-center text-start'>
-                                <td className='py-1 px-2 border-x-2 border-b-2 border-[#BB285C] bg-white hover:bg-[#f7ede4] flex flex-nowrap items-center justify-between'>
+                                <td className='py-1 px-2 border-x-2 border-b-2 border-[#BB285C] bg-white hover:bg-[#f8ece1] flex flex-nowrap items-center justify-between'>
                                     <p className='mr-5'>{i18n.language == 'fr' ? format.nom.fr + " (" + Math.trunc(format.montant) + "$)" : format.nom.en + " ($" + Math.trunc(format.montant) + ")"} </p>
                                     <div>
                                         <svg width="20px" height="20px" viewBox="0 0 256 256">
