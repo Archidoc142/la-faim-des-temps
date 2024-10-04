@@ -18,6 +18,7 @@ return new class extends Migration
             $table->smallInteger('appartement')->nullable();
             $table->char('code_postal', length: 7);
             $table->bigInteger('id_secteur_code')->unsigned();
+            $table->boolean('visible')->default(true);
             $table->timestamps();
         });
 
