@@ -44,6 +44,7 @@ export default function MenuBase({ produit, putPanier, editable, setData, data }
                     null
                     :
                     <button
+                        type="button"
                         onClick={() => putPanier(produit.formats[0].id, produit.id)}
                         className="inline-block min-w-40 mt-3 p-1.5 text-sm text-white font-semibold border border-[#BB285C] bg-[#BB285C] hover:border-white hover:cursor-pointer justify-self-center"
                     >
