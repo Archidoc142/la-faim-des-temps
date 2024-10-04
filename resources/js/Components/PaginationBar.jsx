@@ -1,10 +1,11 @@
 import { Link } from "@inertiajs/react";
+import { space } from "postcss/lib/list";
 
 export default function PaginationBar({ links }) {
     return (
         <div className="py-6 text-center">
             {links.map(link => (
-                // Si il y a une page suivante ou précédente, on affiche un lien cliquable, sinon on le cache
+                // Si il y a une page suivante ou précédente, on affiche un lien cliquable, sinon on affiche rien
                 link.url ? (
                     <Link
                         preserveScroll
@@ -15,14 +16,7 @@ export default function PaginationBar({ links }) {
                         {/* On remplace les caractères spéciaux par les flèches pour éviter d'utiliser dangerouslySetInnerHTML  */}
                         {link.label.replace('&raquo;', '»').replace('&laquo;', '«')}
                     </Link>
-                ) :
-                <span
-                    key={link.label}
-                    className={`px-4 py-2 mx-1 hidden`}
-                >
-                    {/* On remplace les caractères spéciaux par les flèches pour éviter d'utiliser dangerouslySetInnerHTML  */}
-                    {link.label.replace('&raquo;', '»').replace('&laquo;', '«')}
-                </span>
+                ) : null
             ))}
         </div>
     )
