@@ -22,7 +22,7 @@
         "telephone": "Phone number",
         "mdp": "Password",
         "confirmer_mdp": "Confirm password",
-        "deja_inscrit": "Already registered?"
+        "deja_inscrit": "Already registered? (Login)"
     },
     "Login": {
         "title1": "Welcome to",
@@ -45,7 +45,7 @@
         "formats" : "SIZES",
         "plat-principaux" : "Main dishes",
         "livr-titre" : "HOME DELIVERY",
-        "livr-p" : "A different menu every Friday morning; Simply contact us by email or via our website to place your order and receive the dishes you want in the portions you want. An excellent way to save time, energy and avoid waste (yes yes, we see your soft carrots begging you not to order pizza).",
+        "livr-p" : "A different menu every Friday morning; Simply contact us by email or via our website to place your order and receive the dishes you want in the portions you want. An excellent way to save time, energy and avoid waste (yes, we do see your old carrots begging you not to order pizza).",
         "livr-heure" : "The home delivery is between 3:00 p.m. and 6:00 p.m. on Friday, ",
         "livr-titre-sherb" : "Delivery fees Sherbrooke zone",
         "livr-sherb" : "for orders under $60.00,",
@@ -58,6 +58,20 @@
         "vide": "Empty",
         "titre": "My cart",
         "total": "Grand total",
-        "pass": "Pass my order"
+        "pass": "Pass my order",
+        "choice": "How do you want to receive your order ?",
+        "cueillette" : "Picking",
+        "finaliser" : "Finalize the order...",
+        "article" : "Articles",
+        "livraison" : "Shipping",
+        "adresse" : "Address",
+        "allergen" : "Add your allergens",
+        "placeholder" : "Egg, Milk, Peanut, Soy...",
+        "terminer" : "Finish",
+        "address" : "At which address do you want to receive your order?",
+        "info" : "An amount applies to delivery on orders under $60 in the Sherbrooke area.",
+        "add" : "Add an address",
+        "alertSuccess" : "Are you sure you want to delete this address?",
+        "flashDelete" : "The item has been deleted from the cart"
     }
 }

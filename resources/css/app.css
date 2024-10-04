@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .angkor-regular {
     font-family: "Angkor", serif;
 }
@@ -16,4 +22,9 @@
 
 .imperial {
     font-family: "Imperial Script";
+}
+
+
+.trash-can:hover path {
+    fill: red;
 }

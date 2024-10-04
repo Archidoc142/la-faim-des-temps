@@ -7,9 +7,22 @@ import exit from '../../../../../public/icons/exit.png'
 import save from '../../../../../public/icons/save.png'
 
 
-export default function ActionCell({id, options, editable, setEditMode, editableId, setEditableId, setData, resetData}) {
+export default function ActionCell({id, options, editable, setEditMode, editableId, setEditableId, setData, resetData, toggledMenuId, setToggledMenuId}) {
 
-    const [menuVisible, setMenuVisible] = useState(false);
+    const [menuVisible, setMenuVisible] = useState(true);
+
+    const toggleMenu = () => {
+        if(toggledMenuId != id)
+        {
+            setToggledMenuId(id);
+            setMenuVisible(true);
+        }
+        else
+        {
+            setMenuVisible(false);
+            setToggledMenuId(0);
+        }
+    }
 
     return (
         <>
@@ -20,6 +33,7 @@ export default function ActionCell({id, options, editable, setEditMode, editable
                         setMenuVisible(false);
                         setEditMode(false);
                         setEditableId(0);
+                        setToggledMenuId(0);
                     }}>
                         <img src={exit} alt="Annuler" width={18}/>
                     </button>
@@ -28,14 +42,14 @@ export default function ActionCell({id, options, editable, setEditMode, editable
                     </button>
                 </div>
 
-                <button type="button" className={id == editableId ? "hidden" : "flex"} onClick={() => setMenuVisible(!menuVisible)}>
+                <button type="button" className={id == editableId ? "hidden" : "flex"} onClick={toggleMenu}>
                     <img src={ellipsis} alt="Action" width={24}/>
                 </button>
 
 
                 {
-                    menuVisible ?
-                    <div className='absolute bg-white border border-solid border-gray-300 rounded shadow-lg text-black -bottom-14 right-1/4 w-32 z-10 py-1'>
+                    menuVisible && id == toggledMenuId ?
+                    <div className='absolute bg-white border border-solid border-gray-300 rounded shadow-lg text-black top-7 right-1/4 w-32 z-10 py-1'>
                         { options.map((o, i) =>
                             <Link href={o.route} key={i}>
                                 <p className='flex items-center justify-center w-full py-1 hover:bg-gray-300'>

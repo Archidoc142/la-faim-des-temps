@@ -14,7 +14,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Stoke:wght@300;400&display=swap" rel="stylesheet"> <!-- Font de certains titres -->
         <link href="https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-
         <!-- Scripts -->
         @routes
         @viteReactRefresh

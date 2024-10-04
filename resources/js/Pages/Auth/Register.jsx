@@ -36,136 +36,136 @@ export default function Register() {
 
 
             <div className="w-full m-0 py-10 md:py-20 md:w-[75%] md:m-auto ">
-                <table className='border-none md: border-2 border-[#BB285C] border-separate w-full'>
-                    <thead>
-                        <tr>
-                            <th className="bg-white text-2xl border-b-2 border-[#BB285C] md:border-2  py-2 rounded-t-2xl" colSpan={2}>{t("Compte.titre")}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                        <tr className='md:grid grid-cols-[35%_65%]'>
-                            <td className='bg-white hidden md:flex border-2 border-[#BB285C] items-center rounded-bl-2xl'>
-                                <img src={logoBig} alt="La faim des temps logo-big-img" />
-                            </td>
-                            <td className='bg-white border-t-2 border-r-0 border-b-0 rounded-b-2xl md:border-r-2 md:border-y-2 border-[#BB285C] p-10 md:rounded-bl-none grid'>
-                                <div className='text-xl font-bold w-full text-center md:text-start'>{t("Compte.bienvenue")}</div>
+                <div className='bg-white rounded-lg m-6 min-h-[80%] 2xl:min-h-[90%] border-2 border-[#BB285C]'>
+                    <div className='text-center p-3 text-2xl font-bold border-b-2 border-[#BB285C]'>{t("Compte.titre")}</div>
+                    <div className='flex w-[100%] justify-center'>
+                        <div className='hidden lg:block border-r-2 border-r-[#BB285C] w-[40%] p-6'>
+                            <img src={logoBig} alt="La faim des temps logo-big-img" />
+                        </div>
 
-                                <form onSubmit={submit} className='bg-[#F7F6F6] p-10 md:p-20 md:pb-10 mt-5'>
-                                    <div>
-                                        <InputLabel htmlFor="prenom" value={t("Compte.prenom")} />
+                        <div className='w-[95%] lg:w-[60%]'>
+                            <div className='p-10 2xl:px-16 '>
+                                <h2 className='text-center font-bold text-2xl mb-8 mt-2'>{t("Compte.bienvenue")}</h2>
 
-                                        <TextInput
-                                            id="prenom"
-                                            name="prenom"
-                                            value={data.prenom}
-                                            className="mt-1 block w-full"
-                                            autoComplete="prenom"
-                                            isFocused={true}
-                                            onChange={(e) => setData('prenom', e.target.value)}
-                                            required
-                                        />
+                                <div className='bg-[#f7f6f6] rounded-md text-center p-6 2xl:pt-10 lg:px-10 lg:pb-12 md:text-end'>
+                                    <form onSubmit={submit} className='bg-[#F7F6F6] text-start p-3 md:p-7 lg:p-10 pb-10 mt-5'>
+                                        <div>
+                                            <InputLabel htmlFor="prenom" value={t("Compte.prenom")} />
 
-                                        <InputError message={errors.prenom} className="mt-2" />
-                                    </div>
+                                            <TextInput
+                                                id="prenom"
+                                                name="prenom"
+                                                value={data.prenom}
+                                                className="mt-1 block w-full"
+                                                autoComplete="prenom"
+                                                isFocused={true}
+                                                onChange={(e) => setData('prenom', e.target.value)}
+                                                required
+                                            />
 
-                                    <div className="mt-4">
-                                        <InputLabel htmlFor="nom" value={t("Compte.nom")} />
+                                            <InputError message={errors.prenom} className="mt-2" />
+                                        </div>
 
-                                        <TextInput
-                                            id="nom"
-                                            name="nom"
-                                            value={data.nom}
-                                            className="mt-1 block w-full"
-                                            autoComplete="nom"
-                                            isFocused={true}
-                                            onChange={(e) => setData('nom', e.target.value)}
-                                            required
-                                        />
+                                        <div className="mt-4">
+                                            <InputLabel htmlFor="nom" value={t("Compte.nom")} />
 
-                                        <InputError message={errors.nom} className="mt-2" />
-                                    </div>
+                                            <TextInput
+                                                id="nom"
+                                                name="nom"
+                                                value={data.nom}
+                                                className="mt-1 block w-full"
+                                                autoComplete="nom"
+                                                isFocused={true}
+                                                onChange={(e) => setData('nom', e.target.value)}
+                                                required
+                                            />
 
-                                    <div className="mt-4">
-                                        <InputLabel htmlFor="email" value={t("Compte.courriel")} />
+                                            <InputError message={errors.nom} className="mt-2" />
+                                        </div>
 
-                                        <TextInput
-                                            id="email"
-                                            type="email"
-                                            name="email"
-                                            value={data.email}
-                                            className="mt-1 block w-full"
-                                            autoComplete="email"
-                                            onChange={(e) => setData('email', e.target.value)}
-                                            required
-                                        />
+                                        <div className="mt-4">
+                                            <InputLabel htmlFor="email" value={t("Compte.courriel")} />
 
-                                        <InputError message={errors.email} className="mt-2" />
-                                    </div>
+                                            <TextInput
+                                                id="email"
+                                                type="email"
+                                                name="email"
+                                                value={data.email}
+                                                className="mt-1 block w-full"
+                                                autoComplete="email"
+                                                onChange={(e) => setData('email', e.target.value)}
+                                                required
+                                            />
 
-                                    <div className="mt-4">
-                                        <InputLabel htmlFor="telephone" value={t("Compte.telephone")} />
+                                            <InputError message={errors.email} className="mt-2" />
+                                        </div>
 
-                                        <PhoneInput
-                                            id="telephone"
-                                            onChange={(tel) => { setData('telephone', normalize(tel)); console.log(data.telephone) }}
-                                            className="bg-[#F7F6F6] mt-1 block w-full border-t-transparent border-x-transparent border-b-[#BB285C] focus:border-[#7A163C] focus:ring-[#7A163C] shadow-sm"
-                                        />
+                                        <div className="mt-4">
+                                            <InputLabel htmlFor="telephone" value={t("Compte.telephone")} />
 
-                                        <InputError message={errors.telephone} className="mt-2" />
-                                    </div>
+                                            <PhoneInput
+                                                id="telephone"
+                                                onChange={(tel) => { setData('telephone', normalize(tel)); console.log(data.telephone) }}
+                                                className="bg-[#F7F6F6] mt-1 block w-full border-t-transparent border-x-transparent border-b-[#BB285C] focus:border-[#7A163C] focus:ring-[#7A163C] shadow-sm"
+                                            />
 
-                                    <div className="mt-4">
-                                        <InputLabel htmlFor="password" value={t("Compte.mdp")} />
+                                            <InputError message={errors.telephone} className="mt-2" />
+                                        </div>
 
-                                        <TextInput
-                                            id="password"
-                                            type="password"
-                                            name="password"
-                                            value={data.password}
-                                            className="mt-1 block w-full"
-                                            autoComplete="new-password"
-                                            onChange={(e) => setData('password', e.target.value)}
-                                            required
-                                        />
+                                        <div className="mt-4">
+                                            <InputLabel htmlFor="password" value={t("Compte.mdp")} />
 
-                                        <InputError message={errors.password} className="mt-2" />
-                                    </div>
+                                            <TextInput
+                                                id="password"
+                                                type="password"
+                                                name="password"
+                                                value={data.password}
+                                                className="mt-1 block w-full"
+                                                autoComplete="new-password"
+                                                onChange={(e) => setData('password', e.target.value)}
+                                                required
+                                            />
 
-                                    <div className="mt-4">
-                                        <InputLabel htmlFor="password_confirmation" value={t("Compte.confirmer_mdp")} />
+                                            <InputError message={errors.password} className="mt-2" />
+                                        </div>
 
-                                        <TextInput
-                                            id="password_confirmation"
-                                            type="password"
-                                            name="password_confirmation"
-                                            value={data.password_confirmation}
-                                            className="mt-1 block w-full"
-                                            autoComplete="new-password"
-                                            onChange={(e) => setData('password_confirmation', e.target.value)}
-                                            required
-                                        />
+                                        <div className="mt-4">
+                                            <InputLabel htmlFor="password_confirmation" value={t("Compte.confirmer_mdp")} />
 
-                                        <InputError message={errors.password_confirmation} className="mt-2" />
-                                    </div>
+                                            <TextInput
+                                                id="password_confirmation"
+                                                type="password"
+                                                name="password_confirmation"
+                                                value={data.password_confirmation}
+                                                className="mt-1 block w-full"
+                                                autoComplete="new-password"
+                                                onChange={(e) => setData('password_confirmation', e.target.value)}
+                                                required
+                                            />
 
-                                    <div className="flex items-center justify-center mt-10">
-                                        <PrimaryButton className="ms-4 !bg-[#0844A4] hover:!bg-gray-600" disabled={processing}>
-                                            {t("Compte.inscription")}
-                                        </PrimaryButton>
-                                    </div>
-                                </form>
-                                <Link
-                                    href={route('login')}
-                                    className="w-fit mt-3 p-3 underline text-sm text-[#0844A4] hover:text-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 justify-self-center md:justify-self-end"
-                                >
-                                    {t("Compte.deja_inscrit")}
-                                </Link>
-                                <img src={logoRect} alt="La faim des temps logo-rect-img" className='mt-10 md:hidden' />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                            <InputError message={errors.password_confirmation} className="mt-2" />
+                                        </div>
+
+                                        <div className="flex items-center justify-center mt-10">
+                                            <PrimaryButton className="ms-4 !bg-[#0844A4] hover:!bg-gray-600" disabled={processing}>
+                                                {t("Compte.inscription")}
+                                            </PrimaryButton>
+                                        </div>
+                                    </form>
+                                    <Link
+                                        href={route('login')}
+                                        className="w-fit mt-3 p-3 underline text-sm text-[#0844A4] hover:text-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 justify-self-center md:justify-self-end"
+                                    >
+                                        {t("Compte.deja_inscrit")}
+                                    </Link>
+                                </div>
+
+                                <img src={logoRect} alt="La faim des temps logo-rect-img" className='mt-10 lg:hidden' />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );
