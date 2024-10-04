@@ -1,6 +1,6 @@
 export default function MainTitle() {
     return (
-        <div className='p-3'>
+        <div className='p-3 lg:hidden'>
             <hr className='bg-black h-1'/>
         </div>
     )

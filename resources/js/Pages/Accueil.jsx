@@ -2,10 +2,10 @@ import TitleSection from '@/Components/TitleSection';
 import { Link, Head } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import AccueilImg from '@/Components/AccueilImg';
+import HeadWithImage from '@/Components/HeadWithImage';
 
 import ferme from '../../../public/img/ferme.jpg'
 import assiette from '../../../public/img/assiette.jpg'
-
 
 export default function Accueil() {
 
@@ -15,7 +15,15 @@ export default function Accueil() {
         <>
             <Head title="Accueil"/>
 
-            <div className='flex h-[37rem] lg:h-[48rem] bg-[url("img/accueil.jpg")] bg-cover'>
+            <HeadWithImage
+                imgFile="accueil.jpg"
+                title="Votre option traiteur et plats cuisinés au Centro"
+                button={true}
+                buttonText="Menu de la semaine"
+                path="/menu"
+            />
+
+            {/* <div className='flex h-[37rem] lg:h-[48rem] bg-[url("img/accueil.jpg")] bg-cover'>
                 <div className='bg-white py-16 bg-opacity-75 my-auto top-24 w-full lg:py-10'>
                     <h1 className='w-80 m-auto font-serif text-[#04203f] leading-tight text-center text-5xl lg:w-[42rem]'>Votre option traiteur et plats cuisinés au Centro</h1>
                     <div className='flex justify-center'>
@@ -24,7 +32,7 @@ export default function Accueil() {
                         </Link>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className='bg-[#04203f] py-12 px-8'>
                 <h2 className='font-serif text-white text-center text-4xl font-medium mb-8 px-4 h-'>

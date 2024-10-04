@@ -1,5 +1,6 @@
 export default function SectionTitle(props) {
-    return(
-        <h2 className="text-center text-xl font-extrabold angkor-regular">{props.title}</h2>
+    console.log(props);
+    return (
+        <h2 className={`text-${props.textAlignment} text-xl font-extrabold angkor-regular lg:col-span-6 lg:text-4xl`}>{props.title}</h2>
     );
 }
