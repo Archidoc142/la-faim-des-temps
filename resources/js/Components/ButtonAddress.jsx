@@ -1,7 +1,9 @@
 import { useForm } from "@inertiajs/react"
+import { useTranslation } from "react-i18next"
 
 export default function ButtonAddress({ adresse, nom, setContentBox, setAdresse }) {
 
+    const [t, i18n] = useTranslation("global")
     const { delete: destroy } = useForm()
 
     const handleAdresseChange = () => {
@@ -11,7 +13,7 @@ export default function ButtonAddress({ adresse, nom, setContentBox, setAdresse 
 
     const submit = (e) => {
         e.preventDefault()
-        if (confirm('Êtes-vous sûr de vouloir supprimer cette adresse ?')) {
+        if (confirm(t("Panier.alertSuccess"))) {
             destroy(`/adresse/${adresse.id}`)
         }
     }
