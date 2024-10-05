@@ -72,6 +72,11 @@
         "info" : "An amount applies to delivery on orders under $60 in the Sherbrooke area.",
         "add" : "Add an address",
         "alertSuccess" : "Are you sure you want to delete this address?",
-        "flashDelete" : "The item has been deleted from the cart"
+        "flashDelete" : "The item has been deleted from the cart",
+        "addAddressTitle" : "Adding a new address",
+        "civic" : "Civic number",
+        "rue" : "Street name",
+        "app" : "Apartment number (optional)",
+        "postal" : "Postal code"
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Secteur;
 use App\Models\SecteurCode;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,7 +22,7 @@ class AdressesResource extends JsonResource
 
         // secteur / 1 - Fleurimont / 2 - Rock Forest / 3 - Centre-ville Sherbrooke
         if ($secteur == 3) {
-            $montant = 6;
+            $montant = 7;
         } else {
             $montant = 10;
         }

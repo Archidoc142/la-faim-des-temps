@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-export default function PanierFinal({ prix, adresse, setBoxVisible }) {
+export default function PanierFinal({ prix, adresse, setContentBox, setBoxVisible }) {
 
     const [t, i18n] = useTranslation("global")
 
@@ -12,11 +12,22 @@ export default function PanierFinal({ prix, adresse, setBoxVisible }) {
     return (
         <>
             <div className="relative text-center">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" className="cursor-pointer absolute right-0" onClick={() => setBoxVisible(false)}>
-                    <path d="M18 6 L6 18 M6 6 L18 18"></path>
-                </svg>
+                <div className="flex gap-2 absolute right-0">
+                    <button onClick={() => setContentBox(0)}>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" >
+                            <path d="M19 12H6M12 5l-7 7 7 7" />
+                        </svg>
+                    </button>
 
-                <h2 className="font-bold text-3xl py-6">{t("Panier.pass")}</h2>
+                    <button onClick={() => setBoxVisible(false)}>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" >
+                            <path d="M18 6 L6 18 M6 6 L18 18"></path>
+                        </svg>
+                    </button>
+                </div>
+
+
+                <h2 className="font-bold text-3xl pb-6 pt-10">{t("Panier.pass")}</h2>
 
 
                 <p className="font-bold text-lg pb-4 mx-10 mb-6 border-b-black border-b-[1px]">{t("Panier.finaliser")}</p>
@@ -58,7 +69,7 @@ export default function PanierFinal({ prix, adresse, setBoxVisible }) {
                     />
                 </div>
 
-                <button className="font-bold text-white bg-[#06306D] rounded px-4 py-[5px]">
+                <button className="font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-[5px]">
                     {t("Panier.terminer")}
                 </button>
             </div>

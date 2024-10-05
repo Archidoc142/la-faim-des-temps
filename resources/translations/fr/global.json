@@ -72,6 +72,11 @@
         "info" : "Un montant s'applique à la livraison sur les commandes en dessous de 60$ au secteur de Sherbrooke.",
         "add" : "Ajouter une adresse",
         "alertSuccess" : "Êtes-vous sûr de vouloir supprimer cette adresse ?",
-        "flashDelete" : "Le plat a été retiré du panier"
+        "flashDelete" : "Le plat a été retiré du panier",
+        "addAddressTitle" : "Ajout d'une nouvelle adresse",
+        "civic" : "Numéro civique",
+        "rue" : "Nom de rue",
+        "app" : "Numéro d'appartement (facultaif)",
+        "postal" : "Code postal"
     }
 }

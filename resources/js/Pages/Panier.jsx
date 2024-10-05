@@ -83,7 +83,11 @@ export default function Panier({ produits, adresses }) {
                         </button>
                     </div>
 
-                    {boxVisible ? <PanierFinalisation prix={total} setBoxVisible={setBoxVisible} adresses={adresses}/> : null}
+                    {boxVisible ? <PanierFinalisation
+                                        prix={total}
+                                        setBoxVisible={setBoxVisible}
+                                        adresses={adresses}
+                                    /> : null}
                 </>
 
                 : <p className='text-[#929292] font-bold text-xl'>{t("Panier.vide")}</p>

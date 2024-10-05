@@ -55,5 +55,6 @@ Route::get('/valeurs', function () {
 })->name('valeurs');
 
 Route::delete('/adresse/{id}', [AdresseController::class, 'destroy']);
+Route::post('/adresse', [AdresseController::class, 'store']);
 
 require __DIR__.'/auth.php';
