@@ -9,7 +9,7 @@ import action from '../../../public/icons/action.png';
 
 export default function Menu({ formats, langFormats, tarifs, produits }) {
 
-    const menu = produits.data.filter((p) => p.dansMenu);
+    const menu = produits.data.filter((p) => p.dansMenu)
 
     const { data, setData, post, processing, errors, reset } = useForm([
         {
@@ -50,6 +50,19 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
         post(route('menu.update'));
     };
 
+    useEffect(() => {
+        if (Object.keys(errors).length > 0) {
+            let errorMsg = ""
+            Object.keys(errors).forEach((k) => {
+                errorMsg += "- " + errors[k] + "\n";
+            })
+
+            alert(errorMsg);
+            console.log(errors);
+        }
+
+    }, [errors])
+
     const user = usePage().props.auth.user;
 
     //console.log(menu, formats, tarifs);
@@ -64,29 +77,41 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
     let d = new Date();
 
     const optionsDel = { day: 'numeric', month: 'long' };
-    const optionsAdmin = { weekday: 'long', day: 'numeric', month: 'long' };
+    const optionsMenu = { weekday: 'long', day: 'numeric', month: 'long' };
     const tempDate = d.toLocaleDateString('fr-FR', optionsDel);
-    const [dateDelivery, setDateDelivery] = useState(tempDate)
-    const [dateAdmin, setDateAdmin] = useState(tempDate)
 
-    const [editMode, setEditMode] = useState(false)
+    const [dateDelivery, setDateDelivery] = useState(tempDate);
+    const [dateMenuVend, setDateMenuVend] = useState(tempDate);
+    const [dateMenuLund, setDateMenuLund] = useState(tempDate);
+    const [ajd, setAjd] = useState(tempDate);
+
+    const [editMode, setEditMode] = useState(false);
 
     // Format la date pour avoir le prochain vendredi
     useEffect(() => {
-        /* if (d.getDay() == 1 && d.getHours() > 15) {
-             d.setDate(d.getDate() + (((5 + 7 - d.getDay()) % 7) || 7));
-         } else {*/
+        setAjd(d.toLocaleDateString('fr-FR', optionsMenu))
+
         d.setDate(d.getDate() + (5 + 7 - d.getDay()) % 7);
-        //}
 
         if (i18n.language === 'fr') {
             setDateDelivery(d.toLocaleDateString('fr-FR', optionsDel))
-            setDateAdmin(d.toLocaleDateString('fr-FR', optionsAdmin))
+            setDateMenuVend(d.toLocaleDateString('fr-FR', optionsMenu))
         } else {
             setDateDelivery(d.toLocaleDateString('en-EN', optionsDel))
-            setDateAdmin(d.toLocaleDateString('en-EN', optionsAdmin))
+            setDateMenuVend(d.toLocaleDateString('en-EN', optionsMenu))
         }
+
+        d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
+
+        if (i18n.language === 'fr') {
+            setDateMenuLund(d.toLocaleDateString('fr-FR', optionsMenu))
+        } else {
+            setDateMenuLund(d.toLocaleDateString('en-EN', optionsMenu))
+        }
+
     }, [i18n.language])
+
+
 
 
 
@@ -176,66 +201,100 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
 
             {/*Menu de la semaine*/}
             <div className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7'>
+
+                {user && user.data.role == "admin" ? <p className='font-semibold italic text-white text-end text-lg lg:mr-[-2.5em]'>*Ce menu s'affichera du {dateMenuVend} au {dateMenuLund}</p>
+                    : null}
+
+
+
                 <form onSubmit={submit}>
 
-                <h2 className='text-[#FFD8AD] text-center my-8 imperial text-6xl md:text-7xl lg:text-8xl md:my-12'>{t("Menu.menu-titre")}</h2>
-                { user && user.data.role == "admin" ?
-                <>
-                    {editMode ?
-                        <button type='submit' className='text-white bg-blue-300'>Enregistrer</button>
-                        : <button type='button' className='text-white bg-blue-300' onClick={(e) => {e.preventDefault(); setEditMode(true)}}>Modifier le menu</button>
-                    }
-                </> : null
-                }
+                    <h2 className='text-[#FFD8AD] text-center my-8 imperial text-6xl md:text-7xl lg:text-8xl md:my-12'>{t("Menu.menu-titre")}</h2>
+                    {/*user && user.data.role == "admin" ?
+                        <>
+                            {editMode ?
+                                <button type='submit' className='text-white bg-blue-300'>Enregistrer</button>
+                                : <button type='button' className='text-white bg-blue-300' onClick={(e) => { e.preventDefault(); setEditMode(true) }}>Modifier le menu</button>
+                            }
+                        </> : null
+                    */}
 
-                <div className='m-auto justify-center pb-10 grid gap-10 grid-cols-1 md:grid-cols-2 max-w-[1000px]'>
-                    {/* SOUPE + PLAT DU CHEF */}
 
-                    <MenuBase
-                        produit={menu[0]}
-                        putPanier={putPanier}
-                        editable={editMode}
-                        setData={setData}
-                        data={data}
-                    />
-                    <MenuBase
-                        produit={menu[1]}
-                        putPanier={putPanier}
-                        editable={editMode}
-                        setData={setData}
-                        data={data}
-                    />
+                    <div className='max-w-[1000px] flex justify-end mb-5'>
+                        {user && user.data.role == "admin" ?
+                            <>
+                                {editMode ?
+                                    <div className="flex items-center gap-5">
+                                        <svg onClick={() => setEditMode(false)} fill="#ffffff" height="200px" width="200px" className="h-fit max-w-8 hover:fill-[#BB285C] cursor-pointer" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 460.775 460.775" xmlSpace="preserve" stroke="none" >
+                                            <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z" />
+                                        </svg>
 
-                </div>
-                {/* PLATS PRINCIPAUX */}
-                <div className='border-2 border-[#EBEBEB] rounded-2xl p-7 justify-center text-center w-[100%] md:max-w-[1000px] md:m-auto'>
-                    <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl lg:text-6xl'>{t("Menu.plat-principaux")}</h3>
+                                        <button type='submit'>
+                                            <svg width="118px" height="118px" className="h-fit max-w-10  hover:fill-[#BB285C]" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" stroke="none">
+                                                <path fillRule="evenodd" clipRule="evenodd" d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z" fill="#fffff" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    :
+                                    <svg onClick={() => setEditMode(true)} width="200px" height="200px" viewBox="0 0 24 24" className="h-fit max-w-10 hover:stroke-[#BB285C] hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff" >
+                                        <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                                        <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#fffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                                    </svg>
+                                }
+                            </> : null
+                        }
+                    </div>
 
-                    {
-                        menu.map((produit, i) => (
-                            <div key={produit.id}>{produit.id > 2 ?
-                                <MenuPrinc
-                                    produit={menu[menu.findIndex(data => data.id === produit.id)]}
-                                    putPanier={putPanier}
-                                    editable={editMode}
-                                    setData={setData}
-                                    categories={produits.data}
-                                    data={data}
-                                    formIndex={i+1}
-                                    key={produit.id}
-                                />
-                                : ""}
-                            </div>
-                        ))
-                    }
-                </div>
 
-                <Link
-                    href='/panier'
-                    className="block m-auto w-fit py-4 px-12 mt-10 md:mt-12 lg:mt-20  text-[#BB285C] font-bold bg-transparent border-2 border-[#BB285C] hover:bg-[#BB285C] hover:text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 justify-self-center"
-                >
-                    {t("Menu.go-panier")}
-                </Link>
+
+                    <div className='m-auto justify-center pb-10 grid gap-10 grid-cols-1 md:grid-cols-2 max-w-[1000px]'>
+                        {/* SOUPE + PLAT DU CHEF */}
+
+                        <MenuBase
+                            produit={menu[0]}
+                            putPanier={putPanier}
+                            editable={editMode}
+                            setData={setData}
+                            data={data}
+                        />
+                        <MenuBase
+                            produit={menu[1]}
+                            putPanier={putPanier}
+                            editable={editMode}
+                            setData={setData}
+                            data={data}
+                        />
+
+                    </div>
+                    {/* PLATS PRINCIPAUX */}
+                    <div className='border-2 border-[#EBEBEB] rounded-2xl p-7 justify-center text-center w-[100%] md:max-w-[1000px] md:m-auto'>
+                        <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl lg:text-6xl'>{t("Menu.plat-principaux")}</h3>
+
+                        {
+                            menu.map((produit, i) => (
+                                <div key={produit.id}>{produit.id > 2 ?
+                                    <MenuPrinc
+                                        produit={menu[menu.findIndex(data => data.id === produit.id)]}
+                                        putPanier={putPanier}
+                                        editable={editMode}
+                                        setData={setData}
+                                        categories={produits.data}
+                                        data={data}
+                                        formIndex={i + 1}
+                                        key={produit.id}
+                                    />
+                                    : ""}
+                                </div>
+                            ))
+                        }
+                    </div>
+
+                    <Link
+                        href='/panier'
+                        className="block m-auto w-fit py-4 px-12 mt-10 md:mt-12 lg:mt-20  text-[#BB285C] font-bold bg-transparent border-2 border-[#BB285C] hover:bg-[#BB285C] hover:text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 justify-self-center"
+                    >
+                        {t("Menu.go-panier")}
+                    </Link>
                 </form>
             </div>
         </div>

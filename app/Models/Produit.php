@@ -19,9 +19,7 @@ class Produit extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'dansMenu',
-        'nom',
-        'description'
+        'dansMenu'
     ];
 
     public function lang($lang)

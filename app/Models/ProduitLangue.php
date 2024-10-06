@@ -12,6 +12,10 @@ class ProduitLangue extends Pivot
     public $incrementing = true;
     public $timestamps = false;
 
+    protected $fillable = [
+        'description'
+    ];
+
     public function produit(): BelongsTo
     {
         return $this->belongsTo(Produit::class, 'id_produit');

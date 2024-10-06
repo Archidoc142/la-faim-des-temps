@@ -10,10 +10,11 @@ use App\Models\FormatLangue;
 use App\Models\Produit;
 use App\Models\ProduitLangue;
 use App\Models\TarifLivraison;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
-
+use PhpParser\Node\Expr\Cast\Object_;
 
 class ProduitController extends Controller
 {
@@ -22,17 +23,10 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        //
-        //$produits = Produit::with('description', 'allFormats')->get();
         $tarifs = TarifLivraison::all();
         $formats = Format::all();
         $langFormats = FormatLangue::all();
         $categories = Produit::all();
-      /*  dump($produits);
-        dump($formats);
-        dump($prodDesc);
-        dump($langFormats);*/
-
 
         return Inertia::render('Menu', [
             'formats' => $formats,
@@ -80,49 +74,94 @@ class ProduitController extends Controller
      */
     public function update(Request $request, Produit $produit)
     {
-        dd($request);
-        //$produits = $request;
+        $menu_pre_changement = DB::table('produit')->where('dansMenu', true)->get();
+        $nouveau_menu = [];
+        $all_categories = [];
 
-        /*$rules = [
-            'prenom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
-            'nom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
-            'telephone' => 'nullable|numeric|digits:10'
-        ];
+        $req = $request->request;
 
-        $messages = [
-            'nom.required' => 'Veuillez entrer un nom de famille.',
-            'nom.max' => 'Le nom de famille ne peut pas dépasser 64 caractères.',
-            'nom.regex' => 'Le format du nom de famille entré est invalide.',
 
-            'prenom.required' => 'Veuillez entrer un prénom.',
-            'prenom.max' => 'Le prénom ne peut pas dépasser 64 caractères.',
-            'prenom.regex' => 'Le format du prénom entré est invalide.',
-
-            'telephone.digits' => 'Le numéro de téléphone doit contenir 10 chiffres.',
-            'telephone.numeric' => 'Le numéro de téléphone doit contenir 10 chiffres.'
-        ];
-
-        if($client->email != $request->email)
-        {
-            $messages['email.required'] = 'Veuillez entrer un courriel.';
-            $messages['email.email'] = 'Veuillez entrer un courriel valide.';
-            $messages['email.regex'] = 'Le format du courriel entré est invalide.';
-            $messages['email.unique'] = 'Le courriel appartient déjà à un autre client.';
+        for ($i=0; $i < sizeof($req); $i++) {
+            array_push($all_categories, $request->input($i)["id"]);
         }
 
-        $validation = Validator::make($request->all(), $rules, $messages);
+        if(count($request->request) !== count(array_unique($all_categories)))
+            return back()->withErrors("Une ou plusieurs catégories sont séléctionnées plus d'une fois.");
 
-        if ($validation->fails())
+        //Validation de tous les champs pour chaque produit du JSON
+        for ($i = 0; $i < sizeof($req); $i++) {
+            $r_prod = $request->input($i);
+
+            $rules = [
+                'id' => 'required',
+                'fr' => 'required',
+                'en' => 'required'
+            ];
+
+            $messages = [
+                'id.required' => 'Erreur : L\'id d\'un produit n\'a pas été envoyé.',
+                'fr.required' => 'Une description française est manquante.',
+                'en.required' => 'Une description anglaise est manquante.'
+            ];
+
+            $validation = Validator::make($r_prod, $rules, $messages);
+
+            if ($validation->fails())
+                return back()->withErrors($validation->errors())->withInput();
+        }
+
+       /* if ($validation->fails())
             return back()->withErrors($validation->errors())->withInput();
+        if ($validation->fails())
+            return back()->withErrors($validation->errors())->withInput();*/
 
-        $client->nom = $request->nom;
-        $client->prenom = $request->prenom;
-        $client->email = $request->email;
-        $client->telephone = $request->telephone;
 
-        $client->save();
+        //Modification de la BD après avoir vérifier les champs
+        for ($i = 0; $i < sizeof($req); $i++) {
+            $r_prod = $request->input($i);
 
-        return redirect("/menu" . $request->page);*/
+            //mettre le produit dans le menu
+            DB::table("produit")
+                ->where('id', $r_prod["id"])
+                ->update(['dansMenu' => 1]);
+
+            array_push($nouveau_menu, $r_prod["id"]);
+
+            //modifier le produit en français
+            DB::table("produit_langue")
+                ->where(
+                    [
+                        ["id_produit", "=", $r_prod["id"]],
+                        ['id_langue', "=", "1"]
+                    ]
+                )
+                ->update([
+                    'id_produit' => $r_prod["id"],
+                    'description' => $r_prod["fr"]
+                ]);
+
+            //modifier le produit en anglais
+            DB::table("produit_langue")
+                ->where([
+                    ["id_produit", "=", $r_prod["id"]],
+                    ['id_langue', "=", "2"]
+                ])
+                ->update([
+                    'id_produit' => $r_prod["id"],
+                    'description' => $r_prod["en"]
+                ]);
+        }
+
+        // enlever du menu les produits de trop
+        for ($i = 0; $i < sizeof($menu_pre_changement); $i++) {
+            if (!in_array($menu_pre_changement[$i]->id, $nouveau_menu)) {
+                DB::table('produit')
+                    ->where('id', $menu_pre_changement[$i]->id)
+                    ->update(['dansMenu' => 0]);
+            }
+        }
+
+        return redirect("/menu" . $request->page);
     }
 
     /**
