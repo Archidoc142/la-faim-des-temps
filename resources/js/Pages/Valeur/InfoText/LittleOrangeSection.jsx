@@ -9,12 +9,12 @@ export default function LittleOrangeSection(props) {
     return(
         <div className={`py-5 ${props.hidden ? 'hidden' : ''}`}>
             <img
-                className={`w-1/3 mx-auto py-5 ${props.imgIn ? 'hidden' : ''} lg:absolute lg:z-0 lg:w-48 lg:top-36 lg:-rotate-8`}
+                className={`w-1/3 mx-auto py-5 ${props.imgIn ? 'hidden' : ''} lg:absolute lg:z-0 lg:w-48 lg:top-1/3 lg:ml-24 lg:-rotate-8`}
                 src={"img/"+props.image}
                 alt={props.image+" picture"}
             />
 
-            <div className="bg-[#E2A76C] p-4 m-5 lg:relative lg:z-10 lg:grid lg:grid-cols-6 lg:m-0 lg:w-1/3 lg:p-5 lg:ml-20">
+            <div className="bg-[#E2A76C] p-4 m-5 lg:relative lg:z-10 lg:grid lg:grid-cols-6 lg:m-0 lg:w-1/3 lg:p-5 lg:ml-48 lg:mt-20">
                 <img
                     className={`w-1/3 mx-auto py-5 ${props.imgIn ? '' : 'hidden'} lg:hidden`}
                     src={"img/"+props.image}
