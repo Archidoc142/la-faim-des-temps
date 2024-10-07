@@ -14,7 +14,7 @@ export default function Producteur( { producteurs }) {
             <Head title="Nos Producteurs" />
 
             <HeadWithImage
-                imgFile="accueil.jpg"
+                imgFile="/img/producteurBack.jpg"
                 title="Nos Producteurs"
                 button={false}
                 buttonText="none"

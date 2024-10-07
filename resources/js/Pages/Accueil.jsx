@@ -6,7 +6,6 @@ import HeadWithImage from '@/Components/HeadWithImage';
 
 import ferme from '../../../public/img/ferme.jpg'
 import assiette from '../../../public/img/assiette.jpg'
-import accueil from '../../../public/img/accueil.jpg'
 
 export default function Accueil() {
 
@@ -15,8 +14,16 @@ export default function Accueil() {
     return (
         <>
             <Head title="Accueil" />
-
-            <div className='flex h-[37rem] lg:h-[48rem] bg-[url("../../../img/accueil.jpg")] bg-cover'>
+{/* this dont work */}
+            <HeadWithImage
+                imgFile="/img/accueil.jpg"
+                title="Votre option traiteur et plats cuisinés au Centro "
+                button={true}
+                buttonText="Menu de la semaine"
+                path="/menu"
+            />
+            {/* This works
+             <div className='flex h-[37rem] lg:h-[48rem] bg-[url("../../../img/accueil.jpg")] bg-cover'>
                 <div className='bg-white py-16 bg-opacity-75 my-auto w-full lg:py-10'>
                     <h1 className='w-80 m-auto font-serif text-[#04203f] leading-tight text-center text-5xl lg:w-[42rem]'>Votre option traiteur et plats cuisinés au Centro</h1>
                     <div className='flex justify-center'>
@@ -25,7 +32,7 @@ export default function Accueil() {
                         </Link>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
 
             <div className='bg-[#04203f] py-12 px-8'>
