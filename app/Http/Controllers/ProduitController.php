@@ -94,14 +94,20 @@ class ProduitController extends Controller
 
             $rules = [
                 'id' => 'required',
-                'fr' => 'required',
-                'en' => 'required'
+                'fr' => 'required|max:255',
+                'en' => 'required|max:255'
             ];
 
             $messages = [
                 'id.required' => 'Erreur : L\'id d\'un produit n\'a pas été envoyé.',
+
                 'fr.required' => 'Une description française est manquante.',
-                'en.required' => 'Une description anglaise est manquante.'
+                'fr.max' => 'Une description française dépasse les 255 caractères maximums.',
+              //  'fr.regex' => 'Une description française est invalide. (Doit commencer par une majuscule et ne contenir que des lettres)',
+
+                'en.required' => 'Une description anglaise est manquante.',
+                'en.max' => 'Une description anglaise dépasse les 255 caractères maximums.',
+              //  'en.regex' => 'Une description anglaise est invalide. (Doit commencer par une majuscule et ne contenir que des lettres)'
             ];
 
             $validation = Validator::make($r_prod, $rules, $messages);
