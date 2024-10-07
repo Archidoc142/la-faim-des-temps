@@ -15,8 +15,8 @@ class SecteurSeeder extends Seeder
     {
         DB::table('secteur')->insert([
             ['nom' => 'Fleurimont'],
-            ['nom' => 'Rock Forest'],
             ['nom' => 'Sherbrooke'],
+            ['nom' => 'Rock Forest'],
         ]);
     }
 }
