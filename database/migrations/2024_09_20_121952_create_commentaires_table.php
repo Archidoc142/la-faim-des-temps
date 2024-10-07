@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamp('date_heure_publication');
             $table->integer('note');
             $table->string('commentaire', length: 255);
-            $table->boolean('masque');
+            $table->boolean('masque')->default(false);
             $table->bigInteger('id_utilisateur')->unsigned();
             $table->timestamps();
         });

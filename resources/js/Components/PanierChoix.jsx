@@ -7,7 +7,7 @@ export default function PanierChoix({ setContentBox, setBoxVisible, setAdresse }
     const [t, i18n] = useTranslation("global")
 
     const handleCueilletteChoice = () => {
-        setAdresse({id: 0, nom:"297 Rue King Ouest", montant: 0, code_postal: ""})
+        setAdresse({nom:null, montant: 0, code_postal: ""})
         setContentBox(2)
     }
 

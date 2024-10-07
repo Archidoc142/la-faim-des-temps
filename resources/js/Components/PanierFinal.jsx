@@ -4,6 +4,33 @@ export default function PanierFinal({ prix, adresse, setContentBox, setBoxVisibl
 
     const [t, i18n] = useTranslation("global")
 
+    // AJOUTER CETTE FONCTION ET SUPPRIMER LE COM
+    // SEULEMENT SI L'ADRESSE N'EST PAS DANS LA BD
+    const addAdresseToDB = () => {
+        const adresseData = {
+            no_civique: data.no_civique,
+            rue: data.rue,
+            appartement: data.appartement,
+            code_postal: data.code_postal,
+        };
+
+        axios.post('/adresse', adresseData)
+            .then(response => {
+                // YAY
+                // On peut afficher les données renvoyées... but it's useless
+            })
+            .catch(error => {
+                if (error.response && error.response.data.errors) {
+                    let errorMessages = '';
+                    Object.keys(error.response.data.errors).forEach((key) => {
+                        errorMessages += `${error.response.data.errors[key].join(', ')}\n`;
+                    });
+
+                    alert(`Erreur lors de l'ajout de l'adresse :\n${errorMessages}`);
+                }
+            });
+    }
+
     let livraison = adresse.montant
     if (prix >= 60 && livraison === 6) {
         livraison = 0
@@ -52,7 +79,7 @@ export default function PanierFinal({ prix, adresse, setContentBox, setBoxVisibl
                 </div>
 
                 {
-                    adresse.id != 0 ?
+                    adresse.nom ?
                         <div>
                             <h3 className="font-bold text-3xl mb-2">{t("Panier.adresse")}:</h3>
                             <p>{adresse.nom + " (" + adresse.code_postal + ")"}</p>
