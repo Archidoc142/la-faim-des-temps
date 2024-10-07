@@ -47,7 +47,7 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('menu.update'));
+        post(route('menu.update'), {preserveScroll: true });
     };
 
     useEffect(() => {
@@ -86,6 +86,9 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
     const [ajd, setAjd] = useState(tempDate);
 
     const [editMode, setEditMode] = useState(false);
+
+    //console.log();
+
 
     // Format la date pour avoir le prochain vendredi
     useEffect(() => {
@@ -220,7 +223,7 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
                     */}
 
 
-                    <div className='max-w-[1000px] flex justify-end mb-5'>
+                    <div className='max-w-[1000px] flex justify-end mb-5 m-auto'>
                         {user && user.data.role == "admin" ?
                             <>
                                 {editMode ?
