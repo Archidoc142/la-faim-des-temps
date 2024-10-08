@@ -12,6 +12,7 @@ export default function Header() {
     const user = usePage().props.auth.user;
 
     let d = new Date();
+    const [message, setMessage] = useState()
 
     const options = { weekday: 'long', day: 'numeric', month: 'long' };
     const tempDate = d.toLocaleDateString('fr-FR', options) + ' à 16:00';
@@ -20,16 +21,26 @@ export default function Header() {
     // Format la date pour avoir le prochain lundi
     // Si langue = fr - langue affiché en (fr)
     useEffect(() => {
-        if (d.getDay() == 1 && d.getHours() > 15) {
+        if (d.getDay() >= 6 || (d.getDay() == 5 && d.getHours() >= 12) || (d.getDay() == 1 && d.getHours() <= 16)) {
+            // Peut commander
+            setMessage(t("Header.date"))
             d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
-        } else {
-            d.setDate(d.getDate() + (1 + 7 - d.getDay()) % 7);
-        }
 
-        if (i18n.language === 'fr') {
-            setDate(d.toLocaleDateString('fr-FR', options) + ' à 16:00')
+            if (i18n.language === 'fr') {
+                setDate(d.toLocaleDateString('fr-FR', options) + ' à 16:00')
+            } else {
+                setDate(d.toLocaleDateString('en-EN', options) + ' at 16:00')
+            }
         } else {
-            setDate(d.toLocaleDateString('en-EN', options) + ' at 16:00')
+            // Ne peut pas commander
+            setMessage(t("Header.nextMenu"))
+            d.setDate(d.getDate() + (((5 + 7 - d.getDay()) % 7) || 7));
+
+            if (i18n.language === 'fr') {
+                setDate(d.toLocaleDateString('fr-FR', options) + ' à 12:00')
+            } else {
+                setDate(d.toLocaleDateString('en-EN', options) + ' at 12:00')
+            }
         }
     }, [i18n.language])
 
@@ -66,6 +77,7 @@ export default function Header() {
                             <Link className={`text-xs xl:text-base ${url === '/valeurs' ? 'text-white' : false}`} href='/valeurs'><strong>{t("Header.valeurs")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/producteurs' ? 'text-white' : false}`} href='/producteurs'><strong>{t("Header.producteurs")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/histoire' ? 'text-white' : false}`} href='/histoire'><strong>{t("Header.histoire")}</strong></Link>
+                            {user ? <Link className={`text-xs xl:text-base ${url === '/avis' ? 'text-white' : false}`} href='/avis'><strong>{t("Header.avis")}</strong></Link> : null}
                         </div>
                     </div>
 
@@ -114,14 +126,14 @@ export default function Header() {
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/valeurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/valeurs'>{t("Header.valeurs")}</Link>
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/producteurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/producteurs'>{t("Header.producteurs")}</Link>
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/histoire' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/histoire'>{t("Header.histoire")}</Link>
-                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/avis' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/avis'>{t("Header.avis")}</Link>
+                {user ? <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/avis' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/avis'>{t("Header.avis")}</Link> : null}
             </div>
 
             {/* flash*/}
 
             { !url.includes("/admin") ?
                 <div className='py-3 text-sm text-white bg-[#BB285C] text-center'>
-                    <p><strong>{t("Header.date")}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
+                    <p><strong>{message}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
                 </div> : ""
             }
         </header>
