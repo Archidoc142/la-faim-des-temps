@@ -13,7 +13,8 @@ class QuickBooksController extends Controller
 {
     public function index(Request $request)
     {
-        $this->refreshTokens();
+        if(QBToken::exists()) 
+            $this->refreshTokens();
 
         $OAuth2LoginHelper = $this->initOAuth2LoginHelper();
 
