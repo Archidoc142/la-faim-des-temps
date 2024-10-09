@@ -79,5 +79,11 @@
         "rue" : "Nom de rue",
         "app" : "Numéro d'appartement (facultaif)",
         "postal" : "Code postal"
+    },
+    "Avis": {
+        "addAvis" : "Ajouter un avis",
+        "avisDesc" : "Votre avis est important pour nous.\nN'hésitez pas à partager votre expérience\navec nous et avec les visiteurs de notre site!",
+        "comment" : "Commentaire",
+        "send" : "Envoyer"
     }
 }

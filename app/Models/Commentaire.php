@@ -12,12 +12,12 @@ class Commentaire extends Model
 
     protected $table = 'commentaire';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
-        'date_heure_publication',
         'note',
         'masque',
-        'id_utlistateur'
+        'commentaire',
+        'id_utilistateur'
     ];
 
     public function utilisateur(): BelongsTo

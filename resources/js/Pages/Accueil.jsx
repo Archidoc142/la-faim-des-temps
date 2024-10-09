@@ -14,7 +14,7 @@ export default function Accueil() {
     return (
         <>
             <Head title="Accueil" />
-{/* this dont work */}
+            {/* this dont work */}
             <HeadWithImage
                 imgFile="/img/accueil.jpg"
                 title="Votre option traiteur et plats cuisinés au Centro "

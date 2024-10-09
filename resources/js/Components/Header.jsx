@@ -13,6 +13,7 @@ export default function Header() {
 
     let d = new Date();
     const [message, setMessage] = useState()
+    const noRedLabelURL = ['/avis', '/admin']
 
     const options = { weekday: 'long', day: 'numeric', month: 'long' };
     const tempDate = d.toLocaleDateString('fr-FR', options) + ' à 16:00';
@@ -77,7 +78,7 @@ export default function Header() {
                             <Link className={`text-xs xl:text-base ${url === '/valeurs' ? 'text-white' : false}`} href='/valeurs'><strong>{t("Header.valeurs")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/producteurs' ? 'text-white' : false}`} href='/producteurs'><strong>{t("Header.producteurs")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/histoire' ? 'text-white' : false}`} href='/histoire'><strong>{t("Header.histoire")}</strong></Link>
-                            {user ? <Link className={`text-xs xl:text-base ${url === '/avis' ? 'text-white' : false}`} href='/avis'><strong>{t("Header.avis")}</strong></Link> : null}
+                            {user ? user.data.role !== "admin" ? <Link className={`text-xs xl:text-base ${url === '/avis' ? 'text-white' : false}`} href='/avis'><strong>{t("Header.avis")}</strong></Link> : null : null}
                         </div>
                     </div>
 
@@ -126,12 +127,11 @@ export default function Header() {
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/valeurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/valeurs'>{t("Header.valeurs")}</Link>
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/producteurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/producteurs'>{t("Header.producteurs")}</Link>
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/histoire' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/histoire'>{t("Header.histoire")}</Link>
-                {user ? <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/avis' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/avis'>{t("Header.avis")}</Link> : null}
+                {user ? user.data.role !== "admin" ? <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/avis' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/avis'>{t("Header.avis")}</Link> : null : null}
             </div>
 
             {/* flash*/}
-
-            { !url.includes("/admin") ?
+            { !noRedLabelURL.some(str => url.startsWith(str)) ?
                 <div className='py-3 text-sm text-white bg-[#BB285C] text-center'>
                     <p><strong>{message}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
                 </div> : ""

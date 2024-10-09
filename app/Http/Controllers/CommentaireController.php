@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commentaire;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CommentaireController extends Controller
@@ -29,7 +30,13 @@ class CommentaireController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Commentaire::create([
+            'note' => $request->note,
+            'commentaire' => $request->comment,
+            'id_utilistateur' => Auth::id()
+        ]);
+
+        return redirect('/');
     }
 
     /**
