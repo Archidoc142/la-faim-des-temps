@@ -10,7 +10,8 @@
         "histoire": "Notre histoire",
         "avis": "Votre avis",
         "date": "DATE LIMITE POUR COMMANDER :",
-        "connexion" : "Se connecter"
+        "connexion" : "Se connecter",
+        "nextMenu" : "SORTIE DU PROCHAIN MENU :"
     },
     "Compte": {
         "titre" : "PREMIÈRE UTILISATION?",

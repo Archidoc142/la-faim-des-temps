@@ -10,7 +10,8 @@
         "histoire": "Our story",
         "avis": "Your opinion",
         "date": "LIMIT DATE TO ORDER :",
-        "connexion" : "Login"
+        "connexion" : "Login",
+        "nextMenu" : "RELEASE OF THE NEXT MENU :"
     },
     "Compte": {
         "titre": "FIRST TIME?",

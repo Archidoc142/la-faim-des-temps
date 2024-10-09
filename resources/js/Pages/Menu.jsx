@@ -46,8 +46,8 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('menu.update'), {preserveScroll: true });
+        post(route('menu.update'), { preserveScroll: true });
+        setEditMode(false);
     };
 
     useEffect(() => {
@@ -58,7 +58,8 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
             })
 
             alert(errorMsg);
-            console.log(errors);
+
+            setEditMode(true);
         }
 
     }, [errors])
@@ -83,6 +84,7 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
     const [dateDelivery, setDateDelivery] = useState(tempDate);
     const [dateMenuVend, setDateMenuVend] = useState(tempDate);
     const [dateMenuLund, setDateMenuLund] = useState(tempDate);
+    const [dateNextVend, setDateNextVend] = useState(tempDate);
     const [ajd, setAjd] = useState(tempDate);
 
     const [editMode, setEditMode] = useState(false);
@@ -94,6 +96,16 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
     useEffect(() => {
         setAjd(d.toLocaleDateString('fr-FR', optionsMenu))
 
+        //prochain vendredi
+        d.setDate(d.getDate() + (5 + 7 - d.getDay()) % 7);
+
+        if (i18n.language === 'fr') {
+            setDateNextVend(d.toLocaleDateString('fr-FR', optionsDel))
+        } else {
+            setDateNextVend(d.toLocaleDateString('en-EN', optionsDel))
+        }
+
+        //intervalle du menu de la semaine
         d.setDate(d.getDate() + (5 + 7 - d.getDay()) % 7);
 
         if (i18n.language === 'fr') {
