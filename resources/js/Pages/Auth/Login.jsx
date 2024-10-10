@@ -27,7 +27,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <div className='h-full md:p-8 xl:px-[8rem]'>
-            <Head title="Log in" />
+            <Head title="Log in" />z
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
@@ -44,6 +44,7 @@ export default function Login({ status, canResetPassword }) {
                     <div className='p-6 2xl:px-16'>
                         <h2 className='text-center font-bold text-2xl mb-8 mt-2'>{t("Login.title1")}<br />{t("Login.title2")}</h2>
 
+                        <a href={route('google.redirect')}>Se connecter avec Google</a>
                         {/* div de la partie utile du formulaire (grise)*/}
                         <div className='bg-[#f7f6f6] rounded-md p-6 2xl:pt-10 lg:px-10 lg:pb-24'>
                             <form onSubmit={submit}>
