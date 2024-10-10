@@ -10,7 +10,8 @@
         "histoire": "Our story",
         "avis": "Your opinion",
         "date": "LIMIT DATE TO ORDER :",
-        "connexion" : "Login"
+        "connexion" : "Login",
+        "nextMenu" : "RELEASE OF THE NEXT MENU :"
     },
     "Compte": {
         "titre": "FIRST TIME?",
@@ -60,7 +61,6 @@
         "total": "Grand total",
         "pass": "Pass my order",
         "choice": "How do you want to receive your order ?",
-        "camion": "Truck",
         "cueillette" : "Picking",
         "finaliser" : "Finalize the order...",
         "article" : "Articles",
@@ -72,6 +72,18 @@
         "address" : "At which address do you want to receive your order?",
         "info" : "An amount applies to delivery on orders under $60 in the Sherbrooke area.",
         "add" : "Add an address",
-        "alertSuccess" : "Are you sure you want to delete this address?"
+        "alertSuccess" : "Are you sure you want to delete this address?",
+        "flashDelete" : "The item has been deleted from the cart",
+        "addAddressTitle" : "Adding a new address",
+        "civic" : "Civic number",
+        "rue" : "Street name",
+        "app" : "Apartment number (optional)",
+        "postal" : "Postal code"
+    },
+    "Avis": {
+        "addAvis" : "Add a comment",
+        "avisDesc" : "Your opinion is important for us. Do not hesitate to share your experience with us and with the other users of our website!",
+        "comment" : "Comment",
+        "send" : "Send"
     }
 }

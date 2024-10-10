@@ -17,7 +17,9 @@ class Adresse extends Model
         'no_civique',
         'rue',
         'code_postal',
-        'id_secteur_code'
+        'id_secteur_code',
+        'appartement',
+        'visible'
     ];
 
     public function secteur_code(): BelongsTo

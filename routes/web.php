@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
@@ -21,6 +22,9 @@ Route::get('/', function () {
 Route::get('/menu', [ProduitController::class, 'index']);
 
 Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
+
+Route::get('/avis', [CommentaireController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
+Route::post('/avis', [CommentaireController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class);
 
 Route::get('/compte', function () {
     return Inertia::render('Compte', []);
@@ -55,5 +59,6 @@ Route::get('/valeurs', function () {
 })->name('valeurs');
 
 Route::delete('/adresse/{id}', [AdresseController::class, 'destroy']);
+Route::post('/adresse', [AdresseController::class, 'store']);
 
 require __DIR__.'/auth.php';

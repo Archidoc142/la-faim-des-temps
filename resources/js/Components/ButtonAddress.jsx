@@ -1,13 +1,13 @@
 import { useForm } from "@inertiajs/react"
 import { useTranslation } from "react-i18next"
 
-export default function ButtonAddress({ adresse, nom, setContentBox, setAdresse }) {
+export default function ButtonAddress({ adresse, nom, setContentBox, setAdresse, code_postal }) {
 
     const [t, i18n] = useTranslation("global")
     const { delete: destroy } = useForm()
 
     const handleAdresseChange = () => {
-        setAdresse({ id: adresse.id, nom: nom, montant: adresse.montant })
+        setAdresse({ id: adresse.id, nom: nom, montant: adresse.montant, code_postal: code_postal })
         setContentBox(2)
     }
 

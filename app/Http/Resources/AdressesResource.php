@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Secteur;
 use App\Models\SecteurCode;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,9 +20,9 @@ class AdressesResource extends JsonResource
         $code = substr($this->code_postal, 0, 3);
         $secteur = SecteurCode::where('code', $code)->value('id_secteur');
 
-        // secteur / 1 - Fleurimont / 2 - Rock Forest / 3 - Centre-ville Sherbrooke
-        if ($secteur == 3) {
-            $montant = 6;
+        // secteur / 1 - Fleurimont / 2 - Centre-ville Sherbrooke / 3 - Rock Forest
+        if ($secteur == 2) {
+            $montant = 7;
         } else {
             $montant = 10;
         }
@@ -33,7 +32,8 @@ class AdressesResource extends JsonResource
             "nom" => $this->no_civique . " " . $this->rue,
             "no_app" => $this->appartement,
             "montant" => $montant,
-            "visible" => $this->visible
+            "visible" => $this->visible,
+            "code_postal" => $this->code_postal
         ];
     }
 }

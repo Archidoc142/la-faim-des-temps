@@ -22,7 +22,7 @@ class CommandeFactory extends Factory
             'livraison' => $this->faker->boolean(),
             'frais_livraison' => $this->faker->randomFloat(2, 0, 10),
             'total' => $this->faker->randomFloat(2, 10, 400),
-            'id_adresse' => $this->faker->numberBetween(1, 8),
+            'id_adresse' => $this->faker->numberBetween(1, 7),
             'id_utilisateur' => rand(1 , 5),
             'id_etat_commande' => $this->faker->numberBetween(1, 2),
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now')

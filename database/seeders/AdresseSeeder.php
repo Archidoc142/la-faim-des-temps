@@ -14,15 +14,6 @@ class AdresseSeeder extends Seeder
     public function run(): void
     {
         DB::table('adresse')->insert([
-            // NE PAS SUPPRIMER le premier champ
-            [
-                "no_civique" => 297,
-                "rue" => "Rue King Ouest",
-                "appartement" => null,
-                "code_postal" => "J1H 1R2",
-                "id_secteur_code" => 2,
-                "visible" => false
-            ],
             [
                 "no_civique" => 110,
                 "rue" => "Saint François Nord",

@@ -10,7 +10,8 @@
         "histoire": "Notre histoire",
         "avis": "Votre avis",
         "date": "DATE LIMITE POUR COMMANDER :",
-        "connexion" : "Se connecter"
+        "connexion" : "Se connecter",
+        "nextMenu" : "SORTIE DU PROCHAIN MENU :"
     },
     "Compte": {
         "titre" : "PREMIÈRE UTILISATION?",
@@ -60,7 +61,6 @@
         "total": "Sous-total",
         "pass": "Passer ma commande",
         "choice": "Comment voulez-vous recevoir votre commande ?",
-        "camion": "Camion",
         "cueillette" : "Cueillette",
         "finaliser" : "Finaliser la commande...",
         "article" : "Articles",
@@ -72,6 +72,18 @@
         "address" : "À quelle adresse voulez-vous recevoir votre commande?",
         "info" : "Un montant s'applique à la livraison sur les commandes en dessous de 60$ au secteur de Sherbrooke.",
         "add" : "Ajouter une adresse",
-        "alertSuccess" : "Êtes-vous sûr de vouloir supprimer cette adresse ?"
+        "alertSuccess" : "Êtes-vous sûr de vouloir supprimer cette adresse ?",
+        "flashDelete" : "Le plat a été retiré du panier",
+        "addAddressTitle" : "Ajout d'une nouvelle adresse",
+        "civic" : "Numéro civique",
+        "rue" : "Nom de rue",
+        "app" : "Numéro d'appartement (facultaif)",
+        "postal" : "Code postal"
+    },
+    "Avis": {
+        "addAvis" : "Ajouter un avis",
+        "avisDesc" : "Votre avis est important pour nous.\nN'hésitez pas à partager votre expérience\navec nous et avec les visiteurs de notre site!",
+        "comment" : "Commentaire",
+        "send" : "Envoyer"
     }
 }
