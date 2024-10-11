@@ -85,9 +85,6 @@ class RegisteredUserController extends Controller
         //Configuration de la connection à l'API de QuickBooks
         $config = include(app_path() . '/config.php');
 
-        $accesToken = QBToken::getToken("access");
-        $refreshToken = QBToken::getToken("refresh");
-
         $dataService = DataService::Configure(array(
             'auth_mode' => 'oauth2',
             'ClientID' => $config['client_id'],
@@ -95,34 +92,38 @@ class RegisteredUserController extends Controller
             'RedirectURI' => $config['oauth_redirect_uri'],
             'scope' => $config['oauth_scope'],
             'baseUrl' => "development",
-            'QBORealmID' => "9341453160686081",
-            'accessTokenKey' => $accesToken,
-            'refreshTokenKey' => $refreshToken
+            'QBORealmID' => "9341453160686081",                 //valeur à changer pour déploiement
+            'accessTokenKey' => QBToken::getToken("access"),
+            'refreshTokenKey' => QBToken::getToken("refresh")
         ));
+
+        $userPhone = "";
+        if(isset($user->telephone)) {
+            $userPhone = $user->telephone;
+        }
 
         $QBuserObj = Customer::create([
             "GivenName" => $user->prenom, 
             "FamilyName" => $user->nom, 
             "PrimaryEmailAddr" => [
                 "Address" => $user->email
+            ],
+            "PrimaryPhone" => [
+                "FreeFormNumber" => $userPhone
             ]
         ]);
-
-        //Mise à jour du token d'accès avant d'envoyer les données à QuickBooks
-        //dd(QBToken::getToken("access"));
-        //$dataService->updateOAuth2Token(QBToken::getToken("access"));
 
         //code from : https://github.com/intuit/QuickBooks-V3-PHP-SDK/blob/master/src/_Samples/CustomerCreate.php
         $resultingCustomerObj = $dataService->Add($QBuserObj);
 
+        //TO DO: créer un affichage pour les erreurs
         $error = $dataService->getLastError();
         if ($error) {
-            dd($error);
             echo "The Status code is: " . $error->getHttpStatusCode() . "\n";
             echo "The Helper message is: " . $error->getOAuthHelperError() . "\n";
             echo "The Response message is: " . $error->getResponseBody() . "\n";
         } else {
-            dump($resultingCustomerObj);
+            echo ($resultingCustomerObj);
         }
     }
 

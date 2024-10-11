@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Services\QuickBooksService;
+use App\Models\QBToken;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -18,6 +20,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
+        $quickBooksService = new QuickBooksService();
+
+        //If token exist refesh it, else display a error 
+        if(QBToken::exists()) 
+            $quickBooksService->refreshTokens();
+
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
