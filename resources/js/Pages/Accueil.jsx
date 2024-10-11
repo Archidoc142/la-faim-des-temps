@@ -6,10 +6,20 @@ import HeadWithImage from '@/Components/HeadWithImage';
 
 import ferme from '../../../public/img/ferme.jpg'
 import assiette from '../../../public/img/assiette.jpg'
+import { useEffect } from 'react';
 
 export default function Accueil() {
 
     const [t, i18n] = useTranslation("global");
+
+    useEffect(() => {
+        let params = new URLSearchParams(document.location.search);
+        let isLogout = params.get("isLogout");
+
+        if(isLogout) {
+            localStorage.setItem("panier", JSON.stringify([]));
+        }
+    }, [])
 
     return (
         <>

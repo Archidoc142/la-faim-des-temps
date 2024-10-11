@@ -2,6 +2,7 @@ import { Link, usePage } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next'
 import { useEffect, useState } from 'react';
+import Dropdown from '@/Components/Dropdown';
 
 import logo from '../../../public/img/logo-rect.jpg'
 
@@ -58,6 +59,11 @@ export default function Header() {
         document.getElementById('menu').classList.add('hidden');
     }
 
+    const [menuUser, setMenuUser] = useState(false)
+    const toggleMenuUser = () => {
+        setMenuUser(!menuUser)
+    }
+
     return (
         <header className='border-b border-[#9b9b9b]'>
             <div className='flex bg-white'>
@@ -67,7 +73,7 @@ export default function Header() {
                     {/* Menu*/}
                     <button onClick={toggleMenu} className='lg:hidden'>
                         <svg className='mx-4' width="34" height="34" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2">
-                          <path d="M3 6 H21 M3 12 H21 M3 18 H21"/>
+                            <path d="M3 6 H21 M3 12 H21 M3 18 H21" />
                         </svg>
                     </button>
 
@@ -85,27 +91,41 @@ export default function Header() {
 
                     <div className='flex items-center justify-evenly gap-1'>
                         {/* User*/}
-                        <Link href={ user ?
-                                 user.data.role === "admin" ? "/admin" : "/compte" :
-                                 "/login"}
-                            className='items-center flex gap-4'>
+                        {user ?
+                            <div
+                                className='items-center flex gap-4 relative cursor-pointer group'
+                                onClick={toggleMenuUser}
+                            >
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke={user ? user.data.role === "admin" ? "#BB285C" : "#75A9F9" : "#929292"} strokeWidth="2" id="iconUser">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
 
-                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke={user ? user.data.role === "admin" ? "#BB285C" : "#75A9F9" :"#929292"} strokeWidth="2" id="iconUser">
-                              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                              <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
+                                <p className='text-white hidden sm:block text-xs xl:text-base font-bold group-hover:text-gray-300 relative ease-in-out before:transition-[width] before:ease-in-out before:duration-200 before:absolute before:bg-white before:origin-center before:h-[2px] before:w-0 group-hover:before:w-[50%] before:bottom-0 before:left-[50%] after:transition-[width] after:ease-in-out after:duration-200 after:absolute after:bg-white after:origin-center after:h-[2px] after:w-0 group-hover:after:w-[50%] after:bottom-0 after:right-[50%]'>
+                                    {user ?
+                                        user.data.role === "admin" ? "Admin" : user.data.prenom :
+                                        t("Header.connexion")}
+                                </p>
 
-                            <p className='text-white hidden sm:block text-xs xl:text-base'><strong>
-                                {user ?
-                                    user.data.role === "admin" ? "Admin" : user.data.prenom :
-                                    t("Header.connexion")}</strong></p>
-                        </Link>
+                                {menuUser ? <div className='absolute bg-[#d4dbe8] text-white text-center top-10 w-[150px] rounded-lg shadow-xl'>
+                                    <Dropdown.Link href={route('profile.edit')} className='font-semibold rounded-t-lg'>Mon compte</Dropdown.Link>
+                                    <Dropdown.Link href={route('logout')} className='font-semibold rounded-b-lg' method="post" as="button">Se déconnecter</Dropdown.Link>
+                                 </div> : null}
+                            </div> :
 
+                            <Link href='/login' className='items-center flex gap-4'>
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke={user ? user.data.role === "admin" ? "#BB285C" : "#75A9F9" : "#929292"} strokeWidth="2" id="iconUser">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+
+                                <p className='text-white hidden sm:block text-xs xl:text-base font-bold'>{t("Header.connexion")}</p>
+                            </Link>}
 
                         {/* Panier*/}
                         <Link href='/panier'>
                             <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" fill='transparent' stroke="#fff" strokeWidth="2">
-                              <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
+                                <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
                                        M10 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0
                                        M18 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
                             </svg>
@@ -131,7 +151,7 @@ export default function Header() {
             </div>
 
             {/* flash*/}
-            { !noRedLabelURL.some(str => url.startsWith(str)) ?
+            {!noRedLabelURL.some(str => url.startsWith(str)) ?
                 <div className='py-3 text-sm text-white bg-[#BB285C] text-center'>
                     <p><strong>{message}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
                 </div> : ""
