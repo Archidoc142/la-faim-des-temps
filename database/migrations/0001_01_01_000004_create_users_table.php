@@ -22,6 +22,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->bigInteger('id_role')->unsigned();
+            $table->bigInteger('id_qb')->unsigned()->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -41,6 +42,7 @@ return new class extends Migration
 
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('id_role')->references('id')->on('roles');
+            $table->foreign('id_qb')->references('id')->on('qb_id');
         });
     }
 

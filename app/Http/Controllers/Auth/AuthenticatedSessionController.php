@@ -37,9 +37,15 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $quickBooksService = new QuickBooksService();
+
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        //tentative de création de compte QuickBooks si aucun compte n'est lié
+        if($request->user()->qb_id === null)
+            $quickBooksService->sendToQB($request->user());
 
         return redirect()->intended(route('accueil', absolute: false));
     }

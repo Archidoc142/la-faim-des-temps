@@ -9,7 +9,6 @@ export default function Accueil() {
     return (
         <>
             <Head title="Accueil"/>
-
                 <div className='h-[37rem] bg-[url("img/accueil.jpg")] relative'>
                     <div className='bg-white py-16 bg-opacity-75 my-auto absolute top-24 w-full'>
                         <h1 className='w-80 m-auto font-serif text-[#04203f] text-center text-5xl'>Votre option traiteur et plats cuisinés au Centro</h1>
