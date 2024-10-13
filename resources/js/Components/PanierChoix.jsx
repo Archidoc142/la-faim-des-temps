@@ -2,13 +2,25 @@ import Panier from "@/Components/PanierSVG"
 import Camion from "@/Components/CamionSVG"
 import { useTranslation } from "react-i18next"
 
-export default function PanierChoix({ setContentBox, setBoxVisible, setAdresse }) {
+export default function PanierChoix({ data, setData, setContentBox, setBoxVisible, setAdresse }) {
 
     const [t, i18n] = useTranslation("global")
 
     const handleCueilletteChoice = () => {
-        setAdresse({nom:null, montant: 0, code_postal: ""})
+        let newData = data;
+
+        newData.adresse = null
+        newData.adresse_id = 0
+        newData.livraison = false
+        newData.frais_livraison = 0
+
+        setData(newData)
         setContentBox(2)
+    }
+
+    const handleLivraisonChoice = () => {
+        setData("livraison", true)
+        setContentBox(1)
     }
 
     return (
@@ -26,7 +38,7 @@ export default function PanierChoix({ setContentBox, setBoxVisible, setAdresse }
             <div className="flex gap-4 sm:p-2 mb-4">
                 <div
                     className="bg-[#AAA] rounded-xl w-[48%] sm:w-[50%] h-[160px] sm:h-[200px] flex flex-col text-center cursor-pointer hover:bg-gray-500"
-                    onClick={() => setContentBox(1)}>
+                    onClick={() => handleLivraisonChoice()}>
                     <Camion  text={t("Panier.livraison")} />
                 </div>
 
