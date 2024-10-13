@@ -10,13 +10,23 @@ use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
+use App\Http\Resources\CommentaireResource;
+use App\Models\Commentaire;
 use App\Models\Produit;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Accueil', []);
+    $commentaire = CommentaireResource::collection(
+    Commentaire::where('masque', true)
+    ->whereNotNull('commentaire')
+    ->limit(10)
+    ->get());
+
+    return Inertia::render('Accueil', [
+        'commentaires' => $commentaire
+    ]);
 })->name('accueil');
 
 Route::get('/menu', [ProduitController::class, 'index']);

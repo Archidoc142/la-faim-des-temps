@@ -1,7 +1,7 @@
 import { Head, useForm, router } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import StarsComment from "@/Components/starsComment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Avis() {
 
@@ -19,6 +19,10 @@ export default function Avis() {
         router.post('/avis', data)
     };
 
+    useEffect(() => {
+        setNote(data.note)
+    }, [data])
+
     return (
         <div className="bg-white min-h-screen">
             <Head title="Avis" />
@@ -30,7 +34,7 @@ export default function Avis() {
                     <p className="text-center text-xl mb-12">{t("Avis.avisDesc")}</p>
 
                     <p className="text-2xl font-bold mb-2">Note</p>
-                    <StarsComment note={note} setNote={setNote} />
+                    <StarsComment note={note} setData={setData} />
 
                     <p className="text-2xl font-bold mb-2 mt-6">{t("Avis.comment")}</p>
                     <textarea

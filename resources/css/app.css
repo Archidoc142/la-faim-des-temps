@@ -28,3 +28,10 @@
 .trash-can:hover path {
     fill: red;
 }
+
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: #706e6e;
+    border-radius: 50%;
+  }

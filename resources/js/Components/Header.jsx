@@ -1,7 +1,7 @@
 import { Link, usePage } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Dropdown from '@/Components/Dropdown';
 
 import logo from '../../../public/img/logo-rect.jpg'
@@ -19,6 +19,8 @@ export default function Header() {
     const options = { weekday: 'long', day: 'numeric', month: 'long' };
     const tempDate = d.toLocaleDateString('fr-FR', options) + ' à 16:00';
     const [date, setDate] = useState(tempDate)
+
+    const out = useRef(null);
 
     // Format la date pour avoir le prochain lundi
     // Si langue = fr - langue affiché en (fr)
@@ -64,6 +66,20 @@ export default function Header() {
         setMenuUser(!menuUser)
     }
 
+    const handleClickOutside = (event) => {
+        if (out.current && !out.current.contains(event.target)) {
+            toggleMenuUser()
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [])
+
     return (
         <header className='border-b border-[#9b9b9b]'>
             <div className='flex bg-white'>
@@ -107,10 +123,10 @@ export default function Header() {
                                         t("Header.connexion")}
                                 </p>
 
-                                {menuUser ? <div className='absolute bg-[#d4dbe8] text-white text-center top-10 w-[150px] rounded-lg shadow-xl'>
+                                {menuUser ? <div ref={out} className='absolute bg-[#d4dbe8] text-white text-center top-10 w-[150px] rounded-lg shadow-xl'>
                                     <Dropdown.Link href={route('profile.edit')} className='font-semibold rounded-t-lg'>Mon compte</Dropdown.Link>
                                     <Dropdown.Link href={route('logout')} className='font-semibold rounded-b-lg' method="post" as="button">Se déconnecter</Dropdown.Link>
-                                 </div> : null}
+                                </div> : null}
                             </div> :
 
                             <Link href='/login' className='items-center flex gap-4'>
