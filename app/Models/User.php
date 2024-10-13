@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -57,5 +58,10 @@ class User extends Authenticatable
     public static function Clients()
     {
         return User::where('id_role', 1)->get();
+    }
+
+    public function qbId()
+    {
+        return $this->hasOne(QbId::class, 'id', 'id_qb');
     }
 }

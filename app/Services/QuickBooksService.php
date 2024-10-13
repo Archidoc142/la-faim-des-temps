@@ -41,8 +41,7 @@ class QuickBooksService
             "PrimaryEmailAddr" => [
                 "Address" => $user->email
             ],
-            "CompanyName" => $user->prenom . " " . $user->nom,
-            "DisplayName" => $user->email,
+            "DisplayName" => $user->email,  //pour créer le compte on utilise l'email en displayName pour avoir un nom unique (requis de QuickBooks), mais une fois l'id de QuickBooks créé, update le displayName avec le nom complet + #id_qb
             "PrimaryPhone" => [
                 "FreeFormNumber" => $userPhone
             ]
@@ -60,8 +59,59 @@ class QuickBooksService
 
             //On ajoute l'id de la table QB_id du client à la table User
             $user->id_qb = $QBId->id;
-            $user->save();    
+            $user->save();
+
+            if($user->id_qb !== null)
+                $this->updateCustomer($user);
         }
+
+        //TO DO: créer un affichage pour les erreurs
+        $error = $dataService->getLastError();
+        if ($error) {
+            return "The Status code is: " . $error->getHttpStatusCode() . "\n" .
+               "The Helper message is: " . $error->getOAuthHelperError() . "\n" .
+               "The Response message is: " . $error->getResponseBody() . "\n";
+        } else {
+            return $resultingCustomerObj;
+        }   
+    }
+
+    //Cette fonction permet de faire une update des information client dans quickbooks
+    public function updateCustomer(User $user)
+    {
+        $config = include(app_path() . '/config.php');
+
+        $dataService = DataService::Configure(array(
+            'auth_mode' => 'oauth2',
+            'ClientID' => $config['client_id'],
+            'ClientSecret' =>  $config['client_secret'],
+            'RedirectURI' => $config['oauth_redirect_uri'],
+            'scope' => $config['oauth_scope'],
+            'baseUrl' => "development",
+            'QBORealmID' => "9341453160686081",                 //valeur à changer pour déploiement
+            'accessTokenKey' => QBToken::getToken("access"),
+            'refreshTokenKey' => QBToken::getToken("refresh")
+        ));
+
+        $userPhone = "";
+        if(isset($user->telephone)) {
+            $userPhone = $user->telephone;
+        }
+
+        $customer = $dataService->FindbyId('customer', $user->qbId->client_id);
+        $QBuserObj = Customer::update($customer, [
+            "GivenName" => $user->prenom, 
+            "FamilyName" => $user->nom, 
+            "PrimaryEmailAddr" => [
+                "Address" => $user->email
+            ],
+            "DisplayName" => $user->prenom. " ". $user->nom . " #" . $user->qbId->client_id,
+            "PrimaryPhone" => [
+                "FreeFormNumber" => $userPhone
+            ]
+        ]);
+
+        $resultingCustomerObj = $dataService->Update($QBuserObj);
 
         //TO DO: créer un affichage pour les erreurs
         $error = $dataService->getLastError();
