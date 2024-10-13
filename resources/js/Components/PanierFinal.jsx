@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-export default function PanierFinal({ prix, adresse, setContentBox, setBoxVisible }) {
+export default function PanierFinal({ data, prix, setData, adresse, setContentBox, setBoxVisible }) {
 
     const [t, i18n] = useTranslation("global")
 
@@ -31,10 +31,11 @@ export default function PanierFinal({ prix, adresse, setContentBox, setBoxVisibl
             });
     }
 
-    let livraison = adresse.montant
-    if (prix >= 60 && livraison === 6) {
-        livraison = 0
-    }
+    let nomAdresse = "";
+    if(data.adresse_exists)
+        nomAdresse = data.adresse
+    else
+        nomAdresse = data.adresse.no_civique + ", " + data.adresse.rue + " (" + data.adresse.code_postal + ")"
 
     return (
         <>
@@ -64,25 +65,25 @@ export default function PanierFinal({ prix, adresse, setContentBox, setBoxVisibl
                 <div className="flex justify-center flex-col mx-28 mb-4">
                     <div className="flex justify-between">
                         <p>{t("Panier.article")}:</p>
-                        <p>{prix}$</p>
+                        <p>{data.sous_total}$</p>
                     </div>
 
                     <div className="flex justify-between">
                         <p>{t("Panier.livraison")}:</p>
-                        <p>{livraison}$</p>
+                        <p>{data.frais_livraison}$</p>
                     </div>
 
                     <div className="flex justify-between">
                         <p>{t("Panier.total")}:</p>
-                        <p>{prix + livraison}$</p>
+                        <p>{data.total}$</p>
                     </div>
                 </div>
 
                 {
-                    adresse.nom ?
+                    data.livraison ?
                         <div>
                             <h3 className="font-bold text-3xl mb-2">{t("Panier.adresse")}:</h3>
-                            <p>{adresse.nom + " (" + adresse.code_postal + ")"}</p>
+                            <p>{nomAdresse}</p>
                         </div> : <div className="mb-8"></div>
                 }
 
@@ -93,6 +94,7 @@ export default function PanierFinal({ prix, adresse, setContentBox, setBoxVisibl
                         maxLength="128"
                         placeholder={t("Panier.placeholder")}
                         className="w-full min-h-[100px] max-h-[100px]"
+                        onChange={(e) => setData("allergenes", e.target.value)}
                     />
                 </div>
 
