@@ -17,7 +17,7 @@ return new class extends Migration
             $table->boolean('livraison');
             $table->float('frais_livraison');
             $table->float('total');
-            $table->bigInteger('id_adresse')->unsigned();
+            $table->bigInteger('id_adresse')->unsigned()->nullable();
             $table->bigInteger('id_utilisateur')->unsigned();
             $table->bigInteger('id_etat_commande')->unsigned();
             $table->timestamps();

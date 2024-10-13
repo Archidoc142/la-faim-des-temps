@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-export default function PanierFinal({ data, prix, setData, adresse, setContentBox, setBoxVisible }) {
+export default function PanierFinal({ post, data, prix, setData, adresse, setContentBox, setBoxVisible }) {
 
     const [t, i18n] = useTranslation("global")
 
@@ -31,11 +31,17 @@ export default function PanierFinal({ data, prix, setData, adresse, setContentBo
             });
     }
 
+    const submitCommande = () => {
+        post(route('envoiCommande'))
+    }
+
     let nomAdresse = "";
-    if(data.adresse_exists)
-        nomAdresse = data.adresse
-    else
-        nomAdresse = data.adresse.no_civique + ", " + data.adresse.rue + " (" + data.adresse.code_postal + ")"
+
+    if(data.livraison)
+        if(data.adresse_exists)
+            nomAdresse = data.adresse
+        else
+            nomAdresse = data.adresse.no_civique + ", " + data.adresse.rue + " (" + data.adresse.code_postal + ")"
 
     return (
         <>
@@ -98,7 +104,7 @@ export default function PanierFinal({ data, prix, setData, adresse, setContentBo
                     />
                 </div>
 
-                <button className="font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-[5px]">
+                <button onClick={submitCommande} className="font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-[5px]">
                     {t("Panier.terminer")}
                 </button>
             </div>
