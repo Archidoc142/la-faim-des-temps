@@ -27,7 +27,7 @@ export default function MenuBase({ produit, putPanier, editable, setData, data }
             <div key={produit.id} className='border-2 border-[#EBEBEB] rounded-2xl p-7 justify-center text-center md:w-auto'>
                 <h3 className='justify-center text-[#FFD8AD] pb-4 imperial text-5xl flex flex-nowrap lg:text-6xl'>{i18n.language == 'fr' ? produit.formats[0].nom.fr : produit.formats[0].nom.en}<span className='self-center text-4xl lg:text-5xl pl-3'>- {i18n.language == 'fr' ? Math.trunc(produit.formats[0].montant) + "$" : "$" + Math.trunc(produit.formats[0].montant)}</span></h3>
                 {editable ?
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col items-center'>
                         <label htmlFor={produit.id + "fr"} className='text-start text-gray-300'>Français</label>
                         <textarea rows={2} name={produit.id + "fr"} id={produit.id + "fr"} value={descriptionFr}
                         onChange={(e) => {setDescriptionFr(e.target.value)}}></textarea>
@@ -37,7 +37,9 @@ export default function MenuBase({ produit, putPanier, editable, setData, data }
                         onChange={(e) => {setDescriptionEn(e.target.value)}}></textarea>
                     </div>
                     :
-                    <p className='text-white text-lg pb-3'>{i18n.language == 'fr' ? produit.description.fr : produit.description.en}</p>
+                    <>
+                        <p className='text-white text-lg pb-3 min-h-16'>{i18n.language == 'fr' ? produit.description.fr : produit.description.en}</p>
+                    </>
                 }
 
                 {editable ?
