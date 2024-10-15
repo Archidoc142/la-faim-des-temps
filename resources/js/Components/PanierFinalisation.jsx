@@ -16,7 +16,6 @@ export default function PanierFinalisation({panier, prix, setBoxVisible, adresse
 
     // id_secteur_code et visible seront géré dans le controller
     const { data, setData, post, errors, processing } = useForm({
-        client: usePage().props.auth.user.data.id,
         allergenes: "",
 
         livraison: false,
@@ -50,7 +49,7 @@ export default function PanierFinalisation({panier, prix, setBoxVisible, adresse
                     {/* Content*/}
                     {contentBox === 0 ? <PanierChoix data={data} setData={setData} setContentBox={setContentBox} setBoxVisible={setBoxVisible} setAdresse={setAdresse} /> : null}
                     {contentBox === 1 ? <PanierLivraison data={data} setData={setData} setContentBox={setContentBox} setBoxVisible={setBoxVisible} adresses={adresses} setAdresse={setAdresse} /> : null}
-                    {contentBox === 2 ? <PanierFinal data={data} setData={setData} setContentBox={setContentBox} setBoxVisible={setBoxVisible} prix={prix} adresse={adresse} /> : null}
+                    {contentBox === 2 ? <PanierFinal post={post} data={data} setData={setData} setContentBox={setContentBox} setBoxVisible={setBoxVisible} prix={prix} adresse={adresse} /> : null}
                     {contentBox === 3 ? <AddAddress setContentBox={setContentBox} setBoxVisible={setBoxVisible} setAdresse={setAdresse} data={data} setData={setData}  /> : null}
                 </div>
             </div>
