@@ -126,10 +126,6 @@ export default function Menu({ formats, langFormats, tarifs, produits }) {
 
     }, [i18n.language])
 
-
-
-
-
     function putPanier(format, produit) {
         let panier = JSON.parse(localStorage.getItem("panier"))
         checkKeys(panier, produit, format)

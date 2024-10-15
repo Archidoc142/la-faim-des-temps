@@ -2,10 +2,14 @@ import { useForm } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react"
 
-export default function AddAddress({ setContentBox, setBoxVisible, setAdresse, data, setData }) {
+export default function AddAddress({ setContentBox, setBoxVisible, /*setAdresse,*/ data, setData }) {
 
     const [t, i18n] = useTranslation("global")
-    const [postalCode, setPostalCode] = useState('')
+
+    const [noCivique, setNoCivique] = useState(0)
+    const [rue, setRue] = useState("")
+    const [noAppt, setNoAppt] = useState(0)
+    const [postalCode, setPostalCode] = useState("")
 
     const Secteurs = ["J1E", "J1G", "J1H", "J1J", "J1K", "J1L" , "J1N"]
     const SecteursSherbrooke = ["H", "J", "K", "L"]
@@ -13,16 +17,25 @@ export default function AddAddress({ setContentBox, setBoxVisible, setAdresse, d
     const submit = (e) => {
         e.preventDefault();
 
-        if (Secteurs.includes(data.code_postal.substr(0,3))) {
+        if (Secteurs.includes(postalCode.substr(0,3))) {
             let montant = 10
-            if (SecteursSherbrooke.includes(data.code_postal.substr(2,1))) {
-                montant = 7
+            if (SecteursSherbrooke.includes(postalCode.substr(2,1))) {
+                data.total < 60 ? montant = 7 : montant = 0
             }
 
-            setAdresse({ nom: data.rue, montant: montant, code_postal: data.code_postal });
+            const adresse = {no_civique: noCivique, rue: rue, no_appt: noAppt, code_postal: postalCode}
+
+            let newData = data
+            newData.adresse = adresse
+            newData.adresse_exists = false
+            newData.adresse_id = 0
+            newData.frais_livraison = montant
+            newData.total = data.sous_total + montant
+            setData(newData)
+
             setContentBox(2);
         } else {
-            alert("Le code postal n'est pas valide")
+            alert("Désolé, nous livrons seulement au centre de Sherbrooke, à Fleurimont et à Rock Forest.")
         }
     };
 
@@ -33,7 +46,7 @@ export default function AddAddress({ setContentBox, setBoxVisible, setAdresse, d
             text = text.slice(0, 3) + ' ' + text.slice(3);
         }
 
-        setData('code_postal', text)
+        //setData('code_postal', text)
         setPostalCode(text)
     }
 
@@ -59,13 +72,13 @@ export default function AddAddress({ setContentBox, setBoxVisible, setAdresse, d
             <form onSubmit={submit}>
                 <div className="flex flex-col">
                     <label htmlFor="no_civique">{t("Panier.civic")}</label>
-                    <input id="no_civique" required className="mb-2" type="number" placeholder="297" onChange={(e) => setData('no_civique', e.target.value)} />
+                    <input id="no_civique" required className="mb-2" type="number" placeholder="297" onChange={(e) => setNoCivique(e.target.value)} />
 
                     <label htmlFor="rue">{t("Panier.rue")}</label>
-                    <input id="rue" required className="mb-2" type="text" placeholder="Rue King Ouest" maxLength="128" onChange={(e) => setData('rue', e.target.value)} />
+                    <input id="rue" required className="mb-2" type="text" placeholder="Rue King Ouest" maxLength="128" onChange={(e) => setRue(e.target.value)} />
 
                     <label htmlFor="appartement">{t("Panier.app")}</label>
-                    <input id="appartement" className="mb-2" type="number" placeholder="401" onChange={(e) => setData('appartement', e.target.value)} />
+                    <input id="appartement" className="mb-2" type="number" placeholder="401" onChange={(e) => setNoAppt(e.target.value)} />
 
                     <label htmlFor="code_postal">{t("Panier.postal")}</label>
                     <input id="code_postal" required className="mb-4" type="text" placeholder="J1H 1R2" value={postalCode} maxLength="7" onChange={(e) => handlePostalChange(e)} />

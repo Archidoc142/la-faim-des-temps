@@ -84,6 +84,7 @@ export default function Panier({ produits, adresses }) {
                     </div>
 
                     {boxVisible ? <PanierFinalisation
+                                        panier={panier}
                                         prix={total}
                                         setBoxVisible={setBoxVisible}
                                         adresses={adresses}

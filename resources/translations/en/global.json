@@ -1,6 +1,6 @@
 {
     "Accueil": {
-
+        "commentaire" : "Customer Reviews"
     },
     "Header": {
         "accueil": "Home",
@@ -79,5 +79,11 @@
         "rue" : "Street name",
         "app" : "Apartment number (optional)",
         "postal" : "Postal code"
+    },
+    "Avis": {
+        "addAvis" : "Add a comment",
+        "avisDesc" : "Your opinion is important for us. Do not hesitate to share your experience with us and with the other users of our website!",
+        "comment" : "Comment",
+        "send" : "Send"
     }
 }

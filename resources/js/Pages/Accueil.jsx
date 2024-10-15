@@ -6,15 +6,41 @@ import HeadWithImage from '@/Components/HeadWithImage';
 
 import ferme from '../../../public/img/ferme.jpg'
 import assiette from '../../../public/img/assiette.jpg'
+import { useEffect, useState } from 'react';
+import StarsComment from '@/Components/StarsComment';
 
-export default function Accueil() {
-
+export default function Accueil({ commentaires }) {
     const [t, i18n] = useTranslation("global");
+
+    useEffect(() => {
+        let params = new URLSearchParams(document.location.search);
+        let isLogout = params.get("isLogout");
+
+        if (isLogout) {
+            localStorage.setItem("panier", JSON.stringify([]));
+        }
+    }, [])
+
+    const [index, setIndex] = useState(0)
+
+    const movePostLeft = () => {
+        const newIndex = (index > 0) ? index - 1 : commentaires.data.length - 1;
+        setIndex(newIndex);
+    };
+
+    const movePostRight = () => {
+        const newIndex = (index < commentaires.data.length - 1) ? index + 1 : 0;
+        setIndex(newIndex);
+    };
+
+    const moveToIndex = (index) => {
+        setIndex(index)
+    }
 
     return (
         <>
             <Head title="Accueil" />
-{/* this dont work */}
+            {/* this dont work */}
             <HeadWithImage
                 imgFile="/img/accueil.jpg"
                 title="Votre option traiteur et plats cuisinés au Centro "
@@ -55,6 +81,40 @@ export default function Accueil() {
                 <TitleSection title="...à l'assiette!" color="bg-rose-900" />
                 <AccueilImg src={assiette} alt="...à l'assiette!" legend="Lorem ipsum" />
             </div>
+
+            {commentaires && commentaires.data.length > 0 ? <div className='bg-[#041A37] pt-6 text-center'>
+                <p className='text-white font-bold text-3xl'>{t("Accueil.commentaire")}</p>
+
+                <div className='py-6 px-4 flex items-center justify-center gap-8 md:gap-24'>
+                    <button onClick={() => movePostLeft(index)}>
+                        <svg className='w-20 h-20 md:w-24 md:h-24 border-gray-400 border-4 bg-white hover:bg-slate-500 rounded-[50%]' viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
+                    </button>
+
+                    <div className='bg-white rounded-lg px-8 w-[50%] min-h-[160px] border-gray-400 border-4 pt-8 py-2'>
+                        <p className='text-xl font-semibold text-[#1a1d24] italic min-h-36 flex justify-center items-center'>{commentaires.data[index].commentaire}</p>
+
+                        <div className='mt-4 text-left'>
+                            <StarsComment note={commentaires.data[index].note} updatable={false} />
+                            <p className='font-bold text-[#4a5366] text-lg'>{commentaires.data[index].utilisateur}</p>
+                        </div>
+                    </div>
+
+
+                    <button onClick={() => movePostRight(index)}>
+                        <svg className='w-20 h-20 md:w-24 md:h-24 border-gray-400 border-4 bg-white hover:bg-slate-500 rounded-[50%]' viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
+                    </button>
+                </div>
+
+                <div className='flex gap-4 justify-center pb-6'>
+                    {commentaires.data.map((item, tempIndex) => (
+                        <span
+                            onClick={() => moveToIndex(tempIndex)}
+                            key={tempIndex}
+                            className={"dot cursor-pointer" + (index === tempIndex ? " !bg-white" : "")}
+                        ></span>
+                    ))}
+                </div>
+            </div> : null }
         </>
     );
 }

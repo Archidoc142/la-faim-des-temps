@@ -2,7 +2,7 @@ import ButtonAddress from "./ButtonAddress"
 import ButtonAddAddress from "./ButtonAddAddress"
 import { useTranslation } from "react-i18next"
 
-export default function PanierLivraison({ setContentBox, setBoxVisible, adresses, setAdresse }) {
+export default function PanierLivraison({ data, setData, setContentBox, setBoxVisible, adresses, setAdresse }) {
 
     const [t, i18n] = useTranslation("global")
 
@@ -31,7 +31,7 @@ export default function PanierLivraison({ setContentBox, setBoxVisible, adresses
                 {adresses.data.map(adresse => {
                     let nom = adresse.nom
                     if (adresse.no_app) {
-                        nom += " App " + String(adresse.no_app)
+                        nom += ", Appt " + String(adresse.no_app)
                     }
 
                     return (
@@ -43,6 +43,8 @@ export default function PanierLivraison({ setContentBox, setBoxVisible, adresses
                                 setContentBox={setContentBox}
                                 setAdresse={setAdresse}
                                 code_postal={adresse.code_postal}
+                                data={data}
+                                setData={setData}
                             />
                         : null
                     )
