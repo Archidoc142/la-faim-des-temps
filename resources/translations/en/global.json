@@ -11,7 +11,9 @@
         "avis": "Your opinion",
         "date": "LIMIT DATE TO ORDER :",
         "connexion" : "Login",
-        "nextMenu" : "RELEASE OF THE NEXT MENU :"
+        "nextMenu" : "RELEASE OF THE NEXT MENU :",
+        "compte" : "My account",
+        "logout" : "Logout"
     },
     "Compte": {
         "titre": "FIRST TIME?",

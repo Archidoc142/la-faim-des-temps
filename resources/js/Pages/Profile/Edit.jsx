@@ -6,7 +6,7 @@ import { Head } from '@inertiajs/react';
 
 export default function Edit({ mustVerifyEmail, status }) {
     return (
-        <>
+        <div className='bg-white'>
             <Head title="Profile" />
 
             <div className="py-12">
@@ -22,12 +22,8 @@ export default function Edit({ mustVerifyEmail, status }) {
                     <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <UpdatePasswordForm className="max-w-xl" />
                     </div>
-
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <DeleteUserForm className="max-w-xl" />
-                    </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

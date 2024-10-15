@@ -11,7 +11,9 @@
         "avis": "Votre avis",
         "date": "DATE LIMITE POUR COMMANDER :",
         "connexion" : "Se connecter",
-        "nextMenu" : "SORTIE DU PROCHAIN MENU :"
+        "nextMenu" : "SORTIE DU PROCHAIN MENU :",
+        "compte" : "Mon compte",
+        "logout" : "Se déconnecter"
     },
     "Compte": {
         "titre" : "PREMIÈRE UTILISATION?",
