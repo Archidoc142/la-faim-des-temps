@@ -140,23 +140,19 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }
 
         //changer la date de livraison pour le prochain vendredi
-        d.setDate(dv.getDate() + 7);
-        if (i18n.language === 'fr') {
-            setDateDelivery(d.toLocaleDateString('fr-FR', optionsDel))
-        } else {
-            setDateDelivery(d.toLocaleDateString('en-EN', optionsDel))
+        if (ajdYYYY >= vendrediYYYY || (ajdYYYY == vendrediYYYY && d.getHours() >= 18)) {
+            d.setDate(dv.getDate() + 7);
+            if (i18n.language === 'fr') {
+                setDateDelivery(d.toLocaleDateString('fr-FR', optionsDel))
+            } else {
+                setDateDelivery(d.toLocaleDateString('en-EN', optionsDel))
+            }
         }
 
         //Gérer l'affichage du menu
         if (user && user.data.role == "admin")
             setAfficherMenu(true)
         else {
-            /*if (retourYYYY !== null) {
-                console.log("date_retourrr=", retourYYYY);
-                if (ajdYYYY == retourYYYY) {*/
-
-
-
             //si une date de retour est programmée
             if (dates_menu[0].date !== null) {
                 console.log("date_retourrr", dates_menu[0].date, "\n ajd", ajdYYYY);
@@ -187,37 +183,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
             setAfficherMenu(false);
             nextIntervalleMenu();
-         /*  //vendredi
-            d.setDate(dv.getDate() + 7);
-            setVendrediYYYY(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
-            console.log(",,,v", d);
-
-            if (i18n.language === 'fr') {
-                //setDateDelivery(dv.toLocaleDateString('fr-FR', optionsDel))
-                setDateMenuVend(d.toLocaleDateString('fr-FR', optionsMenu))
-            } else {
-                //setDateDelivery(dv.toLocaleDateString('en-EN', optionsDel))
-                setDateMenuVend(d.toLocaleDateString('en-EN', optionsMenu))
-            }
-
-            //                 console.log("vendreri", vendrediYYYY, d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
-            changeDateBD(2, d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));  //changer date vendredi
-
-
-            //lundi
-            d.setDate(dl.getDate() + 7);
-            setLundiYYYY(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
-            console.log(",--l", d);
-
-            if (i18n.language === 'fr') {
-                setDateMenuLund(d.toLocaleDateString('fr-FR', optionsDel))
-            } else {
-                setDateMenuLund(d.toLocaleDateString('en-EN', optionsDel))
-            }
-            //           console.log("lundi", lundiYYYY, d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
-            changeDateBD(3, d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));  //changer date lundi
-      */  }
-        //if (d.getDay() >= 6 || (d.getDay() == 5 && d.getHours() >= 12) || (d.getDay() == 1 && d.getHours() <= 16)) {
+        }
         else if (ajdYYYY >= vendrediYYYY || (ajdYYYY == vendrediYYYY && d.getHours() >= 12) || (ajdYYYY == lundiYYYY && d.getHours() <= 16)) {
             // Afficher menu (vendredi)
             setAfficherMenu(true);
