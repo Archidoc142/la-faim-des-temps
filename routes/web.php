@@ -18,14 +18,12 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    $commentaire = CommentaireResource::collection(
-    Commentaire::where('masque', true)
-    ->whereNotNull('commentaire')
-    ->limit(10)
-    ->get());
-
     return Inertia::render('Accueil', [
-        'commentaires' => $commentaire
+        'commentaires' => CommentaireResource::collection(
+            Commentaire::where('masque', true)
+            ->whereNotNull('commentaire')
+            ->limit(10)
+            ->get())
     ]);
 })->name('accueil');
 
@@ -61,6 +59,8 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::controller(CommandeController::class)->group(function() {
         Route::get('/admin/commandes', 'index')->name('admin.commandes');
     });
+
+    Route::get('admin/commentaires', [CommentaireController::class, 'indexAdmin'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaires");
 });
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);
