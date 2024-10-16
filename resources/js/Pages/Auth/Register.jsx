@@ -40,7 +40,7 @@ export default function Register() {
                 <div className='bg-white rounded-lg m-6 min-h-[80%] 2xl:min-h-[90%] border-2 border-[#BB285C]'>
                     <div className='text-center p-3 text-2xl font-bold border-b-2 border-[#BB285C]'>{t("Compte.titre")}</div>
                     <div className='flex w-[100%] justify-center'>
-                        <div className='hidden lg:block border-r-2 border-r-[#BB285C] w-[40%] p-6'>
+                        <div className='hidden lg:flex items-center border-r-2 border-r-[#BB285C] w-[40%] p-6'>
                             <img src={logoBig} alt="La faim des temps logo-big-img" />
                         </div>
 
@@ -106,7 +106,7 @@ export default function Register() {
 
                                             <PhoneInput
                                                 id="telephone"
-                                                onChange={(tel) => { setData('telephone', normalize(tel)); console.log(data.telephone) }}
+                                                onChange={(tel) => { setData('telephone', normalize(tel));}}
                                                 className="bg-[#F7F6F6] mt-1 block w-full border-t-transparent border-x-transparent border-b-[#BB285C] focus:border-[#7A163C] focus:ring-[#7A163C] shadow-sm"
                                             />
 

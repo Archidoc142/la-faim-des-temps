@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('id_produit')->unsigned();
             $table->bigInteger('id_commande')->unsigned();
+            $table->bigInteger('id_format')->unsigned();
             $table->float('prix_vente');
         });
 
         Schema::table('commande_produit', function (Blueprint $table) {
             $table->foreign('id_produit')->references('id')->on('produit');
             $table->foreign('id_commande')->references('id')->on('commande');
+            $table->foreign('id_format')->references('id')->on('format');
         });
     }
 

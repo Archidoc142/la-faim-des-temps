@@ -11,6 +11,9 @@ class CommandeProduit extends Pivot
     public $incrementing = true;
     public $timestamps = false;
     protected $fillable= [
+        'id_produit',
+        'id_commande',
+        'id_format',
         'prix_vente'
     ];
 }

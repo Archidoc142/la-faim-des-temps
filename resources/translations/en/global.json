@@ -1,6 +1,6 @@
 {
     "Accueil": {
-
+        "commentaire" : "Customer Reviews"
     },
     "Header": {
         "accueil": "Home",
@@ -10,7 +10,10 @@
         "histoire": "Our story",
         "avis": "Your opinion",
         "date": "LIMIT DATE TO ORDER :",
-        "connexion" : "Login"
+        "connexion" : "Login",
+        "nextMenu" : "RELEASE OF THE NEXT MENU :",
+        "compte" : "My account",
+        "logout" : "Logout"
     },
     "Compte": {
         "titre": "FIRST TIME?",
@@ -22,7 +25,16 @@
         "telephone": "Phone number",
         "mdp": "Password",
         "confirmer_mdp": "Confirm password",
-        "deja_inscrit": "Already registered? (Login)"
+        "deja_inscrit": "Already registered? (Login)",
+        "crtpas" : "Current Password",
+        "newpas" : "New Password",
+        "conpas" : "Confirm Password",
+        "save" : "Save",
+        "saved" : "Saved",
+        "prinfo" : "Profile Information",
+        "updpr" : "Update your account's profile information.",
+        "uppas" : "Update Password",
+        "enspas" : "Ensure your account is using a long, random password to stay secure."
     },
     "Login": {
         "title1": "Welcome to",
@@ -82,5 +94,11 @@
         "rue" : "Street name",
         "app" : "Apartment number (optional)",
         "postal" : "Postal code"
+    },
+    "Avis": {
+        "addAvis" : "Add a comment",
+        "avisDesc" : "Your opinion is important for us. Do not hesitate to share your experience with us and with the other users of our website!",
+        "comment" : "Comment",
+        "send" : "Send"
     }
 }

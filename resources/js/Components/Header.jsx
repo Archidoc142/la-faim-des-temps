@@ -1,7 +1,8 @@
 import { Link, usePage } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import Dropdown from '@/Components/Dropdown';
 
 import logo from '../../../public/img/logo-rect.jpg'
 
@@ -12,24 +13,43 @@ export default function Header() {
     const user = usePage().props.auth.user;
 
     let d = new Date();
+    const [message, setMessage] = useState()
+    const noRedLabelURL = ['/avis', '/admin']
 
     const options = { weekday: 'long', day: 'numeric', month: 'long' };
     const tempDate = d.toLocaleDateString('fr-FR', options) + ' à 16:00';
     const [date, setDate] = useState(tempDate)
 
+    const out = useRef(null);
+    useOutside(out);
+
     // Format la date pour avoir le prochain lundi
     // Si langue = fr - langue affiché en (fr)
     useEffect(() => {
-        if (d.getDay() == 1 && d.getHours() > 15) {
+        if (
+            (d.getDay() == 5 && d.getHours() >= 12) ||  // Vendredi après 12h
+            (d.getDay() == 6 || d.getDay()   ==  0) ||  // Samedi ou dimanche
+            (d.getDay() == 1 && d.getHours()  < 16)     // Lundi avant 16h
+          ){
+            // Peut commander
+            setMessage(t("Header.date"))
             d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
-        } else {
-            d.setDate(d.getDate() + (1 + 7 - d.getDay()) % 7);
-        }
 
-        if (i18n.language === 'fr') {
-            setDate(d.toLocaleDateString('fr-FR', options) + ' à 16:00')
+            if (i18n.language === 'fr') {
+                setDate(d.toLocaleDateString('fr-FR', options) + ' à 16:00')
+            } else {
+                setDate(d.toLocaleDateString('en-EN', options) + ' at 16:00')
+            }
         } else {
-            setDate(d.toLocaleDateString('en-EN', options) + ' at 16:00')
+            // Ne peut pas commander
+            setMessage(t("Header.nextMenu"))
+            d.setDate(d.getDate() + (((5 + 7 - d.getDay()) % 7) || 7));
+
+            if (i18n.language === 'fr') {
+                setDate(d.toLocaleDateString('fr-FR', options) + ' à 12:00')
+            } else {
+                setDate(d.toLocaleDateString('en-EN', options) + ' at 12:00')
+            }
         }
     }, [i18n.language])
 
@@ -46,6 +66,27 @@ export default function Header() {
         document.getElementById('menu').classList.add('hidden');
     }
 
+    const [menuUser, setMenuUser] = useState(false)
+    const toggleMenuUser = () => {
+        setMenuUser(!menuUser)
+    }
+
+    function useOutside(ref) {
+        useEffect(() => {
+            function handleClickOutside(e) {
+                if (out.current && !out.current.contains(e.target)) {
+                    setMenuUser(false)
+                }
+            }
+
+            document.addEventListener('mousedown', handleClickOutside);
+
+            return () => {
+                document.removeEventListener('mousedown', handleClickOutside);
+            };
+        }, [out])
+    };
+
     return (
         <header className='border-b border-[#9b9b9b]'>
             <div className='flex bg-white'>
@@ -55,7 +96,7 @@ export default function Header() {
                     {/* Menu*/}
                     <button onClick={toggleMenu} className='lg:hidden'>
                         <svg className='mx-4' width="34" height="34" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2">
-                          <path d="M3 6 H21 M3 12 H21 M3 18 H21"/>
+                            <path d="M3 6 H21 M3 12 H21 M3 18 H21" />
                         </svg>
                     </button>
 
@@ -66,33 +107,48 @@ export default function Header() {
                             <Link className={`text-xs xl:text-base ${url === '/valeurs' ? 'text-white' : false}`} href='/valeurs'><strong>{t("Header.valeurs")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/producteurs' ? 'text-white' : false}`} href='/producteurs'><strong>{t("Header.producteurs")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/histoire' ? 'text-white' : false}`} href='/histoire'><strong>{t("Header.histoire")}</strong></Link>
+                            {user ? user.data.role !== "admin" ? <Link className={`text-xs xl:text-base ${url === '/avis' ? 'text-white' : false}`} href='/avis'><strong>{t("Header.avis")}</strong></Link> : null : null}
                         </div>
                     </div>
 
 
                     <div className='flex items-center justify-evenly gap-1'>
                         {/* User*/}
-                        <Link href={ user ?
-                                 user.data.role === "admin" ? "/admin" : "/compte" :
-                                 "/login"}
-                            className='items-center flex gap-4'>
+                        {user ?
+                            <div
+                                className='items-center flex gap-4 relative cursor-pointer group'
+                                onClick={toggleMenuUser}
+                            >
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke={user ? user.data.role === "admin" ? "#BB285C" : "#75A9F9" : "#929292"} strokeWidth="2" id="iconUser">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
 
-                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke={user ? user.data.role === "admin" ? "#BB285C" : "#75A9F9" :"#929292"} strokeWidth="2" id="iconUser">
-                              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                              <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
+                                <p className='text-white hidden sm:block text-xs xl:text-base font-bold group-hover:text-gray-300 relative ease-in-out before:transition-[width] before:ease-in-out before:duration-200 before:absolute before:bg-white before:origin-center before:h-[2px] before:w-0 group-hover:before:w-[50%] before:bottom-0 before:left-[50%] after:transition-[width] after:ease-in-out after:duration-200 after:absolute after:bg-white after:origin-center after:h-[2px] after:w-0 group-hover:after:w-[50%] after:bottom-0 after:right-[50%]'>
+                                    {user ?
+                                        user.data.role === "admin" ? "Admin" : user.data.prenom :
+                                        t("Header.connexion")}
+                                </p>
 
-                            <p className='text-white hidden sm:block text-xs xl:text-base'><strong>
-                                {user ?
-                                    user.data.role === "admin" ? "Admin" : user.data.prenom :
-                                    t("Header.connexion")}</strong></p>
-                        </Link>
+                                {menuUser ? <div ref={out} className='z-10 absolute bg-[#d4dbe8] text-white text-center top-10 w-[150px] rounded-lg shadow-xl'>
+                                    <Dropdown.Link href={user.data.role == "admin" ? route('admin.accueil') : route('profile.edit')} className='font-semibold rounded-t-lg'>{user.data.role == "admin" ? "Admin" : t("Header.compte")}</Dropdown.Link>
+                                    <Dropdown.Link href={route('logout')} className='font-semibold rounded-b-lg' method="post" as="button">{t("Header.logout")}</Dropdown.Link>
+                                </div> : null}
+                            </div> :
 
+                            <Link href='/login' className='items-center flex gap-4'>
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke={user ? user.data.role === "admin" ? "#BB285C" : "#75A9F9" : "#929292"} strokeWidth="2" id="iconUser">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+
+                                <p className='text-white hidden sm:block text-xs xl:text-base font-bold'>{t("Header.connexion")}</p>
+                            </Link>}
 
                         {/* Panier*/}
                         <Link href='/panier'>
                             <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" fill='transparent' stroke="#fff" strokeWidth="2">
-                              <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
+                                <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
                                        M10 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0
                                        M18 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
                             </svg>
@@ -114,14 +170,13 @@ export default function Header() {
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/valeurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/valeurs'>{t("Header.valeurs")}</Link>
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/producteurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/producteurs'>{t("Header.producteurs")}</Link>
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/histoire' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/histoire'>{t("Header.histoire")}</Link>
-                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/avis' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/avis'>{t("Header.avis")}</Link>
+                {user ? user.data.role !== "admin" ? <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/avis' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/avis'>{t("Header.avis")}</Link> : null : null}
             </div>
 
             {/* flash*/}
-
-            { !url.includes("/admin") ?
+            {!noRedLabelURL.some(str => url.startsWith(str)) ?
                 <div className='py-3 text-sm text-white bg-[#BB285C] text-center'>
-                    <p><strong>{t("Header.date")}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
+                    <p><strong>{message}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
                 </div> : ""
             }
         </header>

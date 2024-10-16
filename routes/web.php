@@ -4,24 +4,39 @@ use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\DatesMenuController;
+use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
+use App\Http\Resources\CommentaireResource;
+use App\Models\Commentaire;
 use App\Models\Produit;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Accueil', []);
+    $commentaire = CommentaireResource::collection(
+    Commentaire::where('masque', true)
+    ->whereNotNull('commentaire')
+    ->limit(10)
+    ->get());
+
+    return Inertia::render('Accueil', [
+        'commentaires' => $commentaire
+    ]);
 })->name('accueil');
 
 Route::get('/menu', [ProduitController::class, 'index'])->name('menu.index');
 
 Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
+Route::post('/commande', [CommandeController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class)->name('envoiCommande');
+
+Route::get('/avis', [CommentaireController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
+Route::post('/avis', [CommentaireController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class);
 
 Route::get('/compte', function () {
     return Inertia::render('Compte', []);

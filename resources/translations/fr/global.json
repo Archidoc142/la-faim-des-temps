@@ -1,6 +1,6 @@
 {
     "Accueil": {
-
+        "commentaire" : "Commentaires de client"
     },
     "Header": {
         "accueil": "Accueil",
@@ -10,7 +10,10 @@
         "histoire": "Notre histoire",
         "avis": "Votre avis",
         "date": "DATE LIMITE POUR COMMANDER :",
-        "connexion" : "Se connecter"
+        "connexion" : "Se connecter",
+        "nextMenu" : "SORTIE DU PROCHAIN MENU :",
+        "compte" : "Mon compte",
+        "logout" : "Se déconnecter"
     },
     "Compte": {
         "titre" : "PREMIÈRE UTILISATION?",
@@ -22,7 +25,17 @@
         "telephone": "Téléphone",
         "mdp": "Mot de passe",
         "confirmer_mdp": "Confirmer le mot de passe",
-        "deja_inscrit": "Déjà inscrit? (Se connecter)"
+        "deja_inscrit": "Déjà inscrit? (Se connecter)",
+        "crtpas" : "Mot de passe actuel",
+        "newpas" : "Nouveau mot de passe",
+        "conpas" : "Confirmer le nouveau mot de passe",
+        "save" : "Enregistrer",
+        "saved" : "Fait",
+        "prinfo" : "Information du profil",
+        "updpr" : "Mettre à jour les informations du compte.",
+        "uppas" : "Mis à jour du mot de passe",
+        "enspas" : "Assurez-vous d'avoir un mot de passe sécuritaire."
+
     },
     "Login": {
         "title1": "Bienvenue à",
@@ -82,5 +95,11 @@
         "rue" : "Nom de rue",
         "app" : "Numéro d'appartement (facultaif)",
         "postal" : "Code postal"
+    },
+    "Avis": {
+        "addAvis" : "Ajouter un avis",
+        "avisDesc" : "Votre avis est important pour nous.\nN'hésitez pas à partager votre expérience\navec nous et avec les visiteurs de notre site!",
+        "comment" : "Commentaire",
+        "send" : "Envoyer"
     }
 }

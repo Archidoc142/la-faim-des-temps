@@ -32,8 +32,8 @@ class AdresseController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'no_civique' => 'required|regex:/^[0-9]*$/',
-            'rue' => 'required|max:128',
+            'no_civique' =>  'required|regex:/^[0-9]*$/',
+            'rue' =>         'required|max:128',
             'appartement' => 'nullable|regex:/^[0-9]*$/',
             'code_postal' => 'required|min:7'
         ];
@@ -81,7 +81,7 @@ class AdresseController extends Controller
                 'visible' => true,
             ]);
 
-            $montant = ($id_secteur == 3) ? 7 : 10;
+            $montant = ($id_secteur == 2) ? 7 : 10;
 
             return response()->json([
                 'success' => true,
