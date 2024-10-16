@@ -52,9 +52,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::get('/admin', function() { return redirect()->route('admin.clients');})->name('admin.accueil');
 
     Route::post('/menu/modifier', [ProduitController::class, 'update'])->name('menu.update');
-    //Route::post('/dates_menu/edit/{id}/{date}', [DatesMenuController::class, 'update'])->name('dates_menu.update');
     Route::post('/dates-menu', [DatesMenuController::class, 'update']);
-    //Route::put('/dates-menu/{id}', 'DatesMenuController@update');
 
     Route::controller(ClientController::class)->group(function() {
         Route::get('/admin/clients', 'index')->name('admin.clients');
