@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\DatesMenuController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
@@ -18,7 +19,7 @@ Route::get('/', function () {
     return Inertia::render('Accueil', []);
 })->name('accueil');
 
-Route::get('/menu', [ProduitController::class, 'index']);
+Route::get('/menu', [ProduitController::class, 'index'])->name('menu.index');
 
 Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
 
@@ -36,6 +37,9 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::get('/admin', function() { return redirect()->route('admin.clients');})->name('admin.accueil');
 
     Route::post('/menu/modifier', [ProduitController::class, 'update'])->name('menu.update');
+    //Route::post('/dates_menu/edit/{id}/{date}', [DatesMenuController::class, 'update'])->name('dates_menu.update');
+    Route::post('/dates-menu', [DatesMenuController::class, 'update']);
+    //Route::put('/dates-menu/{id}', 'DatesMenuController@update');
 
     Route::controller(ClientController::class)->group(function() {
         Route::get('/admin/clients', 'index')->name('admin.clients');

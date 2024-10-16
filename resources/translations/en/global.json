@@ -52,7 +52,11 @@
         "livr-titre-autre" : "Delivery fees Fleurimont and Rock Forest zones",
         "livr-info" : "Please leave an appropriately sized cooler visible outside for your order.",
         "venir-titre" : "COME SEE US",
-        "venir-p" : "You can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choice of fine charcuterie."
+        "venir-p" : "You can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choices of fine charcuterie.",
+        "date-passed" : "The limit date for this week has passed.",
+        "next-friday" : "You can order again at 12PM on ",
+        "menu-indisponible" : "The menu is currently unavailable.",
+        "menu-back" : "It will be back on "
     },
     "Panier": {
         "vide": "Empty",
