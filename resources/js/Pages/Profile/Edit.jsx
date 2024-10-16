@@ -9,18 +9,20 @@ export default function Edit({ mustVerifyEmail, status }) {
         <div className='bg-white'>
             <Head title="Profile" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div className='sm:py-12'>
+                <div className=" mx-auto sm:px-6 lg:px-8 space-y-6 flex flex-col justify-center">
+                    <div className="p-4 sm:p-8 bg-white">
                         <UpdateProfileInformationForm
                             mustVerifyEmail={mustVerifyEmail}
                             status={status}
-                            className="max-w-xl"
+                            className='p-8 sm:max-w-[80%] mx-auto sm:bg-[#F7F6F6] shadow sm:rounded-lg'
                         />
                     </div>
 
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <UpdatePasswordForm className="max-w-xl" />
+                    <div className="p-4 sm:p-8 bg-white">
+                        <UpdatePasswordForm
+                            className='p-8 sm:max-w-[40%] mx-auto sm:bg-[#F7F6F6] shadow sm:rounded-lg'
+                        />
                     </div>
                 </div>
             </div>
