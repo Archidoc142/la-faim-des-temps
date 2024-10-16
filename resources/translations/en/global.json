@@ -25,7 +25,16 @@
         "telephone": "Phone number",
         "mdp": "Password",
         "confirmer_mdp": "Confirm password",
-        "deja_inscrit": "Already registered? (Login)"
+        "deja_inscrit": "Already registered? (Login)",
+        "crtpas" : "Current Password",
+        "newpas" : "New Password",
+        "conpas" : "Confirm Password",
+        "save" : "Save",
+        "saved" : "Saved",
+        "prinfo" : "Profile Information",
+        "updpr" : "Update your account's profile information.",
+        "uppas" : "Update Password",
+        "enspas" : "Ensure your account is using a long, random password to stay secure."
     },
     "Login": {
         "title1": "Welcome to",

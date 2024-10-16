@@ -25,7 +25,17 @@
         "telephone": "Téléphone",
         "mdp": "Mot de passe",
         "confirmer_mdp": "Confirmer le mot de passe",
-        "deja_inscrit": "Déjà inscrit? (Se connecter)"
+        "deja_inscrit": "Déjà inscrit? (Se connecter)",
+        "crtpas" : "Mot de passe actuel",
+        "newpas" : "Nouveau mot de passe",
+        "conpas" : "Confirmer le nouveau mot de passe",
+        "save" : "Enregistrer",
+        "saved" : "Fait",
+        "prinfo" : "Information du profil",
+        "updpr" : "Mettre à jour les informations du compte.",
+        "uppas" : "Mis à jour du mot de passe",
+        "enspas" : "Assurez-vous d'avoir un mot de passe sécuritaire."
+
     },
     "Login": {
         "title1": "Bienvenue à",
