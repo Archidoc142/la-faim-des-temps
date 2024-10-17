@@ -6,6 +6,7 @@ use App\Models\Commentaire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Http\Resources\CommentaireResource;
 
 class CommentaireController extends Controller
 {
@@ -15,6 +16,18 @@ class CommentaireController extends Controller
     public function index()
     {
         return Inertia::render('Avis');
+    }
+
+    /**
+     * Display a listing of the resource in the admin menu.
+     */
+    public function indexAdmin()
+    {
+        $commentaires = Commentaire::paginate(6);
+
+        return Inertia::render('Admin/Commentaires', [
+            "commentaires" => CommentaireResource::collection($commentaires)
+        ]);
     }
 
     /**

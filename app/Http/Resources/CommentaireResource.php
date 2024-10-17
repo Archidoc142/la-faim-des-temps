@@ -16,9 +16,11 @@ class CommentaireResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'utilisateur_objet' => $this->utilisateur,
             'utilisateur' => $this->utilisateur->prenom . " " . $this->utilisateur->nom,
             'note' => $this->note,
-            'commentaire' => $this->commentaire
+            'commentaire' => $this->commentaire,
+            'masque' => $this->masque,
         ];
     }
 }
