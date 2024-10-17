@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('format', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->decimal('montant', 10, 2);
+            $table->string("nom_interne", 4)->nullable();
         });
     }
 

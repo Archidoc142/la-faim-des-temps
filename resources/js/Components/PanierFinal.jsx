@@ -4,35 +4,8 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
 
     const [t, i18n] = useTranslation("global")
 
-    // AJOUTER CETTE FONCTION ET SUPPRIMER LE COM
-    // SEULEMENT SI L'ADRESSE N'EST PAS DANS LA BD
-    const addAdresseToDB = () => {
-        const adresseData = {
-            no_civique: data.no_civique,
-            rue: data.rue,
-            appartement: data.appartement,
-            code_postal: data.code_postal,
-        };
-
-        axios.post('/adresse', adresseData)
-            .then(response => {
-                // YAY
-                // On peut afficher les données renvoyées... but it's useless
-            })
-            .catch(error => {
-                if (error.response && error.response.data.errors) {
-                    let errorMessages = '';
-                    Object.keys(error.response.data.errors).forEach((key) => {
-                        errorMessages += `${error.response.data.errors[key].join(', ')}\n`;
-                    });
-
-                    alert(`Erreur lors de l'ajout de l'adresse :\n${errorMessages}`);
-                }
-            });
-    }
-
     const submitCommande = () => {
-        post(route('envoiCommande'))
+        post(route('checkout'))
     }
 
     let nomAdresse = "";

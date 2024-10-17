@@ -31,8 +31,14 @@ Route::get('/', function () {
 
 Route::get('/menu', [ProduitController::class, 'index']);
 
-Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
-Route::post('/commande', [CommandeController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class)->name('envoiCommande');
+Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class)->name('panier');
+
+Route::controller(CommandeController::class)->group(function() {
+    Route::post('/commande', [CommandeController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class)->name('envoiCommande');
+    Route::post('/checkout', 'checkout')->name('checkout')->middleware(EnsureUserIsLoggedIn::class);
+    Route::get('/success', 'success')->name('commande-success');
+    Route::get('/cancel', 'cancel')->name('commande-cancel');
+});
 
 Route::get('/avis', [CommentaireController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
 Route::post('/avis', [CommentaireController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class);

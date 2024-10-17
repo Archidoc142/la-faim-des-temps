@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             ProduitFormatSeeder::class,
             AdresseSeeder::class,
             ClientSeeder::class,
-            CommandeSeeder::class
+            //CommandeSeeder::class
         ]);
     }
 }

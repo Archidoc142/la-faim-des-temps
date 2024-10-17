@@ -20,6 +20,11 @@ return new class extends Migration
             $table->bigInteger('id_adresse')->unsigned()->nullable();
             $table->bigInteger('id_utilisateur')->unsigned();
             $table->bigInteger('id_etat_commande')->unsigned();
+            // pour Stripe
+            $table->string('status')->nullable();
+            $table->string('session_id')->nullable();
+            $table->string('stripe_id')->nullable();
+
             $table->timestamps();
         });
 
