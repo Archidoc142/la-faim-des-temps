@@ -6,14 +6,14 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
-class TarifLivraisonSeeder extends Seeder
+class TarifSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('TarifLivraison')->insert([
+        DB::table('tarif')->insert([
             ['nom' => 'Frais de livraison secteur Sherbrooke',
              'montant' => 7],
 

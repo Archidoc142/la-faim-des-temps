@@ -37,18 +37,18 @@ export default function ActionCell({
         useEffect(() => {
             function handleClickOutside(e) {
                 if (out.current && !out.current.contains(e.target)) {
-                    setMenuVisible(false)
-                    setToggledMenuId(0)
+                    setMenuVisible(false);
+                    setToggledMenuId(0);
                 }
             }
 
-            document.addEventListener('mousedown', handleClickOutside);
+            document.addEventListener("mousedown", handleClickOutside);
 
             return () => {
-                document.removeEventListener('mousedown', handleClickOutside);
+                document.removeEventListener("mousedown", handleClickOutside);
             };
-        }, [out])
-    };
+        }, [out]);
+    }
 
     return (
         <>
@@ -82,27 +82,32 @@ export default function ActionCell({
                 </button>
 
                 {menuVisible && id == toggledMenuId ? (
-                    <div ref={out} className="absolute bg-white border border-solid border-gray-300 rounded shadow-lg text-black top-7 right-1/4 w-32 z-10 py-1">
-                        {options.map((o, i) =>
-                            typeof o.type !== "undefined" ? (
-                                // S'il ne s'agit pas d'un get
-                                <Link
-                                    href={o.route}
-                                    key={i}
-                                    method={o.type}
-                                >
-                                    <p className="flex items-center justify-center w-full py-1 hover:bg-gray-300">
-                                        {o.label}
-                                    </p>
-                                </Link>
-                            ) : (
-                                <Link href={o.route} key={i}>
-                                    <p className="flex items-center justify-center w-full py-1 hover:bg-gray-300">
-                                        {o.label}
-                                    </p>
-                                </Link>
-                            )
-                        )}
+                    <div
+                        ref={out}
+                        className="absolute bg-white border border-solid border-gray-300 rounded shadow-lg text-black top-7 right-1/4 w-32 z-10 py-1"
+                    >
+                        {options
+                            ? options.map((o, i) =>
+                                  typeof o.type !== "undefined" ? (
+                                      // S'il ne s'agit pas d'un get
+                                      <Link
+                                          href={o.route}
+                                          key={i}
+                                          method={o.type}
+                                      >
+                                          <p className="flex items-center justify-center w-full py-1 hover:bg-gray-300">
+                                              {o.label}
+                                          </p>
+                                      </Link>
+                                  ) : (
+                                      <Link href={o.route} key={i}>
+                                          <p className="flex items-center justify-center w-full py-1 hover:bg-gray-300">
+                                              {o.label}
+                                          </p>
+                                      </Link>
+                                  )
+                              )
+                            : null}
                         {editable ? (
                             <button
                                 onClick={() => {

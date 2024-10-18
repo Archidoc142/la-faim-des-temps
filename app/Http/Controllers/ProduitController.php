@@ -9,7 +9,7 @@ use App\Models\Format;
 use App\Models\FormatLangue;
 use App\Models\Produit;
 use App\Models\ProduitLangue;
-use App\Models\TarifLivraison;
+use App\Models\Tarif;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -23,7 +23,7 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        $tarifs = TarifLivraison::all();
+        $tarifs = Tarif::all();
         $formats = Format::all();
         $langFormats = FormatLangue::all();
         $categories = Produit::all();

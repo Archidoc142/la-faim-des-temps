@@ -17,7 +17,7 @@ class Image extends Model
         'nom_fichier',
         'legende',
         'vitrine',
-        'saisonnier'
+        'saisonnier',
     ];
 
     public function saisons() {

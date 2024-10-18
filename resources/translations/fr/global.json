@@ -97,5 +97,18 @@
         "avisDesc" : "Votre avis est important pour nous.\nN'hésitez pas à partager votre expérience\navec nous et avec les visiteurs de notre site!",
         "comment" : "Commentaire",
         "send" : "Envoyer"
+    },
+    "Error": {
+        "title" : "Erreur ",
+
+        "503": "Le service n'est pas disponible",
+        "500": "Erreur du serveur",
+        "404": "Page non trouvée",
+        "403": "Cette action est interdite",
+
+        "503Desc": "Désolé, nous faisons une maintenance.",
+        "500Desc": "Whoops, il y a un problème avec le serveur.",
+        "404Desc": "Désolé, la page que vous essayez d'atteindre est manquante.",
+        "403Desc": "Désolé, il vous est interdit d'accéder à cette page."
     }
 }

@@ -96,5 +96,18 @@
         "avisDesc" : "Your opinion is important for us. Do not hesitate to share your experience with us and with the other users of our website!",
         "comment" : "Comment",
         "send" : "Send"
+    },
+    "Error": {
+        "title" : "Error ",
+
+        "503": "Service Unavailable",
+        "500": "Server Error",
+        "404": "Page Not Found",
+        "403": "Forbidden",
+
+        "503Desc": "Sorry, we are doing some maintenance. Please check back soon.",
+        "500Desc": "Whoops, something went wrong on our servers.",
+        "404Desc": "Sorry, the page you are looking for could not be found.",
+        "403Desc": "Sorry, you are forbidden from accessing this page."
     }
 }

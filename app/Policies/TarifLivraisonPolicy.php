@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\TarifLivraison;
+use App\Models\Tarif;
 use Illuminate\Auth\Access\Response;
 
-class TarifLivraisonPolicy
+class TarifPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class TarifLivraisonPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, TarifLivraison $tarifLivraison): bool
+    public function view(User $user, Tarif $tarif): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class TarifLivraisonPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, TarifLivraison $tarifLivraison): bool
+    public function update(User $user, Tarif $tarif): bool
     {
         //
     }
@@ -43,7 +43,7 @@ class TarifLivraisonPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, TarifLivraison $tarifLivraison): bool
+    public function delete(User $user, Tarif $tarif): bool
     {
         //
     }
@@ -51,7 +51,7 @@ class TarifLivraisonPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, TarifLivraison $tarifLivraison): bool
+    public function restore(User $user, Tarif $tarif): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class TarifLivraisonPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, TarifLivraison $tarifLivraison): bool
+    public function forceDelete(User $user, Tarif $tarif): bool
     {
         //
     }
