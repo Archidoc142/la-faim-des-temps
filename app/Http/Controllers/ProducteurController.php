@@ -25,7 +25,7 @@ class ProducteurController extends Controller
      */
     public function create()
     {
-        //
+        //Same as index()
     }
 
     /**

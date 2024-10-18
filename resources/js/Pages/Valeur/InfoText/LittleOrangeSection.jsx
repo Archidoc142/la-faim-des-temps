@@ -1,10 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import SectionTitle from "./SectionTitle";
 
 export default function LittleOrangeSection(props) {
-
-    const [title, setTitle] = useState(props.title);
-    const [textAlignment, setTextAlignment] = useState(props.textAlignment);
 
     return(
         <div className={`py-5 ${props.hidden ? 'hidden' : ''}`}>
@@ -20,7 +17,7 @@ export default function LittleOrangeSection(props) {
                     src={"img/"+props.image}
                     alt={props.image+" picture"}
                 />
-                <SectionTitle title={title}  textAlignment={textAlignment}/>
+                <SectionTitle title={props.title}  textAlignment={props.textAlignment}/>
 
                 {/* Cette image n'apparaît que en format laptop */}
                 <img 
