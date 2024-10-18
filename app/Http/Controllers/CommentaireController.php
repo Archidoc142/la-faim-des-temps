@@ -71,16 +71,23 @@ class CommentaireController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Commentaire $commentaire)
+    public function update(int $id)
     {
-        //
+        $commentaire = Commentaire::find($id);
+        $nb_show = count(Commentaire::where('masque', true)->get());
+
+        if(strlen($commentaire->commentaire) > 0 && $nb_show < 10) {
+            $commentaire->masque = !$commentaire->masque;
+            $commentaire->save();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Commentaire $commentaire)
+    public function destroy(int $id)
     {
-        //
+        $commentaire = Commentaire::find($id);
+        $commentaire->delete();
     }
 }
