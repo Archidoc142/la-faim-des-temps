@@ -6,12 +6,12 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import { useState } from "react";
 
 export default function Commentaires({ commentaires }) {
-    console.log(commentaires);
     const [ toggledMenuId, setToggledMenuId ] = useState(0);
 
     return (
         <AdminLayout title="Commentaires">
             <p>* Afficher un commentaire le met visible dans l'accueil, mais il y a une limite de 10 commentaires maximums</p>
+            <p>** Un commentaire vide de description ne peut pas être modifié.</p>
             <br />
 
             <table className="border w-full table-fixed">

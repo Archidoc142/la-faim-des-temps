@@ -60,7 +60,11 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::get('/admin/commandes', 'index')->name('admin.commandes');
     });
 
-    Route::get('admin/commentaires', [CommentaireController::class, 'indexAdmin'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaires");
+    Route::controller(CommentaireController::class)->group(function() {
+        Route::get('admin/commentaires', [CommentaireController::class, 'indexAdmin'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaires");
+        Route::patch('admin/commentaire/toggle/{id}', [CommentaireController::class, 'update'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.update");
+        Route::delete('admin/commentaire/destroy/{id}', [CommentaireController::class, 'destroy'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.destroy");
+    });
 });
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);
