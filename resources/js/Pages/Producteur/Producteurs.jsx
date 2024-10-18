@@ -8,6 +8,8 @@ import PaginationBar from '@/Components/PaginationBar';
 import HeadWithImage from '@/Components/HeadWithImage';
 
 export default function Producteur( { producteurs }) {
+    const [editMode, setEditMode] = useState(false);
+
     const user = usePage().props.auth.user;
     const imgFile = '/img/';
     return (

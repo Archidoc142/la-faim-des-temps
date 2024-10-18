@@ -34,6 +34,9 @@ export default function Menu() {
                 </svg>
 
             </MenuItem>
+
+            {/* This is use to generate the acces token for quickbook TODO: each 100 day */}
+            <MenuItem name="QuickBooks" routeName="quickbooks"></MenuItem>
         </div>
     )
 }

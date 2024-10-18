@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Services\QuickBooksService;
 
 class RegisteredUserController extends Controller
 {
@@ -30,6 +31,8 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $quickBooksService = new QuickBooksService();
+
         $request->validate([
             'prenom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
             'nom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
@@ -51,19 +54,30 @@ class RegisteredUserController extends Controller
             'telephone.digits' => 'Le numéro de téléphone doit respecter le format (xxx) xxx-xxxx.',
         ]);
 
-        $user = User::create([
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'email' => $request->email,
-            'telephone' => $request->telephone,
-            'password' => Hash::make($request->password),
-            'id_role' => 1
-        ]);
+        try {
+            $user = User::create([
+                'nom' => $request->nom,
+                'prenom' => $request->prenom,
+                'email' => $request->email,
+                'telephone' => $request->telephone,
+                'password' => Hash::make($request->password),
+                'id_role' => 1
+            ]);
+        } catch (Exception $e) {
+            // Do sommething with the exception
+        }
+
+        try {
+            $resultingCustomerObj = $quickBooksService->sendToQB($user);
+        } catch (Exception $e) {
+            // Do sommething with the exception
+        }
 
         event(new Registered($user));
 
         Auth::login($user);
 
+        //dd(intval($resultingCustomerObj->Id));
         return redirect(route('accueil', absolute: false));
     }
 }
