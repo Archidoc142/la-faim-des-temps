@@ -22,7 +22,7 @@ export default function Menu() {
                 </svg>
             </MenuItem>
 
-            <MenuItem name="Commentaires" routeName="clients">
+            <MenuItem name="Commentaires" routeName="commentaires">
                 <svg width="30" height="30" viewBox="0 0 24 24" fill="white" stroke="#fff" strokeWidth="1">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                 </svg>

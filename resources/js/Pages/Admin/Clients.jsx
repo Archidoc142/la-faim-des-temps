@@ -68,7 +68,18 @@ export default function Clients({clients}) {
                     </thead>
                     <tbody>
                         {clients.data.map((c, i) =>
-                            <ClientRow client={c} key={i} editableId={editableId} seteditableId={seteditableId} data={data} setData={setData} resetData={resetClientData} toggledMenuId={toggledMenuId} setToggledMenuId={setToggledMenuId} page={clients.meta.current_page}/>
+                            <ClientRow
+                                client={c}
+                                key={i}
+                                editableId={editableId}
+                                seteditableId={seteditableId}
+                                data={data}
+                                setData={setData}
+                                resetData={resetClientData}
+                                toggledMenuId={toggledMenuId}
+                                setToggledMenuId={setToggledMenuId}
+                                page={clients.meta.current_page}
+                            />
                         )}
                     </tbody>
                 </table>

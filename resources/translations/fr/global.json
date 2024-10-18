@@ -11,7 +11,9 @@
         "avis": "Votre avis",
         "date": "DATE LIMITE POUR COMMANDER :",
         "connexion" : "Se connecter",
-        "nextMenu" : "SORTIE DU PROCHAIN MENU :"
+        "nextMenu" : "SORTIE DU PROCHAIN MENU :",
+        "compte" : "Mon compte",
+        "logout" : "Se déconnecter"
     },
     "Compte": {
         "titre" : "PREMIÈRE UTILISATION?",
@@ -23,7 +25,17 @@
         "telephone": "Téléphone",
         "mdp": "Mot de passe",
         "confirmer_mdp": "Confirmer le mot de passe",
-        "deja_inscrit": "Déjà inscrit? (Se connecter)"
+        "deja_inscrit": "Déjà inscrit? (Se connecter)",
+        "crtpas" : "Mot de passe actuel",
+        "newpas" : "Nouveau mot de passe",
+        "conpas" : "Confirmer le nouveau mot de passe",
+        "save" : "Enregistrer",
+        "saved" : "Fait",
+        "prinfo" : "Information du profil",
+        "updpr" : "Mettre à jour les informations du compte.",
+        "uppas" : "Mis à jour du mot de passe",
+        "enspas" : "Assurez-vous d'avoir un mot de passe sécuritaire."
+
     },
     "Login": {
         "title1": "Bienvenue à",
@@ -37,7 +49,7 @@
     },
     "Menu": {
         "titre": "Menu traiteur hebdomadaire",
-        "sous-titre": "Sauvez temps et énergie avec nos plats prêt à réchauffer livrés chez vous!",
+        "sous-titre": "Sauvez temps et énergie avec nos plats prêts à réchauffer livrés chez vous!",
         "portion": "COÛT DES PORTIONS",
         "recuperer" : "DEUX MÉTHODES POUR RÉCUPÉRER VOTRE COMMANDE",
         "menu-titre": "Menu de la semaine",
@@ -53,7 +65,11 @@
         "livr-titre-autre" : "Frais de livraison secteurs Fleurimont et Rock Forest",
         "livr-info" : "Merci de laisser une glacière de taille appropriée visible à l’extérieur pour votre commande.",
         "venir-titre" : "PASSER NOUS VOIR",
-        "venir-p" : "Vous pouvez également passer en boutique entre 16:00 et 17:00 pour récupérer votre commande sur place. Profitez-en pour vous procurer de quoi faire l'apéro en revenant chez vous parmi notre choix de charcuteries fines."
+        "venir-p" : "Vous pouvez également passer en boutique entre 16:00 et 17:00 pour récupérer votre commande sur place. Profitez-en pour vous procurer de quoi faire l'apéro en revenant chez vous parmi nos choix de charcuteries fines.",
+        "date-passed" : "La date limite pour cette semaine est passée.",
+        "next-friday" : "Vous pourrez commander à nouveau à 12:00 le ",
+        "menu-indisponible" : "Le menu est présentement indisponible.",
+        "menu-back" : "Il sera de retour le "
     },
     "Panier": {
         "vide": "Vide",

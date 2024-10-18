@@ -11,7 +11,9 @@
         "avis": "Your opinion",
         "date": "LIMIT DATE TO ORDER :",
         "connexion" : "Login",
-        "nextMenu" : "RELEASE OF THE NEXT MENU :"
+        "nextMenu" : "RELEASE OF THE NEXT MENU :",
+        "compte" : "My account",
+        "logout" : "Logout"
     },
     "Compte": {
         "titre": "FIRST TIME?",
@@ -23,7 +25,16 @@
         "telephone": "Phone number",
         "mdp": "Password",
         "confirmer_mdp": "Confirm password",
-        "deja_inscrit": "Already registered? (Login)"
+        "deja_inscrit": "Already registered? (Login)",
+        "crtpas" : "Current Password",
+        "newpas" : "New Password",
+        "conpas" : "Confirm Password",
+        "save" : "Save",
+        "saved" : "Saved",
+        "prinfo" : "Profile Information",
+        "updpr" : "Update your account's profile information.",
+        "uppas" : "Update Password",
+        "enspas" : "Ensure your account is using a long, random password to stay secure."
     },
     "Login": {
         "title1": "Welcome to",
@@ -53,7 +64,11 @@
         "livr-titre-autre" : "Delivery fees Fleurimont and Rock Forest zones",
         "livr-info" : "Please leave an appropriately sized cooler visible outside for your order.",
         "venir-titre" : "COME SEE US",
-        "venir-p" : "You can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choice of fine charcuterie."
+        "venir-p" : "You can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choices of fine charcuterie.",
+        "date-passed" : "The limit date for this week has passed.",
+        "next-friday" : "You can order again at 12PM on ",
+        "menu-indisponible" : "The menu is currently unavailable.",
+        "menu-back" : "It will be back on "
     },
     "Panier": {
         "vide": "Empty",
