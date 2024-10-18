@@ -100,5 +100,24 @@
         "avisDesc" : "Your opinion is important for us. Do not hesitate to share your experience with us and with the other users of our website!",
         "comment" : "Comment",
         "send" : "Send"
+    },
+    "Valeurs": {
+        "titre": "Our values",
+        "titrePagePart1": "Our",
+        "titrePagePart2": "Initiatives",
+        "titrePagePart3": "Environmental",
+        "firstSectionTitle": "Our Values",
+        "firstSectionText": "From the beginning, we have always sought to integrate as many good environmental practices as possible into our operations, for the simple reason that it aligns with the core values of our founders. You can’t eat well with land that’s overexploited and polluted...",
+        "secondSectionTitlePart1": "For a Centro",
+        "plus": "More",
+        "vert": "green",
+        "et": "and",
+        "secondSectionTitlePart2": "Inclusive",
+        "secondSectionText": "Being mindful of our environment and aware that a food business can quickly produce a lot of waste, we have implemented several strategies to minimize our environmental footprint as much as possible.",
+        "thirdSectionTitle": "Our Actions",
+        "thirdSectionSbuTitle1": "Local Products",
+        "thirdSectionText1": "Our partners are mostly from Sherbrooke... or Quebec (we love Île d'Orléans a bit too much to go without it). Moreover, we use local ingredients as much as possible, and our bistro menu changes with the seasons. We also prioritize producers or artisans who are organic/natural.",
+        "thirdSectionSbuTitle2": "Aiming for Zero Waste",
+        "thirdSectionText2": "At La faim des temps, almost everything is recycled or composted. We are very proud that our trash can is the size of a small office paper basket. Our dear customers return the containers from our catering service. These are then cleaned, sanitized, and reused."
     }
 }

@@ -101,5 +101,24 @@
         "avisDesc" : "Votre avis est important pour nous.\nN'hésitez pas à partager votre expérience\navec nous et avec les visiteurs de notre site!",
         "comment" : "Commentaire",
         "send" : "Envoyer"
+    },
+    "Valeurs": {
+        "titre": "Nos valeurs",
+        "titrePagePart1": "Nos",
+        "titrePagePart2": "Initiatives",
+        "titrePagePart3": "Environnementales",
+        "firstSectionTitle": "Nos valeurs",
+        "firstSectionText": "La faim des temps à toujours chercher à intégrer le maximum de bonnes pratiques environnementales dans son fonctionnement pour la simple et bonne raison que cela fait partie des valeurs de base de ses fondateurs. On ne mange pas très bien avec un terroir exploité à l'extrême et pollué...",
+        "secondSectionTitlePart1": "Pour un Centro",
+        "plus": "plus",
+        "vert": "vert",
+        "et": "et",
+        "secondSectionTitlePart2": "Inclusif",
+        "secondSectionText": "Soucieux de notre environnement et conscients qu'une entreprise alimentaire peut rapidement produire beaucoup de déchets, nous avons mis sur pied plusieurs stratégies pour réduire au maximum notre empreinte environnementale.",
+        "thirdSectionTitle": "Nos Gestes",
+        "thirdSectionSbuTitle1": "Produits Locaux",
+        "thirdSectionText1": "Nos partenaires sont majoritairement Sherbrookois... ou Québécois (on aime un peu trop l'île d'Orléans pour s'en passer). De plus nous utilisons des ingrédients locaux autant que possible et notre menu bistro change au rythme des saisons. Nous choisissons aussi prioritairement des producteurs ou artisans biologiques/naturels.",
+        "thirdSectionSbuTitle2": "Viser le zéro déchet",
+        "thirdSectionText2": "À La faim des temps, quasiment tout est recyclé ou composté. Nous sommes très fiers que notre poubelle soit de la taille d'une corbeille à papiers de bureaux. Notre chère clientèle nous rapporte les contenants pour les plats du traiteur. Ces derniers sont ensuite nettoyés et assainis avant d'être réutilisés."
     }
 }
