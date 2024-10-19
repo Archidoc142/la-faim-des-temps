@@ -23,7 +23,7 @@ class CommandeResource extends JsonResource
             'adresse' => $this->adresse,
             'user' => $this->user,
             'etat_commande' => $this->etat_commande,
-            'created_at' => date('Y/m/d', strtotime($this->created_at)),
+            'created_at' => date('Y/m/d', strtotime($this->created_at))
         ];
     }
 }
