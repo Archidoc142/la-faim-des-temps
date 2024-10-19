@@ -28,11 +28,10 @@ export default function Menu() {
                 </svg>
             </MenuItem>
 
-            <MenuItem name="Tarifs" routeName="clients">
+            <MenuItem name="Tarifs" routeName="tarifs">
                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3">
                     <path d="M12 1v22 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
-
             </MenuItem>
         </div>
     )

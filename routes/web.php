@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
+use App\Http\Controllers\TarifLivraisonController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use App\Http\Resources\CommentaireResource;
@@ -63,9 +64,15 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     });
 
     Route::controller(CommentaireController::class)->group(function() {
-        Route::get('admin/commentaires', [CommentaireController::class, 'indexAdmin'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaires");
-        Route::patch('admin/commentaire/toggle/{id}', [CommentaireController::class, 'update'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.update");
-        Route::delete('admin/commentaire/destroy/{id}', [CommentaireController::class, 'destroy'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.destroy");
+        Route::get('admin/commentaires', 'indexAdmin')->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaires");
+        Route::patch('admin/commentaire/toggle/{id}', 'update')->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.update");
+        Route::delete('admin/commentaire/destroy/{id}', 'destroy')->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.destroy");
+    });
+
+    Route::controller(TarifLivraisonController::class)->group(function() {
+        Route::get('admin/tarifs', 'index')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarifs");
+        Route::post('admin/tarif/updateTarif', 'updateTarif')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateTarif");
+        Route::post('admin/tarif/updateFormat', 'updateFormat')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateFormat");
     });
 });
 

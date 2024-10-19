@@ -119,5 +119,18 @@
         "thirdSectionText1": "Our partners are mostly from Sherbrooke... or Quebec (we love Île d'Orléans a bit too much to go without it). Moreover, we use local ingredients as much as possible, and our bistro menu changes with the seasons. We also prioritize producers or artisans who are organic/natural.",
         "thirdSectionSbuTitle2": "Aiming for Zero Waste",
         "thirdSectionText2": "At La faim des temps, almost everything is recycled or composted. We are very proud that our trash can is the size of a small office paper basket. Our dear customers return the containers from our catering service. These are then cleaned, sanitized, and reused."
+    },
+    "Error": {
+        "title" : "Error ",
+
+        "503": "Service Unavailable",
+        "500": "Server Error",
+        "404": "Page Not Found",
+        "403": "Forbidden",
+
+        "503Desc": "Sorry, we are doing some maintenance. Please check back soon.",
+        "500Desc": "Whoops, something went wrong on our servers.",
+        "404Desc": "Sorry, the page you are looking for could not be found.",
+        "403Desc": "Sorry, you are forbidden from accessing this page."
     }
 }
