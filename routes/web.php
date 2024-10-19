@@ -8,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
-use App\Http\Controllers\TarifController;
+use App\Http\Controllers\TarifLivraisonController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use App\Http\Resources\CommentaireResource;
@@ -67,9 +67,10 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::delete('admin/commentaire/destroy/{id}', 'destroy')->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.destroy");
     });
 
-    Route::controller(TarifController::class)->group(function() {
+    Route::controller(TarifLivraisonController::class)->group(function() {
         Route::get('admin/tarifs', 'index')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarifs");
-        Route::post('admin/tarif/update', 'update')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.update");
+        Route::post('admin/tarif/updateTarif', 'updateTarif')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateTarif");
+        Route::post('admin/tarif/updateFormat', 'updateFormat')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateFormat");
     });
 });
 

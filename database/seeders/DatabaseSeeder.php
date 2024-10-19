@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             HoraireOuvertureSeeder::class,
             SecteurSeeder::class,
             SecteurCodeSeeder::class,
-            TarifSeeder::class,
+            TarifLivraisonSeeder::class,
             ProduitFormatSeeder::class,
             AdresseSeeder::class,
             ClientSeeder::class,

@@ -5,14 +5,17 @@ import { useEffect, useState } from "react";
 import TarifRow from "@/Components/Admin/Table/TarifRow";
 import { useForm } from "@inertiajs/react";
 
-export default function Tarifs({ tarifs }) {
+export default function Tarifs({ tarifs, formats }) {
+
     const { data, setData, post, processing, errors, reset } = useForm({
-        id: "",
+        id: "",       // L'id de la rangé
+        idIndex: "", // L'id de l'item dans la BD : Format | Tarif Livraison
         montant: "",
+        type: "",
     });
 
     const resetTarifData = () => {
-        reset("id", "nom", "montant");
+        reset("id", "idIndex", "montant", "type");
     };
 
     const [editableId, seteditableId] = useState(0);
@@ -21,7 +24,11 @@ export default function Tarifs({ tarifs }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("admin.tarif.update"));
+        if (data.type === "tarif") {
+            post(route("admin.tarif.updateTarif"));
+        } else {
+            post(route("admin.tarif.updateFormat"));
+        }
     };
 
     useEffect(() => {
@@ -39,6 +46,8 @@ export default function Tarifs({ tarifs }) {
         }
     }, [errors]);
 
+    let id = 0
+
     return (
         <AdminLayout title="Tarifs">
             <form method="post" onSubmit={submit}>
@@ -51,10 +60,14 @@ export default function Tarifs({ tarifs }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {tarifs.data.map((t, i) => (
-                            <TarifRow
+                        {tarifs.data.map(t => {
+                            id += 1
+
+                            return <TarifRow
                                 tarif={t}
-                                key={i}
+                                type={"tarif"}
+                                id = {id}
+                                key={id}
                                 editableId={editableId}
                                 seteditableId={seteditableId}
                                 data={data}
@@ -63,7 +76,25 @@ export default function Tarifs({ tarifs }) {
                                 toggledMenuId={toggledMenuId}
                                 setToggledMenuId={setToggledMenuId}
                             />
-                        ))}
+                        })}
+
+                        {formats.data.map(f => {
+                            id += 1
+
+                            return <TarifRow
+                                tarif={f}
+                                type={"format"}
+                                id = {id}
+                                key={id}
+                                editableId={editableId}
+                                seteditableId={seteditableId}
+                                data={data}
+                                setData={setData}
+                                resetData={resetTarifData}
+                                toggledMenuId={toggledMenuId}
+                                setToggledMenuId={setToggledMenuId}
+                            />
+                        })}
                     </tbody>
                 </table>
             </form>
