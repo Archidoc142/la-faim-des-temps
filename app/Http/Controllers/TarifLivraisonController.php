@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TarifLivraison;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\TarifLivraison;
+use App\Models\Format;
+use App\Http\Resources\TarifLivraisonResource;
+use App\Http\Resources\FormatResource;
+use Inertia\Inertia;
 
 class TarifLivraisonController extends Controller
 {
@@ -12,7 +17,10 @@ class TarifLivraisonController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Admin/Tarifs', [
+            'tarifs' => TarifLivraisonResource::collection(TarifLivraison::all()),
+            'formats' => FormatResource::collection(Format::all())
+        ]);
     }
 
     /**
@@ -34,7 +42,7 @@ class TarifLivraisonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TarifLivraison $TarifLivraison)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +50,7 @@ class TarifLivraisonController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TarifLivraison $TarifLivraison)
+    public function edit(string $id)
     {
         //
     }
@@ -50,15 +58,27 @@ class TarifLivraisonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TarifLivraison $TarifLivraison)
+    public function updateTarif(Request $request)
     {
-        //
+        $tarif = TarifLivraison::find($request->input('idIndex'));
+        $tarif->montant = $request->input('montant');
+        $tarif->save();
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateFormat(Request $request)
+    {
+        $format = Format::find($request->input('idIndex'));
+        $format->montant = $request->input('montant');
+        $format->save();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TarifLivraison $TarifLivraison)
+    public function destroy(string $id)
     {
         //
     }

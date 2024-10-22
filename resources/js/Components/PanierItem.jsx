@@ -31,7 +31,7 @@ export default function PanierItem({ produit, id, formatId, quantity, panier, se
 
     const deleteItem = () => {
         // À modifié
-        showMessageFlash(2, t("Panier.flashDelete"), true)
+        showMessageFlash(1, t("Panier.flashDelete"))
 
         setPanier((p) => {
             const filteredPanier = p.filter((i) => i.id !== id)

@@ -33,6 +33,10 @@ export default function Accueil({ commentaires }) {
         setIndex(newIndex);
     };
 
+    const moveToIndex = (index) => {
+        setIndex(index)
+    }
+
     return (
         <>
             <Head title="Accueil" />
@@ -104,8 +108,9 @@ export default function Accueil({ commentaires }) {
                 <div className='flex gap-4 justify-center pb-6'>
                     {commentaires.data.map((item, tempIndex) => (
                         <span
+                            onClick={() => moveToIndex(tempIndex)}
                             key={tempIndex}
-                            className={"dot" + (index === tempIndex ? " !bg-white" : "")}
+                            className={"dot cursor-pointer" + (index === tempIndex ? " !bg-white" : "")}
                         ></span>
                     ))}
                 </div>

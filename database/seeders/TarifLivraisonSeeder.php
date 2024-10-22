@@ -19,21 +19,6 @@ class TarifLivraisonSeeder extends Seeder
 
             ['nom' => 'Frais de livraison secteurs Fleurimont et Rock Forest',
              'montant' => 10],
-
-            ['nom' => 'Soupe',
-             'montant' => 10],
-
-            ['nom' => 'Plat du chef',
-             'montant' => 15],
-
-            ['nom' => 'Format individuel',
-             'montant' => 11],
-
-            ['nom' => 'Format tête-à-tête',
-             'montant' => 20],
-
-            ['nom' => 'Format familial',
-             'montant' => 33],
         ]);
     }
 }

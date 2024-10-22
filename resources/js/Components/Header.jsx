@@ -21,11 +21,16 @@ export default function Header() {
     const [date, setDate] = useState(tempDate)
 
     const out = useRef(null);
+    useOutside(out);
 
     // Format la date pour avoir le prochain lundi
     // Si langue = fr - langue affiché en (fr)
     useEffect(() => {
-        if (d.getDay() >= 6 || (d.getDay() == 5 && d.getHours() >= 12) || (d.getDay() == 1 && d.getHours() <= 16)) {
+        if (
+            (d.getDay() == 5 && d.getHours() >= 12) ||  // Vendredi après 12h
+            (d.getDay() == 6 || d.getDay()   ==  0) ||  // Samedi ou dimanche
+            (d.getDay() == 1 && d.getHours()  < 16)     // Lundi avant 16h
+          ){
             // Peut commander
             setMessage(t("Header.date"))
             d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
@@ -64,21 +69,24 @@ export default function Header() {
     const [menuUser, setMenuUser] = useState(false)
     const toggleMenuUser = () => {
         setMenuUser(!menuUser)
+        handleClosure()
     }
 
-    const handleClickOutside = (event) => {
-        if (out.current && !out.current.contains(event.target)) {
-            toggleMenuUser()
-        }
+    function useOutside(ref) {
+        useEffect(() => {
+            function handleClickOutside(e) {
+                if (out.current && !out.current.contains(e.target)) {
+                    setMenuUser(false)
+                }
+            }
+
+            document.addEventListener('mousedown', handleClickOutside);
+
+            return () => {
+                document.removeEventListener('mousedown', handleClickOutside);
+            };
+        }, [out])
     };
-
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [])
 
     return (
         <header className='border-b border-[#9b9b9b]'>
@@ -123,9 +131,9 @@ export default function Header() {
                                         t("Header.connexion")}
                                 </p>
 
-                                {menuUser ? <div ref={out} className='absolute bg-[#d4dbe8] text-white text-center top-10 w-[150px] rounded-lg shadow-xl'>
-                                    <Dropdown.Link href={route('profile.edit')} className='font-semibold rounded-t-lg'>Mon compte</Dropdown.Link>
-                                    <Dropdown.Link href={route('logout')} className='font-semibold rounded-b-lg' method="post" as="button">Se déconnecter</Dropdown.Link>
+                                {menuUser ? <div ref={out} className='z-10 absolute bg-[#d4dbe8] text-white text-center top-10 w-[150px] rounded-lg shadow-xl'>
+                                    <Dropdown.Link href={user.data.role == "admin" ? route('admin.accueil') : route('profile.edit')} className='font-semibold rounded-t-lg'>{user.data.role == "admin" ? "Admin" : t("Header.compte")}</Dropdown.Link>
+                                    <Dropdown.Link href={route('logout')} className='font-semibold rounded-b-lg' method="post" as="button">{t("Header.logout")}</Dropdown.Link>
                                 </div> : null}
                             </div> :
 
@@ -139,7 +147,7 @@ export default function Header() {
                             </Link>}
 
                         {/* Panier*/}
-                        <Link href='/panier'>
+                        <Link href='/panier' onClick={handleClosure}>
                             <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" fill='transparent' stroke="#fff" strokeWidth="2">
                                 <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
                                        M10 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0
