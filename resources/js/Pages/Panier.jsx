@@ -13,11 +13,6 @@ export default function Panier({ produits, adresses }) {
     const [total, setTotal] = useState(0)
     const [boxVisible, setBoxVisible] = useState(false)
 
-    // Message Flash
-    const [message, setMessage] = useState("")
-    const [messageV, setMessageV] = useState(false)
-    const [messageS, setMessageS] = useState(false)
-
     const calculateCost = () => {
         const totalCost = panier.reduce((acc, item) => {
             const produit = produits.data.find(p => p.id === item.produitId)
@@ -33,7 +28,12 @@ export default function Panier({ produits, adresses }) {
         calculateCost()
     }, []);
 
-    const showMessageFlash = (status, message, visibility) => {
+    // Message Flash
+    const [message, setMessage] = useState("")
+    const [messageV, setMessageV] = useState(false)
+    const [messageS, setMessageS] = useState(false)
+
+    const showMessageFlash = (status, message, visibility = true) => {
         setMessageS(status)
         setMessage(message)
         setMessageV(visibility)

@@ -106,7 +106,7 @@ export default function Register() {
 
                                             <PhoneInput
                                                 id="telephone"
-                                                onChange={(tel) => { setData('telephone', normalize(tel)); console.log(data.telephone) }}
+                                                onChange={(tel) => { setData('telephone', normalize(tel));}}
                                                 className="bg-[#F7F6F6] mt-1 block w-full border-t-transparent border-x-transparent border-b-[#BB285C] focus:border-[#7A163C] focus:ring-[#7A163C] shadow-sm"
                                             />
 

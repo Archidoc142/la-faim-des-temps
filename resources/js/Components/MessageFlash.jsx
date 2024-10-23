@@ -23,9 +23,9 @@ export default function MessageFlash({ status, message, visibility, duration = 3
     return (
         <div className="w-full flex justify-center">
             {visible ?
-            <div className={`p-2 rounded-lg text-center w-[70%] text-white text-xl fixed border-2 top-[14%]
+            <div className={`p-2 rounded-lg text-center w-[70%] text-white text-xl font-bold fixed border-2 top-[8%] py-6
              ${status === 1 ? " bg-[#398e3d] border-[#23692a]" :
-                        status === 2 ? " bg-[#fac02e] border-[#a38322]" :
+                        status === 2 ? " bg-[#ffce52] border-[#a38322]" :
                             status === 3 ? " bg-[#d32f2e] border-[#86211f]" : null
                     }`}>
 
