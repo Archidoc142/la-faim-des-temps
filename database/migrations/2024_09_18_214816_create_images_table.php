@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('image', function (Blueprint $table) {
             $table->id();
             $table->string('nom_fichier');
-            $table->string('legende');
             $table->boolean('vitrine');
             $table->boolean('saisonnier');
         });

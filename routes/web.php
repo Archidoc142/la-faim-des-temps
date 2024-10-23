@@ -5,6 +5,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\DatesMenuController;
 use App\Http\Controllers\CommentaireController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
@@ -53,6 +54,12 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 
     Route::post('/menu/modifier', [ProduitController::class, 'update'])->name('menu.update');
     Route::post('/dates-menu', [DatesMenuController::class, 'update']);
+
+
+    Route::controller(ImageController::class)->group(function() {
+        Route::get('/admin/images', 'index')->name('admin.images');
+        Route::post('/admin/ajouter-image', 'store');
+    });
 
     Route::controller(ClientController::class)->group(function() {
         Route::get('/admin/clients', 'index')->name('admin.clients');

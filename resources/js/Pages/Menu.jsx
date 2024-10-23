@@ -5,11 +5,6 @@ import Item from '../item'
 import MenuBase from '@/Components/MenuBase';
 import MenuPrinc from '@/Components/MenuPrinc';
 import MenuDateRetour from '@/Components/MenuDateRetour';
-//import MenuForm from '@/Components/MenuForm';
-//import action from '../../../public/icons/action.png';
-import axios from 'axios';
-//import Route from 'vendor/tightenco/ziggy/src/js/Route';
-
 
 export default function Menu({ formats, langFormats, tarifs, produits, dates_menu, token }) {
 
@@ -48,20 +43,16 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }
     ]);
 
-
-
     const submit = (e) => {
         e.preventDefault();
         post(route('menu.update'), { preserveScroll: true });
         setEditMode(false);
     };
 
-    //const props = usePage().props;
-
     async function changeDateBD(id, nouv_valeur) {
 
         if (nouv_valeur || nouv_valeur == null) {
-            console.log("fun change db", id, nouv_valeur);
+            console.log(id, nouv_valeur);
 
             const dateData = {
                 _token: token,
@@ -115,37 +106,52 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     const [ajdYYYY, setAjdYYYY] = useState(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
     const [lundiYYYY, setLundiYYYY] = useState(dates_menu[2].date);
     const [vendrediYYYY, setVendrediYYYY] = useState(dates_menu[1].date);
+    const [lundiNextYYYY, setLundiNextYYYY] = useState(dates_menu[4].date);
+    const [vendrediNextYYYY, setVendrediNextYYYY] = useState(dates_menu[3].date);
     //const [retourYYYY, setRetourYYYY] = useState(tempDate);
 
     const [editMode, setEditMode] = useState(false);
 
     let dr = new Date(dates_menu[0].date);  //date retour à partir de la BD
-    let dv = new Date(dates_menu[1].date);  //date du vendredi de *cette* semaine à partir de la BD
-    let dl = new Date(dates_menu[2].date);  //date du lundi de *cette* semaine à partir de la BD
+    let dv = new Date(dates_menu[1].date);  //vendredi de *cette* semaine
+    let dl = new Date(dates_menu[2].date);  //lundi de *cette* semaine
+    let dnextv = new Date(dates_menu[3].date);  //*prochain* vendredi
+    let dnextl = new Date(dates_menu[4].date);  //*prochain* lundi
 
     dr.setDate(dr.getDate() + 1)
-    dv.setDate(dv.getDate() + 1)
-    dl.setDate(dl.getDate() + 1)
+    dv.setDate(dv.getDate() + 1)    //###### +1 si je veux la date du vendredi de l'intervalle actif, mais on veut afficher les dates du prochain
+    dl.setDate(dl.getDate() + 1)    //############## mm chose
+    dnextv.setDate(dnextv.getDate() + 1)    //###### +1 si je veux la date du vendredi de l'intervalle actif, mais on veut afficher les dates du prochain
+    dnextl.setDate(dnextl.getDate() + 1)    //############## mm chose
 
     useEffect(() => {
 
         if (i18n.language === 'fr') {
             setDateMenuRetour(dr.toLocaleDateString('fr-FR', optionsMenu))
-            setDateMenuVend(dv.toLocaleDateString('fr-FR', optionsMenu))
-            setDateMenuLund(dl.toLocaleDateString('fr-FR', optionsMenu))
         } else {
             setDateMenuRetour(dr.toLocaleDateString('en-EN', optionsMenu))
-            setDateMenuVend(dv.toLocaleDateString('en-EN', optionsMenu))
-            setDateMenuLund(dl.toLocaleDateString('en-EN', optionsMenu))
         }
 
         //changer la date de livraison pour le prochain vendredi
         if (ajdYYYY >= vendrediYYYY || (ajdYYYY == vendrediYYYY && d.getHours() >= 18)) {
-            d.setDate(dv.getDate() + 7);
             if (i18n.language === 'fr') {
-                setDateDelivery(d.toLocaleDateString('fr-FR', optionsDel))
+                setDateDelivery(dnextv.toLocaleDateString('fr-FR', optionsDel))
+                setDateMenuVend(dv.toLocaleDateString('fr-FR', optionsMenu))
+                setDateMenuLund(dl.toLocaleDateString('fr-FR', optionsMenu))
             } else {
-                setDateDelivery(d.toLocaleDateString('en-EN', optionsDel))
+                setDateDelivery(dnextv.toLocaleDateString('en-EN', optionsDel))
+                setDateMenuVend(dv.toLocaleDateString('en-EN', optionsMenu))
+                setDateMenuLund(dl.toLocaleDateString('en-EN', optionsMenu))
+            }
+        } else {
+            if (i18n.language === 'fr') {
+                setDateDelivery(dv.toLocaleDateString('fr-FR', optionsDel))
+                setDateMenuVend(dnextv.toLocaleDateString('fr-FR', optionsMenu))
+                setDateMenuLund(dnextl.toLocaleDateString('fr-FR', optionsMenu))
+            } else {
+                setDateDelivery(dv.toLocaleDateString('en-EN', optionsDel))
+                setDateMenuVend(dnextv.toLocaleDateString('en-EN', optionsMenu))
+                setDateMenuLund(dnextl.toLocaleDateString('en-EN', optionsMenu))
             }
         }
 
@@ -167,49 +173,34 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 else
                     setAfficherMenu(false);
             }
-            else {
-                checkIntervalleMenu();
-            }
         }
-
+        checkIntervalleMenu();
     }, [i18n.language])
 
     function checkIntervalleMenu() {
-        console.log("#fun lluni", lundiYYYY, vendrediYYYY, ajdYYYY);
+        console.log(ajdYYYY, vendrediYYYY, lundiYYYY, "\nnext", vendrediNextYYYY, lundiNextYYYY);
 
-        // préparer le prochain intervalle
-        if (ajdYYYY >= lundiYYYY || (ajdYYYY === lundiYYYY && d.getHours() >= 16)) {
-            console.log("fini menu");
-
-            setAfficherMenu(false);
-            nextIntervalleMenu();
-        }
-        else if (ajdYYYY >= vendrediYYYY || (ajdYYYY == vendrediYYYY && d.getHours() >= 12) || (ajdYYYY == lundiYYYY && d.getHours() <= 16)) {
-            // Afficher menu (vendredi)
+        if (ajdYYYY > vendrediNextYYYY || (ajdYYYY == vendrediNextYYYY  && d.getHours() >= 12)) {
+            changeDateBD(1, "prochain");
             setAfficherMenu(true);
-            changeDateBD(1, null);
+        }
+        else if (ajdYYYY >= lundiYYYY || (ajdYYYY === lundiYYYY && d.getHours() >= 16)) {
+            setAfficherMenu(false);
+            nextMenuText();
         }
     }
 
-    function nextIntervalleMenu() {
+    function nextMenuText() {
         //vendredi
-        d.setDate(dv.getDate());
-        setVendrediYYYY(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
-        console.log(",,,v", d);
-
+        d.setDate(dnextv.getDate());
         if (i18n.language === 'fr') {
-            //setDateDelivery(dv.toLocaleDateString('fr-FR', optionsDel))
             setDateMenuVend(d.toLocaleDateString('fr-FR', optionsMenu))
         } else {
-            //setDateDelivery(dv.toLocaleDateString('en-EN', optionsDel))
             setDateMenuVend(d.toLocaleDateString('en-EN', optionsMenu))
         }
 
         //lundi
-        d.setDate(dl.getDate());
-        setLundiYYYY(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
-        console.log(",--l", d);
-
+        d.setDate(dnextl.getDate());
         if (i18n.language === 'fr') {
             setDateMenuLund(d.toLocaleDateString('fr-FR', optionsDel))
         } else {
@@ -238,8 +229,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         if (!found) {
             const lastId = panier.length > 0 ? panier[panier.length - 1]['id'] : 0;
             panier.push(new Item(lastId + 1, key1, 1, key2));
-
-            //POPUP????
         }
     }
 
@@ -258,6 +247,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             {/*Coût des portions*/}
             <div className='p-10 md:p-20 m-auto'>
                 <h2 className='text-2xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
+
                 <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center max-w-[1000px]'>
                     {i18n.language === "fr" ?
                         FrFormats.map(format => (

@@ -44,7 +44,8 @@ class DatabaseSeeder extends Seeder
             AdresseSeeder::class,
             ClientSeeder::class,
             CommandeSeeder::class,
-            DateRetourSeeder::class
+            DateRetourSeeder::class,
+            LegendeLangueSeeder::class
         ]);
     }
 }
