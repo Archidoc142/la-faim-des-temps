@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CommentaireResource extends JsonResource
+class TarifLivraisonResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,8 @@ class CommentaireResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'utilisateur_objet' => $this->utilisateur,
-            'utilisateur' => $this->utilisateur->prenom . " " . $this->utilisateur->nom,
-            'note' => $this->note,
-            'commentaire' => $this->commentaire,
-            'masque' => $this->masque,
+            'nom' => $this->nom,
+            'montant' => $this->montant
         ];
     }
 }
