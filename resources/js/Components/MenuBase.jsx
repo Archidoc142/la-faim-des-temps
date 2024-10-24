@@ -32,8 +32,8 @@ export default function MenuBase({ produit, putPanier, editable, setData, data, 
                         <textarea rows={2} name={produit.id + "fr"} id={produit.id + "fr"} value={descriptionFr}
                         onChange={(e) => {setDescriptionFr(e.target.value)}}></textarea>
 
-                        <label htmlFor={produit.id + "fr"} className='text-start text-gray-300 mt-2'>Anglais</label>
-                        <textarea rows={2} name={produit.id + "fr"} id={produit.id + "en"} value={descriptionEn}
+                        <label htmlFor={produit.id + "en"} className='text-start text-gray-300 mt-2'>Anglais</label>
+                        <textarea rows={2} name={produit.id + "en"} id={produit.id + "en"} value={descriptionEn}
                         onChange={(e) => {setDescriptionEn(e.target.value)}}></textarea>
                     </div>
                     :

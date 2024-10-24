@@ -27,7 +27,6 @@ class FormatResource extends JsonResource
                 "fr" => $this->langue("fr")->pivot->description,
                 "en" => $this->langue("en")->pivot->description
             ],
-            "test" => "e"
         ];
     }
 }

@@ -21,10 +21,11 @@ class DatesMenuController extends Controller
     {
         $date = $request->date;
         $id = $request->id;
-        //dump($id, $date);
+        //dd($id, $date);
 
         if ($date == null && $id == 1) {
 
+            /* ACTIF */
             $vend = Carbon::parse('last friday');
             $db_date = DatesMenu::find(2);
             $db_date->date = $vend;
@@ -35,6 +36,51 @@ class DatesMenuController extends Controller
             $db_date->date = $lund;
             $db_date->save();
 
+            /* PROCHAIN */
+            $vend = Carbon::parse('this friday');
+            $db_date = DatesMenu::find(4);
+            $db_date->date = $vend;
+            $db_date->save();
+
+            $lund = Carbon::parse('this monday');
+            $db_date = DatesMenu::find(5);
+            $db_date->date = $lund;
+            $db_date->save();
+
+            /* RETOUR */
+            $db_date = DatesMenu::find(1);
+            $db_date->date = null;
+            $db_date->save();
+
+        } else if ($date == "prochain" && $id == 1) {
+
+            /* ACTIF */
+            $lund = Carbon::parse('last monday');   //lundi actif
+            $db_date = DatesMenu::find(3);
+            $db_date->date = $lund;
+            //dump("lun actif", $lund);
+            $db_date->save();
+
+            $lund->subDays(3);  //vendredi actif
+            $db_date = DatesMenu::find(2);
+            $db_date->date = $lund;
+            //dump("vend actif", $lund);
+            $db_date->save();
+
+            /* PROCHAIN */
+            $vend = Carbon::parse('next friday');   //prochain vendredi
+            $db_date = DatesMenu::find(4);
+            $db_date->date = $vend;
+            //dump("next vend", $vend);
+            $db_date->save();
+
+            $vend->addDays(3);  //prochain lundi
+            $db_date = DatesMenu::find(5);
+            $db_date->date = $vend;
+            //dd("next lund", $vend);
+            $db_date->save();
+
+            /* RETOUR */
             $db_date = DatesMenu::find(1);
             $db_date->date = null;
             $db_date->save();
@@ -49,9 +95,6 @@ class DatesMenuController extends Controller
                      /*   foreach (explode('/', $date) as $elem) {
                             array_push($date_sep, $elem);
                         }*/
-
-
-//dd("s");
 
 
             //valider le format de la date
@@ -74,13 +117,24 @@ class DatesMenuController extends Controller
             $db_date->save();
 
             if($id === 1) {
-
+                /* ACTIF */
                 $db_date = DatesMenu::find(2);  //vendredi
                 $db_date->date = $carbon_date;
                 $db_date->save();
 
-                $db_date = DatesMenu::find(3);  //lundi
-                $carbon_date->addDays(3);
+                $carbon_date->addDays(3);  //lundi
+                $db_date = DatesMenu::find(3);
+                $db_date->date = $carbon_date;
+                $db_date->save();
+
+                /* PROCHAIN */
+                $carbon_date->addDays(4);  //prochain vendredi
+                $db_date = DatesMenu::find(4);
+                $db_date->date = $carbon_date;
+                $db_date->save();
+
+                $carbon_date->addDays(3);   //prochain lundi
+                $db_date = DatesMenu::find(5);
                 $db_date->date = $carbon_date;
                 $db_date->save();
             }

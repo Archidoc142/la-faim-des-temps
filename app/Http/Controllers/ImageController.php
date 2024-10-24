@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ImageResource;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ImageController extends Controller
 {
@@ -12,7 +14,13 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //
+        $res = ImageResource::collection(Image::all());
+        $token = csrf_token();
+
+        return Inertia::render('Admin/Images', [
+            'res' => $res,
+            'token' => $token
+        ]);
     }
 
     /**
@@ -29,6 +37,7 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         //
+        dd($request);
     }
 
     /**
