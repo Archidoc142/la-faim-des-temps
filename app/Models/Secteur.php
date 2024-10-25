@@ -15,4 +15,14 @@ class Secteur extends Model
     protected $fillable = [
         'nom',
     ];
+
+    public function tarifLivraison()
+    {
+        return $this->belongsTo(TarifLivraison::class, 'id_tarif_livraison')->first();
+    }
+
+    public function secteurCodes()
+    {
+        return $this->hasMany(SecteurCode::class, 'id_secteur')->get();
+    }
 }
