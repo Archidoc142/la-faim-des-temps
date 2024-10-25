@@ -13,12 +13,15 @@ class TarifLivraisonSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('TarifLivraison')->insert([
+        DB::table('tarif_livraison')->insert([
             ['nom' => 'Frais de livraison secteur Sherbrooke',
              'montant' => 7],
 
             ['nom' => 'Frais de livraison secteurs Fleurimont et Rock Forest',
              'montant' => 10],
+
+            ['nom' => 'Seuil de livraison gratuite (secteur Sherbrooke)',
+             'montant' => 60],
         ]);
     }
 }

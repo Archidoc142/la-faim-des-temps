@@ -1,19 +1,30 @@
 import { useForm } from "@inertiajs/react"
 import { useTranslation } from "react-i18next"
 
-export default function ButtonAddress({ data, setData, adresse, nom, setContentBox, setAdresse, code_postal }) {
+export default function ButtonAddress({ data, setData, adresse, setContentBox, secteurs, seuilGratuit, setSecteur }) {
 
     const [t, i18n] = useTranslation("global")
     const { delete: destroy } = useForm()
 
     const handleAdresseChange = () => {
-        //setAdresse({ id: adresse.id, nom: nom, montant: adresse.montant, code_postal: code_postal })
+
+        const codeIn = adresse.code_postal.substring(0,3);
+        const secteur = secteurs.data.filter((s) => s.codes.includes(codeIn));
+        setSecteur(secteur[0].nom);
+
+        let montant = secteur[0].montant;
+
+        if (secteur[0].nom === "Sherbrooke" && data.total >= seuilGratuit) {
+            montant = 0;
+        }
 
         let newData = data;
 
         newData.adresse_id = adresse.id
         newData.adresse_exists = true
-        newData.frais_livraison = adresse.montant
+
+        newData.frais_livraison = montant
+        newData.total = data.sous_total + montant
 
         if(adresse.no_app)
             newData.adresse = adresse.nom + ", Appt " + adresse.no_app + " (" + adresse.code_postal + ")"

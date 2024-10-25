@@ -2,7 +2,7 @@ import Panier from "@/Components/PanierSVG"
 import Camion from "@/Components/CamionSVG"
 import { useTranslation } from "react-i18next"
 
-export default function PanierChoix({ data, setData, setContentBox, setBoxVisible, setAdresse }) {
+export default function PanierChoix({ data, setData, setContentBox, setBoxVisible, setSecteur }) {
 
     const [t, i18n] = useTranslation("global")
 
@@ -15,6 +15,7 @@ export default function PanierChoix({ data, setData, setContentBox, setBoxVisibl
         newData.frais_livraison = 0
 
         setData(newData)
+        setSecteur("cueillette")
         setContentBox(2)
     }
 

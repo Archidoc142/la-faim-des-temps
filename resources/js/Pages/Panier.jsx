@@ -7,7 +7,7 @@ import PanierItem from '@/Components/PanierItem';
 import PanierFinalisation from '@/Components/PanierFinalisation';
 import { useState, useEffect } from 'react';
 
-export default function Panier({ produits, adresses }) {
+export default function Panier({ produits, adresses, secteurs, codesValides, seuilGratuit }) {
     const [t, i18n] = useTranslation("global")
     const [panier, setPanier] = useState(JSON.parse(localStorage.getItem("panier")))
     const [total, setTotal] = useState(0)
@@ -88,6 +88,9 @@ export default function Panier({ produits, adresses }) {
                                         prix={total}
                                         setBoxVisible={setBoxVisible}
                                         adresses={adresses}
+                                        secteurs={secteurs}
+                                        codesValides={codesValides}
+                                        seuilGratuit={seuilGratuit}
                                     /> : null}
                 </>
 
