@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         //tentative de création de compte QuickBooks si aucun compte n'est lié et que l'utilisateur n'est pas admin
-        if($request->user()->role->nom != "admin" && $request->user()->qb_id === null)
+        if($request->user()->role->nom != "admin" && $request->user()->id_qb === null)
             $quickBooksService->sendToQB($request->user());
 
         return redirect()->intended(route('accueil', absolute: false));

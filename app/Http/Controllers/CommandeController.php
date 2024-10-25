@@ -12,6 +12,7 @@ use App\Models\Format;
 use App\Models\Produit;
 use App\Models\SecteurCode;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Services\QuickBooksService;
 
 class CommandeController extends Controller
 {
@@ -161,6 +162,8 @@ class CommandeController extends Controller
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
+        $quickBooksService = new QuickBooksService();
+
         $items = [];
 
         foreach ($request->produits as $p) {
@@ -237,6 +240,8 @@ class CommandeController extends Controller
                 ]);
             }
         }
+
+        $quickBooksService ->createInvoice(CommandeResource::collection($commande));
 
         return Inertia::location($session->url);
     }

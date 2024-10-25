@@ -25,7 +25,7 @@ class User extends Authenticatable
         'telephone',
         'email',
         'password',
-        'id_role'
+        'id_role',
     ];
 
     /**
@@ -66,8 +66,8 @@ class User extends Authenticatable
         return $this->hasMany(Commande::class, "id_utilisateur");
     }
 
-    public function qbId()
-    {
-        return $this->hasOne(QbId::class, 'id', 'id_qb');
-    }
+    // public function qbId()
+    // {
+    //     return $this->hasOne(QbId::class, 'id', 'id_qb');
+    // }
 }

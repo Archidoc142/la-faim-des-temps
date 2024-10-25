@@ -3,10 +3,13 @@ namespace App\Services;
 
 use App\Models\QBToken;
 use App\Models\User;
+use App\Http\Resources\CommandeResource;
 use App\Models\QBId;
 use Illuminate\Support\Facades\Crypt;
 use QuickBooksOnline\API\DataService\DataService;
 use QuickBooksOnline\API\Facades\Customer;
+use QuickBooksOnline\API\Facades\Invoice;
+use Illuminate\Http\Request;
 
 class QuickBooksService
 {
@@ -16,17 +19,7 @@ class QuickBooksService
         //Configuration de la connection à l'API de QuickBooks
         $config = include(app_path() . '/config.php');
 
-        $dataService = DataService::Configure(array(
-            'auth_mode' => 'oauth2',
-            'ClientID' => $config['client_id'],
-            'ClientSecret' =>  $config['client_secret'],
-            'RedirectURI' => $config['oauth_redirect_uri'],
-            'scope' => $config['oauth_scope'],
-            'baseUrl' => "development",
-            'QBORealmID' => "9341453160686081",                 //valeur à changer pour déploiement
-            'accessTokenKey' => QBToken::getToken("access"),
-            'refreshTokenKey' => QBToken::getToken("refresh")
-        ));
+        $dataService = $this->configureDataService();
 
         $userPhone = "";
         if(isset($user->telephone)) {
@@ -53,16 +46,12 @@ class QuickBooksService
         // sinon on ne fait pas de lien avec QuickBooks (une tentative création de compte QuickBooks est faites à chaque connexion s'il n'y a pas de compte lié)
         if($resultingCustomerObj !== null) {
             $objId = intval($resultingCustomerObj->Id);
-            $QBId = QBId::firstOrCreate(
-                ['client_id' => $objId]
-            );
 
-            //On ajoute l'id de la table QB_id du client à la table User
-            $user->id_qb = $QBId->id;
+            // //On ajoute l'id de la table QB_id du client à la table User
+            $user->id_qb = $objId;
             $user->save();
 
-            if($user->id_qb !== null)
-                $this->updateCustomer($user);
+            $this->updateCustomer($user);
         }
 
         //TO DO: créer un affichage pour les erreurs
@@ -81,31 +70,21 @@ class QuickBooksService
     {
         $config = include(app_path() . '/config.php');
 
-        $dataService = DataService::Configure(array(
-            'auth_mode' => 'oauth2',
-            'ClientID' => $config['client_id'],
-            'ClientSecret' =>  $config['client_secret'],
-            'RedirectURI' => $config['oauth_redirect_uri'],
-            'scope' => $config['oauth_scope'],
-            'baseUrl' => "development",
-            'QBORealmID' => "9341453160686081",                 //valeur à changer pour déploiement
-            'accessTokenKey' => QBToken::getToken("access"),
-            'refreshTokenKey' => QBToken::getToken("refresh")
-        ));
+        $dataService = $this->configureDataService();
 
         $userPhone = "";
         if(isset($user->telephone)) {
             $userPhone = $user->telephone;
         }
 
-        $customer = $dataService->FindbyId('customer', $user->qbId->client_id);
+        $customer = $dataService->FindbyId('customer', $user->id_qb);
         $QBuserObj = Customer::update($customer, [
             "GivenName" => $user->prenom, 
             "FamilyName" => $user->nom, 
             "PrimaryEmailAddr" => [
                 "Address" => $user->email
             ],
-            "DisplayName" => $user->prenom. " ". $user->nom . " #" . $user->qbId->client_id,
+            "DisplayName" => $user->prenom. " ". $user->nom . " #" . $user->id_qb,
             "PrimaryPhone" => [
                 "FreeFormNumber" => $userPhone
             ]
@@ -122,6 +101,44 @@ class QuickBooksService
         } else {
             return $resultingCustomerObj;
         }   
+    }
+
+    //Cette fonction permet de créer une facture dans QuickBooks
+    public function createInvoice(CommandeResource $commande) {
+        $config = include(app_path() . '/config.php');
+
+        $dataService = $this->configureDataService();
+
+        dd($commande);
+        // $invoiceObj = Invoice::create([
+        //     "Line" => [
+        //         [
+        //             "Amount" => 100.00,
+        //             "DetailType" => "SalesItemLineDetail",
+        //             "SalesItemLineDetail" => [
+        //                 "ItemRef" => [
+        //                     "value" => "1",
+        //                     "name" => "Services"
+        //                 ]
+        //             ]
+        //         ]
+        //     ],
+        //     "CustomerRef" => [
+        //         "value" => $commande->user()->id_qb
+        //     ]
+        // ]);
+
+        // $resultingInvoiceObj = $dataService->Add($invoiceObj);
+
+        // //TO DO: créer un affichage pour les erreurs
+        // $error = $dataService->getLastError();
+        // if ($error) {
+        //     return "The Status code is: " . $error->getHttpStatusCode() . "\n" .
+        //        "The Helper message is: " . $error->getOAuthHelperError() . "\n" .
+        //        "The Response message is: " . $error->getResponseBody() . "\n";
+        // } else {
+        //     return $resultingInvoiceObj;
+        // }
     }
 
     public function refreshTokens()
@@ -145,6 +162,7 @@ class QuickBooksService
     {
         $config = include(app_path() . '/config.php');
 
+        //Ne pas utilsier la fonction configureDataService() car les tokens n'existe pas encore ou sont expirés
         $dataService = DataService::Configure(array(
             'auth_mode' => 'oauth2',
             'ClientID' => $config['client_id'],
@@ -178,5 +196,22 @@ class QuickBooksService
             'encrypted_token' => Crypt::encryptString($refreshTokenValue),
             'expiration_date' => $refreshTokenExpiration
         ]);
+    }
+
+    private function configureDataService()
+    {
+        $config = include(app_path() . '/config.php');
+
+        return DataService::Configure(array(
+            'auth_mode' => 'oauth2',
+            'ClientID' => $config['client_id'],
+            'ClientSecret' =>  $config['client_secret'],
+            'RedirectURI' => $config['oauth_redirect_uri'],
+            'scope' => $config['oauth_scope'],
+            'baseUrl' => "development",
+            'QBORealmID' => "9341453160686081",                 //valeur à changer pour déploiement
+            'accessTokenKey' => QBToken::getToken("access"),
+            'refreshTokenKey' => QBToken::getToken("refresh")
+        ));
     }
 }
