@@ -3,12 +3,13 @@ namespace App\Services;
 
 use App\Models\QBToken;
 use App\Models\User;
-use App\Http\Resources\CommandeResource;
+use App\Http\Models\Commande;
 use App\Models\QBId;
 use Illuminate\Support\Facades\Crypt;
 use QuickBooksOnline\API\DataService\DataService;
 use QuickBooksOnline\API\Facades\Customer;
 use QuickBooksOnline\API\Facades\Invoice;
+use QuickBooksOnline\API\Facades\Item;
 use Illuminate\Http\Request;
 
 class QuickBooksService
@@ -104,42 +105,51 @@ class QuickBooksService
     }
 
     //Cette fonction permet de créer une facture dans QuickBooks
-    public function createInvoice(CommandeResource $commande) {
+    //l'envoi de la facture par courriel au client est fait automatiquement
+    public function createInvoice($commande, $items) {
         $config = include(app_path() . '/config.php');
 
         $dataService = $this->configureDataService();
 
-        dd($commande);
-        // $invoiceObj = Invoice::create([
-        //     "Line" => [
-        //         [
-        //             "Amount" => 100.00,
-        //             "DetailType" => "SalesItemLineDetail",
-        //             "SalesItemLineDetail" => [
-        //                 "ItemRef" => [
-        //                     "value" => "1",
-        //                     "name" => "Services"
-        //                 ]
-        //             ]
-        //         ]
-        //     ],
-        //     "CustomerRef" => [
-        //         "value" => $commande->user()->id_qb
-        //     ]
-        // ]);
+        $invoiceObj = Invoice::create([
+            "Line" => [
+                [
+                    "Amount" => $commande->total,
+                    "DetailType" => "SalesItemLineDetail",
+                    "SalesItemLineDetail" => [
+                        "ItemRef" => [
+                            "value" => "1",
+                            "name" => "Services"
+                        ]
+                    ]
+                ]
+            ],
+            "CustomerRef" => [
+                "value" => $commande->user->id_qb
+            ],
+            "BillEmail" => [
+                "Address" => $commande->user->email
+            ],
+            "EmailStatus" => "NeedToSend"
+        ]);
 
-        // $resultingInvoiceObj = $dataService->Add($invoiceObj);
+        $resultingInvoiceObj = $dataService->Add($invoiceObj);
 
-        // //TO DO: créer un affichage pour les erreurs
-        // $error = $dataService->getLastError();
-        // if ($error) {
-        //     return "The Status code is: " . $error->getHttpStatusCode() . "\n" .
-        //        "The Helper message is: " . $error->getOAuthHelperError() . "\n" .
-        //        "The Response message is: " . $error->getResponseBody() . "\n";
-        // } else {
-        //     return $resultingInvoiceObj;
-        // }
+        $emailSendStatus = $dataService->SendEmail($resultingInvoiceObj, $commande->user->email);   //Envoie de la facture par courriel au client, la personnalisation du courriel en question ce fais dans la configuration de QB
+
+        //TO DO: créer un affichage pour les erreurs
+        $error = $dataService->getLastError();
+        if ($error) {
+            return "The Status code is: " . $error->getHttpStatusCode() . "\n" .
+               "The Helper message is: " . $error->getOAuthHelperError() . "\n" .
+               "The Response message is: " . $error->getResponseBody() . "\n";
+        } else {
+            return $resultingInvoiceObj;
+        }
     }
+
+    //Cette fonction permet de créer un item dans QuickBooks pour ensuite l'ajouter à la facture
+    private function createItem($service, $name, $price, /*et d'autres paramètres */){}
 
     public function refreshTokens()
     {

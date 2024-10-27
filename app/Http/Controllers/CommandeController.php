@@ -241,7 +241,9 @@ class CommandeController extends Controller
             }
         }
 
-        $quickBooksService ->createInvoice(CommandeResource::collection($commande));
+        //envoi de la facture à QuickBooks, besoin de la commande et des items
+        //TODO: gérer l'ajout de chaque item dans la facture
+        $quickBooksService ->createInvoice($commande, $items);
 
         return Inertia::location($session->url);
     }
