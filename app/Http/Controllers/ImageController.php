@@ -15,11 +15,9 @@ class ImageController extends Controller
     public function index()
     {
         $res = ImageResource::collection(Image::all());
-        $token = csrf_token();
 
         return Inertia::render('Admin/Images', [
             'res' => $res,
-            'token' => $token
         ]);
     }
 
