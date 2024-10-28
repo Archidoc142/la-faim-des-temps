@@ -14,6 +14,18 @@ class ImageResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $saisons = [false, false, false, false];
+
+        if($this->saisonnier)
+        {
+            $saisonsBd = $this->saisons();
+
+            foreach($saisonsBd as $saison)
+            {
+                $saisons[$saison - 1] = true;
+            }
+        }
+
         return [
             "id" => $this->id,
             "src" => $this->nom_fichier,
@@ -21,7 +33,8 @@ class ImageResource extends JsonResource
                 "fr" => $this->langues($this->id)[0]->legende,
                 "en" => $this->langues($this->id)[1]->legende,
             ],
-            "saisons" => $this->saisons(),
+            "saisonnier" => $this->saisonnier,
+            "saisons" => $saisons,
         ];
     }
 }

@@ -28,7 +28,9 @@ class Image extends Model
             //->withPivot('id', 'nom')
             //->withPivot(['id', 'nom'])
             ->where('id_image', $this->id)
-            ->get();
+            ->get()
+            ->pluck('id')
+            ->all();
 
         //dd($a);
         //return
