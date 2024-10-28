@@ -24,35 +24,36 @@ export default function MenuBase({ produit, putPanier, editable, setData, data, 
     return (
         <>
 
-            <div key={produit.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 md:p-7 justify-center text-center md:w-auto'>
-                <div>
-                    <h3 className='justify-center text-[#FFD8AD] imperial pb-1 text-5xl md:text-6xl'>{i18n.language == 'fr' ? produit.formats[0].nom.fr : produit.formats[0].nom.en}</h3>
-                    <p className='self-center text-[#FFD8AD] pb-4 imperial text-3xl md:text-4xl pl-3'>{i18n.language == 'fr' ? produit.formats[0].montant + "$" : "$" + produit.formats[0].montant}</p>
-                </div>
-
-                {editable ?
-                    <div className='flex flex-col'>
-                        <label htmlFor={produit.id + "fr"} className='text-start text-gray-300'>Français</label>
-                        <textarea rows={2} name={produit.id + "fr"} id={produit.id + "fr"} value={descriptionFr}
-                            onChange={(e) => { setDescriptionFr(e.target.value) }}></textarea>
-
-                        <label htmlFor={produit.id + "en"} className='text-start text-gray-300 mt-2'>Anglais</label>
-                        <textarea rows={2} name={produit.id + "en"} id={produit.id + "en"} value={descriptionEn}
-                            onChange={(e) => { setDescriptionEn(e.target.value) }}></textarea>
+            <div key={produit.id} className='flex flex-col items-center justify-between  border-2 border-[#EBEBEB] rounded-2xl p-5 md:p-7 text-center md:w-auto'>
+                <div className='w-full'>
+                    <div>
+                        <h3 className='justify-center text-[#FFD8AD] imperial pb-1 text-5xl md:text-6xl'>{i18n.language == 'fr' ? produit.formats[0].nom.fr : produit.formats[0].nom.en}</h3>
+                        <p className='self-center text-[#FFD8AD] pb-4 imperial text-3xl md:text-4xl pl-3'>{i18n.language == 'fr' ? produit.formats[0].montant + "$" : "$" + produit.formats[0].montant}</p>
                     </div>
-                    :
-                    <>
-                        <p className='text-white md:text-lg pb-3 min-h-16'>{i18n.language == 'fr' ? produit.description.fr : produit.description.en}</p>
-                    </>
-                }
 
+                    {editable ?
+                        <div className='flex flex-col'>
+                            <label htmlFor={produit.id + "fr"} className='text-start text-gray-300'>Français</label>
+                            <textarea rows={2} name={produit.id + "fr"} id={produit.id + "fr"} value={descriptionFr}
+                                onChange={(e) => { setDescriptionFr(e.target.value) }}></textarea>
+
+                            <label htmlFor={produit.id + "en"} className='text-start text-gray-300 mt-2'>Anglais</label>
+                            <textarea rows={2} name={produit.id + "en"} id={produit.id + "en"} value={descriptionEn}
+                                onChange={(e) => { setDescriptionEn(e.target.value) }}></textarea>
+                        </div>
+                        :
+                        <>
+                            <p className='mt-auto text-white md:text-lg'>{i18n.language == 'fr' ? produit.description.fr : produit.description.en}</p>
+                        </>
+                    }
+                </div>
                 {editable || !afficherMenu ?
                     null
                     :
                     <button
                         type="button"
                         onClick={() => putPanier(produit.formats[0].id, produit.id)}
-                        className="inline-block min-w-40 mt-6 p-1.5 text-sm text-white font-semibold border border-[#BB285C] bg-[#BB285C] hover:border-white hover:cursor-pointer justify-self-center"
+                        className=" inline-block min-w-40 mt-8 p-1.5 text-sm text-white font-semibold border border-[#BB285C] bg-[#BB285C] hover:border-white hover:cursor-pointer justify-self-center"
                     >
                         {t("Menu.add-panier")}
                     </button>
