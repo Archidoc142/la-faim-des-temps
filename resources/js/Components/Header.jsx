@@ -69,6 +69,7 @@ export default function Header() {
     const [menuUser, setMenuUser] = useState(false)
     const toggleMenuUser = () => {
         setMenuUser(!menuUser)
+        handleClosure()
     }
 
     function useOutside(ref) {
@@ -88,7 +89,7 @@ export default function Header() {
     };
 
     return (
-        <header className='border-b border-[#9b9b9b]'>
+        <header className='border-b border-[#9b9b9b] sticky top-0 z-10'>
             <div className='flex bg-white'>
                 <a href="/" className='content-center'><img className='hidden lg:block w-auto self-center max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" /></a>
 
@@ -146,7 +147,7 @@ export default function Header() {
                             </Link>}
 
                         {/* Panier*/}
-                        <Link href='/panier'>
+                        <Link href='/panier' onClick={handleClosure}>
                             <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" fill='transparent' stroke="#fff" strokeWidth="2">
                                 <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
                                        M10 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0

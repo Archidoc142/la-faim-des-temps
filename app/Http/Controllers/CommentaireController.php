@@ -76,7 +76,13 @@ class CommentaireController extends Controller
         $commentaire = Commentaire::find($id);
         $nb_show = count(Commentaire::where('masque', true)->get());
 
-        if(strlen($commentaire->commentaire) > 0 && $nb_show < 10) {
+        $show = false;
+
+        if ($commentaire->masque) {
+            $show = true;
+        }
+
+        if(strlen($commentaire->commentaire) > 0 && ($nb_show < 10 || $show)) {
             $commentaire->masque = !$commentaire->masque;
             $commentaire->save();
         }

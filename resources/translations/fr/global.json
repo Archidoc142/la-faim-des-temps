@@ -1,6 +1,11 @@
 {
     "Accueil": {
-        "commentaire" : "Commentaires de client"
+        "commentaire": "Commentaires de client",
+        "titre": "Votre option traiteur et plats cuisinés au centro",
+        "bistro": "Une cuisine de style bistro",
+        "bistro-description": "Ayant fait son apprentissage en cuisine française, mais sans jamais renier ses profondes inspirations américaines, notre chef crée des menus inspirés par les saisons et les produits locaux disponibles. Savourez nos mets préparés pour emporter en profitant de notre bistro pour le dîner. Une fois le travail fini, passez compléter votre épicerie avec notre gamme de produits entièrement québécoise afin de n'avoir à vous soucier que de savourer l'apéro.",
+        "ferme": "De la ferme...",
+        "assiette": "...à l'assiette!"
     },
     "Header": {
         "accueil": "Accueil",
@@ -86,7 +91,8 @@
         "placeholder" : "Oeuf, Lait, Arachide, Soja...",
         "terminer" : "Terminer",
         "address" : "À quelle adresse voulez-vous recevoir votre commande?",
-        "info" : "Un montant s'applique à la livraison sur les commandes en dessous de 60$ au secteur de Sherbrooke.",
+        "info1" : "Un montant s'applique à la livraison sur les commandes en dessous de",
+        "info2" : "au secteur de Sherbrooke.",
         "add" : "Ajouter une adresse",
         "alertSuccess" : "Êtes-vous sûr de vouloir supprimer cette adresse ?",
         "flashDelete" : "Le plat a été retiré du panier",
@@ -120,5 +126,18 @@
         "thirdSectionText1": "Nos partenaires sont majoritairement Sherbrookois... ou Québécois (on aime un peu trop l'île d'Orléans pour s'en passer). De plus nous utilisons des ingrédients locaux autant que possible et notre menu bistro change au rythme des saisons. Nous choisissons aussi prioritairement des producteurs ou artisans biologiques/naturels.",
         "thirdSectionSbuTitle2": "Viser le zéro déchet",
         "thirdSectionText2": "À La faim des temps, quasiment tout est recyclé ou composté. Nous sommes très fiers que notre poubelle soit de la taille d'une corbeille à papiers de bureaux. Notre chère clientèle nous rapporte les contenants pour les plats du traiteur. Ces derniers sont ensuite nettoyés et assainis avant d'être réutilisés."
+    },
+    "Error": {
+        "title" : "Erreur ",
+
+        "503": "Le service n'est pas disponible",
+        "500": "Erreur du serveur",
+        "404": "Page non trouvée",
+        "403": "Cette action est interdite",
+
+        "503Desc": "Désolé, nous faisons une maintenance.",
+        "500Desc": "Whoops, il y a un problème avec le serveur.",
+        "404Desc": "Désolé, la page que vous essayez d'atteindre est manquante.",
+        "403Desc": "Désolé, il vous est interdit d'accéder à cette page."
     }
 }

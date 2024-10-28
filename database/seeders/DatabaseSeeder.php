@@ -37,14 +37,15 @@ class DatabaseSeeder extends Seeder
             ProduitLangueSeeder::class,
             EtatCommandeSeeder::class,
             HoraireOuvertureSeeder::class,
+            TarifLivraisonSeeder::class,
             SecteurSeeder::class,
             SecteurCodeSeeder::class,
-            TarifLivraisonSeeder::class,
             ProduitFormatSeeder::class,
             AdresseSeeder::class,
             ClientSeeder::class,
             CommandeSeeder::class,
-            DateRetourSeeder::class
+            DateRetourSeeder::class,
+            LegendeLangueSeeder::class
         ]);
     }
 }

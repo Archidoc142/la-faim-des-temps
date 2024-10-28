@@ -7,16 +7,11 @@ import PanierItem from '@/Components/PanierItem';
 import PanierFinalisation from '@/Components/PanierFinalisation';
 import { useState, useEffect } from 'react';
 
-export default function Panier({ produits, adresses }) {
+export default function Panier({ produits, adresses, secteurs, codesValides, seuilGratuit }) {
     const [t, i18n] = useTranslation("global")
     const [panier, setPanier] = useState(JSON.parse(localStorage.getItem("panier")))
     const [total, setTotal] = useState(0)
     const [boxVisible, setBoxVisible] = useState(false)
-
-    // Message Flash
-    const [message, setMessage] = useState("")
-    const [messageV, setMessageV] = useState(false)
-    const [messageS, setMessageS] = useState(false)
 
     const calculateCost = () => {
         const totalCost = panier.reduce((acc, item) => {
@@ -33,7 +28,12 @@ export default function Panier({ produits, adresses }) {
         calculateCost()
     }, []);
 
-    const showMessageFlash = (status, message, visibility) => {
+    // Message Flash
+    const [message, setMessage] = useState("")
+    const [messageV, setMessageV] = useState(false)
+    const [messageS, setMessageS] = useState(false)
+
+    const showMessageFlash = (status, message, visibility = true) => {
         setMessageS(status)
         setMessage(message)
         setMessageV(visibility)
@@ -88,6 +88,9 @@ export default function Panier({ produits, adresses }) {
                                         prix={total}
                                         setBoxVisible={setBoxVisible}
                                         adresses={adresses}
+                                        secteurs={secteurs}
+                                        codesValides={codesValides}
+                                        seuilGratuit={seuilGratuit}
                                     /> : null}
                 </>
 

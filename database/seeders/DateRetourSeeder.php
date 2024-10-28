@@ -23,15 +23,23 @@ class DateRetourSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'nom' => 'date_debut_ven',
-                'date' => null
-                //'date' => Carbon::create('2000', '01', '01')
+                'nom' => 'actif_ven',
+                'date' => Carbon::parse('last friday')
             ],
             [
                 'id' => 3,
-                'nom' => 'date_fin_lun',
-                'date' => null
-                //'date' => Carbon::create('2000', '01', '01')
+                'nom' => 'actif_lun',
+                'date' => Carbon::parse('last friday')->addDays(3)
+            ],
+            [
+                'id' => 4,
+                'nom' => 'prochain_ven',
+                'date' => Carbon::parse('this friday')
+            ],
+            [
+                'id' => 5,
+                'nom' => 'prochain_lun',
+                'date' => Carbon::parse('next monday')
             ],
         ]);
     }

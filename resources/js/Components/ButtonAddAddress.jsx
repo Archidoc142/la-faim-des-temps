@@ -1,7 +1,7 @@
 export default function ButtonAddAddress({ text, setContentBox }) {
     return (
         <div
-            className="bg-[#AAA] hover:bg-gray-500 p-2 rounded-lg cursor-pointer w-36 h-36 text-center"
+            className="bg-[#0c3770] hover:bg-[#205599] p-2 rounded-lg cursor-pointer w-36 h-36 text-center"
             onClick={() => setContentBox(3)}
         >
             <svg width="50" height="50" viewBox="0 0 24 24" fill="none" className="mx-auto mt-3">

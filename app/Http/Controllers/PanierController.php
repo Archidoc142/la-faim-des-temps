@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\AdressesResource;
 use App\Http\Resources\ProduitRessource;
+use App\Http\Resources\SecteurResource;
 use App\Models\Adresse;
 use App\Models\Commande;
 use App\Models\Produit;
+use App\Models\Secteur;
+use App\Models\SecteurCode;
+use App\Models\TarifLivraison;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -25,7 +29,10 @@ class PanierController extends Controller
 
         return Inertia::render('Panier', [
             'produits' => $produits,
-            'adresses' => $addresses
+            'adresses' => $addresses,
+            'secteurs' => SecteurResource::collection(Secteur::all()),
+            'codesValides' => SecteurCode::all()->pluck('code')->all(),
+            'seuilGratuit' => TarifLivraison::where('id', 3)->first()->montant
         ]);
     }
 }

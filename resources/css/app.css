@@ -47,3 +47,11 @@
 *::-webkit-scrollbar-thumb {
     background-color: #a9a9a9;
 }
+
+.admin-images-div:hover svg {
+    stroke:#BB285C;
+}
+
+.admin-images-div:hover {
+    cursor: pointer;
+}

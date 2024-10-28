@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('secteur', function (Blueprint $table) {
             $table->id();
             $table->string('nom', length: 16);
-            $table->timestamps();
+            $table->bigInteger('id_tarif_livraison')->unsigned()->nullable();
+        });
+
+        Schema::table('secteur', function(Blueprint $table) {
+            $table->foreign('id_tarif_livraison')->references('id')->on('tarif_livraison');
         });
     }
 

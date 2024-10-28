@@ -17,18 +17,31 @@ class ImageSeeder extends Seeder
         DB::table('image')->insert([
             [
                 'nom_fichier' => 'default.jpg',
-                'legende' => 'default image',
                 'vitrine' => 0,
                 'saisonnier' => 0
             ],
             [
                 'nom_fichier' => 'duck.jpg',
-                'legende' => 'Canard du lac brome',
                 'vitrine' => 0,
                 'saisonnier' => 0
-            ]
+            ],
+            [
+                'nom_fichier' => 'molestias.png',
+                'vitrine' => 0,
+                'saisonnier' => 1
+            ],
+            [
+                'nom_fichier' => 'necessitatibus.png',
+                'vitrine' => 0,
+                'saisonnier' => 0
+            ],
+            [
+                'nom_fichier' => 'ipsum.png',
+                'vitrine' => 0,
+                'saisonnier' => 1
+            ],
         ]);
 
-        Image::factory(3)->create();
+        //Image::factory(3)->create();
     }
 }
