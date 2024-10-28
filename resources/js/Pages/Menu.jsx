@@ -145,7 +145,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             if (i18n.language === 'fr') {
                 setDateDelivery(dv.toLocaleDateString('fr-FR', optionsDel))
                 setDateMenuVend(dnextv.toLocaleDateString('fr-FR', optionsMenu))
-                //setDateMenuLund(dnextl.toLocaleDateString('fr-FR', optionsMenu))
                 setDateMenuLund(dnextl.toLocaleDateString('fr-FR', optionsDel))
             } else {
                 setDateDelivery(dv.toLocaleDateString('en-EN', optionsDel))
