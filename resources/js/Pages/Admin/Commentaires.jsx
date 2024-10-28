@@ -16,7 +16,7 @@ export default function Commentaires({ commentaires }) {
             </p>
             <br />
 
-            {commentaires.length > 0 ? (
+            {commentaires.data.length > 0 ? (
                 <>
                     <table className="border w-full table-fixed">
                         <thead>
