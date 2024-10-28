@@ -187,7 +187,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             changeDateBD(1, "prochain");
             setAfficherMenu(true);
         }
-        else if (ajdYYYY > lundiYYYY || (ajdYYYY == lundiYYYY && d.getHours() >= 16)) {
+        else if (ajdYYYY > lundiYYYY || (ajdYYYY === lundiYYYY && d.getHours() >= 16)) {
             setAfficherMenu(false);
             nextMenuText();
         }
