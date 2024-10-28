@@ -29,7 +29,7 @@ class DateRetourSeeder extends Seeder
             [
                 'id' => 3,
                 'nom' => 'actif_lun',
-                'date' => Carbon::parse('last monday')
+                'date' => Carbon::parse('last friday')->addDays(3)
             ],
             [
                 'id' => 4,
@@ -39,7 +39,7 @@ class DateRetourSeeder extends Seeder
             [
                 'id' => 5,
                 'nom' => 'prochain_lun',
-                'date' => Carbon::parse('this monday')
+                'date' => Carbon::parse('next monday')
             ],
         ]);
     }
