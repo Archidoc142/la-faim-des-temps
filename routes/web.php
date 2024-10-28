@@ -59,7 +59,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 
     Route::controller(ImageController::class)->group(function() {
         Route::get('/admin/images', 'index')->name('admin.images');
-        Route::post('/admin/ajouter-image', 'store');
+        Route::post('/admin/image', 'store');
     });
 
     Route::controller(ClientController::class)->group(function() {
