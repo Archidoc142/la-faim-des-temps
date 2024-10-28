@@ -39,7 +39,8 @@
         "prinfo" : "Profile Information",
         "updpr" : "Update your account's profile information.",
         "uppas" : "Update Password",
-        "enspas" : "Ensure your account is using a long, random password to stay secure."
+        "enspas" : "Ensure your account is using a long, random password to stay secure.",
+        "vide" : "Empty"
     },
     "Login": {
         "title1": "Welcome to",
