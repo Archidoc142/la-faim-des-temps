@@ -55,7 +55,7 @@ class DatesMenuController extends Controller
         } else if ($date == "prochain" && $id == 1) {
 
             /* ACTIF */
-            $lund = Carbon::parse('last monday');   //lundi actif
+            $lund = Carbon::parse('this monday');   //lundi actif
             $db_date = DatesMenu::find(3);
             $db_date->date = $lund;
             //dump("lun actif", $lund);

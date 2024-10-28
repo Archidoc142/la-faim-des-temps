@@ -24,21 +24,25 @@ export default function MenuBase({ produit, putPanier, editable, setData, data, 
     return (
         <>
 
-            <div key={produit.id} className='border-2 border-[#EBEBEB] rounded-2xl p-7 justify-center text-center md:w-auto'>
-                <h3 className='justify-center text-[#FFD8AD] pb-4 imperial text-5xl flex flex-nowrap lg:text-6xl'>{i18n.language == 'fr' ? produit.formats[0].nom.fr : produit.formats[0].nom.en}<span className='self-center text-4xl lg:text-5xl pl-3'>- {i18n.language == 'fr' ? Math.trunc(produit.formats[0].montant) + "$" : "$" + Math.trunc(produit.formats[0].montant)}</span></h3>
+            <div key={produit.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 md:p-7 justify-center text-center md:w-auto'>
+                <div>
+                    <h3 className='justify-center text-[#FFD8AD] imperial pb-1 text-5xl md:text-6xl'>{i18n.language == 'fr' ? produit.formats[0].nom.fr : produit.formats[0].nom.en}</h3>
+                    <p className='self-center text-[#FFD8AD] pb-4 imperial text-3xl md:text-4xl pl-3'>{i18n.language == 'fr' ? produit.formats[0].montant + "$" : "$" + produit.formats[0].montant}</p>
+                </div>
+
                 {editable ?
                     <div className='flex flex-col'>
                         <label htmlFor={produit.id + "fr"} className='text-start text-gray-300'>Français</label>
                         <textarea rows={2} name={produit.id + "fr"} id={produit.id + "fr"} value={descriptionFr}
-                        onChange={(e) => {setDescriptionFr(e.target.value)}}></textarea>
+                            onChange={(e) => { setDescriptionFr(e.target.value) }}></textarea>
 
                         <label htmlFor={produit.id + "en"} className='text-start text-gray-300 mt-2'>Anglais</label>
                         <textarea rows={2} name={produit.id + "en"} id={produit.id + "en"} value={descriptionEn}
-                        onChange={(e) => {setDescriptionEn(e.target.value)}}></textarea>
+                            onChange={(e) => { setDescriptionEn(e.target.value) }}></textarea>
                     </div>
                     :
                     <>
-                        <p className='text-white text-lg pb-3 min-h-16'>{i18n.language == 'fr' ? produit.description.fr : produit.description.en}</p>
+                        <p className='text-white md:text-lg pb-3 min-h-16'>{i18n.language == 'fr' ? produit.description.fr : produit.description.en}</p>
                     </>
                 }
 
