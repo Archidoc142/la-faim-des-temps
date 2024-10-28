@@ -67,6 +67,10 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::patch('admin/commentaire/toggle/{id}', [CommentaireController::class, 'update'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.update");
         Route::delete('admin/commentaire/destroy/{id}', [CommentaireController::class, 'destroy'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.destroy");
     });
+
+    Route::controller(ProducteurController::class)->group(function() {
+        Route::post('/producteurs', 'store')->name('envoiNewProducteur');
+    });
 });
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);
