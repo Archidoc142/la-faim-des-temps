@@ -52,8 +52,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     async function changeDateBD(id, nouv_valeur) {
 
         if (nouv_valeur || nouv_valeur == null) {
-            console.log(id, nouv_valeur);
-
             const dateData = {
                 _token: token,
                 id: id,
@@ -124,8 +122,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     dnextv.setDate(dnextv.getDate() + 1)
     dnextl.setDate(dnextl.getDate() + 1)
 
-    console.log(dr, dv, dl, dnextv, dnextl);
-
     useEffect(() => {
 
         if (i18n.language === 'fr') {
@@ -182,7 +178,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     }, [i18n.language])
 
     function checkIntervalleMenu() {
-        console.log(ajdYYYY, vendrediYYYY, lundiYYYY, "\nnext", vendrediNextYYYY, lundiNextYYYY);
 
         if (ajdYYYY > vendrediNextYYYY || (ajdYYYY == vendrediNextYYYY && d.getHours() >= 12)) {
             changeDateBD(1, "prochain");
@@ -196,19 +191,17 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
     function nextMenuText() {
         //vendredi
-        d.setDate(dnextv.getDate());
         if (i18n.language === 'fr') {
-            setDateMenuVend(d.toLocaleDateString('fr-FR', optionsMenu))
+            setDateMenuVend(dnextv.toLocaleDateString('fr-FR', optionsMenu))
         } else {
-            setDateMenuVend(d.toLocaleDateString('en-EN', optionsMenu))
+            setDateMenuVend(dnextv.toLocaleDateString('en-EN', optionsMenu))
         }
 
         //lundi
-        d.setDate(dnextl.getDate());
         if (i18n.language === 'fr') {
-            setDateMenuLund(d.toLocaleDateString('fr-FR', optionsDel))
+            setDateMenuLund(dnextl.toLocaleDateString('fr-FR', optionsMenu))
         } else {
-            setDateMenuLund(d.toLocaleDateString('en-EN', optionsDel))
+            setDateMenuLund(dnextl.toLocaleDateString('en-EN', optionsMenu))
         }
     }
 
