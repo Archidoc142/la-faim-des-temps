@@ -10,6 +10,7 @@ use App\Models\Adresse;
 use App\Models\CommandeProduit;
 use App\Models\Format;
 use App\Models\Produit;
+use App\Models\ProduitFormat;
 use App\Models\SecteurCode;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Services\QuickBooksService;
@@ -66,11 +67,7 @@ class CommandeController extends Controller
         return response('');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    /*
-    public function store(Request $request)
+    private function sendCommandeBD(Request $request)
     {
         $idAdresse = null;
 
@@ -122,9 +119,49 @@ class CommandeController extends Controller
             }
         }
 
-        dd("Commande ajoutée");
+        return $commande;
+    }
 
-    }*/
+    private function sendCommandeQB(Commande $commande)
+    {
+        $quickBooksService = new QuickBooksService();
+        $quickBooksService->refreshTokens();
+
+        $produits = $commande->ProduitsCommande()->get();
+        $itemsQb = [];
+
+        foreach ($produits as $produit)
+        {
+            $format = Format::where('id', $produit->pivot->id_format)->first();
+            $produitFormat = ProduitFormat::where('id_produit', $produit->id)->where('id_format', $format->id)->first();
+
+            $itemsQb[] = [
+                "Amount" => $format->montant,
+                "DetailType" => "SalesItemLineDetail",
+                "SalesItemLineDetail" => [
+                    "ItemRef" => [
+                        "value" => $produitFormat->id_qb
+                    ]
+                ]
+            ];
+
+        }
+
+        dump($itemsQb);
+
+        $quickBooksService->createInvoice($commande, $itemsQb);
+        dd("Commande passée!");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+
+    public function store(Request $request)
+    {
+        $commande = $this->sendCommandeBD($request);
+        $this->sendCommandeQB($commande);
+    }
 
     /**
      * Display the specified resource.
@@ -162,19 +199,18 @@ class CommandeController extends Controller
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        $quickBooksService = new QuickBooksService();
-
         $items = [];
 
         foreach ($request->produits as $p) {
             $produit = Produit::where('id', $p["produitId"])->first();
             $format = Format::where('id', $p["formatId"])->first();
+            $nom = $produit->nom . " " . $format->nom_interne;
 
             $items[] = [
                 'price_data' => [
                     'currency' => 'cad',
                     'product_data' => [
-                        'name' => $produit->nom . " " . $format->nom_interne
+                        'name' => $nom
                     ],
                     'unit_amount' => $format->montant * 100
                 ],
@@ -192,37 +228,7 @@ class CommandeController extends Controller
             ],
         );
 
-
-        $idAdresse = null;
-
-        if ($request->livraison) {
-            if (!$request->adresse_exists) {
-                $adresse = new Adresse;
-
-                $adresse->no_civique = $request->adresse["no_civique"];
-                $adresse->rue = $request->adresse["rue"];
-                $adresse->appartement = $request->adresse["no_appt"];
-                $adresse->code_postal = $request->adresse["code_postal"];
-                $adresse->visible = true;
-
-                $adresse->id_secteur_code = SecteurCode::where('code', substr($request->adresse["code_postal"], 0, 3))->first()->id;
-                $adresse->save();
-
-                $idAdresse = $adresse->id;
-            } else {
-                $idAdresse = $request->adresse_id;
-            }
-        }
-
-        $commande = new Commande;
-
-        $commande->id_utilisateur = $request->user()->id;
-        $commande->livraison = ($request->livraison ? 1 : 0);
-        $commande->frais_livraison = $request->frais_livraison;
-        $commande->total = $request->total;
-        $commande->id_adresse = $idAdresse;
-        $commande->id_etat_commande = 1;
-        $commande->allergenes = $request->allergenes;
+        $commande = $this->sendCommandeBD($request);
 
         $commande->status = "unpaid";
         $commande->session_id = $session->id;
@@ -230,20 +236,10 @@ class CommandeController extends Controller
 
         $commande->save();
 
-        foreach ($request->produits as $p) {
-            for ($i = 0; $i < $p["qte"]; $i++) {
-                CommandeProduit::create([
-                    "id_produit" => $p["produitId"],
-                    "id_commande" => $commande->id,
-                    "id_format" => $p["formatId"],
-                    "prix_vente" => Format::where('id', $p["formatId"])->first()->montant
-                ]);
-            }
-        }
+        // Si le paiement se fait en ligne, c'est mieux d'envoyer à QuickBooks APRÈS que le paiement soit fait.
+        // $this->sendCommandeQB($request, $commande);
 
         //envoi de la facture à QuickBooks, besoin de la commande et des items
-        //TODO: gérer l'ajout de chaque item dans la facture
-        $quickBooksService ->createInvoice($commande, $items);
 
         return Inertia::location($session->url);
     }
@@ -267,6 +263,9 @@ class CommandeController extends Controller
             $commande->status = "paid";
 
         $commande->save();
+
+        $this->sendCommandeQB($commande);
+        // TODO: ajouter paiement à la facture QuickBooks
 
         dump("Commande passée!");
         dd($commande->ProduitsCommande()->get());

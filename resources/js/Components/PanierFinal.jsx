@@ -4,8 +4,9 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
 
     const [t, i18n] = useTranslation("global")
 
-    const submitCommande = () => {
-        post(route('checkout'))
+    const submitCommande = (online) => {
+        const routeName = online ? 'checkout' : 'envoiCommande';
+        post(route(routeName));
     }
 
     let nomAdresse = "";
@@ -36,7 +37,6 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
 
                 <h2 className="font-bold text-3xl pb-6 pt-10">{t("Panier.pass")}</h2>
 
-
                 <p className="font-bold text-lg pb-4 mx-10 mb-6 border-b-black border-b-[1px]">{t("Panier.finaliser")}</p>
 
                 <h3 className="font-bold text-3xl mb-4">{t("Panier.total")}</h3>
@@ -66,7 +66,7 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
                         </div> : <div className="mb-8"></div>
                 }
 
-                <div className="text-left px-8 mt-2 mb-4">
+                <div className="text-left px-8 mt-2 mb-6">
                     <h4 className="font-bold mb-2">{t("Panier.allergen")}</h4>
                     <textarea
                         id="allergene"
@@ -77,9 +77,18 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
                     />
                 </div>
 
-                <button onClick={submitCommande} className="font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-[5px]">
-                    {t("Panier.terminer")}
-                </button>
+                <div className="flex flex-col w-80 mx-auto gap-2 mb-2">
+                    <button onClick={() => submitCommande(true)} className="font-bold text-white bg-green-600 hover:bg-green-500 rounded px-4 py-2">
+                        <span className="text-lg">Payer en ligne</span> <br/>
+                        <span className="font-normal">(carte de crédit)</span>
+                        {/*t("Panier.terminer")*/}
+                    </button>
+
+                    <button onClick={() => submitCommande(false)} className="font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-2 mt-1">
+                        <span>Payer plus tard</span> <br/>
+                        <span className="font-normal">(Interac, comptant...)</span>
+                    </button>
+                </div>
             </div>
         </>
     )

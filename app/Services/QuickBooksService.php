@@ -4,16 +4,86 @@ namespace App\Services;
 use App\Models\QBToken;
 use App\Models\User;
 use App\Http\Models\Commande;
+use App\Models\ProduitFormat;
 use App\Models\QBId;
 use Illuminate\Support\Facades\Crypt;
 use QuickBooksOnline\API\DataService\DataService;
 use QuickBooksOnline\API\Facades\Customer;
 use QuickBooksOnline\API\Facades\Invoice;
 use QuickBooksOnline\API\Facades\Item;
+use QuickBooksOnline\API\Facades\Account;
 use Illuminate\Http\Request;
 
 class QuickBooksService
 {
+    private function getGUID()
+    {
+        if (function_exists('com_create_guid')){
+            return com_create_guid();
+        }else{
+            mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
+            $charid = strtoupper(md5(uniqid(rand(), true)));
+            $hyphen = chr(45);// "-"
+            $uuid = // "{"
+                $hyphen.substr($charid, 0, 8);
+            return $uuid;
+        }
+    }
+
+    private function getIncomeAccountObj($dataService)
+    {
+        $accountArray = $dataService->Query("select * from Account where AccountType='Income' and AccountSubType='SalesOfProductIncome'");
+        $error = $dataService->getLastError();
+        if ($error) {
+            dd($error);
+        } else {
+            if (is_array($accountArray) && sizeof($accountArray) > 0) {
+                return current($accountArray);
+            }
+        }
+
+        // Create Income Account
+        $incomeAccountRequestObj = Account::create([
+            "AccountType" => 'Income',
+            "AccountSubType" => 'SalesOfProductIncome',
+            "Name" => "IncomeAccount-" . $this->getGUID()
+        ]);
+        $incomeAccountObject = $dataService->Add($incomeAccountRequestObj);
+        $error = $dataService->getLastError();
+        if ($error) {
+            dd($error);
+        } else {
+            echo "Created Income Account with Id={$incomeAccountObject->Id}.\n\n";
+            return $incomeAccountObject;
+        }
+
+    }
+
+    public function exportAllItems()
+    {
+        $config = include(app_path() . '/config.php');
+
+        $dataService = $this->configureDataService();
+        $incomeAccount = $this->getIncomeAccountObj($dataService);
+
+        $items = ProduitFormat::all();
+
+        foreach($items as $item)
+        {
+            $itemQb = Item::create([
+                "Name" => $item->nomInterne(),
+                "Type" => "Service",
+                "IncomeAccountRef"=> ["value"=>  $incomeAccount->Id]
+            ]);
+
+            $resultingItemObj = $dataService->Add($itemQb);
+
+            $item->id_qb = $resultingItemObj->Id;
+            $item->save();
+        }
+
+    }
+
     //Cette fonctione permet de créer un utilisateur dans QuickBooks et de lier son ID QuickBooks à la table User
     public function sendToQB(User $user)
     {
@@ -30,8 +100,8 @@ class QuickBooksService
         //Toujours définir le champs DisplayName avec une valeur unique (ici l'adresse courriel),
         //car QuickBooks ne permet pas de créer un client avec un DisplayName déjà existant (concaténation du prénom + nom fais de base)
         $QBuserObj = Customer::create([
-            "GivenName" => $user->prenom, 
-            "FamilyName" => $user->nom, 
+            "GivenName" => $user->prenom,
+            "FamilyName" => $user->nom,
             "PrimaryEmailAddr" => [
                 "Address" => $user->email
             ],
@@ -63,7 +133,7 @@ class QuickBooksService
                "The Response message is: " . $error->getResponseBody() . "\n";
         } else {
             return $resultingCustomerObj;
-        }   
+        }
     }
 
     //Cette fonction permet de faire une update des information client dans quickbooks
@@ -80,8 +150,8 @@ class QuickBooksService
 
         $customer = $dataService->FindbyId('customer', $user->id_qb);
         $QBuserObj = Customer::update($customer, [
-            "GivenName" => $user->prenom, 
-            "FamilyName" => $user->nom, 
+            "GivenName" => $user->prenom,
+            "FamilyName" => $user->nom,
             "PrimaryEmailAddr" => [
                 "Address" => $user->email
             ],
@@ -101,7 +171,7 @@ class QuickBooksService
                "The Response message is: " . $error->getResponseBody() . "\n";
         } else {
             return $resultingCustomerObj;
-        }   
+        }
     }
 
     //Cette fonction permet de créer une facture dans QuickBooks
@@ -112,18 +182,7 @@ class QuickBooksService
         $dataService = $this->configureDataService();
 
         $invoiceObj = Invoice::create([
-            "Line" => [
-                [
-                    "Amount" => $commande->total,
-                    "DetailType" => "SalesItemLineDetail",
-                    "SalesItemLineDetail" => [
-                        "ItemRef" => [
-                            "value" => "1",
-                            "name" => "Services"
-                        ]
-                    ]
-                ]
-            ],
+            "Line" => $items,
             "CustomerRef" => [
                 "value" => $commande->user->id_qb
             ],
@@ -133,7 +192,10 @@ class QuickBooksService
             "EmailStatus" => "NeedToSend"
         ]);
 
+
         $resultingInvoiceObj = $dataService->Add($invoiceObj);
+        dump($dataService->getLastError());
+
 
         $emailSendStatus = $dataService->SendEmail($resultingInvoiceObj, $commande->user->email);   //Envoie de la facture par courriel au client, la personnalisation du courriel en question ce fais dans la configuration de QB
 

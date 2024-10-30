@@ -13,6 +13,7 @@ use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Services\QuickBooksService;
+use Exception;
 
 class RegisteredUserController extends Controller
 {
