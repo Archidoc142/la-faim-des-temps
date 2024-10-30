@@ -21,7 +21,7 @@ export default function SaisonCheckbox({
                 name="saisonChoix"
                 value={saison}
             />
-            <label className="text-lg" htmlFor={saison}>
+            <label className="text-base" htmlFor={saison}>
                 {saison}
             </label>
         </>

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ImageResource;
 use App\Models\Image;
+use App\Models\LegendeLangue;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class ImageController extends Controller
 {
@@ -16,7 +18,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $res = ImageResource::collection(Image::all());
+        $res = ImageResource::collection(Image::where("vitrine", 1)->get());
 
         return Inertia::render('Admin/Images', [
             'res' => $res,
@@ -40,8 +42,7 @@ class ImageController extends Controller
         if ($request['imgExists']) {
             /* MODIFIER UNE IMAGE */
             //il faudrait garder le nom de l'ancienne image pour le supprimer du dossier public/img du projet
-            dd($request, $request->file('img'));
-
+            dd("modifier", $request, $request->file('img'));
         } else {
             /* AJOUTER UNE IMAGE */
 
@@ -70,7 +71,7 @@ class ImageController extends Controller
 
             $lastInsertedId = DB::table('image')->insertGetId([
                 'nom_fichier' => $imageName,
-                'vitrine' => 0,
+                'vitrine' => 1,
                 'saisonnier' => $request['saisonnier'],
             ]);
 
@@ -126,8 +127,15 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(image $image)
+    public function destroy(Request $request, image $image)
     {
-        //
+        $id = $request["id"];
+
+        DB::table('legende_langue')->where("id_image", "=", $id)->delete();
+        DB::table('image_saison')->where("id_image", "=", $id)->delete();
+
+        $img = Image::find($id);
+        File::delete(public_path('img/'.$img->nom_fichier));
+        $img->delete();
     }
 }

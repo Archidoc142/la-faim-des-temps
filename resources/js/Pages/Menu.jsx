@@ -2,6 +2,7 @@ import { Link, Head, usePage, useForm, router } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from "react";
 import Item from '../item'
+import FormatsMenu from '@/Components/FormatsMenu';
 import MenuBase from '@/Components/MenuBase';
 import MenuPrinc from '@/Components/MenuPrinc';
 import MenuDateRetour from '@/Components/MenuDateRetour';
@@ -234,7 +235,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
 
             {/*Entête*/}
-            <div className='bg-[#EBEBEB] justify-center py-8 px-10 md:py-12 md:px-20'>
+            <div className='bg-[#EBEBEB] justify-center py-8 px-10 md:py-20 md:px-20'>
                 <h1 className='text-center text-3xl font-semibold mb-2'>{t("Menu.titre")}</h1>
                 <p className='text-center'>{t("Menu.sous-titre")}</p>
             </div>
@@ -244,24 +245,15 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 <h2 className='text-2xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
 
                 <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center max-w-[1000px]'>
-                    {i18n.language === "fr" ?
-                        FrFormats.map(format => (
-                            <div key={format.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center w-[90%] md:w-[30%] max-w-[350px]'>
-                                <p className='font-semibold pb-2'>{format.nom}</p>
-                                <p className='text-sm pb-2'>{format.description}</p>
-                                <p className='text-[#2E6FED] font-semibold text-lg'>{formats.map(f => (f.id == format.id_format ? f.montant : ""))}$</p>
-                            </div>
-                        ))
-
-                        :
-                        EnFormats.map(format => (
-                            <div key={format.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center w-[90%] md:w-[30%] max-w-[350px]'>
-                                <p className='font-semibold pb-2'>{format.nom}</p>
-                                <p className='text-sm pb-2'>{format.description}</p>
-                                <p className='text-[#2E6FED] font-semibold text-lg'>{formats.map(f => (f.id == format.id_format ? f.montant : ""))}$</p>
-                            </div>
-                        ))
-                    }
+                    {formats.map(format => (
+                        <div key={format.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center w-[90%] md:w-[30%] max-w-[350px]'>
+                            <FormatsMenu
+                                formatLangue={i18n.language === "fr" ? FrFormats[format.id - 1].nom : EnFormats[format.id - 1].nom}
+                                descLangue={i18n.language === "fr" ? FrFormats[format.id - 1].description : EnFormats[format.id - 1].description}
+                                montant={i18n.language === "fr" ? format.montant + "$" : "$" + format.montant}
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
 
