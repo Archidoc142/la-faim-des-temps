@@ -6,6 +6,7 @@ import PhoneInput, { format, normalize } from "react-phone-input-auto-format";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -24,9 +25,9 @@ export default function UpdateProfileInformation({
         });
 
     const submit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        patch(route("profile.update"));
+        patch(route("profile.update"))
     };
 
     return (
@@ -93,7 +94,8 @@ export default function UpdateProfileInformation({
                             onChange={(e) => {
                                 setData("telephone", normalize(e));
                             }}
-                            value={user.data.telephone}
+                            value={user.data.telephone == null ? "" : user.data.telephone}
+                            placeholder={user.data.telephone == null ? t("Compte.vide") : null}
                             className="bg-white mt-1 block w-full border-t-transparent border-x-transparent border-b-[#BB285C] focus:border-[#7A163C] focus:ring-[#7A163C] shadow-sm  rounded-md"
                         />
 

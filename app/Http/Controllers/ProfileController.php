@@ -31,6 +31,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
+        //dd($request);
         $client = Auth::user();
 
         $rules = [

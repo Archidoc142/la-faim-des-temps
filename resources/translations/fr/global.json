@@ -39,8 +39,8 @@
         "prinfo" : "Information du profil",
         "updpr" : "Mettre à jour les informations du compte.",
         "uppas" : "Mis à jour du mot de passe",
-        "enspas" : "Assurez-vous d'avoir un mot de passe sécuritaire."
-
+        "enspas" : "Assurez-vous d'avoir un mot de passe sécuritaire.",
+        "vide" : "Vide"
     },
     "Login": {
         "title1": "Bienvenue à",
@@ -100,7 +100,9 @@
         "civic" : "Numéro civique",
         "rue" : "Nom de rue",
         "app" : "Numéro d'appartement (facultaif)",
-        "postal" : "Code postal"
+        "postal" : "Code postal",
+        "vider" : "Vider le panier",
+        "mFlash" : "Le panier a été vidé"
     },
     "Avis": {
         "addAvis" : "Ajouter un avis",
