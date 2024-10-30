@@ -68,7 +68,7 @@ export default function Producteurs({ producteurs }) {
                     </div>
                     : null}
 
-                <PaginationBar links={producteurs.links} />
+                <PaginationBar links={producteurs.meta.links} />
             </div>
         </>
     )

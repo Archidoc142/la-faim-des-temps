@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Producteur extends Model
 {
@@ -16,11 +17,20 @@ class Producteur extends Model
     protected $fillable = [
         'nom',
         'adresse',
-        'telephone',
+        'url',
         'id_image'
     ];
 
-    public function langues()
+    public function lang($lang)
+    {
+        $id = Langue::where('code', $lang)->first()->id;
+
+        return $this->belongsToMany(Langue::class, 'producteur_langue', 'id_producteur', 'id_langue')
+        ->where('id_langue', $id)
+        ->withPivot('description')->first();
+    }
+
+    public function langue()
     {
         return $this->belongsToMany(Langue::class, 'producteur_langue', 'id_producteur', 'id_langue')
                     ->withPivot('description');

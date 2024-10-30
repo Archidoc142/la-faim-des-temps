@@ -45,7 +45,8 @@ class DatabaseSeeder extends Seeder
             ClientSeeder::class,
             CommandeSeeder::class,
             DateRetourSeeder::class,
-            LegendeLangueSeeder::class
+            LegendeLangueSeeder::class,
+            ProducteurLangueSeeder::class
         ]);
     }
 }

@@ -15,7 +15,7 @@ export default function Producteur({producteur}) {
                     <div className={`${producteur.id % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
                         <Title url={producteur.url} nom={producteur.nom} />
 
-                        <Text description='faire table dans BD' adresse={producteur.adresse} />
+                        <Text description={producteur.description} adresse={producteur.adresse} />
                     </div>
                 </div>
             </div>
