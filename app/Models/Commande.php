@@ -25,7 +25,8 @@ class Commande extends Model
 
         'status',
         'session_id',
-        'stripe_id'
+        'stripe_id',
+        'qb_id'
     ];
 
     public function adresse(): BelongsTo

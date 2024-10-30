@@ -13,6 +13,7 @@ use QuickBooksOnline\API\Facades\Invoice;
 use QuickBooksOnline\API\Facades\Item;
 use QuickBooksOnline\API\Facades\Account;
 use Illuminate\Http\Request;
+use QuickBooksOnline\API\Facades\Payment;
 
 class QuickBooksService
 {
@@ -180,7 +181,7 @@ class QuickBooksService
         $config = include(app_path() . '/config.php');
 
         $dataService = $this->configureDataService();
-
+        dump($items);
         $invoiceObj = Invoice::create([
             "Line" => $items,
             "CustomerRef" => [
@@ -194,8 +195,11 @@ class QuickBooksService
 
 
         $resultingInvoiceObj = $dataService->Add($invoiceObj);
+
         dump($dataService->getLastError());
 
+        $commande->qb_id = $resultingInvoiceObj->Id;
+        $commande->save();
 
         $emailSendStatus = $dataService->SendEmail($resultingInvoiceObj, $commande->user->email);   //Envoie de la facture par courriel au client, la personnalisation du courriel en question ce fais dans la configuration de QB
 
@@ -210,9 +214,6 @@ class QuickBooksService
         }
     }
 
-    //Cette fonction permet de créer un item dans QuickBooks pour ensuite l'ajouter à la facture
-    private function createItem($service, $name, $price, /*et d'autres paramètres */){}
-
     public function refreshTokens()
     {
         $OAuth2LoginHelper = $this->initOAuth2LoginHelper();
@@ -222,11 +223,6 @@ class QuickBooksService
         $accessTokenObj = $OAuth2LoginHelper->refreshAccessTokenWithRefreshToken($oldRefreshToken);
 
         $this->storeTokens($accessTokenObj);
-
-        //Pour tester si les tokens sont bien refresh
-        // return Inertia::render('Admin/QuickBooksAuth', [
-        //     'url' => QBToken::getToken("access")
-        // ]);
 
     }
 
@@ -285,5 +281,43 @@ class QuickBooksService
             'accessTokenKey' => QBToken::getToken("access"),
             'refreshTokenKey' => QBToken::getToken("refresh")
         ));
+    }
+
+    public function sendPayment($user, $commande)
+    {
+        $dataService = $this->configureDataService();
+
+        $paymentData = [
+            "CustomerRef" => [ "value" => strval($user->id_qb) ],
+            "TotalAmt" => $commande->total,
+            "Line" => [
+                [
+                    "Amount" => $commande->total,
+                    "LinkedTxn" => [
+                    [
+                        "TxnId" => strval($commande->qb_id),
+                        "TxnType" => "Invoice"
+                    ]],
+                ]
+            ]
+        ];
+
+        //dd($paymentData);
+
+        $payment = Payment::create($paymentData);
+
+        //dd($payment);
+
+        $resultingObj = $dataService->Add($payment);
+
+        dd($resultingObj);
+
+        $error = $dataService->getLastError();
+
+        if ($error) {
+            echo "The Status code is: " . $error->getHttpStatusCode() . "\n";
+            echo "The Helper message is: " . $error->getOAuthHelperError() . "\n";
+            echo "The Response message is: " . $error->getResponseBody() . "\n";
+        }
     }
 }

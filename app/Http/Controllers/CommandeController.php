@@ -144,13 +144,12 @@ class CommandeController extends Controller
                     ]
                 ]
             ];
-
         }
 
         dump($itemsQb);
 
         $quickBooksService->createInvoice($commande, $itemsQb);
-        dd("Commande passée!");
+        //dd("Commande passée!");
     }
 
     /**
@@ -197,6 +196,8 @@ class CommandeController extends Controller
 
     public function checkout(Request $request)
     {
+        $quickBooksService = new QuickBooksService();
+
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $items = [];
@@ -247,6 +248,7 @@ class CommandeController extends Controller
 
     public function success(Request $request)
     {
+        $quickBooksService = new QuickBooksService();
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $sessionId = $request->get('session_id');
@@ -265,7 +267,9 @@ class CommandeController extends Controller
         $commande->save();
 
         $this->sendCommandeQB($commande);
-        // TODO: ajouter paiement à la facture QuickBooks
+
+        $user = $commande->user()->first();
+        $quickBooksService->sendPayment($user, $commande);
 
         dump("Commande passée!");
         dd($commande->ProduitsCommande()->get());

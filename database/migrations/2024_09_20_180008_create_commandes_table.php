@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('session_id')->nullable();
             $table->string('stripe_id')->nullable();
 
+            $table->bigInteger('qb_id')->nullable();
+
             $table->timestamps();
         });
 

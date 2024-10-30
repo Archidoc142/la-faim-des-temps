@@ -44,7 +44,7 @@ class QuickBooksController extends Controller
 
         $quickBooksService->storeTokens($accessTokenObj);
 
-        //$quickBooksService->exportAllItems();
+        $quickBooksService->exportAllItems();
 
         return Inertia::render('Admin/QuickBooksAuth', [
             'url' => QBToken::getToken("access")
