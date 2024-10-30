@@ -39,6 +39,12 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
         setMessageV(visibility)
     }
 
+    const resetPanier = () => {
+        setPanier({})
+        localStorage.setItem("panier", JSON.stringify([]));
+        showMessageFlash(1, t("Panier.mFlash"))
+    }
+
     return (
         <div className='py-8 px-12'>
             <Head title="Panier" />
@@ -70,6 +76,8 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
                             ln={i18n.language}
                             showMessageFlash={showMessageFlash} />
                     })}
+
+                    <p className='text-white underline cursor-pointer text-right hover:text-gray-400' onClick={() => resetPanier()}>{t("Panier.vider")}</p>
 
                     <div className='text-white text-right mt-8'>
                         <p className='text-2xl'>{t("Panier.total")}</p>
