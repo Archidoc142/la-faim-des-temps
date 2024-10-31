@@ -2,11 +2,12 @@ import { Link, Head, usePage, useForm, router } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from "react";
 import Item from '../item'
+import FormatsMenu from '@/Components/FormatsMenu';
 import MenuBase from '@/Components/MenuBase';
 import MenuPrinc from '@/Components/MenuPrinc';
 import MenuDateRetour from '@/Components/MenuDateRetour';
 
-export default function Menu({ formats, langFormats, tarifs, produits, dates_menu, token }) {
+export default function Menu({ formats, langFormats, tarifs, produits, dates_menu, token, ajd, heure }) {
 
     const menu = produits.data.filter((p) => p.dansMenu)
 
@@ -101,12 +102,11 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     const [dateMenuLund, setDateMenuLund] = useState(tempDate);
     const [dateMenuRetour, setDateMenuRetour] = useState(tempDate);
 
-    const [ajdYYYY, setAjdYYYY] = useState(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
+    //const [ajdYYYY, setAjdYYYY] = useState(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
     const [lundiYYYY, setLundiYYYY] = useState(dates_menu[2].date);
     const [vendrediYYYY, setVendrediYYYY] = useState(dates_menu[1].date);
     const [lundiNextYYYY, setLundiNextYYYY] = useState(dates_menu[4].date);
     const [vendrediNextYYYY, setVendrediNextYYYY] = useState(dates_menu[3].date);
-    //const [retourYYYY, setRetourYYYY] = useState(tempDate);
 
     const [editMode, setEditMode] = useState(false);
 
@@ -116,7 +116,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     let dnextv = new Date(dates_menu[3].date);  //*prochain* vendredi
     let dnextl = new Date(dates_menu[4].date);  //*prochain* lundi
 
-    dr.setDate(dr.getDate() + 1)
+    dr.setDate(dr.getDate() + 1)    // +1 pour avoir la bonne date
     dv.setDate(dv.getDate() + 1)
     dl.setDate(dl.getDate() + 1)
     dnextv.setDate(dnextv.getDate() + 1)
@@ -131,7 +131,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }
 
         //changer la date de livraison pour le prochain vendredi
-        if (ajdYYYY >= vendrediYYYY || (ajdYYYY == vendrediYYYY && d.getHours() >= 18)) {
+        if (ajd >= vendrediYYYY || (ajd == vendrediYYYY && heure >= 18)) {
             if (i18n.language === 'fr') {
                 setDateDelivery(dnextv.toLocaleDateString('fr-FR', optionsDel))
                 setDateMenuVend(dv.toLocaleDateString('fr-FR', optionsMenu))
@@ -145,7 +145,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             if (i18n.language === 'fr') {
                 setDateDelivery(dv.toLocaleDateString('fr-FR', optionsDel))
                 setDateMenuVend(dnextv.toLocaleDateString('fr-FR', optionsMenu))
-                //setDateMenuLund(dnextl.toLocaleDateString('fr-FR', optionsMenu))
                 setDateMenuLund(dnextl.toLocaleDateString('fr-FR', optionsDel))
             } else {
                 setDateDelivery(dv.toLocaleDateString('en-EN', optionsDel))
@@ -160,10 +159,10 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         else {
             //si une date de retour est programmée
             if (dates_menu[0].date !== null) {
-                console.log("date_retourrr", dates_menu[0].date, "\n ajd", ajdYYYY);
+                console.log("date_retourrr", dates_menu[0].date, "\n ajd", ajd);
 
                 // la fin du retour programmé
-                if (ajdYYYY == dates_menu[0].date) {
+                if (ajd == dates_menu[0].date) {
                     changeDateBD(1, null);  //enlever date retour
                     console.log("ajd = fin date retour");
 
@@ -179,11 +178,11 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
     function checkIntervalleMenu() {
 
-        if (ajdYYYY > vendrediNextYYYY || (ajdYYYY == vendrediNextYYYY && d.getHours() >= 12)) {
+        if (ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12)) {
             changeDateBD(1, "prochain");
             setAfficherMenu(true);
         }
-        else if (ajdYYYY > lundiYYYY || (ajdYYYY === lundiYYYY && d.getHours() >= 16)) {
+        else if (ajd > lundiYYYY || (ajd === lundiYYYY && heure >= 16)) {
             setAfficherMenu(false);
             nextMenuText();
         }
@@ -236,7 +235,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
 
             {/*Entête*/}
-            <div className='bg-[#EBEBEB] justify-center py-8 px-10 md:py-12 md:px-20'>
+            <div className='bg-[#EBEBEB] justify-center py-8 px-10 md:py-20 md:px-20'>
                 <h1 className='text-center text-3xl font-semibold mb-2'>{t("Menu.titre")}</h1>
                 <p className='text-center'>{t("Menu.sous-titre")}</p>
             </div>
@@ -246,24 +245,15 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 <h2 className='text-2xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
 
                 <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center max-w-[1000px]'>
-                    {i18n.language === "fr" ?
-                        FrFormats.map(format => (
-                            <div key={format.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center w-[90%] md:w-[30%] max-w-[350px]'>
-                                <p className='font-semibold pb-2'>{format.nom}</p>
-                                <p className='text-sm pb-2'>{format.description}</p>
-                                <p className='text-[#2E6FED] font-semibold text-lg'>{formats.map(f => (f.id == format.id_format ? f.montant : ""))}$</p>
-                            </div>
-                        ))
-
-                        :
-                        EnFormats.map(format => (
-                            <div key={format.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center w-[90%] md:w-[30%] max-w-[350px]'>
-                                <p className='font-semibold pb-2'>{format.nom}</p>
-                                <p className='text-sm pb-2'>{format.description}</p>
-                                <p className='text-[#2E6FED] font-semibold text-lg'>{formats.map(f => (f.id == format.id_format ? f.montant : ""))}$</p>
-                            </div>
-                        ))
-                    }
+                    {formats.map(format => (
+                        <div key={format.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center w-[90%] md:w-[30%] max-w-[350px]'>
+                            <FormatsMenu
+                                formatLangue={i18n.language === "fr" ? FrFormats[format.id - 1].nom : EnFormats[format.id - 1].nom}
+                                descLangue={i18n.language === "fr" ? FrFormats[format.id - 1].description : EnFormats[format.id - 1].description}
+                                montant={i18n.language === "fr" ? format.montant + "$" : "$" + format.montant}
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
 
