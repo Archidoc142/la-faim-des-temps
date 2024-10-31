@@ -1,6 +1,6 @@
 import { Head, useForm, router } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
-import StarsComment from "@/Components/starsComment";
+import StarsComment from "@/Components/StarsComment";
 import { useEffect, useState } from "react";
 
 export default function Avis() {
