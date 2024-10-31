@@ -131,7 +131,7 @@ export default function Header() {
                                         t("Header.connexion")}
                                 </p>
 
-                                {menuUser ? <div ref={out} className='z-10 absolute bg-[#d4dbe8] text-white text-center top-10 w-[150px] rounded-lg shadow-xl'>
+                                {menuUser ? <div ref={out} className='z-30 absolute bg-[#d4dbe8] text-white text-center top-10 w-[150px] rounded-lg shadow-xl'>
                                     <Dropdown.Link href={user.data.role == "admin" ? route('admin.accueil') : route('profile.edit')} className='font-semibold rounded-t-lg'>{user.data.role == "admin" ? "Admin" : t("Header.compte")}</Dropdown.Link>
                                     <Dropdown.Link href={route('logout')} className='font-semibold rounded-b-lg' method="post" as="button">{t("Header.logout")}</Dropdown.Link>
                                 </div> : null}

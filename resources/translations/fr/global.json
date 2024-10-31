@@ -100,7 +100,9 @@
         "civic" : "Numéro civique",
         "rue" : "Nom de rue",
         "app" : "Numéro d'appartement (facultaif)",
-        "postal" : "Code postal"
+        "postal" : "Code postal",
+        "vider" : "Vider le panier",
+        "mFlash" : "Le panier a été vidé"
     },
     "Avis": {
         "addAvis" : "Ajouter un avis",

@@ -100,7 +100,9 @@
         "civic" : "Civic number",
         "rue" : "Street name",
         "app" : "Apartment number (optional)",
-        "postal" : "Postal code"
+        "postal" : "Postal code",
+        "vider" : "Empty the cart",
+        "mFlash" : "The cart has been emptied"
     },
     "Avis": {
         "addAvis" : "Add a comment",

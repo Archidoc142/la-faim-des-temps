@@ -38,14 +38,18 @@ export default function ImageForm({ image, setPopupActif }) {
 
     function submit(e) {
         e.preventDefault();
-        setPopupActif(false);
-        post('/admin/image', {
-            preserveScroll: true,
-            onError: (errors) => {
-                setPopupActif(true);
-                alert(errors[0]);
-            }
-        });
+        console.log(data)
+        console.log(data.saisons == [false, false, false, false])
+
+        if(data.saisonnier && JSON.stringify(data.saisons) === JSON.stringify([false, false, false, false]))
+            alert("Sélectionnez au moins une saison si l'image est saisonnière.")
+
+        else
+            post('/admin/image', {
+                preserveScroll: true,
+                onError: (errors) => { alert(errors[0]); },
+                onFinish: () => { setPopupActif(false); }
+            });
     }
 
     function upload(e) {
