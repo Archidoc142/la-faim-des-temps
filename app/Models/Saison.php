@@ -13,9 +13,9 @@ class Saison extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    protected $fillable = [
+    /*protected $fillable = [
         'nom'
-    ];
+    ];*/
 
     public function images() {
         return $this->belongsToMany(Image::class, 'image_saison', 'id_saison', 'id_image');

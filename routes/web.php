@@ -60,6 +60,8 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::controller(ImageController::class)->group(function() {
         Route::get('/admin/images', 'index')->name('admin.images');
         Route::post('/admin/image', 'store');
+        //Route::delete('/admin/image/{id}', 'destroy');
+        Route::post('/admin/del-image', 'destroy');
     });
 
     Route::controller(ClientController::class)->group(function() {
