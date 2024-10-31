@@ -41,8 +41,9 @@ class Image extends Model
             ->first();
     }
 
-    public function langues($id_image)
+    public function langues()
     {
-        return LegendeLangue::where('id_image', $id_image)->get();
+        return $this->belongsToMany(Langue::class, 'legende_langue', 'id_image', 'id_langue')
+        ->withPivot('legende');
     }
 }
