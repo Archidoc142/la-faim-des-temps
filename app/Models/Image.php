@@ -25,15 +25,10 @@ class Image extends Model
     public function saisons()
     {
         return $this->belongsToMany(Saison::class, 'image_saison', 'id_image', 'id_saison')
-            //->withPivot('id', 'nom')
-            //->withPivot(['id', 'nom'])
             ->where('id_image', $this->id)
             ->get()
             ->pluck('id')
             ->all();
-
-        //dd($a);
-        //return
     }
 
     public function langue($lang)
@@ -48,13 +43,6 @@ class Image extends Model
 
     public function langues($id_image)
     {
-        /*$arr = LegendeLangue::where('id_image', $id_image)->get();
-        dd($arr);
-        return LegendeLangue::where(
-            ['id_image', '=', $id_image],
-            ['id_langue', '=', $id_langue]
-            )->get();*/
-
         return LegendeLangue::where('id_image', $id_image)->get();
     }
 }

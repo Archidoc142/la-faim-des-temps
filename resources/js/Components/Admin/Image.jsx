@@ -10,7 +10,7 @@ export default function Image({img, handleClick}) {
                 width="200px"
                 height="200px"
                 viewBox="0 0 24 24"
-                className="z-10 absolute top-3 right-3 drop-shadow-lg h-fit max-w-10 hover:stroke-[#BB285C] hover:cursor-pointer"
+                className="z-3 absolute top-3 right-3 drop-shadow-lg h-fit max-w-10 hover:stroke-[#BB285C] hover:cursor-pointer"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="#ffffff"
                 stroke="#ffffff"
