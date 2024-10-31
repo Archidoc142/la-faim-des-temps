@@ -60,26 +60,35 @@ class QuickBooksService
 
     }
 
-    public function exportAllItems()
+    public function initItems()
     {
-        $config = include(app_path() . '/config.php');
-
         $dataService = $this->configureDataService();
+
+        // À REMPLACER PAR LE BON COMPTE EN PRODUCTION
         $incomeAccount = $this->getIncomeAccountObj($dataService);
 
         $items = ProduitFormat::all();
 
         foreach($items as $item)
         {
-            $itemQb = Item::create([
-                "Name" => $item->nomInterne(),
-                "Type" => "Service",
-                "IncomeAccountRef"=> ["value"=>  $incomeAccount->Id]
-            ]);
+            $itemQb = $dataService->Query("SELECT * FROM Item WHERE Name='" . $item->nomInterne() . "'" );
+            if(is_null($itemQb))
+            {
+                $newItem = Item::create([
+                    "Name" => $item->nomInterne(),
+                    "Type" => "Service",
+                    "IncomeAccountRef"=> ["value"=>  $incomeAccount->Id]
+                ]);
 
-            $resultingItemObj = $dataService->Add($itemQb);
+                $itemQb = $dataService->Add($newItem);
+                $item->id_qb = $itemQb->Id;
+            }
+            else
+            {
+                dump($itemQb[0]);
+                $item->id_qb = $itemQb[0]->Id;
+            }
 
-            $item->id_qb = $resultingItemObj->Id;
             $item->save();
         }
 
@@ -88,9 +97,6 @@ class QuickBooksService
     //Cette fonctione permet de créer un utilisateur dans QuickBooks et de lier son ID QuickBooks à la table User
     public function sendToQB(User $user)
     {
-        //Configuration de la connection à l'API de QuickBooks
-        $config = include(app_path() . '/config.php');
-
         $dataService = $this->configureDataService();
 
         $userPhone = "";
@@ -140,8 +146,6 @@ class QuickBooksService
     //Cette fonction permet de faire une update des information client dans quickbooks
     public function updateCustomer(User $user)
     {
-        $config = include(app_path() . '/config.php');
-
         $dataService = $this->configureDataService();
 
         $userPhone = "";
@@ -175,11 +179,15 @@ class QuickBooksService
         }
     }
 
+    private function sendInvoiceEmail($invoice, $email)
+    {
+        $dataService = $this->configureDataService();
+        $dataService->SendEmail($invoice, $email);   //Envoie de la facture par courriel au client, la personnalisation du courriel en question ce fais dans la configuration de QB
+    }
+
     //Cette fonction permet de créer une facture dans QuickBooks
     //l'envoi de la facture par courriel au client est fait automatiquement
-    public function createInvoice($commande, $items) {
-        $config = include(app_path() . '/config.php');
-
+    public function createInvoice($commande, $items, $sendEmail) {
         $dataService = $this->configureDataService();
         dump($items);
         $invoiceObj = Invoice::create([
@@ -201,7 +209,8 @@ class QuickBooksService
         $commande->qb_id = $resultingInvoiceObj->Id;
         $commande->save();
 
-        $emailSendStatus = $dataService->SendEmail($resultingInvoiceObj, $commande->user->email);   //Envoie de la facture par courriel au client, la personnalisation du courriel en question ce fais dans la configuration de QB
+        if($sendEmail)
+            $this->sendInvoiceEmail($resultingInvoiceObj, $commande->user->email);
 
         //TO DO: créer un affichage pour les erreurs
         $error = $dataService->getLastError();
@@ -310,14 +319,17 @@ class QuickBooksService
 
         $resultingObj = $dataService->Add($payment);
 
-        dd($resultingObj);
-
         $error = $dataService->getLastError();
 
         if ($error) {
             echo "The Status code is: " . $error->getHttpStatusCode() . "\n";
             echo "The Helper message is: " . $error->getOAuthHelperError() . "\n";
             echo "The Response message is: " . $error->getResponseBody() . "\n";
+        }
+        else
+        {
+            $invoice = $dataService->Query("SELECT * FROM Invoice WHERE Id='" . $commande->qb_id . "'" );
+            $this->sendInvoiceEmail($invoice[0], $user->email);
         }
     }
 }

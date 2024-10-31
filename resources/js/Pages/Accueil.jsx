@@ -15,8 +15,9 @@ export default function Accueil({ commentaires }) {
     useEffect(() => {
         let params = new URLSearchParams(document.location.search);
         let isLogout = params.get("isLogout");
+        let commandePassee = params.get("commandePassee");
 
-        if (isLogout) {
+        if (isLogout || commandePassee) {
             localStorage.setItem("panier", JSON.stringify([]));
         }
     }, [])

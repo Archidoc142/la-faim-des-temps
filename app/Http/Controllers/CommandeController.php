@@ -122,7 +122,7 @@ class CommandeController extends Controller
         return $commande;
     }
 
-    private function sendCommandeQB(Commande $commande)
+    private function sendCommandeQB(Commande $commande, $sendEmail)
     {
         $quickBooksService = new QuickBooksService();
         $quickBooksService->refreshTokens();
@@ -148,8 +148,7 @@ class CommandeController extends Controller
 
         dump($itemsQb);
 
-        $quickBooksService->createInvoice($commande, $itemsQb);
-        //dd("Commande passée!");
+        $quickBooksService->createInvoice($commande, $itemsQb, $sendEmail);
     }
 
     /**
@@ -159,7 +158,7 @@ class CommandeController extends Controller
     public function store(Request $request)
     {
         $commande = $this->sendCommandeBD($request);
-        $this->sendCommandeQB($commande);
+        $this->sendCommandeQB($commande, true);
     }
 
     /**
@@ -266,13 +265,16 @@ class CommandeController extends Controller
 
         $commande->save();
 
-        $this->sendCommandeQB($commande);
+        $this->sendCommandeQB($commande, false);
 
         $user = $commande->user()->first();
         $quickBooksService->sendPayment($user, $commande);
 
         dump("Commande passée!");
-        dd($commande->ProduitsCommande()->get());
+
+        return redirect('/?commandePassee=1');
+
+        //dd($commande->ProduitsCommande()->get());
         // retourner vers page confirmation commande + vider panier (localstorage)
     }
 
