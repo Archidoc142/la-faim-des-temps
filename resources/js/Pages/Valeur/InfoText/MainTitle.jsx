@@ -14,7 +14,7 @@ export default function MainTitle() {
             :
                 <h1>
                     <span className=" tracking-widest">{t("Valeurs.titrePagePart1")}</span> <br/>
-                    <span className="text-[#387E39] text-5xl">{t("Valeurs.titrePagePart3")}</span> <br />
+                    <span className="text-[#387E39] text-3xl lg:text-5xl">{t("Valeurs.titrePagePart3")}</span> <br />
                     <span className="tracking-widest">{t("Valeurs.titrePagePart2")}</span>
                 </h1>
             }

@@ -85,6 +85,10 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::post('admin/tarif/updateTarif', 'updateTarif')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateTarif");
         Route::post('admin/tarif/updateFormat', 'updateFormat')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateFormat");
     });
+
+    Route::controller(ProducteurController::class)->group(function() {
+        Route::post('/producteurs', 'store')->name('envoiNewProducteur');
+    });
 });
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);
