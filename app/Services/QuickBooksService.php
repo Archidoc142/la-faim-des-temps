@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Models\Commande;
 use App\Models\ProduitFormat;
 use App\Models\QBId;
+use App\Models\TarifLivraison;
 use Illuminate\Support\Facades\Crypt;
 use QuickBooksOnline\API\DataService\DataService;
 use QuickBooksOnline\API\Facades\Customer;
@@ -13,6 +14,7 @@ use QuickBooksOnline\API\Facades\Invoice;
 use QuickBooksOnline\API\Facades\Item;
 use QuickBooksOnline\API\Facades\Account;
 use Illuminate\Http\Request;
+use QuickBooksOnline\API\Facades\Deposit;
 use QuickBooksOnline\API\Facades\Payment;
 
 class QuickBooksService
@@ -85,13 +87,36 @@ class QuickBooksService
             }
             else
             {
-                dump($itemQb[0]);
                 $item->id_qb = $itemQb[0]->Id;
             }
 
             $item->save();
         }
 
+        $this->getFraisLivraisonItem();
+    }
+
+    public function getFraisLivraisonItem()
+    {
+        $dataService = $this->configureDataService();
+
+        $itemLivraisonQb = $dataService->Query("SELECT * FROM Item WHERE Name='Frais de livraison'" );
+
+        if(is_null($itemLivraisonQb))
+        {
+            $newItem = Item::create([
+                "Name" => "Frais de livraison",
+                "Type" => "Service",
+                "IncomeAccountRef"=> ["value"=>  $incomeAccount->Id]
+            ]);
+
+            $itemLivraisonQb = $dataService->Add($newItem);
+            return $itemLivraisonQb;
+        }
+        else
+        {
+            return $itemLivraisonQb[0];
+        }
     }
 
     //Cette fonctione permet de créer un utilisateur dans QuickBooks et de lier son ID QuickBooks à la table User
@@ -189,7 +214,13 @@ class QuickBooksService
     //l'envoi de la facture par courriel au client est fait automatiquement
     public function createInvoice($commande, $items, $sendEmail) {
         $dataService = $this->configureDataService();
-        dump($items);
+
+        $salesTermQuery = $dataService->Query("select * from Term where Name LIKE '%Due%'");
+        if(is_null($salesTermQuery))
+            $salesTermQuery = $dataService->Query("select * from Term where Name LIKE '%Payable%'");
+
+        $salesTerm = current($salesTermQuery);
+
         $invoiceObj = Invoice::create([
             "Line" => $items,
             "CustomerRef" => [
@@ -198,15 +229,22 @@ class QuickBooksService
             "BillEmail" => [
                 "Address" => $commande->user->email
             ],
-            "EmailStatus" => "NeedToSend"
+            "EmailStatus" => "NeedToSend",
+            "DueDate" => date("Y-m-d", strtotime('next thursday')),
+            "SalesTermRef" => [ "value" => strval($salesTerm->Id) ],
         ]);
 
+        if($commande->livraison)
+        {
+            $invoic
+        }
 
         $resultingInvoiceObj = $dataService->Add($invoiceObj);
 
-        dump($dataService->getLastError());
+        //dump($dataService->getLastError());
 
         $commande->qb_id = $resultingInvoiceObj->Id;
+        $commande->qb_invoice_id = intval($resultingInvoiceObj->DocNumber); // non, ce n'est pas une erreur...
         $commande->save();
 
         if($sendEmail)
@@ -292,9 +330,25 @@ class QuickBooksService
         ));
     }
 
+    public function getAllAccounts()
+    {
+        $dataService = $this->configureDataService();
+
+        $accountArray = $dataService->Query("select * from Term where Name LIKE '%Due%'");
+
+        if(is_null($accountArray))
+            $accountArray = $dataService->Query("select * from Term where Name LIKE '%Due%'");
+
+
+        dd($accountArray);
+
+    }
     public function sendPayment($user, $commande)
     {
         $dataService = $this->configureDataService();
+
+        $bankAccountArray = $dataService->Query("select * from Account where AccountType='Bank' and AccountSubType='Checking'");
+        $bankAccount = current($bankAccountArray);
 
         $paymentData = [
             "CustomerRef" => [ "value" => strval($user->id_qb) ],
@@ -308,26 +362,25 @@ class QuickBooksService
                         "TxnType" => "Invoice"
                     ]],
                 ]
-            ]
+            ],
+            "DepositToAccountRef" => [ "value" => strval($bankAccount->Id) ]
         ];
-
-        //dd($paymentData);
 
         $payment = Payment::create($paymentData);
 
-        //dd($payment);
-
-        $resultingObj = $dataService->Add($payment);
+        $dataService->Add($payment);
 
         $error = $dataService->getLastError();
 
         if ($error) {
+            dd($error);
             echo "The Status code is: " . $error->getHttpStatusCode() . "\n";
             echo "The Helper message is: " . $error->getOAuthHelperError() . "\n";
             echo "The Response message is: " . $error->getResponseBody() . "\n";
         }
         else
         {
+            //dump($resultingDeposit);
             $invoice = $dataService->Query("SELECT * FROM Invoice WHERE Id='" . $commande->qb_id . "'" );
             $this->sendInvoiceEmail($invoice[0], $user->email);
         }

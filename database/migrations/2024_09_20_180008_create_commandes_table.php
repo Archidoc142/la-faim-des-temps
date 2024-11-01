@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('stripe_id')->nullable();
 
             $table->bigInteger('qb_id')->nullable();
+            $table->bigInteger('qb_invoice_id')->nullable();
 
             $table->timestamps();
         });

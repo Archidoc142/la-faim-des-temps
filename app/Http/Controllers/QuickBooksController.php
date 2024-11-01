@@ -19,6 +19,7 @@ class QuickBooksController extends Controller
         if(QBToken::exists())
         {
             $quickBooksService->refreshTokens();
+            $quickBooksService->getAllAccounts();
         }
 
         $OAuth2LoginHelper = $quickBooksService->initOAuth2LoginHelper();

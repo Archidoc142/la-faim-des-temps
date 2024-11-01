@@ -146,7 +146,22 @@ class CommandeController extends Controller
             ];
         }
 
-        dump($itemsQb);
+        if($commande->livraison)
+        {
+            $fraisLivraisonItem = $quickBooksService->getFraisLivraisonItem();
+
+            $items[] = [
+                "Amount" => $format->montant,
+                "DetailType" => "SalesItemLineDetail",
+                "SalesItemLineDetail" => [
+                    "ItemRef" => [
+                        "value" => $fraisLivraisonItem->Id
+                    ]
+                ]
+            ];
+        }
+
+        //dump($itemsQb);
 
         $quickBooksService->createInvoice($commande, $itemsQb, $sendEmail);
     }
@@ -159,6 +174,8 @@ class CommandeController extends Controller
     {
         $commande = $this->sendCommandeBD($request);
         $this->sendCommandeQB($commande, true);
+
+        return redirect('/?commandePassee=1');
     }
 
     /**
