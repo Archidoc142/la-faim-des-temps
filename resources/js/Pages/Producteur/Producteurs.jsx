@@ -13,6 +13,11 @@ export default function Producteurs({ producteurs }) {
 
     const [editMode, setEditMode] = useState(false);
     const [t, i18n] = useTranslation("global"); // translation
+    const [showProducteur, setShowProducteur] = useState(false)
+
+    const toggleShowProducteur = () => {
+        setShowProducteur(!showProducteur)
+    }
 
     return (
         <>
@@ -57,8 +62,8 @@ export default function Producteurs({ producteurs }) {
                                 }
                             </> : null
                         }
-                        <Producteur 
-                            producteur = { producteur } 
+                        <Producteur
+                            producteur = { producteur }
                             langue = {i18n.language}
                             // editable={editMode}
                             // setData={setData}
@@ -71,8 +76,8 @@ export default function Producteurs({ producteurs }) {
 
                 {user && user.data.role == "admin" ?
                     <div>
-                        <AddProducteur />
-                        <AddProducteurButton />
+                        <AddProducteur className={showProducteur ? "block" : "hidden"} />
+                        <AddProducteurButton toggleShowProducteur={toggleShowProducteur}/>
                     </div>
                     : null}
 
