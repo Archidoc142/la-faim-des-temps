@@ -40,19 +40,20 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
+        $file = $request->file('img');
+        $imageName = $file->getClientOriginalName();
+
+        if(Image::where('nom_fichier', $imageName)->exists()) {
+            return back()->withErrors("Ce nom de fichier existe déjà dans la liste d'images.");
+        }
 
         if ($request['imgExists']) {
-            //dd($request->descriptionFr);
             /* MODIFIER UNE IMAGE */
-            //il faudrait garder le nom de l'ancienne image pour le supprimer du dossier public/img du projet
-            //dd("modifier", $request, $request->file('img'));
 
             $image = Image::find($request->imgId);
 
             if(!is_null($request->file('img')))
             {
-                $file = $request->file('img');
-
                 File::delete(public_path('img/' . $image->nom_fichier));
 
                 $image->nom_fichier = $file->getClientOriginalName();
@@ -112,8 +113,6 @@ class ImageController extends Controller
             if ($validation->fails())
                 return back()->withErrors($validation->errors())->withInput();
 
-            $file = $request->file('img');
-            $imageName = $file->getClientOriginalName();
             $file->move(public_path('/img'), $imageName);
 
             $lastInsertedId = DB::table('image')->insertGetId([
