@@ -42,7 +42,7 @@ class AdresseSeeder extends Seeder
                 "no_civique" => 123,
                 "rue" => "Avenue des Bois",
                 "appartement" => null,
-                "code_postal" => "J1X 2Y3",
+                "code_postal" => "J1L 2Y3", // précédemment J1X, qui est un code de Magog...
                 "id_secteur_code" => 3,
                 "visible" => true
             ],

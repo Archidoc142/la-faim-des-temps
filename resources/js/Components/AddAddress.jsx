@@ -1,8 +1,7 @@
-import { useForm } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react"
 
-export default function AddAddress({ setContentBox, setBoxVisible, /*setAdresse,*/ data, setData }) {
+export default function AddAddress({ setContentBox, setBoxVisible, data, setData, secteurs, codesValides, seuilGratuit, setSecteur }) {
 
     const [t, i18n] = useTranslation("global")
 
@@ -11,32 +10,45 @@ export default function AddAddress({ setContentBox, setBoxVisible, /*setAdresse,
     const [noAppt, setNoAppt] = useState(0)
     const [postalCode, setPostalCode] = useState("")
 
-    const Secteurs = ["J1E", "J1G", "J1H", "J1J", "J1K", "J1L" , "J1N"]
-    const SecteursSherbrooke = ["H", "J", "K", "L"]
-
     const submit = (e) => {
         e.preventDefault();
 
-        if (Secteurs.includes(postalCode.substr(0,3))) {
-            let montant = 10
-            if (SecteursSherbrooke.includes(postalCode.substr(2,1))) {
-                data.total < 60 ? montant = 7 : montant = 0
+        const re = /^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$/
+
+        if(re.exec(postalCode))
+        {
+            const codeIn = postalCode.substring(0,3);
+
+            if (codesValides.includes(codeIn)) {
+                const secteur = secteurs.data.filter((s) => s.codes.includes(codeIn));
+                setSecteur(secteur[0].nom);
+
+                let montant = secteur[0].montant;
+
+                if (secteur[0].nom === "Sherbrooke" && data.total >= seuilGratuit) {
+                    montant = 0;
+                }
+
+                const adresse = {no_civique: noCivique, rue: rue, no_appt: noAppt, code_postal: postalCode}
+
+                let newData = data
+                newData.adresse = adresse
+                newData.adresse_exists = false
+                newData.adresse_id = 0
+                newData.frais_livraison = montant
+                newData.total = data.sous_total + montant
+                setData(newData)
+
+                setContentBox(2);
+            } else {
+                alert("Désolé, nous livrons seulement au centre de Sherbrooke, à Fleurimont et à Rock Forest.")
             }
-
-            const adresse = {no_civique: noCivique, rue: rue, no_appt: noAppt, code_postal: postalCode}
-
-            let newData = data
-            newData.adresse = adresse
-            newData.adresse_exists = false
-            newData.adresse_id = 0
-            newData.frais_livraison = montant
-            newData.total = data.sous_total + montant
-            setData(newData)
-
-            setContentBox(2);
-        } else {
-            alert("Désolé, nous livrons seulement au centre de Sherbrooke, à Fleurimont et à Rock Forest.")
         }
+        else
+        {
+            alert("Le format du code postal est invalide.");
+        }
+
     };
 
     const handlePostalChange = (e) => {
@@ -46,7 +58,6 @@ export default function AddAddress({ setContentBox, setBoxVisible, /*setAdresse,
             text = text.slice(0, 3) + ' ' + text.slice(3);
         }
 
-        //setData('code_postal', text)
         setPostalCode(text)
     }
 

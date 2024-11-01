@@ -2,16 +2,12 @@ import { Link, Head, usePage, useForm, router } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from "react";
 import Item from '../item'
+import FormatsMenu from '@/Components/FormatsMenu';
 import MenuBase from '@/Components/MenuBase';
 import MenuPrinc from '@/Components/MenuPrinc';
 import MenuDateRetour from '@/Components/MenuDateRetour';
-//import MenuForm from '@/Components/MenuForm';
-//import action from '../../../public/icons/action.png';
-import axios from 'axios';
-//import Route from 'vendor/tightenco/ziggy/src/js/Route';
 
-
-export default function Menu({ formats, langFormats, tarifs, produits, dates_menu, token }) {
+export default function Menu({ formats, langFormats, tarifs, produits, dates_menu, token, ajd, heure }) {
 
     const menu = produits.data.filter((p) => p.dansMenu)
 
@@ -48,21 +44,15 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }
     ]);
 
-
-
     const submit = (e) => {
         e.preventDefault();
         post(route('menu.update'), { preserveScroll: true });
         setEditMode(false);
     };
 
-    //const props = usePage().props;
-
     async function changeDateBD(id, nouv_valeur) {
 
         if (nouv_valeur || nouv_valeur == null) {
-            console.log("fun change db", id, nouv_valeur);
-
             const dateData = {
                 _token: token,
                 id: id,
@@ -112,40 +102,54 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     const [dateMenuLund, setDateMenuLund] = useState(tempDate);
     const [dateMenuRetour, setDateMenuRetour] = useState(tempDate);
 
-    const [ajdYYYY, setAjdYYYY] = useState(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
+    //const [ajdYYYY, setAjdYYYY] = useState(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
     const [lundiYYYY, setLundiYYYY] = useState(dates_menu[2].date);
     const [vendrediYYYY, setVendrediYYYY] = useState(dates_menu[1].date);
-    //const [retourYYYY, setRetourYYYY] = useState(tempDate);
+    const [lundiNextYYYY, setLundiNextYYYY] = useState(dates_menu[4].date);
+    const [vendrediNextYYYY, setVendrediNextYYYY] = useState(dates_menu[3].date);
 
     const [editMode, setEditMode] = useState(false);
 
     let dr = new Date(dates_menu[0].date);  //date retour à partir de la BD
-    let dv = new Date(dates_menu[1].date);  //date du vendredi de *cette* semaine à partir de la BD
-    let dl = new Date(dates_menu[2].date);  //date du lundi de *cette* semaine à partir de la BD
+    let dv = new Date(dates_menu[1].date);  //vendredi de *cette* période de commande
+    let dl = new Date(dates_menu[2].date);  //lundi de *cette* période de commande
+    let dnextv = new Date(dates_menu[3].date);  //*prochain* vendredi
+    let dnextl = new Date(dates_menu[4].date);  //*prochain* lundi
 
-    dr.setDate(dr.getDate() + 1)
+    dr.setDate(dr.getDate() + 1)    // +1 pour avoir la bonne date
     dv.setDate(dv.getDate() + 1)
     dl.setDate(dl.getDate() + 1)
+    dnextv.setDate(dnextv.getDate() + 1)
+    dnextl.setDate(dnextl.getDate() + 1)
 
     useEffect(() => {
 
         if (i18n.language === 'fr') {
             setDateMenuRetour(dr.toLocaleDateString('fr-FR', optionsMenu))
-            setDateMenuVend(dv.toLocaleDateString('fr-FR', optionsMenu))
-            setDateMenuLund(dl.toLocaleDateString('fr-FR', optionsMenu))
         } else {
             setDateMenuRetour(dr.toLocaleDateString('en-EN', optionsMenu))
-            setDateMenuVend(dv.toLocaleDateString('en-EN', optionsMenu))
-            setDateMenuLund(dl.toLocaleDateString('en-EN', optionsMenu))
         }
 
         //changer la date de livraison pour le prochain vendredi
-        if (ajdYYYY >= vendrediYYYY || (ajdYYYY == vendrediYYYY && d.getHours() >= 18)) {
-            d.setDate(dv.getDate() + 7);
+        if (ajd >= vendrediYYYY || (ajd == vendrediYYYY && heure >= 18)) {
             if (i18n.language === 'fr') {
-                setDateDelivery(d.toLocaleDateString('fr-FR', optionsDel))
+                setDateDelivery(dnextv.toLocaleDateString('fr-FR', optionsDel))
+                setDateMenuVend(dv.toLocaleDateString('fr-FR', optionsMenu))
+                setDateMenuLund(dl.toLocaleDateString('fr-FR', optionsMenu))
             } else {
-                setDateDelivery(d.toLocaleDateString('en-EN', optionsDel))
+                setDateDelivery(dnextv.toLocaleDateString('en-EN', optionsDel))
+                setDateMenuVend(dv.toLocaleDateString('en-EN', optionsMenu))
+                setDateMenuLund(dl.toLocaleDateString('en-EN', optionsMenu))
+            }
+        } else {
+            if (i18n.language === 'fr') {
+                setDateDelivery(dv.toLocaleDateString('fr-FR', optionsDel))
+                setDateMenuVend(dnextv.toLocaleDateString('fr-FR', optionsMenu))
+                setDateMenuLund(dnextl.toLocaleDateString('fr-FR', optionsDel))
+            } else {
+                setDateDelivery(dv.toLocaleDateString('en-EN', optionsDel))
+                setDateMenuVend(dnextv.toLocaleDateString('en-EN', optionsMenu))
+                setDateMenuLund(dnextl.toLocaleDateString('en-EN', optionsMenu))
             }
         }
 
@@ -155,10 +159,10 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         else {
             //si une date de retour est programmée
             if (dates_menu[0].date !== null) {
-                console.log("date_retourrr", dates_menu[0].date, "\n ajd", ajdYYYY);
+                console.log("date_retourrr", dates_menu[0].date, "\n ajd", ajd);
 
                 // la fin du retour programmé
-                if (ajdYYYY == dates_menu[0].date) {
+                if (ajd == dates_menu[0].date) {
                     changeDateBD(1, null);  //enlever date retour
                     console.log("ajd = fin date retour");
 
@@ -167,53 +171,36 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 else
                     setAfficherMenu(false);
             }
-            else {
-                checkIntervalleMenu();
-            }
         }
 
+        checkIntervalleMenu();
     }, [i18n.language])
 
     function checkIntervalleMenu() {
-        console.log("#fun lluni", lundiYYYY, vendrediYYYY, ajdYYYY);
 
-        // préparer le prochain intervalle
-        if (ajdYYYY >= lundiYYYY || (ajdYYYY === lundiYYYY && d.getHours() >= 16)) {
-            console.log("fini menu");
-
-            setAfficherMenu(false);
-            nextIntervalleMenu();
-        }
-        else if (ajdYYYY >= vendrediYYYY || (ajdYYYY == vendrediYYYY && d.getHours() >= 12) || (ajdYYYY == lundiYYYY && d.getHours() <= 16)) {
-            // Afficher menu (vendredi)
+        if (ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12)) {
+            changeDateBD(1, "prochain");
             setAfficherMenu(true);
-            changeDateBD(1, null);
+        }
+        else if (ajd > lundiYYYY || (ajd === lundiYYYY && heure >= 16)) {
+            setAfficherMenu(false);
+            nextMenuText();
         }
     }
 
-    function nextIntervalleMenu() {
+    function nextMenuText() {
         //vendredi
-        d.setDate(dv.getDate());
-        setVendrediYYYY(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
-        console.log(",,,v", d);
-
         if (i18n.language === 'fr') {
-            //setDateDelivery(dv.toLocaleDateString('fr-FR', optionsDel))
-            setDateMenuVend(d.toLocaleDateString('fr-FR', optionsMenu))
+            setDateMenuVend(dnextv.toLocaleDateString('fr-FR', optionsMenu))
         } else {
-            //setDateDelivery(dv.toLocaleDateString('en-EN', optionsDel))
-            setDateMenuVend(d.toLocaleDateString('en-EN', optionsMenu))
+            setDateMenuVend(dnextv.toLocaleDateString('en-EN', optionsMenu))
         }
 
         //lundi
-        d.setDate(dl.getDate());
-        setLundiYYYY(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
-        console.log(",--l", d);
-
         if (i18n.language === 'fr') {
-            setDateMenuLund(d.toLocaleDateString('fr-FR', optionsDel))
+            setDateMenuLund(dnextl.toLocaleDateString('fr-FR', optionsMenu))
         } else {
-            setDateMenuLund(d.toLocaleDateString('en-EN', optionsDel))
+            setDateMenuLund(dnextl.toLocaleDateString('en-EN', optionsMenu))
         }
     }
 
@@ -238,8 +225,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         if (!found) {
             const lastId = panier.length > 0 ? panier[panier.length - 1]['id'] : 0;
             panier.push(new Item(lastId + 1, key1, 1, key2));
-
-            //POPUP????
         }
     }
 
@@ -250,7 +235,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
 
             {/*Entête*/}
-            <div className='bg-[#EBEBEB] justify-center py-12 px-20'>
+            <div className='bg-[#EBEBEB] justify-center py-8 px-10 md:py-20 md:px-20'>
                 <h1 className='text-center text-3xl font-semibold mb-2'>{t("Menu.titre")}</h1>
                 <p className='text-center'>{t("Menu.sous-titre")}</p>
             </div>
@@ -258,25 +243,17 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             {/*Coût des portions*/}
             <div className='p-10 md:p-20 m-auto'>
                 <h2 className='text-2xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
-                <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center max-w-[1000px]'>
-                    {i18n.language === "fr" ?
-                        FrFormats.map(format => (
-                            <div key={format.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center w-[90%] md:w-[30%] max-w-[350px]'>
-                                <p className='font-semibold pb-2'>{format.nom}</p>
-                                <p className='text-sm pb-2'>{format.description}</p>
-                                <p className='text-[#2E6FED] font-semibold text-lg'>{formats.map(f => (f.id == format.id_format ? (Math.trunc(f.montant)) : ""))}$</p>
-                            </div>
-                        ))
 
-                        :
-                        EnFormats.map(format => (
-                            <div key={format.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center w-[90%] md:w-[30%] max-w-[350px]'>
-                                <p className='font-semibold pb-2'>{format.nom}</p>
-                                <p className='text-sm pb-2'>{format.description}</p>
-                                <p className='text-[#2E6FED] font-semibold text-lg'>{formats.map(f => (f.id == format.id_format ? Math.trunc(f.montant) : ""))}$</p>
-                            </div>
-                        ))
-                    }
+                <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center max-w-[1000px]'>
+                    {formats.map(format => (
+                        <div key={format.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center w-[90%] md:w-[30%] max-w-[350px]'>
+                            <FormatsMenu
+                                formatLangue={i18n.language === "fr" ? FrFormats[format.id - 1].nom : EnFormats[format.id - 1].nom}
+                                descLangue={i18n.language === "fr" ? FrFormats[format.id - 1].description : EnFormats[format.id - 1].description}
+                                montant={i18n.language === "fr" ? format.montant + "$" : "$" + format.montant}
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
 
@@ -285,21 +262,21 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 <h2 className='text-2xl text-[#BB285C] text-center font-bold mb-9 md:mb-12 max-w-96 m-auto'>{t("Menu.recuperer")}</h2>
 
                 <div className='bg-[#EBEBEB] rounded-2xl p-10 mb-12 max-w-[1000px] md:w-auto'>
-                    <h3 className='text-xl text-center font-bold mb-5'>{t("Menu.livr-titre")}</h3>
-                    <p>{t("Menu.livr-p")}</p>
+                    <h3 className='text-center font-bold mb-5 md:text-xl'>{t("Menu.livr-titre")}</h3>
+                    <p className='text-sm md:text-base'>{t("Menu.livr-p")}</p>
                     <br />
                     <br />
-                    <p className='mb-5'>{t("Menu.livr-heure")}<b>{dateDelivery}</b>.</p>
+                    <p className='mb-5 text-sm md:text-base'>{t("Menu.livr-heure")}<b>{dateDelivery}</b>.</p>
                     <div className='mb-5'>
-                        <p><b>{t("Menu.livr-titre-sherb")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[0].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""} {t("Menu.livr-sherb")}</p>
-                        <p><b>{t("Menu.livr-titre-autre")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[1].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""}</p>
+                        <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-sherb")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[0].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""} {t("Menu.livr-sherb")}</p>
+                        <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-autre")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[1].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""}</p>
                     </div>
                     <p className='text-[#BB285C] italic'>{t("Menu.livr-info")}</p>
                 </div>
 
                 <div className='bg-[#EBEBEB] rounded-2xl p-10 justify-center max-w-[1000px] md:w-auto'>
-                    <h3 className='text-xl text-center font-bold mb-5'>{t("Menu.venir-titre")}</h3>
-                    <p>{t("Menu.venir-p")}</p>
+                    <h3 className='text-center font-bold mb-5  md:text-xl'>{t("Menu.venir-titre")}</h3>
+                    <p className='text-sm md:text-base'>{t("Menu.venir-p")}</p>
                 </div>
             </div>
 
@@ -308,9 +285,9 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
                 {user && user.data.role == "admin" ?
                     <MenuDateRetour
-                        //date_retour={date_retour[0].date}
                         date_retour={dates_menu[0].date}
-                        vendrediYYYY={vendrediYYYY}
+                        //vendrediYYYY={vendrediYYYY}
+                        vendrediYYYY={vendrediNextYYYY}
                         dateMenuVend={dateMenuVend}
                         dateMenuLund={dateMenuLund}
                         changeDateBD={changeDateBD}
@@ -324,13 +301,14 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                     {!afficherMenu ?
                         dates_menu[0].date !== null ?
                             <>
-                                <p className='italic text-white text-center text-2xl mb-5'>{t("Menu.menu-indisponible")}</p>
-                                <p className='text-white text-center text-xl mb-12'>{t("Menu.menu-back")}<span className='text-[#FFD8AD]'>{dateMenuRetour}</span>.</p>
+                                <p className='italic text-white text-center md:text-2xl mb-5'>{t("Menu.menu-indisponible")}</p>
+                                <p className='text-white text-center text-sm md:text-xl mb-12'>{t("Menu.menu-back")}<span className='text-[#FFD8AD]'>{dateMenuRetour}</span>.</p>
                             </>
                             :
-                            <><p className='italic text-white text-center text-2xl mb-5'>{t("Menu.date-passed")}</p>
-                                <p className='text-white text-center text-xl mb-12'>{t("Menu.next-friday")}<span className='text-[#FFD8AD]'>{dateMenuVend}</span>.</p>
-                            </> : null}
+                            <><p className='italic text-white text-center text-lg md:text-2xl mb-5'>{t("Menu.date-passed")}</p>
+                                <p className='text-white text-center md:text-xl mb-12'>{t("Menu.next-friday")}<span className='text-[#FFD8AD]'>{dateMenuVend}</span>.</p>
+                            </>
+                        : null}
 
                     <div className='max-w-[1000px] flex justify-end mb-5 m-auto'>
                         {user && user.data.role == "admin" ?
@@ -381,7 +359,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
                     </div>
                     {/* PLATS PRINCIPAUX */}
-                    <div className='border-2 border-[#EBEBEB] rounded-2xl p-7 justify-center text-center w-[100%] md:max-w-[1000px] md:m-auto'>
+                    <div className='border-2 border-[#EBEBEB] rounded-2xl p-5 md:p-7 justify-center text-center w-[100%] md:max-w-[1000px] md:m-auto'>
                         <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl lg:text-6xl'>{t("Menu.plat-principaux")}</h3>
 
                         {
@@ -407,7 +385,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                     {afficherMenu ?
                         <Link
                             href='/panier'
-                            className="block m-auto w-fit py-4 px-12 mt-10 md:mt-12 lg:mt-20  text-[#BB285C] font-bold bg-transparent border-2 border-[#BB285C] hover:bg-[#BB285C] hover:text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 justify-self-center"
+                            className="block m-auto w-fit text-sm md:text-base py-4 px-8 mt-10 md:mt-12 lg:mt-20  text-[#BB285C] font-bold bg-transparent border-2 border-[#BB285C] hover:bg-[#BB285C] hover:text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 justify-self-center"
                         >
                             {t("Menu.go-panier")}
                         </Link>

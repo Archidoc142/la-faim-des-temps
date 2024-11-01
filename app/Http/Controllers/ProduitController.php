@@ -33,6 +33,9 @@ class ProduitController extends Controller
 
         $token = csrf_token();
 
+        $ajd = date("Y-m-d");
+        $heure = date("H");
+
         return Inertia::render('Menu', [
             'formats' => $formats,
             'langFormats' => $langFormats,
@@ -41,6 +44,8 @@ class ProduitController extends Controller
             'categories' => $categories,
             'dates_menu' => $dates_menu,
             'token' => $token,
+            'ajd' => $ajd,
+            'heure' => $heure
         ]);
     }
 

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 
-export default function PanierFinal({ post, data, prix, setData, adresse, setContentBox, setBoxVisible }) {
+export default function PanierFinal({ post, data, prix, setData, adresse, setContentBox, setBoxVisible, secteur }) {
 
     const [t, i18n] = useTranslation("global")
 
@@ -39,22 +39,22 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
 
                 <p className="font-bold text-lg pb-4 mx-10 mb-6 border-b-black border-b-[1px]">{t("Panier.finaliser")}</p>
 
-                <h3 className="font-bold text-3xl mb-4">{t("Panier.total")}</h3>
+                <h3 className="font-bold text-3xl mb-4">{data.livraison ? t("Panier.total") : "Total"}</h3>
 
-                <div className="flex justify-center flex-col mx-28 mb-4">
-                    <div className="flex justify-between">
-                        <p>{t("Panier.article")}:</p>
-                        <p>{data.sous_total}$</p>
+                <div className="flex justify-center flex-col mx-20 mb-4">
+                    <div className="border-b-black border-b-[1px] pb-3">
+                        <div className="flex justify-between">
+                            <p>{t("Panier.article")} :</p>
+                            <p>{data.sous_total}$</p>
+                        </div>
+                        <div className="flex justify-between">
+                            <p>{t("Panier.livraison")} ({secteur}) :</p>
+                            <p>{data.frais_livraison}$</p>
+                        </div>
                     </div>
-
-                    <div className="flex justify-between">
-                        <p>{t("Panier.livraison")}:</p>
-                        <p>{data.frais_livraison}$</p>
-                    </div>
-
-                    <div className="flex justify-between">
-                        <p>{t("Panier.total")}:</p>
-                        <p>{data.total}$</p>
+                    <div className="flex justify-between pt-3 text-lg">
+                        <p>Total :</p>
+                        <p className="font-bold">{data.total}$</p>
                     </div>
                 </div>
 
@@ -66,7 +66,7 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
                         </div> : <div className="mb-8"></div>
                 }
 
-                <div className="text-left px-8 mt-2 mb-6">
+                <div className="text-left px-8 mt-6 mb-4">
                     <h4 className="font-bold mb-2">{t("Panier.allergen")}</h4>
                     <textarea
                         id="allergene"

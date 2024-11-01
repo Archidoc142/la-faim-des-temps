@@ -5,11 +5,13 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\DatesMenuController;
 use App\Http\Controllers\CommentaireController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\QuickBooksController;
+use App\Http\Controllers\TarifLivraisonController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use App\Http\Resources\CommentaireResource;
@@ -53,11 +55,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/dates-menu', [DatesMenuController::class, 'update']);
+
 Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::get('/admin', function() { return redirect()->route('admin.clients');})->name('admin.accueil');
 
     Route::post('/menu/modifier', [ProduitController::class, 'update'])->name('menu.update');
-    Route::post('/dates-menu', [DatesMenuController::class, 'update']);
+    //Route::post('/dates-menu', [DatesMenuController::class, 'update']);
+
+
+    Route::controller(ImageController::class)->group(function() {
+        Route::get('/admin/images', 'index')->name('admin.images');
+        Route::post('/admin/image', 'store');
+        //Route::delete('/admin/image/{id}', 'destroy');
+        Route::post('/admin/del-image', 'destroy');
+    });
 
     Route::controller(ClientController::class)->group(function() {
         Route::get('/admin/clients', 'index')->name('admin.clients');
@@ -70,9 +82,20 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     });
 
     Route::controller(CommentaireController::class)->group(function() {
-        Route::get('admin/commentaires', [CommentaireController::class, 'indexAdmin'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaires");
-        Route::patch('admin/commentaire/toggle/{id}', [CommentaireController::class, 'update'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.update");
-        Route::delete('admin/commentaire/destroy/{id}', [CommentaireController::class, 'destroy'])->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.destroy");
+        Route::get('admin/commentaires', 'indexAdmin')->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaires");
+        Route::patch('admin/commentaire/toggle/{id}', 'update')->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.update");
+        Route::delete('admin/commentaire/destroy/{id}', 'destroy')->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.destroy");
+    });
+
+    Route::controller(TarifLivraisonController::class)->group(function() {
+        Route::get('admin/tarifs', 'index')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarifs");
+        Route::post('admin/tarif/updateTarif', 'updateTarif')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateTarif");
+        Route::post('admin/tarif/updateFormat', 'updateFormat')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateFormat");
+    });
+
+    Route::controller(QuickBooksController::class)->group(function() {
+        Route::get('/admin/quickbooks', 'index')->name('admin.quickbooks');
+        Route::get('/admin/quickbooks/callback', 'callback')->name('admin.quickbooks.callback');
     });
 
     Route::controller(QuickBooksController::class)->group(function() {
