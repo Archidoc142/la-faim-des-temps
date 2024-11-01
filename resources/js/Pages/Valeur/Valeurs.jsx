@@ -33,7 +33,7 @@ export default function Valeurs() {
                         alt="bigLeafPlant.png picture"
                     />
 
-                    <div className="bg-[#F8ECE0] py-5 px-8 mx-14 lg:relative lg:z-10 lg:mr-48 lg:-mt-16 lg:p-8 lg:col-start-3 lg:col-end-5">
+                    <div className="bg-[#F8ECE0] py-5 px-8 mx-14 lg:relative lg:z-0 lg:mr-48 lg:-mt-16 lg:p-8 lg:col-start-3 lg:col-end-5">
                         <h2 className='text-xl font-extrabold angkor-regular pb-3 lg:text-4xl'>
                             {t("Valeurs.secondSectionTitlePart1")} <br />
                             {t("Valeurs.plus")} <span className='text-[#387E39]'>{t("Valeurs.vert")}</span> {t("Valeurs.et")} <br />
