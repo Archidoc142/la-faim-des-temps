@@ -234,11 +234,6 @@ class QuickBooksService
             "SalesTermRef" => [ "value" => strval($salesTerm->Id) ],
         ]);
 
-        if($commande->livraison)
-        {
-            $invoic
-        }
-
         $resultingInvoiceObj = $dataService->Add($invoiceObj);
 
         //dump($dataService->getLastError());
