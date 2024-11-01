@@ -47,7 +47,7 @@ export default function AddProducteur() {
                     <div className='lg:grid lg:grid-cols-2 lg:p-4'>
                         <div>
                             <img className="h-60 mb-2 m-auto" src={imgSrc} alt={image ? image.alt : "image vide"} />
-                            <p className="italic text-center mb-6">{filename}</p>
+                            <p className="italic text-center mb-6 text-white">{filename}</p>
 
                             <div className="bg-[#7A163C] py-2 px-3 flex flex-nowrap w-fit rounded hover:bg-slate-700 cursor-pointer m-auto mb-6 relative">
                                 <svg className="self-center" width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

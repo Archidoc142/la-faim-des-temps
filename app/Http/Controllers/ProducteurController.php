@@ -39,6 +39,17 @@ class ProducteurController extends Controller
 
         //validator ?
 
+        dd($request);
+        if(!is_null($request->file('img')))
+            {
+                $file = $request->file('img');
+
+                File::delete(public_path('img/' . $image->nom_fichier));
+
+                $image->nom_fichier = $file->getClientOriginalName();
+                $file->move(public_path('/img'), $image->nom_fichier);
+            }
+
         $producteur = Producteur::create([
             'nom' => $request->nom,
             'url' => $request->has('url') ? $request->url : null,

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+//obselete non fonctionnel
 export default function AddImage() {
     const imgUrl = '/img/';
     let image = null;

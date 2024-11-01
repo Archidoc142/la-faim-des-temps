@@ -2,7 +2,7 @@ import Title from "./InfoText/Title";
 import Text from "./InfoText/Text";
 import Image from "./InfoText/Image";
 
-export default function Producteur({producteur}) {
+export default function Producteur({producteur, langue, editable, setData, data, key}) {
     return (
         <>
             <div
@@ -15,7 +15,7 @@ export default function Producteur({producteur}) {
                     <div className={`${producteur.id % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
                         <Title url={producteur.url} nom={producteur.nom} />
 
-                        <Text description={producteur.description} adresse={producteur.adresse} />
+                        <Text description={producteur.description[langue]} adresse={producteur.adresse} />
                     </div>
                 </div>
             </div>

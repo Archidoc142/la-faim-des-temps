@@ -12,15 +12,16 @@ export default function Producteurs({ producteurs }) {
     const user = usePage().props.auth.user;
 
     const [editMode, setEditMode] = useState(false);
+    const [t, i18n] = useTranslation("global"); // translation
 
     return (
         <>
             <div className='Producteur'>
-                <Head title="Nos Producteurs" />
+                <Head title={t("Producteur.titre")} />
 
                 <HeadWithImage
                     imgFile="/img/producteurBack.jpg"
-                    title="Nos Producteurs"
+                    title={t("Producteur.titre")}
                     button={false}
                     buttonText="none"
                     path="/"
@@ -56,7 +57,14 @@ export default function Producteurs({ producteurs }) {
                                 }
                             </> : null
                         }
-                        <Producteur producteur={producteur} />
+                        <Producteur 
+                            producteur = { producteur } 
+                            langue = {i18n.language}
+                            // editable={editMode}
+                            // setData={setData}
+                            // data={data}
+                            // key={producteur.id}
+                        />
                         <hr />
                     </div>
                 ))}
