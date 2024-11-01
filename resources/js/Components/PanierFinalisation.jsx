@@ -55,7 +55,7 @@ export default function PanierFinalisation({panier, prix, setBoxVisible, adresse
         <div id="finalisation">
             <div className="fixed top-0 left-0 w-full h-screen bg-black opacity-50 z-10"></div>
 
-            <div ref={out} className="absolute w-full flex justify-center top-[12%] left-0 p-4 z-20">
+            <div ref={out} className="absolute w-full flex justify-center top-[15%] left-0 p-4 z-10">
                 <div className={"bg-white w-[450px] sm:w-[500px] p-4 px-6 rounded-lg border-black border-2 " + (contentBox === 2 ? "h-full pb-8 !w-[420px] !px-4 " : "") + (contentBox === 1 ? "!w-[500px] " : "") + (contentBox === 2 && adresse.id === 0 ? "!h-[550px]" : "")}>
                     {/* Content*/}
                     {contentBox === 0 ? <PanierChoix data={data} setData={setData} setSecteur={setSecteur} setContentBox={setContentBox} setBoxVisible={setBoxVisible} setAdresse={setAdresse} /> : null}
