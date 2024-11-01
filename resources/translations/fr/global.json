@@ -69,7 +69,7 @@
         "livr-sherb" : "pour les commandes de moins de 60.00$,",
         "livr-titre-autre" : "Frais de livraison secteurs Fleurimont et Rock Forest",
         "livr-info" : "Merci de laisser une glacière de taille appropriée visible à l’extérieur pour votre commande.",
-        "venir-titre" : "PASSER NOUS VOIR",
+        "venir-titre" : "PASSÉE NOUS VOIR",
         "venir-p" : "Vous pouvez également passer en boutique entre 16:00 et 17:00 pour récupérer votre commande sur place. Profitez-en pour vous procurer de quoi faire l'apéro en revenant chez vous parmi nos choix de charcuteries fines.",
         "date-passed" : "La date limite pour cette semaine est passée.",
         "next-friday" : "Vous pourrez commander à nouveau à 12:00 le ",
@@ -128,6 +128,9 @@
         "thirdSectionText1": "Nos partenaires sont majoritairement Sherbrookois... ou Québécois (on aime un peu trop l'île d'Orléans pour s'en passer). De plus nous utilisons des ingrédients locaux autant que possible et notre menu bistro change au rythme des saisons. Nous choisissons aussi prioritairement des producteurs ou artisans biologiques/naturels.",
         "thirdSectionSbuTitle2": "Viser le zéro déchet",
         "thirdSectionText2": "À La faim des temps, quasiment tout est recyclé ou composté. Nous sommes très fiers que notre poubelle soit de la taille d'une corbeille à papiers de bureaux. Notre chère clientèle nous rapporte les contenants pour les plats du traiteur. Ces derniers sont ensuite nettoyés et assainis avant d'être réutilisés."
+    },
+    "Producteur": {
+        "titre": "Nos Producteurs"
     },
     "Error": {
         "title" : "Erreur ",

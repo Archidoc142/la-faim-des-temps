@@ -93,6 +93,10 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::post('admin/tarif/updateFormat', 'updateFormat')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateFormat");
     });
 
+    Route::controller(ProducteurController::class)->group(function() {
+        Route::post('/producteurs', 'store')->name('envoiNewProducteur');
+    });
+
     Route::controller(QuickBooksController::class)->group(function() {
         Route::get('/admin/quickbooks', 'index')->name('admin.quickbooks');
         Route::get('/admin/quickbooks/callback', 'callback')->name('admin.quickbooks.callback');

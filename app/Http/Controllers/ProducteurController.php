@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producteur;
+use App\Models\ProducteurLangue;
+use App\Http\Resources\ProducteurResource;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,7 +15,7 @@ class ProducteurController extends Controller
      */
     public function index()
     {
-        $producteurs = Producteur::with('image')->paginate(5);
+        $producteurs = ProducteurResource::collection(Producteur::paginate(5));
 
         return Inertia::render('Producteur/Producteurs', [
             'producteurs' => $producteurs
@@ -23,9 +25,9 @@ class ProducteurController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //Same as index()
+        //
     }
 
     /**
@@ -33,7 +35,42 @@ class ProducteurController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+
+        //validator ?
+
+        //dd($request);
+        if(!is_null($request->file('img')))
+            {
+                $file = $request->file('img');
+
+                File::delete(public_path('img/' . $image->nom_fichier));
+
+                $image->nom_fichier = $file->getClientOriginalName();
+                $file->move(public_path('/img'), $image->nom_fichier);
+            }
+
+        $producteur = Producteur::create([
+            'nom' => $request->nom,
+            'url' => $request->has('url') ? $request->url : null,
+            'adresse' => $request->adresse,
+            'id_image' => 1
+        ]);
+
+        //dd($producteur->id);
+        $descriptionFR = ProducteurLangue::create([
+            'id_producteur' => $producteur->id,
+            'id_langue' => 1,
+            'description' => $request->descriptionFR
+        ]);
+
+        $descriptionEN = ProducteurLangue::create([
+            'id_producteur' => $producteur->id,
+            'id_langue' => 2,
+            'description' => $request->descriptionEN
+        ]);
+
+        return redirect("/producteurs");
     }
 
     /**
