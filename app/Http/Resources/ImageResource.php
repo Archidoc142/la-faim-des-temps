@@ -30,8 +30,8 @@ class ImageResource extends JsonResource
             "id" => $this->id,
             "src" => $this->nom_fichier,
             "legende" => [
-                "fr" => $this->langues($this->id)[0]->legende,
-                "en" => $this->langues($this->id)[1]->legende,
+                "fr" => $this->langue("fr")->pivot->legende,
+                "en" => $this->langue("en")->pivot->legende,
             ],
             "saisonnier" => $this->saisonnier,
             "saisons" => $saisons,

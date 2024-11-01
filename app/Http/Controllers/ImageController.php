@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ImageResource;
 use App\Models\Image;
+use App\Models\ImageSaison;
 use App\Models\LegendeLangue;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -40,9 +42,54 @@ class ImageController extends Controller
     {
 
         if ($request['imgExists']) {
+            //dd($request->descriptionFr);
             /* MODIFIER UNE IMAGE */
             //il faudrait garder le nom de l'ancienne image pour le supprimer du dossier public/img du projet
-            dd("modifier", $request, $request->file('img'));
+            //dd("modifier", $request, $request->file('img'));
+
+            $image = Image::find($request->imgId);
+
+            if(!is_null($request->file('img')))
+            {
+                $file = $request->file('img');
+
+                File::delete(public_path('img/' . $image->nom_fichier));
+
+                $image->nom_fichier = $file->getClientOriginalName();
+                $file->move(public_path('/img'), $image->nom_fichier);
+            }
+
+            $image->langues()->updateExistingPivot(1, ["legende" => $request->descriptionFr]);
+            $image->langues()->updateExistingPivot(2, ["legende" => $request->descriptionEn]);
+
+            $image->saisonnier = intval($request->saisonnier);
+
+            if($request->saisons != $image->saisons())
+            {
+                ImageSaison::where('id_image', $image->id)->delete();
+
+                if($request->saisons == [true, true, true, true])
+                {
+                    $image->saisonnier = false;
+                }
+
+                if($image->saisonnier)
+                {
+                    for($i = 0; $i < 4; $i++)
+                    {
+                        if($request->saisons[$i])
+                        {
+                            ImageSaison::create([
+                                'id_image' => $image->id,
+                                'id_saison' => $i + 1
+                            ]);
+                        }
+                    }
+                }
+            }
+
+            $image->save();
+
         } else {
             /* AJOUTER UNE IMAGE */
 

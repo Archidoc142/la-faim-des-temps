@@ -17,27 +17,27 @@ class ImageSeeder extends Seeder
         DB::table('image')->insert([
             [
                 'nom_fichier' => 'default.jpg',
-                'vitrine' => 0,
+                'vitrine' => 1,
                 'saisonnier' => 0
             ],
             [
                 'nom_fichier' => 'duck.jpg',
-                'vitrine' => 0,
+                'vitrine' => 1,
                 'saisonnier' => 0
             ],
             [
                 'nom_fichier' => 'molestias.png',
-                'vitrine' => 0,
+                'vitrine' => 1,
                 'saisonnier' => 1
             ],
             [
                 'nom_fichier' => 'necessitatibus.png',
-                'vitrine' => 0,
+                'vitrine' => 1,
                 'saisonnier' => 0
             ],
             [
                 'nom_fichier' => 'ipsum.png',
-                'vitrine' => 0,
+                'vitrine' => 1,
                 'saisonnier' => 1
             ],
         ]);
