@@ -150,8 +150,8 @@ class CommandeController extends Controller
         {
             $fraisLivraisonItem = $quickBooksService->getFraisLivraisonItem();
 
-            $items[] = [
-                "Amount" => $format->montant,
+            $itemsQb[] = [
+                "Amount" => $commande->frais_livraison,
                 "DetailType" => "SalesItemLineDetail",
                 "SalesItemLineDetail" => [
                     "ItemRef" => [

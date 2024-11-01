@@ -99,6 +99,7 @@ class QuickBooksService
     public function getFraisLivraisonItem()
     {
         $dataService = $this->configureDataService();
+        $incomeAccount = $this->getIncomeAccountObj($dataService);
 
         $itemLivraisonQb = $dataService->Query("SELECT * FROM Item WHERE Name='Frais de livraison'" );
 
@@ -220,8 +221,7 @@ class QuickBooksService
             $salesTermQuery = $dataService->Query("select * from Term where Name LIKE '%Payable%'");
 
         $salesTerm = current($salesTermQuery);
-
-        $invoiceObj = Invoice::create([
+        $invoiceData = [
             "Line" => $items,
             "CustomerRef" => [
                 "value" => $commande->user->id_qb
@@ -232,7 +232,27 @@ class QuickBooksService
             "EmailStatus" => "NeedToSend",
             "DueDate" => date("Y-m-d", strtotime('next thursday')),
             "SalesTermRef" => [ "value" => strval($salesTerm->Id) ],
-        ]);
+        ];
+
+        if($commande->livraison)
+        {
+            $invoiceData["BillAddr"] = [
+                "Line1" => $commande->user->prenom . " " . $commande->user->nom,
+                "Line2" => $commande->adresse->no_civique . " " . $commande->adresse->rue
+            ];
+
+            if($commande->adresse->appartement)
+            {
+                $invoiceData["BillAddr"]["Line3"] = "Appt " . $commande->adresse->appartement;
+                $invoiceData["BillAddr"]["Line4"] = "Sherbrooke, QC  " . $commande->adresse->code_postal;
+            }
+            else
+            {
+                $invoiceData["BillAddr"]["Line3"] = "Sherbrooke, QC  " . $commande->adresse->code_postal;
+            }
+        }
+
+        $invoiceObj = Invoice::create($invoiceData);
 
         $resultingInvoiceObj = $dataService->Add($invoiceObj);
 

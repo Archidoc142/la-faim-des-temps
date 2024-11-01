@@ -177,7 +177,8 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     }, [i18n.language])
 
     function checkIntervalleMenu() {
-
+        // Toujours afficher menu (pour tests)
+        /*
         if (ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12)) {
             changeDateBD(1, "prochain");
             setAfficherMenu(true);
@@ -185,7 +186,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         else if (ajd > lundiYYYY || (ajd === lundiYYYY && heure >= 16)) {
             setAfficherMenu(false);
             nextMenuText();
-        }
+        }*/
     }
 
     function nextMenuText() {
