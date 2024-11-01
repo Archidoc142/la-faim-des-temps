@@ -177,7 +177,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     }, [i18n.language])
 
     function checkIntervalleMenu() {
-
         if (ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12)) {
             changeDateBD(1, "prochain");
             setAfficherMenu(true);
