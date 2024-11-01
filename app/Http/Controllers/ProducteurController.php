@@ -39,7 +39,7 @@ class ProducteurController extends Controller
 
         //validator ?
 
-        dd($request);
+        //dd($request);
         if(!is_null($request->file('img')))
             {
                 $file = $request->file('img');
