@@ -5,7 +5,7 @@ import TextAreaInput from '@/Components/TextAreaInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 
-export default function AddProducteur() {
+export default function AddProducteur({ className }) {
     const imgUrl = '/img/';
     let image = null;
 
@@ -42,7 +42,7 @@ export default function AddProducteur() {
 
     return (
         <>
-            <div className='bg-[#7A163C80] my-5 rounded-lg m-3 py-4 lg:m-8 '>
+            <div className={'bg-[#7A163C80] my-5 rounded-lg m-3 py-4 lg:m-8 ' + (className)}>
                 <form onSubmit={submit}>
                     <div className='lg:grid lg:grid-cols-2 lg:p-4'>
                         <div>

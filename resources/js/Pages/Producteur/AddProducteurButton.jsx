@@ -1,7 +1,7 @@
-export default function AddProducteurButton() {
+export default function AddProducteurButton({ toggleShowProducteur }) {
     return (
         <>
-            <div className='bg-[#7A163C80] my-5 rounded-lg m-3 py-4 lg:m-8 '>
+            <div className='bg-[#7A163C80] my-5 rounded-lg m-3 py-4 lg:m-8  cursor-pointer ' onClick={toggleShowProducteur}>
                 <p className='text-white text-9xl text-center size-40 m-auto'
                 >
                     +
