@@ -12,38 +12,62 @@ export default function Histoire() {
 
             <Head title="Histoire" />
 
-            <div className="flex bg-cover" style={{ backgroundImage: `url('${headImage}')` }}>
-                <div className='bg-white py-2 my-14 bg-opacity-75 top-24 w-full lg:py-10'>
-                    <h1 className='w-80 m-auto font-serif text-[#04203f] leading-tight text-center text-4xl lg:w-[42rem]'>{t("Histoire.histoire")}</h1>
+            <div className="h-[40vh] bg-cover flex flex-col justify-center" style={{ backgroundImage: `url('${headImage}')` }}>
+                <div className='bg-white bg-opacity-75'>
+                    <h1 className='font-serif text-[#04203f] text-center text-4xl h-16 flex items-center justify-center'>{t("Histoire.histoire")}</h1>
                 </div>
             </div>
 
-            <img
-                src={logo}
-                alt="logoLFDT"
-                className="w-[40%] mx-auto my-6"
-            />
+            <div className="block md:flex md:mx-6">
+                <div className="block md:flex items-center md:max-w-[450px]">
+                    <img
+                        src={logo}
+                        alt="logoLFDT"
+                        className="w-[40%] md:w-full mx-auto my-6"
+                    />
+                </div>
 
-            <h2 className='font-serif text-[#04203f] text-center text-3xl font-bold'>{t("Histoire.aventure")}</h2>
-            <p className="px-8 py-4 text-justify text-sm">
-                {t("Histoire.desc1")}<br /><br />
-                {t("Histoire.desc2")}<br /><br />
-                {t("Histoire.desc3")}
-            </p>
+                <div className="md:py-8 lg:w-full lg:mx-8 xl:32">
+                    <h2 className='font-serif text-[#04203f] text-center text-3xl md:text-4xl font-bold'>{t("Histoire.aventure")}</h2>
+                    <div className="text-center">
+                        <p className="px-8 py-4 text-justify text-sm lg:text-base xl:text-lg">
+                            {t("Histoire.desc1")}<br /><br />
+                            {t("Histoire.desc2")}<br /><br />
+                            {t("Histoire.desc3")}
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-            <p className="px-4 py-4 text-center text-[12px] text-white bg-[#061f3d] font-bold">{t("Histoire.desc4")}</p>
+            <p className="px-8 py-4 text-center text-[12px] md:text-[14px] lg:text-base xl:text-lg text-white bg-[#061f3d] font-bold italic lg:my-8">"{t("Histoire.desc4")}"</p>
 
-            <img
-                src={yannick}
-                alt="logoLFDT"
-                className="w-[60%] mx-auto my-6"
-            />
+            <div className="xl:px-12 xl:py-6">
+                <div className="md:hidden">
+                    <img
+                        src={yannick}
+                        alt="yannick-img"
+                        className="w-[60%] max-w-[300px] mx-auto my-6"
+                    />
+                </div>
 
-            <h2 className='font-serif text-[#04203f] text-center text-3xl font-bold'>Yannick Pellerin</h2>
-            <p className="px-8 pt-4 pb-8 text-justify text-sm">
-                {t("Histoire.desc5")}<br /><br />
-                {t("Histoire.desc6")}
-            </p>
+                <div className="md:flex">
+                    <div className="md:mt-8">
+                        <h2 className='font-serif text-[#04203f] text-center md:text-left md:pl-8 text-3xl md:text-4xl font-bold'>Yannick Pellerin</h2>
+                        <p className="px-8 md:pl-8 md:w-[90%] pt-4 text-justify text-sm lg:text-base xl:text-lg">
+                            {t("Histoire.desc5")}<br /><br />
+                        </p>
+                        <p className="px-8 pb-8 text-justify text-sm lg:text-base xl:text-lg">{t("Histoire.desc6")}</p>
+                    </div>
+
+                    <div className="hidden md:block md:mr-8">
+                        <img
+                            src={yannick}
+                            alt="yannick-img"
+                            className="mx-auto my-6 max-w-[300px]"
+                        />
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
