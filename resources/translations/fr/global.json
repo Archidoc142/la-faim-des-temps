@@ -144,5 +144,15 @@
         "500Desc": "Whoops, il y a un problème avec le serveur.",
         "404Desc": "Désolé, la page que vous essayez d'atteindre est manquante.",
         "403Desc": "Désolé, il vous est interdit d'accéder à cette page."
+    },
+    "Histoire": {
+        "desc1" : "Mûri plusieurs années dans la tête de notre chef Yannick Pellerin, le projet prend son envol en 2020 sous le nom de Tri Corvi Traiteur avant d'adopter sa forme définitive en 2023. Avec un parcours à la fois en restauration ainsi qu'en épicerie fine, Yannick souhaitait depuis toujours réunir ses deux passions en une seule entreprise. Il fallu l'union de talents venant d'horizons parfois très différents, ainsi que pas mal de créativité pour faire naître cette vision à partir de rien. Nous avons maintenant la chance de pouvoir offrir le meilleur de nous-même à la communauté sherbrookoise.",
+        "desc2" : "À la recherche d'un local convenable, le centre-ville s'est imposé naturellement comme lieu où s'établir. Amoureuse du Centro depuis toujours, notre équipe profite ici de l'émulation et de l'énergie de nos voisins entrepreneurs de tous les domaines.",
+        "desc3" : "Tout au long de ce processus, nous avons parcouru le Québec pour trouver de délicieux produits à partager, mais surtout de formidable humains à rencontrer et à faire connaître. Nos critères sont et seront toujours les mêmes : vous offrir des produits uniques et de qualité, issus de notre terroir et créés par des artisans conscients de la Nature autour d'eux.",
+        "desc4" : "Nos critères sont et seront toujours les mêmes : vous offrir des produits uniques et de qualité, issus de notre terroir et créés par des artisans conscients de la Nature autour d'eux.",
+        "desc5" : "Chef exécutif, diplômé de l'école hôtelière de Laval, Yannick se perfectionne depuis bientôt 20 ans dans le domaine de la restauration. Il a fait ses première armes en cuisine durant ses études au Cégep de Sherbrooke (à la défunte Placette puis au Café Bla-Bla) avant de continuer sa formation à Montréal dans différents restaurants, puis en épicerie fine et de grande surface, où il acquerra une solide expérience en tant que fromager marchand.",
+        "desc6" : "Pendant ses études culinaires, il s'est démarqué par son amour de la cuisine historique, explorant l'Europe du Moyen-âge ou la Nouvelle-France afin d'ajouter saveurs et combinaisons d'épices inédites à sa palette de chef. Paradoxalement, cet amour du passé habite un cuisinier passablement anticonformiste, qui remet fréquemment en question son métier. Statu quo ne fait pas partie du vocabulaire de Yannick; il est toujours à la recherche de nouvelles façons de cuisiner, que ce soit en passant des pâtes fraîches sur le grill ou au fumoir, ou en recherchant l'inspiration dans des romans ou des films plutôt que dans les livres de cuisine.",
+        "histoire" : "Notre histoire",
+        "aventure" : "Une aventure"
     }
 }
