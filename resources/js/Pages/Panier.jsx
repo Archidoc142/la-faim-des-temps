@@ -77,7 +77,9 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
                             showMessageFlash={showMessageFlash} />
                     })}
 
-                    <p className='text-white underline cursor-pointer text-right hover:text-gray-400' onClick={() => resetPanier()}>{t("Panier.vider")}</p>
+                    <div className='flex justify-end'>
+                        <p className='text-white underline cursor-pointer hover:text-gray-400' onClick={() => resetPanier()}>{t("Panier.vider")}</p>
+                    </div>
 
                     <div className='text-white text-right mt-8'>
                         <p className='text-2xl'>{t("Panier.total")}</p>
