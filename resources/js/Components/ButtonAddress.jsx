@@ -1,13 +1,38 @@
 import { useForm } from "@inertiajs/react"
 import { useTranslation } from "react-i18next"
 
-export default function ButtonAddress({ adresse, nom, setContentBox, setAdresse, code_postal }) {
+export default function ButtonAddress({ data, setData, adresse, setContentBox, secteurs, seuilGratuit, setSecteur }) {
 
     const [t, i18n] = useTranslation("global")
     const { delete: destroy } = useForm()
 
     const handleAdresseChange = () => {
-        setAdresse({ id: adresse.id, nom: nom, montant: adresse.montant, code_postal: code_postal })
+
+        const codeIn = adresse.code_postal.substring(0,3);
+        const secteur = secteurs.data.filter((s) => s.codes.includes(codeIn));
+        setSecteur(secteur[0].nom);
+
+        let montant = secteur[0].montant;
+
+        if (secteur[0].nom === "Sherbrooke" && data.total >= seuilGratuit) {
+            montant = 0;
+        }
+
+        let newData = data;
+
+        newData.adresse_id = adresse.id
+        newData.adresse_exists = true
+
+        newData.frais_livraison = montant
+        newData.total = data.sous_total + montant
+
+        if(adresse.no_app)
+            newData.adresse = adresse.nom + ", Appt " + adresse.no_app + " (" + adresse.code_postal + ")"
+        else
+            newData.adresse = adresse.nom + " (" + adresse.code_postal + ")"
+
+        setData(newData)
+
         setContentBox(2)
     }
 
@@ -32,7 +57,7 @@ export default function ButtonAddress({ adresse, nom, setContentBox, setAdresse,
                 className="bg-[#AAA] hover:bg-gray-500 px-2 py-12 w-36 h-36 flex items-center justify-center"
                 onClick={() => handleAdresseChange()}
             >
-                <p className="text-white font-bold">{nom}</p>
+                <p className="text-white font-bold">{adresse.nom}</p>
             </div>
         </div>
 

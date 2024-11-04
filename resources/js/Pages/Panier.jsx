@@ -7,16 +7,11 @@ import PanierItem from '@/Components/PanierItem';
 import PanierFinalisation from '@/Components/PanierFinalisation';
 import { useState, useEffect } from 'react';
 
-export default function Panier({ produits, adresses }) {
+export default function Panier({ produits, adresses, secteurs, codesValides, seuilGratuit }) {
     const [t, i18n] = useTranslation("global")
     const [panier, setPanier] = useState(JSON.parse(localStorage.getItem("panier")))
     const [total, setTotal] = useState(0)
     const [boxVisible, setBoxVisible] = useState(false)
-
-    // Message Flash
-    const [message, setMessage] = useState("")
-    const [messageV, setMessageV] = useState(false)
-    const [messageS, setMessageS] = useState(false)
 
     const calculateCost = () => {
         const totalCost = panier.reduce((acc, item) => {
@@ -33,10 +28,21 @@ export default function Panier({ produits, adresses }) {
         calculateCost()
     }, []);
 
-    const showMessageFlash = (status, message, visibility) => {
+    // Message Flash
+    const [message, setMessage] = useState("")
+    const [messageV, setMessageV] = useState(false)
+    const [messageS, setMessageS] = useState(false)
+
+    const showMessageFlash = (status, message, visibility = true) => {
         setMessageS(status)
         setMessage(message)
         setMessageV(visibility)
+    }
+
+    const resetPanier = () => {
+        setPanier({})
+        localStorage.setItem("panier", JSON.stringify([]));
+        showMessageFlash(1, t("Panier.mFlash"))
     }
 
     return (
@@ -71,6 +77,8 @@ export default function Panier({ produits, adresses }) {
                             showMessageFlash={showMessageFlash} />
                     })}
 
+                    <p className='text-white underline cursor-pointer text-right hover:text-gray-400' onClick={() => resetPanier()}>{t("Panier.vider")}</p>
+
                     <div className='text-white text-right mt-8'>
                         <p className='text-2xl'>{t("Panier.total")}</p>
                         <p className='mb-4 text-4xl font-bold'>{total}$</p>
@@ -84,9 +92,13 @@ export default function Panier({ produits, adresses }) {
                     </div>
 
                     {boxVisible ? <PanierFinalisation
+                                        panier={panier}
                                         prix={total}
                                         setBoxVisible={setBoxVisible}
                                         adresses={adresses}
+                                        secteurs={secteurs}
+                                        codesValides={codesValides}
+                                        seuilGratuit={seuilGratuit}
                                     /> : null}
                 </>
 

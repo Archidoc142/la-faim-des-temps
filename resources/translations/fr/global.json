@@ -1,6 +1,11 @@
 {
     "Accueil": {
-
+        "commentaire": "Commentaires de client",
+        "titre": "Votre option traiteur et plats cuisinés au centro",
+        "bistro": "Une cuisine de style bistro",
+        "bistro-description": "Ayant fait son apprentissage en cuisine française, mais sans jamais renier ses profondes inspirations américaines, notre chef crée des menus inspirés par les saisons et les produits locaux disponibles. Savourez nos mets préparés pour emporter en profitant de notre bistro pour le dîner. Une fois le travail fini, passez compléter votre épicerie avec notre gamme de produits entièrement québécoise afin de n'avoir à vous soucier que de savourer l'apéro.",
+        "ferme": "De la ferme...",
+        "assiette": "...à l'assiette!"
     },
     "Header": {
         "accueil": "Accueil",
@@ -10,7 +15,10 @@
         "histoire": "Notre histoire",
         "avis": "Votre avis",
         "date": "DATE LIMITE POUR COMMANDER :",
-        "connexion" : "Se connecter"
+        "connexion" : "Se connecter",
+        "nextMenu" : "SORTIE DU PROCHAIN MENU :",
+        "compte" : "Mon compte",
+        "logout" : "Se déconnecter"
     },
     "Compte": {
         "titre" : "PREMIÈRE UTILISATION?",
@@ -22,7 +30,17 @@
         "telephone": "Téléphone",
         "mdp": "Mot de passe",
         "confirmer_mdp": "Confirmer le mot de passe",
-        "deja_inscrit": "Déjà inscrit? (Se connecter)"
+        "deja_inscrit": "Déjà inscrit? (Se connecter)",
+        "crtpas" : "Mot de passe actuel",
+        "newpas" : "Nouveau mot de passe",
+        "conpas" : "Confirmer le nouveau mot de passe",
+        "save" : "Enregistrer",
+        "saved" : "Fait",
+        "prinfo" : "Information du profil",
+        "updpr" : "Mettre à jour les informations du compte.",
+        "uppas" : "Mis à jour du mot de passe",
+        "enspas" : "Assurez-vous d'avoir un mot de passe sécuritaire.",
+        "vide" : "Vide"
     },
     "Login": {
         "title1": "Bienvenue à",
@@ -36,7 +54,7 @@
     },
     "Menu": {
         "titre": "Menu traiteur hebdomadaire",
-        "sous-titre": "Sauvez temps et énergie avec nos plats prêt à réchauffer livrés chez vous!",
+        "sous-titre": "Sauvez temps et énergie avec nos plats prêts à réchauffer livrés chez vous!",
         "portion": "COÛT DES PORTIONS",
         "recuperer" : "DEUX MÉTHODES POUR RÉCUPÉRER VOTRE COMMANDE",
         "menu-titre": "Menu de la semaine",
@@ -51,8 +69,12 @@
         "livr-sherb" : "pour les commandes de moins de 60.00$,",
         "livr-titre-autre" : "Frais de livraison secteurs Fleurimont et Rock Forest",
         "livr-info" : "Merci de laisser une glacière de taille appropriée visible à l’extérieur pour votre commande.",
-        "venir-titre" : "PASSER NOUS VOIR",
-        "venir-p" : "Vous pouvez également passer en boutique entre 16:00 et 17:00 pour récupérer votre commande sur place. Profitez-en pour vous procurer de quoi faire l'apéro en revenant chez vous parmi notre choix de charcuteries fines."
+        "venir-titre" : "PASSEZ NOUS VOIR",
+        "venir-p" : "Vous pouvez également passer en boutique entre 16:00 et 17:00 pour récupérer votre commande sur place. Profitez-en pour vous procurer de quoi faire l'apéro en revenant chez vous parmi nos choix de charcuteries fines.",
+        "date-passed" : "La date limite pour cette semaine est passée.",
+        "next-friday" : "Vous pourrez commander à nouveau à 12:00 le ",
+        "menu-indisponible" : "Le menu est présentement indisponible.",
+        "menu-back" : "Il sera de retour le "
     },
     "Panier": {
         "vide": "Vide",
@@ -69,7 +91,8 @@
         "placeholder" : "Oeuf, Lait, Arachide, Soja...",
         "terminer" : "Terminer",
         "address" : "À quelle adresse voulez-vous recevoir votre commande?",
-        "info" : "Un montant s'applique à la livraison sur les commandes en dessous de 60$ au secteur de Sherbrooke.",
+        "info1" : "Un montant s'applique à la livraison sur les commandes en dessous de",
+        "info2" : "au secteur de Sherbrooke.",
         "add" : "Ajouter une adresse",
         "alertSuccess" : "Êtes-vous sûr de vouloir supprimer cette adresse ?",
         "flashDelete" : "Le plat a été retiré du panier",
@@ -77,6 +100,59 @@
         "civic" : "Numéro civique",
         "rue" : "Nom de rue",
         "app" : "Numéro d'appartement (facultaif)",
-        "postal" : "Code postal"
+        "postal" : "Code postal",
+        "vider" : "Vider le panier",
+        "mFlash" : "Le panier a été vidé"
+    },
+    "Avis": {
+        "addAvis" : "Ajouter un avis",
+        "avisDesc" : "Votre avis est important pour nous.\nN'hésitez pas à partager votre expérience\navec nous et avec les visiteurs de notre site!",
+        "comment" : "Commentaire",
+        "send" : "Envoyer"
+    },
+    "Valeurs": {
+        "titre": "Nos valeurs",
+        "titrePagePart1": "Nos",
+        "titrePagePart2": "Initiatives",
+        "titrePagePart3": "Environnementales",
+        "firstSectionTitle": "Nos valeurs",
+        "firstSectionText": "La faim des temps à toujours chercher à intégrer le maximum de bonnes pratiques environnementales dans son fonctionnement pour la simple et bonne raison que cela fait partie des valeurs de base de ses fondateurs. On ne mange pas très bien avec un terroir exploité à l'extrême et pollué...",
+        "secondSectionTitlePart1": "Pour un Centro",
+        "plus": "plus",
+        "vert": "vert",
+        "et": "et",
+        "secondSectionTitlePart2": "Inclusif",
+        "secondSectionText": "Soucieux de notre environnement et conscients qu'une entreprise alimentaire peut rapidement produire beaucoup de déchets, nous avons mis sur pied plusieurs stratégies pour réduire au maximum notre empreinte environnementale.",
+        "thirdSectionTitle": "Nos Gestes",
+        "thirdSectionSbuTitle1": "Produits Locaux",
+        "thirdSectionText1": "Nos partenaires sont majoritairement Sherbrookois... ou Québécois (on aime un peu trop l'île d'Orléans pour s'en passer). De plus nous utilisons des ingrédients locaux autant que possible et notre menu bistro change au rythme des saisons. Nous choisissons aussi prioritairement des producteurs ou artisans biologiques/naturels.",
+        "thirdSectionSbuTitle2": "Viser le zéro déchet",
+        "thirdSectionText2": "À La faim des temps, quasiment tout est recyclé ou composté. Nous sommes très fiers que notre poubelle soit de la taille d'une corbeille à papiers de bureaux. Notre chère clientèle nous rapporte les contenants pour les plats du traiteur. Ces derniers sont ensuite nettoyés et assainis avant d'être réutilisés."
+    },
+    "Producteur": {
+        "titre": "Nos Producteurs"
+    },
+    "Error": {
+        "title" : "Erreur ",
+
+        "503": "Le service n'est pas disponible",
+        "500": "Erreur du serveur",
+        "404": "Page non trouvée",
+        "403": "Cette action est interdite",
+
+        "503Desc": "Désolé, nous faisons une maintenance.",
+        "500Desc": "Whoops, il y a un problème avec le serveur.",
+        "404Desc": "Désolé, la page que vous essayez d'atteindre est manquante.",
+        "403Desc": "Désolé, il vous est interdit d'accéder à cette page."
+    },
+    "Histoire": {
+        "desc1" : "Mûri plusieurs années dans la tête de notre chef Yannick Pellerin, le projet prend son envol en 2020 sous le nom de Tri Corvi Traiteur avant d'adopter sa forme définitive en 2023. Avec un parcours à la fois en restauration ainsi qu'en épicerie fine, Yannick souhaitait depuis toujours réunir ses deux passions en une seule entreprise. Il fallu l'union de talents venant d'horizons parfois très différents, ainsi que pas mal de créativité pour faire naître cette vision à partir de rien. Nous avons maintenant la chance de pouvoir offrir le meilleur de nous-même à la communauté sherbrookoise.",
+        "desc2" : "À la recherche d'un local convenable, le centre-ville s'est imposé naturellement comme lieu où s'établir. Amoureuse du Centro depuis toujours, notre équipe profite ici de l'émulation et de l'énergie de nos voisins entrepreneurs de tous les domaines.",
+        "desc3" : "Tout au long de ce processus, nous avons parcouru le Québec pour trouver de délicieux produits à partager, mais surtout de formidable humains à rencontrer et à faire connaître. Nos critères sont et seront toujours les mêmes : vous offrir des produits uniques et de qualité, issus de notre terroir et créés par des artisans conscients de la Nature autour d'eux.",
+        "desc4" : "Nos critères sont et seront toujours les mêmes : vous offrir des produits uniques et de qualité, issus de notre terroir et créés par des artisans conscients de la Nature autour d'eux.",
+        "desc5" : "Chef exécutif, diplômé de l'école hôtelière de Laval, Yannick se perfectionne depuis bientôt 20 ans dans le domaine de la restauration. Il a fait ses première armes en cuisine durant ses études au Cégep de Sherbrooke (à la défunte Placette puis au Café Bla-Bla) avant de continuer sa formation à Montréal dans différents restaurants, puis en épicerie fine et de grande surface, où il acquerra une solide expérience en tant que fromager marchand.",
+        "desc6" : "Pendant ses études culinaires, il s'est démarqué par son amour de la cuisine historique, explorant l'Europe du Moyen-âge ou la Nouvelle-France afin d'ajouter saveurs et combinaisons d'épices inédites à sa palette de chef. Paradoxalement, cet amour du passé habite un cuisinier passablement anticonformiste, qui remet fréquemment en question son métier. Statu quo ne fait pas partie du vocabulaire de Yannick; il est toujours à la recherche de nouvelles façons de cuisiner, que ce soit en passant des pâtes fraîches sur le grill ou au fumoir, ou en recherchant l'inspiration dans des romans ou des films plutôt que dans les livres de cuisine.",
+        "histoire" : "Notre histoire",
+        "aventure" : "Une aventure"
     }
 }

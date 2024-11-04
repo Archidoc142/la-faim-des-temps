@@ -9,7 +9,7 @@ class TarifLivraison extends Model
 {
     use HasFactory;
 
-    protected $table = 'TarifLivraison';
+    protected $table = 'tarif_livraison';
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [

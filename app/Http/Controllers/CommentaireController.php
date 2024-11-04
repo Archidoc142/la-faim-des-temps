@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Commentaire;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use App\Http\Resources\CommentaireResource;
 
 class CommentaireController extends Controller
 {
@@ -12,7 +15,19 @@ class CommentaireController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Avis');
+    }
+
+    /**
+     * Display a listing of the resource in the admin menu.
+     */
+    public function indexAdmin()
+    {
+        $commentaires = Commentaire::paginate(6);
+
+        return Inertia::render('Admin/Commentaires', [
+            "commentaires" => CommentaireResource::collection($commentaires)
+        ]);
     }
 
     /**
@@ -28,7 +43,13 @@ class CommentaireController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Commentaire::create([
+            'note' => $request->note,
+            'commentaire' => $request->comment,
+            'id_utilistateur' => Auth::id()
+        ]);
+
+        return redirect('/');
     }
 
     /**
@@ -50,16 +71,29 @@ class CommentaireController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Commentaire $commentaire)
+    public function update(int $id)
     {
-        //
+        $commentaire = Commentaire::find($id);
+        $nb_show = count(Commentaire::where('masque', true)->get());
+
+        $show = false;
+
+        if ($commentaire->masque) {
+            $show = true;
+        }
+
+        if(strlen($commentaire->commentaire) > 0 && ($nb_show < 10 || $show)) {
+            $commentaire->masque = !$commentaire->masque;
+            $commentaire->save();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Commentaire $commentaire)
+    public function destroy(int $id)
     {
-        //
+        $commentaire = Commentaire::find($id);
+        $commentaire->delete();
     }
 }

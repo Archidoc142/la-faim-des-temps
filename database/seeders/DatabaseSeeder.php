@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\DateRetour;
 use App\Models\SecteurCode;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -36,13 +37,16 @@ class DatabaseSeeder extends Seeder
             ProduitLangueSeeder::class,
             EtatCommandeSeeder::class,
             HoraireOuvertureSeeder::class,
+            TarifLivraisonSeeder::class,
             SecteurSeeder::class,
             SecteurCodeSeeder::class,
-            TarifLivraisonSeeder::class,
             ProduitFormatSeeder::class,
             AdresseSeeder::class,
             ClientSeeder::class,
-            CommandeSeeder::class
+            CommandeSeeder::class,
+            DateRetourSeeder::class,
+            LegendeLangueSeeder::class,
+            ProducteurLangueSeeder::class
         ]);
     }
 }

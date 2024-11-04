@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('commentaire', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('date_heure_publication');
             $table->integer('note');
-            $table->string('commentaire', length: 255);
+            $table->string('commentaire', length: 255)->nullable();
             $table->boolean('masque')->default(false);
-            $table->bigInteger('id_utilisateur')->unsigned();
+            $table->bigInteger('id_utilistateur')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('commentaire', function (Blueprint $table) {
-            $table->foreign('id_utilisateur')->references('id')->on('users');
+            $table->foreign('id_utilistateur')->references('id')->on('users');
         });
     }
 

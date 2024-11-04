@@ -14,9 +14,9 @@ class SecteurSeeder extends Seeder
     public function run(): void
     {
         DB::table('secteur')->insert([
-            ['nom' => 'Fleurimont'],
-            ['nom' => 'Sherbrooke'],
-            ['nom' => 'Rock Forest'],
+            ['nom' => 'Fleurimont', 'id_tarif_livraison' => 2],
+            ['nom' => 'Sherbrooke', 'id_tarif_livraison' => 1],
+            ['nom' => 'Rock Forest', 'id_tarif_livraison' => 2],
         ]);
     }
 }

@@ -13,7 +13,7 @@ class Commande extends Model
 
     protected $table = 'commande';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'livraison',
         'frais_livraison',

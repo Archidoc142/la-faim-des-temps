@@ -6,6 +6,8 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -27,15 +29,50 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        //dd($request);
+        $client = Auth::user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $rules = [
+            'prenom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
+            'nom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
+            'telephone' => 'nullable|numeric|digits:10'
+        ];
+
+        $messages = [
+            'nom.required' => 'Veuillez entrer un nom de famille.',
+            'nom.max' => 'Le nom de famille ne peut pas dépasser 64 caractères.',
+            'nom.regex' => 'Le format du nom de famille entré est invalide.',
+
+            'prenom.required' => 'Veuillez entrer un prénom.',
+            'prenom.max' => 'Le prénom ne peut pas dépasser 64 caractères.',
+            'prenom.regex' => 'Le format du prénom entré est invalide.',
+
+            'telephone.digits' => 'Le numéro de téléphone doit contenir 10 chiffres.',
+            'telephone.numeric' => 'Le numéro de téléphone doit contenir 10 chiffres.'
+        ];
+
+        if($client->email != $request->email)
+        {
+            $rules['email'] = 'required|string|lowercase|email|max:128|unique:'.User::class;
+            $messages['email.required'] = 'Veuillez entrer un courriel.';
+            $messages['email.email'] = 'Veuillez entrer un courriel valide.';
+            $messages['email.regex'] = 'Le format du courriel entré est invalide.';
+            $messages['email.unique'] = 'Le courriel appartient déjà à un autre client.';
         }
 
-        $request->user()->save();
+        $validation = Validator::make($request->all(), $rules, $messages);
+
+        if ($validation->fails())
+            return back()->withErrors($validation->errors())->withInput();
+
+        $client->nom = $request->nom;
+        $client->prenom = $request->prenom;
+        $client->email = $request->email;
+        $client->telephone = $request->telephone;
+
+        $client->save();
 
         return Redirect::route('profile.edit');
     }

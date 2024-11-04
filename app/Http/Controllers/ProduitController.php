@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\FormatResource;
 use App\Http\Resources\ProduitRessource;
 use App\Http\Resources\ProduitsResource;
+use App\Models\DateRetour;
+use App\Models\DatesMenu;
 use App\Models\Format;
 use App\Models\FormatLangue;
 use App\Models\Produit;
@@ -27,6 +29,12 @@ class ProduitController extends Controller
         $formats = Format::all();
         $langFormats = FormatLangue::all();
         $categories = Produit::all();
+        $dates_menu = DatesMenu::all();
+
+        $token = csrf_token();
+
+        $ajd = date("Y-m-d");
+        $heure = date("H");
 
         return Inertia::render('Menu', [
             'formats' => $formats,
@@ -34,6 +42,10 @@ class ProduitController extends Controller
             'tarifs' => $tarifs,
             'produits' => ProduitRessource::collection(Produit::all()),
             'categories' => $categories,
+            'dates_menu' => $dates_menu,
+            'token' => $token,
+            'ajd' => $ajd,
+            'heure' => $heure
         ]);
     }
 
@@ -167,7 +179,7 @@ class ProduitController extends Controller
             }
         }
 
-        return redirect("/menu" . $request->page);
+        return redirect("/menu");
     }
 
     /**

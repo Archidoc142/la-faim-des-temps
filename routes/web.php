@@ -3,24 +3,44 @@
 use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\DatesMenuController;
+use App\Http\Controllers\CommentaireController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
+use App\Http\Controllers\TarifLivraisonController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
+use App\Http\Resources\CommentaireResource;
+use App\Models\Commentaire;
 use App\Models\Produit;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Accueil', []);
+    return Inertia::render('Accueil', [
+        'commentaires' => CommentaireResource::collection(
+            Commentaire::where('masque', true)
+            ->whereNotNull('commentaire')
+            ->limit(10)
+            ->get())
+    ]);
 })->name('accueil');
 
-Route::get('/menu', [ProduitController::class, 'index']);
+Route::get('/histoire', function () {
+    return Inertia::render('Histoire');
+})->name('histoire');
+
+Route::get('/menu', [ProduitController::class, 'index'])->name('menu.index');
 
 Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
+Route::post('/commande', [CommandeController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class)->name('envoiCommande');
+
+Route::get('/avis', [CommentaireController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
+Route::post('/avis', [CommentaireController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class);
 
 Route::get('/compte', function () {
     return Inertia::render('Compte', []);
@@ -32,10 +52,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/dates-menu', [DatesMenuController::class, 'update']);
+
 Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::get('/admin', function() { return redirect()->route('admin.clients');})->name('admin.accueil');
 
     Route::post('/menu/modifier', [ProduitController::class, 'update'])->name('menu.update');
+    //Route::post('/dates-menu', [DatesMenuController::class, 'update']);
+
+
+    Route::controller(ImageController::class)->group(function() {
+        Route::get('/admin/images', 'index')->name('admin.images');
+        Route::post('/admin/image', 'store');
+        //Route::delete('/admin/image/{id}', 'destroy');
+        Route::post('/admin/del-image', 'destroy');
+    });
 
     Route::controller(ClientController::class)->group(function() {
         Route::get('/admin/clients', 'index')->name('admin.clients');
@@ -45,6 +76,22 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 
     Route::controller(CommandeController::class)->group(function() {
         Route::get('/admin/commandes', 'index')->name('admin.commandes');
+    });
+
+    Route::controller(CommentaireController::class)->group(function() {
+        Route::get('admin/commentaires', 'indexAdmin')->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaires");
+        Route::patch('admin/commentaire/toggle/{id}', 'update')->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.update");
+        Route::delete('admin/commentaire/destroy/{id}', 'destroy')->middleware(EnsureUserIsLoggedIn::class)->name("admin.commentaire.destroy");
+    });
+
+    Route::controller(TarifLivraisonController::class)->group(function() {
+        Route::get('admin/tarifs', 'index')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarifs");
+        Route::post('admin/tarif/updateTarif', 'updateTarif')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateTarif");
+        Route::post('admin/tarif/updateFormat', 'updateFormat')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateFormat");
+    });
+
+    Route::controller(ProducteurController::class)->group(function() {
+        Route::post('/producteurs', 'store')->name('envoiNewProducteur');
     });
 });
 
