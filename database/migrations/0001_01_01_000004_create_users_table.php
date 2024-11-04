@@ -15,13 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
+            $table->tinyInteger('type');
+            $table->char('google_token', 255)->nullable();
             $table->char('telephone', 10)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->bigInteger('id_role')->unsigned();
+            $table->bigInteger('id_google')->unsigned()->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -41,6 +44,7 @@ return new class extends Migration
 
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('id_role')->references('id')->on('roles');
+            $table->foreign('id_google')->references('id')->on('google_ids');
         });
     }
 

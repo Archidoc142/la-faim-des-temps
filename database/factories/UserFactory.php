@@ -35,7 +35,8 @@ class UserFactory extends Factory
             'telephone' => $phone,
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            "id_role" => 1
+            "id_role" => 1,
+            "type" => 0
         ];
     }
 
