@@ -29,15 +29,11 @@ export default function MessageFlash({ status, message, visibility, duration = 3
         gsap.fromTo(
             container.current,
             { x: 0 },
-            {
-                xPercent: 95,
-                duration: duration,
-                ease: "power1.out",
-            })
+            { x: (window.innerWidth * 0.95) - container.current.offsetWidth, ease: "power1.out"})
     }, [visible])
 
     return (
-        <div ref={container} className="fixed left-4 bottom-12">
+        <div ref={container} className="fixed left-4 top-40 min-w-[350px]">
             {visible ?
                 <div className={`flex gap-4 items-center px-4 rounded-[20px] text-center text-white bg-gradient-to-r from-[#15181c] to-[#0d1c3d] text-xl font-bold  border-2 top-[8%] py-4
              ${status === 1 ? "border-[#21543f]" :
