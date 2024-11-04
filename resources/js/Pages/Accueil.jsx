@@ -39,7 +39,7 @@ export default function Accueil({ commentaires }) {
 
     return (
         <>
-            <Head title="Accueil" />
+            <Head title={t("Onglet.accueil")} />
             {/* this dont work */}
             <HeadWithImage
                 imgFile="/img/accueil.jpg"

@@ -154,5 +154,10 @@
         "desc6" : "Pendant ses études culinaires, il s'est démarqué par son amour de la cuisine historique, explorant l'Europe du Moyen-âge ou la Nouvelle-France afin d'ajouter saveurs et combinaisons d'épices inédites à sa palette de chef. Paradoxalement, cet amour du passé habite un cuisinier passablement anticonformiste, qui remet fréquemment en question son métier. Statu quo ne fait pas partie du vocabulaire de Yannick; il est toujours à la recherche de nouvelles façons de cuisiner, que ce soit en passant des pâtes fraîches sur le grill ou au fumoir, ou en recherchant l'inspiration dans des romans ou des films plutôt que dans les livres de cuisine.",
         "histoire" : "Notre histoire",
         "aventure" : "Une aventure"
+    },
+    "Onglet": {
+        "accueil" : "Accueil",
+        "histoire" : "Notre histoire",
+        "avis" : "Votre avis"
     }
 }

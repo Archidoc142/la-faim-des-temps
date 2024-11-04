@@ -230,7 +230,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     return (
         <div className='Menu bg-white'>
 
-            <Head title="Menu de la semaine" />
+            <Head title="Menu" />
 
 
             {/*Entête*/}
