@@ -1,10 +1,13 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteUserForm from './Partials/DeleteUserForm';
+import { usePage } from '@inertiajs/react'
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 import { Head } from '@inertiajs/react';
 
 export default function Edit({ mustVerifyEmail, status }) {
+    const user = usePage().props.auth.user;
+
     return (
         <div className='bg-white'>
             <Head title="Profile" />
@@ -16,14 +19,16 @@ export default function Edit({ mustVerifyEmail, status }) {
                             mustVerifyEmail={mustVerifyEmail}
                             status={status}
                             className='p-8 sm:max-w-[80%] mx-auto sm:bg-[#F7F6F6] shadow sm:rounded-lg'
+                            userType={user.data.type}
                         />
                     </div>
 
+                    { user.data.type == 0 ?
                     <div className="p-4 sm:p-8 bg-white">
                         <UpdatePasswordForm
                             className='p-8 sm:max-w-[40%] mx-auto sm:bg-[#F7F6F6] shadow sm:rounded-lg'
                         />
-                    </div>
+                    </div> : null}
                 </div>
             </div>
         </div>
