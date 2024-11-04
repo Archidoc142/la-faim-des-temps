@@ -89,7 +89,7 @@ export default function Header() {
     };
 
     return (
-        <header className='border-b border-[#9b9b9b] sticky top-0 z-10'>
+        <header className='border-b border-[#9b9b9b] sticky top-0 z-30'>
             <div className='flex bg-white'>
                 <a href="/" className='content-center'><img className='hidden lg:block w-auto self-center max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" /></a>
 

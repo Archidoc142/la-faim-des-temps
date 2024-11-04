@@ -1,12 +1,15 @@
 import CommentaireRow from "@/Components/Admin/Table/CommentaireRow";
 import HeadActionCell from "@/Components/Admin/Table/HeadActionCell";
 import HeadCell from "@/Components/Admin/Table/HeadCell";
+import Commentaire from "@/Components/Commentaire";
 import PaginationBar from "@/Components/PaginationBar";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { useState } from "react";
 
 export default function Commentaires({ commentaires }) {
-    const [toggledMenuId, setToggledMenuId] = useState(0);
+    const [toggledMenuId, setToggledMenuId] = useState(0)
+    const [commentaireShow, setCommentaireShow] = useState(false)
+    const [commentaire, setCommentaire] = useState(false)
 
     return (
         <AdminLayout title="Commentaires">
@@ -36,12 +39,22 @@ export default function Commentaires({ commentaires }) {
                                     toggledMenuId={toggledMenuId}
                                     setToggledMenuId={setToggledMenuId}
                                     page={commentaires.meta.current_page}
+                                    setCommentaireShow={setCommentaireShow}
+                                    commentaireShow={commentaireShow}
+                                    setCommentaire={setCommentaire}
                                 />
                             ))}
                         </tbody>
                     </table>
 
                     <PaginationBar links={commentaires.meta.links} />
+
+                    { commentaireShow ?
+                        <Commentaire
+                            commentaire={commentaire}
+                            setCommentaireShow={setCommentaireShow}
+                        /> : null
+                    }
                 </>
             ) : <p className="italic">Aucun commentaire</p>}
         </AdminLayout>

@@ -144,5 +144,15 @@
         "500Desc": "Whoops, something went wrong on our servers.",
         "404Desc": "Sorry, the page you are looking for could not be found.",
         "403Desc": "Sorry, you are forbidden from accessing this page."
+    },
+    "Histoire": {
+        "desc1" : "After several years maturing in the mind of our chef, Yannick Pellerin, the project took off in 2020 under the name Tri Corvi Traiteur before reaching its final form in 2023. With experience in both the restaurant industry and fine grocery, Yannick had always wanted to bring his two passions together into a single business. It took the union of talents from sometimes very different backgrounds, as well as a good deal of creativity, to bring this vision to life from nothing. We now have the privilege of offering the best of ourselves to the Sherbrooke community.",
+        "desc2" : "While searching for a suitable space, downtown naturally stood out as the ideal place to establish ourselves. Long-time admirers of the Centro, our team thrives on the energy and synergy of our fellow entrepreneurs from all fields here.",
+        "desc3" : "Throughout this process, we traveled across Quebec to find delicious products to share, but above all, remarkable people to meet and introduce to others. Our criteria remain and will always be the same: to offer you unique, high-quality products from our terroir, crafted by artisans who are mindful of the Nature around them.",
+        "desc4" : "Our criteria remain and will always be the same: to offer you unique, high-quality products from our terroir, crafted by artisans who are mindful of the Nature around them.",
+        "desc5" : "Executive chef and graduate of Laval’s culinary school, Yannick has been honing his craft in the restaurant industry for nearly 20 years. He began his culinary journey during his studies at Cégep de Sherbrooke (first at the now-closed Placette, then at Café Bla-Bla) before continuing his training in Montreal at various restaurants, and later in fine and large-scale grocery stores, where he gained solid experience as a cheese merchant.",
+        "desc6" : "During his culinary studies, he stood out for his love of historical cuisine, exploring medieval Europe and New France to add unique flavors and spice combinations to his chef’s repertoire. Paradoxically, this love for the past resides in a decidedly nonconformist chef who frequently questions his craft. Status quo is not part of Yannick’s vocabulary; he is always seeking new ways to cook, whether it’s grilling or smoking fresh pasta, or finding inspiration in novels and movies rather than cookbooks.",
+        "histoire" : "Our story",
+        "aventure" : "An adventure"
     }
 }

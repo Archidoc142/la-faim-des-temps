@@ -30,6 +30,10 @@ Route::get('/', function () {
     ]);
 })->name('accueil');
 
+Route::get('/histoire', function () {
+    return Inertia::render('Histoire');
+})->name('histoire');
+
 Route::get('/menu', [ProduitController::class, 'index'])->name('menu.index');
 
 Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
