@@ -59,14 +59,18 @@ export default function AddProducteur({ className }) {
                                     name="image"
                                     id="image"
                                     className="opacity-0 absolute top-0 left-0 w-full h-full hover:cursor-pointer"
-                                    onChange={(e) => { upload(e); setData('filename', e.target.files[0].name); }}
+                                    onChange={upload}
                                     accept="image/*"
                                 />
                             </div>
                         </div>
                         <div className='order-2'>
                             <div>
-                                <InputLabel htmlFor="nom" value="Nom du producteur:" />
+                                <InputLabel 
+                                    htmlFor="nom" 
+                                    value="Nom du producteur:" 
+                                    className='text-[#296ACF]'
+                                />
 
                                 <TextInput
                                     id="nom"
@@ -85,7 +89,11 @@ export default function AddProducteur({ className }) {
                             </div>
 
                             <div>
-                                <InputLabel htmlFor="url" value="lien vers le site du producteur:" />
+                                <InputLabel 
+                                    htmlFor="url" 
+                                    value="Lien vers le site du producteur:" 
+                                    className='text-[#296ACF]'
+                                />
 
                                 <TextInput
                                     id="url"
@@ -103,7 +111,11 @@ export default function AddProducteur({ className }) {
                             </div>
                             <div>
                                 <div>
-                                    <InputLabel htmlFor="descriptionFR" value="Description du producteur (Français):" />
+                                    <InputLabel 
+                                        htmlFor="descriptionFR" 
+                                        value="Description du producteur (Français):" 
+                                        className='text-[#296ACF]'
+                                    />
 
                                     <TextAreaInput
                                         id="descriptionFR"
@@ -121,7 +133,11 @@ export default function AddProducteur({ className }) {
                                     <InputError message={errors.descriptionFR} className="mt-2" />
                                 </div>
                                 <div>
-                                    <InputLabel htmlFor="descriptionEN" value="Description du producteur (Anglais):" />
+                                    <InputLabel 
+                                        htmlFor="descriptionEN" 
+                                        value="Description du producteur (Anglais):" 
+                                        className='text-[#296ACF]'
+                                    />
 
                                     <TextAreaInput
                                         id="descriptionEN"
@@ -140,7 +156,11 @@ export default function AddProducteur({ className }) {
                                 </div>
                             </div>
                             <div>
-                                <InputLabel htmlFor="adresse" value="Adresse du producteur:" />
+                                <InputLabel 
+                                    htmlFor="adresse" 
+                                    value="Adresse du producteur:" 
+                                    className='text-[#296ACF]'
+                                />
 
                                 <TextInput
                                     id="adresse"

@@ -62,7 +62,7 @@ export default function Clients({clients}) {
                             <HeadCell title="Prénom" width="72"/>
                             <HeadCell title="Courriel" width="96"/>
                             <HeadCell title="Téléphone" width="48"/>
-                            <HeadCell title="Date création" width="32"/>
+                            {/* <HeadCell title="Date création" width="32"/>    //Retrait à la demande du client*/}
                             <HeadActionCell/>
                         </tr>
                     </thead>

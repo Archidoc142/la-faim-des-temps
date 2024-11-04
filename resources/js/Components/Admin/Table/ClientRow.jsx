@@ -41,7 +41,7 @@ export default function ClientRow({ client, editableId, seteditableId, data, set
 
                 </>
             }
-            <Cell>{client.created_at}</Cell>
+            {/* <Cell>{client.created_at}</Cell>        //Retrait à la demande du client*/}
             <ActionCell
                 id={client.id}
                 options={options}

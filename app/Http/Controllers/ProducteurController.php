@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Producteur;
 use App\Models\ProducteurLangue;
 use App\Http\Resources\ProducteurResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ProducteurController extends Controller
@@ -35,29 +37,29 @@ class ProducteurController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+        $file = $request->file('img');
+        $imageName = $file ? $file->getClientOriginalName() : "default.jpg";
 
-        //validator ?
+        if($imageName != "default.jpg" && Image::where('nom_fichier', $imageName)->exists()) {
+            return back()->withErrors("Ce nom de fichier existe déjà dans la liste d'images.");
+        }
 
-        //dd($request);
-        if(!is_null($request->file('img')))
-            {
-                $file = $request->file('img');
+        if($imageName != "default.jpg")
+            $file->move(public_path('/img'), $imageName);
 
-                File::delete(public_path('img/' . $image->nom_fichier));
-
-                $image->nom_fichier = $file->getClientOriginalName();
-                $file->move(public_path('/img'), $image->nom_fichier);
-            }
+        $lastInsertedId = DB::table('image')->insertGetId([
+            'nom_fichier' => $imageName,
+            'vitrine' => 0,
+            'saisonnier' => 0
+        ]);
 
         $producteur = Producteur::create([
             'nom' => $request->nom,
             'url' => $request->has('url') ? $request->url : null,
             'adresse' => $request->adresse,
-            'id_image' => 1
+            'id_image' => $lastInsertedId
         ]);
 
-        //dd($producteur->id);
         $descriptionFR = ProducteurLangue::create([
             'id_producteur' => $producteur->id,
             'id_langue' => 1,
@@ -92,9 +94,9 @@ class ProducteurController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Producteur $producteur)
+    public function update(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
