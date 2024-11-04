@@ -96,7 +96,62 @@ class ProducteurController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request);
+        $file = $request->file('img');
+        $imageName = $file ? $file->getClientOriginalName() : "default.jpg";
+
+        if($imageName != "default.jpg" && Image::where('nom_fichier', $imageName)->exists()) {
+            return back()->withErrors("Ce nom de fichier existe déjà dans la liste d'images.");
+        }
+
+        if($imageName != "default.jpg")
+            $file->move(public_path('/img'), $imageName);
+
+        $producteur = Producteur::find($request->id);
+
+        $lastInsertedId = 1;        //default.jpg
+
+        if(Image::where('nom_fichier', $imageName)->exists()) {
+            $image = Image::where('nom_fichier', $imageName)->first();
+
+            $lastInsertedId = $image->id;
+        } else {
+            $lastInsertedId = DB::table('image')->insertGetId([
+                'nom_fichier' => $imageName,
+                'vitrine' => 0,
+                'saisonnier' => 0
+            ]);
+
+            $image = Image::find($producteur->id_image);
+
+            //Suppression de l'ancienne image associée au producteur
+            if($image->nom_fichier != "default.jpg") {
+                $image->delete();
+
+                unlink(public_path('/img/' . $image->nom_fichier));
+            }
+        }
+
+
+        $producteur->nom = $request->nom;
+        $producteur->url = $request->has('url') ? $request->url : null;
+        $producteur->adresse = $request->adresse;
+        $producteur->id_image = $lastInsertedId;
+
+        $producteur->save();
+
+        $descriptionFR = ProducteurLangue::where('id_producteur', $producteur->id)->where('id_langue', 1)->first();
+
+        $descriptionFR->description = $request->descriptionFR;
+
+        $descriptionFR->save();
+
+        $descriptionEN = ProducteurLangue::where('id_producteur', $producteur->id)->where('id_langue', 2)->first();
+
+        $descriptionEN->description = $request->descriptionEN;
+
+        $descriptionEN->save();
+
+        return redirect("/producteurs");
     }
 
     /**

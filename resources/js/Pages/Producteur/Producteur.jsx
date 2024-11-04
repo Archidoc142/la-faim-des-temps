@@ -12,16 +12,60 @@ import { useState, useEffect } from 'react';
 export default function Producteur({
     producteur, 
     langue, 
-    editMode,
-    editableId,
-    seteditableId,
     data,
     setData,
-    resetData,
-    toggledMenuId,
-    setToggledMenuId
+    errors
 }) {
     const imgFile = '/img/';
+    let image = null;
+
+    const [imgSrc, setImgSrc] = useState(imgFile +  producteur.filename);
+    const [filename, setFilename] = useState("");
+    const [editMode, setEditMode] = useState(false);
+    const [ editableId, setEditableId ] = useState(0);
+    const [ toggledMenuId, setToggledMenuId ] = useState(0);
+
+    const setProducteurData = () => {
+        setImgSrc(imgFile + producteur.image.nom_fichier);
+        setFilename(producteur.image.nom_fichier);
+        setData({
+            "id": producteur.id,
+            "nom": producteur.nom,
+            "filename": producteur.image.nom_fichier,
+            "url": producteur.url,
+            "descriptionFR": producteur.description["fr"],
+            "descriptionEN": producteur.description["en"],
+            "adresse": producteur.adresse
+        })
+    }
+
+    useEffect(() =>
+        {
+            if(Object.keys(errors).length == 0)
+            {
+                setEditableId(0);
+                setToggledMenuId(0);
+            }
+            else
+            {
+                let errorMsg = ""
+                Object.keys(errors).forEach((k) => {
+                    errorMsg += "- " + errors[k] + "\n";
+                })
+    
+                alert(errorMsg);
+                console.log(errors);
+            }
+
+        }, [errors])
+
+        const toggleMenu = (e) => {
+            if (toggledMenuId != e.target.id) {
+                setToggledMenuId(e.target.id);
+            } else {
+                setToggledMenuId(0);
+            }
+        };
 
     function upload(e) {
         if (e.target.files[0].type.includes("image/")) {
@@ -34,44 +78,78 @@ export default function Producteur({
         }
     }
 
-    // const { data, setData, post, errors, reset } = useForm({
-    //     nom: producteur.nom,
-    //     filename: producteur.image.nom_fichier,
-    //     url: producteur.url,
-    //     descriptionFR: producteur.description['fr'],
-    //     descriptionEN: producteur.description['en'],
-    //     adresse: producteur.adresse,
-    // });
-
-    // const setProducteurData = () => {
-    //     setData({
-    //         'nom': producteur.nom,
-    //         'filename': producteur.image.nom_fichier,
-    //         'url': producteur.url,
-    //         'descriptionFR': producteur.description['fr'],
-    //         'descriptionEN': producteur.description['en'],
-    //         'adresse': producteur.adresse,
-    //     })
-    // }
-
     return (
             <>
                 <div
                     className={`${producteur.id % 2 === 0 ? 'bg-[#7A163C80]' : ''} my-5 rounded-lg m-3 py-4 lg:m-8`}
                     id='newProducteur'
                 >
+                    {editMode ?
+                        <div className="flex items-end gap-5 pt-3">
+                            <svg onClick={() => {
+                                setEditMode(false);
+                                setEditableId(0);
+                                setToggledMenuId(0);
+                                }} 
+                                fill="#ffffff" 
+                                height="200px" 
+                                width="200px" 
+                                className="h-fit max-w-8 hover:fill-[#BB285C] cursor-pointer ml-auto" 
+                                version="1.1" 
+                                id="Capa_1" 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                xmlnsXlink="http://www.w3.org/1999/xlink" 
+                                viewBox="0 0 460.775 460.775" 
+                                xmlSpace="preserve" 
+                                stroke="none" 
+                            >
+                                <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z" />
+                            </svg>
+
+                            <button type='submit'>
+                                <svg width="118px" height="118px" className="h-fit max-w-10  hover:fill-[#BB285C]  mr-9" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" stroke="none">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z" fill="#fffff" />
+                                </svg>
+                            </button>
+                        </div>
+                        :
+                        <div className="flex items-end gap-5 pt-3">
+                            <svg onClick={() => {
+                                setEditMode(true);
+                                setProducteurData();
+                                setEditableId(producteur.id);
+                                toggleMenu({target: {id: producteur.id}});
+                                }} 
+                                id={producteur.id}
+                                width="200px" 
+                                height="200px" 
+                                viewBox="0 0 24 24" 
+                                className="h-fit max-w-10 hover:stroke-[#BB285C] hover:cursor-pointer ml-auto" 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                fill="#ffffff" 
+                                stroke="#ffffff"
+                            >
+                                <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                                <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#fffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                            </svg>
+
+                            <svg onClick={() => setEditMode(false)} fill="#ffffff" height="200px" width="200px" className="h-fit max-w-8 hover:fill-[#BB285C] cursor-pointer mr-9" version="1.1" id="Capa_2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 460.775 460.775" xmlSpace="preserve" stroke="none" >
+                                <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z" />
+                            </svg>
+                        </div>
+                    }
                     <div className='lg:grid lg:grid-cols-2 lg:p-4'>
                         {
                             editMode && producteur.id == editableId ? (
                                 <>
                                 <img 
                                     className={`${producteur.id % 2 === 0 ? '' : 'lg:order-1'} m-auto px-10 py-2 lg:pl-6 lg:w-5/6`} 
-                                    src={ imgFile + producteur.image.nom_fichier} 
-                                    alt={"image " + producteur.nom}
+                                    src={ imgSrc } 
+                                    alt={filename}
                                 />
 
                                 <div className='lg:order-3'>
-                                    <p className="italic text-center mb-6 text-white">{producteur.image.nom_fichier}</p>
+                                    <p className="italic text-center mb-6 text-white"> {filename} </p>
 
                                     <div className="bg-[#7A163C] py-2 px-3 flex flex-nowrap w-fit rounded hover:bg-slate-700 cursor-pointer m-auto mb-6 relative">
                                         <svg className="self-center" width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -108,7 +186,6 @@ export default function Producteur({
                                             required
                                         />
 
-                                        {/* <InputError message={errors.nom} className="mt-2" /> */}
                                     </div>
                                     <div>
                                         <InputLabel 
@@ -129,7 +206,6 @@ export default function Producteur({
                                             onChange={(e) => setData('url', e.target.value)}
                                         />
 
-                                        {/* <InputError message={errors.url} className="mt-2" /> */}
                                     </div>
                                     <div>
                                         <div>
@@ -152,7 +228,6 @@ export default function Producteur({
                                                 required
                                             />
 
-                                            {/* <InputError message={errors.descriptionFR} className="mt-2" /> */}
                                         </div>
                                         <div>
                                             <InputLabel 
@@ -174,7 +249,6 @@ export default function Producteur({
                                                 required
                                             />
 
-                                            {/* <InputError message={errors.descriptionEN} className="mt-2" /> */}
                                         </div>
                                     </div>
                                     <div>
@@ -197,7 +271,6 @@ export default function Producteur({
                                             required
                                         />
 
-                                        {/* <InputError message={errors.adresse} className="mt-2" /> */}
                                     </div>
                                 </div>
                             </>
