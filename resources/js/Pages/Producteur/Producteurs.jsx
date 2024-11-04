@@ -20,6 +20,7 @@ export default function Producteurs({ producteurs }) {
     }
 
     const { data, setData, post, errors, reset } = useForm({
+        id: '',
         nom: '',
         filename: '',
         url: '',
@@ -28,6 +29,13 @@ export default function Producteurs({ producteurs }) {
         adresse: '',
     });
 
+    const resetProducteurData = () => {
+        reset("id", "nom", "filename", "url", "descriptionFR", "descriptionEN", "adresse");
+    }
+
+    const [ editableId, seteditableId ] = useState(0);
+    const [ toggledMenuId, setToggledMenuId ] = useState(0);
+
     const submit = (e) => {
         e.preventDefault();
 
@@ -35,6 +43,26 @@ export default function Producteurs({ producteurs }) {
             preserveScroll: true
         });
     };
+
+    useEffect(() =>
+        {
+            if(Object.keys(errors).length == 0)
+            {
+                seteditableId(0);
+                setToggledMenuId(0);
+            }
+            else
+            {
+                let errorMsg = ""
+                Object.keys(errors).forEach((k) => {
+                    errorMsg += "- " + errors[k] + "\n";
+                })
+    
+                alert(errorMsg);
+                console.log(errors);
+            }
+    
+        }, [errors])
 
     return (
         <>
@@ -83,10 +111,11 @@ export default function Producteurs({ producteurs }) {
                             <Producteur
                                 producteur={producteur}
                                 langue={i18n.language}
-                                editable={editMode}
-                            // setData={setData}
-                            // data={data}
-                            // key={producteur.id}
+                                editableId={editableId}
+                                seteditableId={seteditableId}
+                                resetData={resetProducteurData}
+                                toggledMenuId={toggledMenuId}
+                                setToggledMenuId={setToggledMenuId}
                             />
                             <hr />
                         </form>

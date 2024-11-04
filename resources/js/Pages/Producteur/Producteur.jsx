@@ -9,7 +9,15 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 
 
-export default function Producteur({producteur, langue, editable, key}) {
+export default function Producteur({
+    producteur, 
+    langue, 
+    editableId,
+    seteditableId,
+    resetData,
+    toggledMenuId,
+    setToggledMenuId
+}) {
     const imgFile = '/img/';
 
     function upload(e) {
