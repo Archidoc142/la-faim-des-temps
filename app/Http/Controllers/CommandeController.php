@@ -212,6 +212,7 @@ class CommandeController extends Controller
 
     public function checkout(Request $request)
     {
+        //dd($request);
         $quickBooksService = new QuickBooksService();
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -232,6 +233,20 @@ class CommandeController extends Controller
                     'unit_amount' => $format->montant * 100
                 ],
                 'quantity' => $p["qte"]
+            ];
+        }
+
+        if($request->livraison)
+        {
+            $items[] = [
+                'price_data' => [
+                    'currency' => 'cad',
+                    'product_data' => [
+                        'name' => "Frais de livraison"
+                    ],
+                    'unit_amount' => $request->frais_livraison * 100
+                ],
+                'quantity' => 1
             ];
         }
 
