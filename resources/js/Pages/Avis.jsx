@@ -25,7 +25,7 @@ export default function Avis() {
 
     return (
         <div className="bg-white min-h-screen">
-            <Head title="Avis" />
+            <Head title={t("Onglet.avis")} />
 
             <div className="bg-[#7A163C] flex justify-center text-white text-2xl font-bold py-4">{t("Avis.addAvis")}</div>
 

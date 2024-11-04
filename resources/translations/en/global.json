@@ -154,5 +154,10 @@
         "desc6" : "During his culinary studies, he stood out for his love of historical cuisine, exploring medieval Europe and New France to add unique flavors and spice combinations to his chef’s repertoire. Paradoxically, this love for the past resides in a decidedly nonconformist chef who frequently questions his craft. Status quo is not part of Yannick’s vocabulary; he is always seeking new ways to cook, whether it’s grilling or smoking fresh pasta, or finding inspiration in novels and movies rather than cookbooks.",
         "histoire" : "Our story",
         "aventure" : "An adventure"
+    },
+    "Onglet": {
+        "Accueil" : "Home",
+        "histoire" : "Our story",
+        "avis" : "Your opinion"
     }
 }

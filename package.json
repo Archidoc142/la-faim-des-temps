@@ -20,6 +20,8 @@
         "vite": ">=5.4.6"
     },
     "dependencies": {
+        "@gsap/react": "^2.1.1",
+        "gsap": "^3.12.5",
         "i18next": "^23.15.1",
         "react-i18next": "^15.0.2",
         "react-phone-input-auto-format": "^0.1.0",

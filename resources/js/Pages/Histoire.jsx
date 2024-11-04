@@ -10,7 +10,7 @@ export default function Histoire() {
     return (
         <div className="bg-white min-h-screen">
 
-            <Head title="Histoire" />
+            <Head title={t("Onglet.histoire")} />
 
             <div className="h-[40vh] bg-cover flex flex-col justify-center" style={{ backgroundImage: `url('${headImage}')` }}>
                 <div className='bg-white bg-opacity-75'>

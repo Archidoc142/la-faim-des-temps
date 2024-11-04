@@ -2,5 +2,7 @@
     "i18n-ally.localesPaths": [
         "../../../../Users/hicham/la-faim-des-temps/resources/translations"
     ],
-    "i18n-ally.keystyle": "nested"
+    "i18n-ally.keystyle": "nested",
+    "inertia.pages": "resources/js/Pages/**/*.jsx",
+    "inertia.defaultExtension": ".jsx"
 }

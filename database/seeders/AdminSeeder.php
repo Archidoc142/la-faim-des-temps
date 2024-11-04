@@ -20,7 +20,8 @@ class AdminSeeder extends Seeder
                 "prenom" => "Yannick",
                 "email" => "admin@lafaimdestemps.ca",
                 "password" => Hash::make("admin"), // temporaire
-                "id_role" => 2
+                "id_role" => 2,
+                "type" => 0
             ]
         ]);
     }
