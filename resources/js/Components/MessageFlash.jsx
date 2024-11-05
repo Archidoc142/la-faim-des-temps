@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+// import gsap from 'gsap';
+// import { useGSAP } from '@gsap/react';
 
 export default function MessageFlash({ status, message, visibility, duration = 3, setVisibility }) {
 

@@ -4,7 +4,7 @@ import CommandeRow from "@/Components/Admin/Table/CommandeRow";
 import HeadActionCell from "@/Components/Admin/Table/HeadActionCell";
 import PaginationBar from "@/Components/PaginationBar";
 import { useState } from "react"
-import Commande from "@/Components/Commande";
+// import Commande from "@/Components/Commande";
 
 export default function Commandes({ commandes }) {
     console.log(commandes)
@@ -44,12 +44,12 @@ export default function Commandes({ commandes }) {
                     </table>
                     <PaginationBar links={commandes.meta.links} />
 
-                    { commandeShow ?
+                    {/* { commandeShow ?
                         <Commande
                             commande={commande}
                             setCommandeShow={setCommandeShow}
                         /> : null
-                    }
+                    } */}
                 </>
             )}
         </AdminLayout>

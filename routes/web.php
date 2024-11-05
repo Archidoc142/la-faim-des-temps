@@ -93,6 +93,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::controller(ProducteurController::class)->group(function() {
         Route::post('/producteurs', 'store')->name('envoiNewProducteur');
         Route::post('/admin/producteur/update', 'update')->name('updateProducteur');
+        Route::post('/admin/producteur/delete', 'destroy');
     });
 });
 
