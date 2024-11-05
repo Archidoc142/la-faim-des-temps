@@ -40,7 +40,6 @@ export default function Commentaires({ commentaires }) {
                                     setToggledMenuId={setToggledMenuId}
                                     page={commentaires.meta.current_page}
                                     setCommentaireShow={setCommentaireShow}
-                                    commentaireShow={commentaireShow}
                                     setCommentaire={setCommentaire}
                                 />
                             ))}

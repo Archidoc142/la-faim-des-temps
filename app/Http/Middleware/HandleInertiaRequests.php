@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Http\Resources\UserResource;
 use App\Models\HoraireOuverture;
+use App\Models\DatesMenu;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -36,6 +37,8 @@ class HandleInertiaRequests extends Middleware
         $dateToShow = null;
         $canCommand = false;
 
+        $date_de_retour = DatesMenu::where('nom', 'date_retour')->first()->date;
+
         date_default_timezone_set('America/Toronto');
         $date        = new \DateTimeImmutable();
         $lundi16h    = strtotime('monday this week 16:00');
@@ -57,6 +60,13 @@ class HandleInertiaRequests extends Middleware
             $dateToShow = strtotime("next friday");
         }
 
+        if (isset($date_de_retour)) {
+            if ($date->getTimestamp() < $date_de_retour) {
+                $dateToShow = strtotime($date_de_retour);
+                $canCommand = false;
+            }
+        }
+
         if(!is_null($request->user()))
         {
             $user = new UserResource($request->user());
@@ -69,7 +79,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'horaire' => HoraireOuverture::all(),
             'dateToShow' =>  date('c', $dateToShow),
-            'canCommand' => $canCommand
+            'canCommand' => $canCommand,
         ];
     }
 }
