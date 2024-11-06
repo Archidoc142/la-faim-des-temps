@@ -17,7 +17,7 @@ class CommandeProduitResource extends JsonResource
     {
         $nom_format = FormatLangue::where('id_format', $this->id_format)
             ->where('id_langue', 1)
-            ->value('nom');;
+            ->value('nom');
 
         return [
             'id' => $this->id,
