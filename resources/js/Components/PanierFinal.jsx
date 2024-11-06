@@ -1,16 +1,27 @@
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 export default function PanierFinal({ post, data, prix, setData, adresse, setContentBox, setBoxVisible, secteur }) {
 
     const [t, i18n] = useTranslation("global")
+    const [allergenes, setAllergenes] = useState(true)
 
     /*const codeIn = data.adresse.code_postal.substring(0,3);
     const secteur = secteurs.data.filter((s) => s.codes.includes(codeIn));
 
     console.log(codeIn)*/
 
+    const checkAllergenes = () => {
+        if(allergenes && data.allergenes == "") {
+            alert("Veuillez ajouter vos allergènes. Si vous n'en avez pas, cochez la case « Je n'ai pas d'allergènes ».");
+            return false;
+        }
+        return true;
+    }
+
     const submitCommande = () => {
-        post(route('envoiCommande'))
+        if(checkAllergenes())
+            post(route('envoiCommande'))
     }
 
     let nomAdresse = "";
@@ -71,15 +82,22 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
                         </div> : <div className="mb-8"></div>
                 }
 
-                <div className="text-left px-8 mt-6 mb-4">
+                <div className="text-left px-8 mt-6 mb-3">
                     <h4 className="font-bold mb-2">{t("Panier.allergen")}</h4>
                     <textarea
                         id="allergene"
                         maxLength="128"
                         placeholder={t("Panier.placeholder")}
-                        className="w-full min-h-[100px] max-h-[100px]"
+                        className={"w-full min-h-[100px] max-h-[100px]" + (!allergenes ? " bg-gray-300 hover:cursor-not-allowed" : "")}
                         onChange={(e) => setData("allergenes", e.target.value)}
+                        required={allergenes}
+                        disabled={!allergenes}
                     />
+                </div>
+
+                <div className="mb-6 w-full flex justify-start items-center px-8">
+                    <input type="checkbox" name="allergenes" id="allergenes" className="mr-3" onChange={(e) => setAllergenes(!allergenes)} />
+                    <label htmlFor="allergenes">Je n'ai pas d'allergènes.</label>
                 </div>
 
                 <button onClick={submitCommande} className="font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-[5px]">
