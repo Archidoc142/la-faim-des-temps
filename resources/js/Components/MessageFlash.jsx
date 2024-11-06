@@ -29,7 +29,17 @@ export default function MessageFlash({ status, message, visibility, duration = 3
         gsap.fromTo(
             container.current,
             { x: 0 },
-            { x: (window.innerWidth * 0.95) - container.current.offsetWidth, ease: "power1.out"})
+            {
+                x: (window.innerWidth * 0.95) - container.current.offsetWidth, ease: "power1.out",
+                onComplete: () => {
+                    gsap.set(container.current, {opacity:1})
+                    gsap.to(container.current, {
+                        delay: 2,
+                        opacity: 0,
+                        duration: 1,
+                    })
+                }
+            })
     }, [visible])
 
     return (

@@ -9,7 +9,10 @@ import assiette from '../../../public/img/assiette.jpg'
 import { useEffect, useState } from 'react';
 import StarsComment from '@/Components/StarsComment';
 
-export default function Accueil({ commentaires }) {
+export default function Accueil({ commentaires, images }) {
+
+    console.log(images)
+
     const [t, i18n] = useTranslation("global");
 
     useEffect(() => {
