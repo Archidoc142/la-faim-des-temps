@@ -41,6 +41,13 @@ export default function Commandes({ commandes }) {
                         </tbody>
                     </table>
                     <PaginationBar links={commandes.meta.links} />
+
+                    {/* { commandeShow ?
+                        <Commande
+                            commande={commande}
+                            setCommandeShow={setCommandeShow}
+                        /> : null
+                    } */}
                 </>
             )}
         </AdminLayout>

@@ -157,8 +157,29 @@ class ProducteurController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Producteur $producteur)
+    public function destroy(Request $request)
     {
-        //
+        $producteur = Producteur::find($request->id);
+
+        $image = Image::find($producteur->id_image);
+
+        //Suppression de l'image associée au producteur
+        if($image->nom_fichier != "default.jpg") {
+            $image->delete();
+
+            unlink(public_path('/img/' . $image->nom_fichier));
+        }
+
+        $descriptionFR = ProducteurLangue::where('id_producteur', $producteur->id)->where('id_langue', 1)->first();
+
+        $descriptionFR->delete();
+
+        $descriptionEN = ProducteurLangue::where('id_producteur', $producteur->id)->where('id_langue', 2)->first();
+
+        $descriptionEN->delete();
+
+        $producteur->delete();
+
+        return redirect("/producteurs");
     }
 }
