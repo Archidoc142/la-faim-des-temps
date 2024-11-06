@@ -76,6 +76,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 
     Route::controller(CommandeController::class)->group(function() {
         Route::get('/admin/commandes', 'index')->name('admin.commandes');
+        Route::get('/admin/commande/{id}', 'show')->name('admin.commande');
     });
 
     Route::controller(CommentaireController::class)->group(function() {
