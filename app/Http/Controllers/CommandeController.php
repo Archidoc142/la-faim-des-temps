@@ -39,7 +39,6 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $idAdresse = null;
 
         if($request->livraison)
