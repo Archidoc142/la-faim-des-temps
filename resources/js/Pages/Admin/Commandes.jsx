@@ -4,14 +4,12 @@ import CommandeRow from "@/Components/Admin/Table/CommandeRow";
 import HeadActionCell from "@/Components/Admin/Table/HeadActionCell";
 import PaginationBar from "@/Components/PaginationBar";
 import { useState } from "react"
-// import Commande from "@/Components/Commande";
+import Commande from "@/Pages/Admin/Commande";
 
 export default function Commandes({ commandes }) {
     console.log(commandes)
 
     const [toggledMenuId, setToggledMenuId] = useState(0);
-    const [commandeShow, setCommandeShow] = useState(false)
-    const [commande, setCommande] = useState(false)
 
     return (
         <AdminLayout title="Commandes">
@@ -26,6 +24,7 @@ export default function Commandes({ commandes }) {
                                 <HeadCell title="Client" width="96" />
                                 <HeadCell title="Montant" width="36" />
                                 <HeadCell title="Date de Vente" width="48" />
+                                <HeadActionCell />
                             </tr>
                         </thead>
                         <tbody>
@@ -36,8 +35,7 @@ export default function Commandes({ commandes }) {
                                     showClient={true}
                                     toggledMenuId={toggledMenuId}
                                     setToggledMenuId={setToggledMenuId}
-                                    setCommandeShow={setCommandeShow}
-                                    setCommande={setCommande}
+                                    page={commandes.meta.current_page}
                                 />
                             )}
                         </tbody>

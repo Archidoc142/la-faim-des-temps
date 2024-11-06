@@ -1,19 +1,19 @@
 import ActionCell from "./ActionCell"
 import Cell from "./Cell"
 
-export default function CommandeRow({commande, showClient, toggledMenuId, setToggledMenuId, setCommandeShow, setCommande}) {
+export default function CommandeRow({commande, showClient, toggledMenuId, setToggledMenuId, page}) {
 
-    const toggleVisibility = () => {
-        setCommande(commande)
-        setCommandeShow(true)
-    }
+    const options = [
+        {label: "Consulter", route: "/admin/commande/" + commande.id + "?prevPage=" + page}
+    ]
 
     return (
         <tr>
-            <Cell className="cursor-pointer" onClick={() => toggleVisibility()}>{commande.id}</Cell>
+            <Cell>{commande.id}</Cell>
             {showClient ? <Cell>{commande.user.prenom + " " + commande.user.nom}</Cell> : null}
             <Cell>{commande.total} $</Cell>
             <Cell>{commande.created_at}</Cell>
+            <ActionCell id={commande.id} options={options} toggledMenuId={toggledMenuId} setToggledMenuId={setToggledMenuId} editable={false}/>
         </tr>
     )
 }
