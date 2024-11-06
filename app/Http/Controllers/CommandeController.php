@@ -6,6 +6,7 @@ use App\Models\Commande;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Resources\CommandeResource;
+use App\Http\Resources\CommandeProduitResource;
 use App\Models\Adresse;
 use App\Models\CommandeProduit;
 use App\Models\Format;
@@ -95,9 +96,21 @@ class CommandeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Commande $commande)
+    public function show(Request $request, int $id)
     {
-        //
+        $commandes = Commande::find($id);
+        $produits = CommandeProduit::where('id_commande', $id)->get();
+
+        $prevPage = $request->prevPage;
+
+        if(is_null($prevPage))
+            $prevPage = "";
+
+        return Inertia::render('Admin/Commande', [
+            'commande' => new CommandeResource($commandes),
+            'produits' => CommandeProduitResource::collection($produits),
+            'prevPage' => $prevPage
+        ]);
     }
 
     /**
