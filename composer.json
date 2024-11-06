@@ -6,10 +6,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "google/apiclient": "^2.17",
         "inertiajs/inertia-laravel": "^1.0",
         "laravel/cashier": "^15.4",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
+        "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
         "quickbooks/v3-php-sdk": "^6.1",
         "tightenco/ziggy": "^2.0"

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\GoogleId;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -14,6 +15,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Services\QuickBooksService;
 use Exception;
+use Laravel\Socialite\Facades\Socialite;
 
 class RegisteredUserController extends Controller
 {
@@ -62,7 +64,37 @@ class RegisteredUserController extends Controller
                 'email' => $request->email,
                 'telephone' => $request->telephone,
                 'password' => Hash::make($request->password),
-                'id_role' => 1
+                'id_role' => 1,
+            'type' => 0
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(route('accueil', absolute: false));
+    }
+
+    public function google(Request $request)
+    {
+        $user = Socialite::driver('google')->user();
+
+        $googleId = GoogleId::firstOrCreate(
+            ['client_id' => $user->id]
+        );
+
+        $user = User::updateOrCreate(
+        [
+            'email' => $user->email,
+        ],
+        [
+            'nom' => $user->user['family_name'],
+            'prenom' => $user->user['given_name'],
+            'google_token' => $user->token,
+            'type' => 1,
+            'id_role' => 1,
+            'type' => 1,
+            'id_google' => $googleId->id
             ]);
         } catch (Exception $e) {
             // Do sommething with the exception

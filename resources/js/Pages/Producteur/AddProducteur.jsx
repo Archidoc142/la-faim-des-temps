@@ -5,7 +5,7 @@ import TextAreaInput from '@/Components/TextAreaInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 
-export default function AddProducteur() {
+export default function AddProducteur({ className }) {
     const imgUrl = '/img/';
     let image = null;
 
@@ -42,7 +42,7 @@ export default function AddProducteur() {
 
     return (
         <>
-            <div className='bg-[#7A163C80] my-5 rounded-lg m-3 py-4 lg:m-8 '>
+            <div className={'bg-[#7A163C80] my-5 rounded-lg m-3 py-4 lg:m-8 ' + (className)}>
                 <form onSubmit={submit}>
                     <div className='lg:grid lg:grid-cols-2 lg:p-4'>
                         <div>
@@ -59,14 +59,18 @@ export default function AddProducteur() {
                                     name="image"
                                     id="image"
                                     className="opacity-0 absolute top-0 left-0 w-full h-full hover:cursor-pointer"
-                                    onChange={(e) => { upload(e); setData('filename', e.target.files[0].name); }}
+                                    onChange={upload}
                                     accept="image/*"
                                 />
                             </div>
                         </div>
                         <div className='order-2'>
                             <div>
-                                <InputLabel htmlFor="nom" value="Nom du producteur:" />
+                                <InputLabel 
+                                    htmlFor="nom" 
+                                    value="Nom du producteur:" 
+                                    className='text-[#296ACF]'
+                                />
 
                                 <TextInput
                                     id="nom"
@@ -85,7 +89,11 @@ export default function AddProducteur() {
                             </div>
 
                             <div>
-                                <InputLabel htmlFor="url" value="lien vers le site du producteur:" />
+                                <InputLabel 
+                                    htmlFor="url" 
+                                    value="Lien vers le site du producteur:" 
+                                    className='text-[#296ACF]'
+                                />
 
                                 <TextInput
                                     id="url"
@@ -103,7 +111,11 @@ export default function AddProducteur() {
                             </div>
                             <div>
                                 <div>
-                                    <InputLabel htmlFor="descriptionFR" value="Description du producteur (Français):" />
+                                    <InputLabel 
+                                        htmlFor="descriptionFR" 
+                                        value="Description du producteur (Français):" 
+                                        className='text-[#296ACF]'
+                                    />
 
                                     <TextAreaInput
                                         id="descriptionFR"
@@ -121,7 +133,11 @@ export default function AddProducteur() {
                                     <InputError message={errors.descriptionFR} className="mt-2" />
                                 </div>
                                 <div>
-                                    <InputLabel htmlFor="descriptionEN" value="Description du producteur (Anglais):" />
+                                    <InputLabel 
+                                        htmlFor="descriptionEN" 
+                                        value="Description du producteur (Anglais):" 
+                                        className='text-[#296ACF]'
+                                    />
 
                                     <TextAreaInput
                                         id="descriptionEN"
@@ -140,7 +156,11 @@ export default function AddProducteur() {
                                 </div>
                             </div>
                             <div>
-                                <InputLabel htmlFor="adresse" value="Adresse du producteur:" />
+                                <InputLabel 
+                                    htmlFor="adresse" 
+                                    value="Adresse du producteur:" 
+                                    className='text-[#296ACF]'
+                                />
 
                                 <TextInput
                                     id="adresse"

@@ -31,6 +31,10 @@ Route::get('/', function () {
     ]);
 })->name('accueil');
 
+Route::get('/histoire', function () {
+    return Inertia::render('Histoire');
+})->name('histoire');
+
 Route::get('/menu', [ProduitController::class, 'index'])->name('menu.index');
 
 Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class)->name('panier');
@@ -79,6 +83,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 
     Route::controller(CommandeController::class)->group(function() {
         Route::get('/admin/commandes', 'index')->name('admin.commandes');
+        Route::get('/admin/commande/{id}', 'show')->name('admin.commande');
     });
 
     Route::controller(CommentaireController::class)->group(function() {
@@ -95,6 +100,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 
     Route::controller(ProducteurController::class)->group(function() {
         Route::post('/producteurs', 'store')->name('envoiNewProducteur');
+        Route::post('/admin/producteur/update', 'update')->name('updateProducteur');
     });
 
     Route::controller(QuickBooksController::class)->group(function() {
