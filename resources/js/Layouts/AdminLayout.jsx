@@ -34,7 +34,7 @@ export default function AdminLayout({ children, title, clientPage, commandePage,
                         }
 
                         { commandePage ?
-                            <Link href={"/admin/commandes?page=" + prevPage } className='mr-6'>
+                            <Link href={"/admin/commandes"} className='mr-6'>
                                 <img src={back} alt="Précédent" width={48} />
                             </Link> : null
                         }
