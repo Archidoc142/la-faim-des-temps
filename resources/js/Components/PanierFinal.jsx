@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
-export default function PanierFinal({ post, data, prix, setData, adresse, setContentBox, setBoxVisible, secteur }) {
+export default function PanierFinal({ post, data, prix, setData, adresse, setContentBox, setBoxVisible, secteur, submitting, setSubmitting, setEnLigne }) {
 
     const [t, i18n] = useTranslation("global")
     const [allergenes, setAllergenes] = useState(true)
@@ -13,15 +13,19 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
 
     const checkAllergenes = () => {
         if(allergenes && data.allergenes == "") {
-            alert("Veuillez ajouter vos allergènes. Si vous n'en avez pas, cochez la case « Je n'ai pas d'allergènes ».");
+            alert("Veuillez ajouter vos allergènes.\nSi vous n'en avez pas, cochez la case « Je n'ai pas d'allergènes ».");
             return false;
         }
         return true;
     }
 
-    const submitCommande = () => {
-        if(checkAllergenes())
-            post(route('envoiCommande'))
+    const submitCommande = (online) => {
+        if(checkAllergenes() && !submitting)
+        {
+            setEnLigne(online)
+            setSubmitting(true)
+            setContentBox(4)
+        }
     }
 
     let nomAdresse = "";
@@ -48,7 +52,6 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
                         </svg>
                     </button>
                 </div>
-
 
                 <h2 className="font-bold text-3xl pb-6 pt-10">{t("Panier.pass")}</h2>
 
@@ -100,13 +103,12 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
                 </div>
 
                 <div className="flex flex-col w-80 mx-auto gap-2 mb-2">
-                    <button onClick={() => submitCommande(true)} className="font-bold text-white bg-green-600 hover:bg-green-500 rounded px-4 py-2">
+                    <button onClick={() => submitCommande(true)} className={"font-bold text-white bg-green-600 hover:bg-green-500 rounded px-4 py-2" + (submitting ? " hover:cursor-not-allowed" : "")}>
                         <span className="text-lg">Payer en ligne</span> <br/>
                         <span className="font-normal">(carte de crédit)</span>
-                        {/*t("Panier.terminer")*/}
                     </button>
 
-                    <button onClick={() => submitCommande(false)} className="font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-2 mt-1">
+                    <button onClick={() => submitCommande(false)} className={"font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-2 mt-1" + (submitting ? " hover:cursor-not-allowed" : "")}>
                         <span>Payer plus tard</span> <br/>
                         <span className="font-normal">(Interac, comptant...)</span>
                     </button>

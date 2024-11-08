@@ -27,6 +27,17 @@ class RegisteredUserController extends Controller
         return Inertia::render('Auth/Register');
     }
 
+    private function storeToQB($user)
+    {
+        $quickBooksService = new QuickBooksService();
+
+        try {
+            $resultingCustomerObj = $quickBooksService->sendToQB($user);
+        } catch (Exception $e) {
+            // Do sommething with the exception
+        }
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -34,8 +45,6 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $quickBooksService = new QuickBooksService();
-
         $request->validate([
             'prenom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
             'nom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
@@ -57,16 +66,16 @@ class RegisteredUserController extends Controller
             'telephone.digits' => 'Le numéro de téléphone doit respecter le format (xxx) xxx-xxxx.',
         ]);
 
-        try {
-            $user = User::create([
-                'nom' => $request->nom,
-                'prenom' => $request->prenom,
-                'email' => $request->email,
-                'telephone' => $request->telephone,
-                'password' => Hash::make($request->password),
-                'id_role' => 1,
-            'type' => 0
+        $user = User::create([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'email' => $request->email,
+            'telephone' => $request->telephone,
+            'password' => Hash::make($request->password),
+            'id_role' => 1
         ]);
+
+        $this->storeToQB($user);
 
         event(new Registered($user));
 
@@ -95,22 +104,14 @@ class RegisteredUserController extends Controller
             'id_role' => 1,
             'type' => 1,
             'id_google' => $googleId->id
-            ]);
-        } catch (Exception $e) {
-            // Do sommething with the exception
-        }
+        ]);
 
-        try {
-            $resultingCustomerObj = $quickBooksService->sendToQB($user);
-        } catch (Exception $e) {
-            // Do sommething with the exception
-        }
+        $this->storeToQB($user);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        //dd(intval($resultingCustomerObj->Id));
         return redirect(route('accueil', absolute: false));
     }
 }
