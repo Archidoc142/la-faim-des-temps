@@ -315,7 +315,7 @@ class CommandeController extends Controller
         $user = $commande->user()->first();
         $quickBooksService->sendPayment($user, $commande);
 
-        dump("Commande passée!");
+        //dump("Commande passée!");
 
         return redirect('/?commandePassee=1');
 
