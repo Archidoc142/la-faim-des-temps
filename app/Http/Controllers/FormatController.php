@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Format;
 use App\Http\Requests\StoreFormatRequest;
 use App\Http\Requests\UpdateFormatRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FormatController extends Controller
 {
@@ -27,9 +29,29 @@ class FormatController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFormatRequest $request)
+    public function store(Request $request)
     {
-        //
+        //dd($request);
+
+        $lastInsertedId = DB::table('format')->insertGetId([
+            'montant' => $request->montant,
+        ]);
+
+        // Insertion du nom et de la description du format en français
+        DB::table('format_langue')->insert([
+            'id_format' => $lastInsertedId,
+            'id_langue' => 1,
+            'nom' => $request->nomFR,
+            'description' => $request->descriptionFR
+        ]);
+
+        // Insertion du nom et de la description du format en anglais
+        DB::table('format_langue')->insert([
+            'id_format' => $lastInsertedId,
+            'id_langue' => 2,
+            'nom' => $request->nomEN,
+            'description' => $request->descriptionEN
+        ]);
     }
 
     /**
