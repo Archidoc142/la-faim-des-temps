@@ -35,7 +35,7 @@ class Image extends Model
     {
         return $this->belongsToMany(Saison::class, 'image_saison', 'id_image', 'id_saison')
             ->where('id_image', $this->id)
-            ->where('id_saison', $this->$saison_actuelle)
+            ->where('id_saison', $saison_actuelle)
             ->first();
     }
 
