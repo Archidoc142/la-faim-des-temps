@@ -31,6 +31,14 @@ class Image extends Model
             ->all();
     }
 
+    public function saison($saison_actuelle)
+    {
+        return $this->belongsToMany(Saison::class, 'image_saison', 'id_image', 'id_saison')
+            ->where('id_image', $this->id)
+            ->where('id_saison', $this->$saison_actuelle)
+            ->first();
+    }
+
     public function langue($lang)
     {
         $id = Langue::where('code', $lang)->first()->id;
