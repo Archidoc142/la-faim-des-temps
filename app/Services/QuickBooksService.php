@@ -232,6 +232,7 @@ class QuickBooksService
             "EmailStatus" => "NeedToSend",
             "DueDate" => date("Y-m-d", strtotime('next thursday')),
             "SalesTermRef" => [ "value" => strval($salesTerm->Id) ],
+            "PrivateNote" => (is_null($commande->allergenes) ? "Aucun allergène" : "Allergènes : " . $commande->allergenes )
         ];
 
         if($commande->livraison)

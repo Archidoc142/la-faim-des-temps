@@ -12,43 +12,37 @@ export default function Header() {
     const url = usePage().url;
     const user = usePage().props.auth.user;
 
-    let d = new Date();
-    const [message, setMessage] = useState()
-    const noRedLabelURL = ['/avis', '/admin']
-
-    const options = { weekday: 'long', day: 'numeric', month: 'long' };
-    const tempDate = d.toLocaleDateString('fr-FR', options) + ' à 16:00';
-    const [date, setDate] = useState(tempDate)
-
     const out = useRef(null);
     useOutside(out);
 
-    // Format la date pour avoir le prochain lundi
-    // Si langue = fr - langue affiché en (fr)
+    const [message, setMessage] = useState()
+    const noRedLabelURL = ['/avis', '/admin']
+
+    const dateToShow = new Date(usePage().props.dateToShow) // Date d' handleInertiaRequest
+    const canCommand = usePage().props.canCommand
+
+    const options = { weekday: 'long', day: 'numeric', month: 'long' };
+    const tempDate = dateToShow.toLocaleDateString('fr-FR', options) + ' à 16:00';
+    const [date, setDate] = useState(tempDate)
+
     useEffect(() => {
-        if (
-            (d.getDay() == 5 && d.getHours() >= 12) ||  // Vendredi après 12h
-            (d.getDay() == 6 || d.getDay()   ==  0) ||  // Samedi ou dimanche
-            (d.getDay() == 1 && d.getHours()  < 16)     // Lundi avant 16h
-          ){
+        if (canCommand){
             // Peut commander
             setMessage(t("Header.date"))
-            d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
 
             if (i18n.language === 'fr') {
-                setDate(d.toLocaleDateString('fr-FR', options) + ' à 16:00')
+                setDate(dateToShow.toLocaleDateString('fr-FR', options) + ' à 16:00')
             } else {
-                setDate(d.toLocaleDateString('en-EN', options) + ' at 16:00')
+                setDate(dateToShow.toLocaleDateString('en-EN', options) + ' at 16:00')
             }
         } else {
             // Ne peut pas commander
             setMessage(t("Header.nextMenu"))
-            d.setDate(d.getDate() + (((5 + 7 - d.getDay()) % 7) || 7));
 
             if (i18n.language === 'fr') {
-                setDate(d.toLocaleDateString('fr-FR', options) + ' à 12:00')
+                setDate(dateToShow.toLocaleDateString('fr-FR', options) + ' à 12:00')
             } else {
-                setDate(d.toLocaleDateString('en-EN', options) + ' at 12:00')
+                setDate(dateToShow.toLocaleDateString('en-EN', options) + ' at 12:00')
             }
         }
     }, [i18n.language])
@@ -89,7 +83,7 @@ export default function Header() {
     };
 
     return (
-        <header className='border-b border-[#9b9b9b] sticky top-0 z-10'>
+        <header className='border-b border-[#9b9b9b] sticky top-0 z-30'>
             <div className='flex bg-white'>
                 <a href="/" className='content-center'><img className='hidden lg:block w-auto self-center max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" /></a>
 

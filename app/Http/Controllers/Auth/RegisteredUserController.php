@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\GoogleId;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -14,6 +15,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Services\QuickBooksService;
 use Exception;
+use Laravel\Socialite\Facades\Socialite;
 
 class RegisteredUserController extends Controller
 {
@@ -25,6 +27,17 @@ class RegisteredUserController extends Controller
         return Inertia::render('Auth/Register');
     }
 
+    private function storeToQB($user)
+    {
+        $quickBooksService = new QuickBooksService();
+
+        try {
+            $resultingCustomerObj = $quickBooksService->sendToQB($user);
+        } catch (Exception $e) {
+            // Do sommething with the exception
+        }
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -32,8 +45,6 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $quickBooksService = new QuickBooksService();
-
         $request->validate([
             'prenom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
             'nom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
@@ -55,30 +66,52 @@ class RegisteredUserController extends Controller
             'telephone.digits' => 'Le numéro de téléphone doit respecter le format (xxx) xxx-xxxx.',
         ]);
 
-        try {
-            $user = User::create([
-                'nom' => $request->nom,
-                'prenom' => $request->prenom,
-                'email' => $request->email,
-                'telephone' => $request->telephone,
-                'password' => Hash::make($request->password),
-                'id_role' => 1
-            ]);
-        } catch (Exception $e) {
-            // Do sommething with the exception
-        }
+        $user = User::create([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'email' => $request->email,
+            'telephone' => $request->telephone,
+            'password' => Hash::make($request->password),
+            'id_role' => 1
+        ]);
 
-        try {
-            $resultingCustomerObj = $quickBooksService->sendToQB($user);
-        } catch (Exception $e) {
-            // Do sommething with the exception
-        }
+        $this->storeToQB($user);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        //dd(intval($resultingCustomerObj->Id));
+        return redirect(route('accueil', absolute: false));
+    }
+
+    public function google(Request $request)
+    {
+        $user = Socialite::driver('google')->user();
+
+        $googleId = GoogleId::firstOrCreate(
+            ['client_id' => $user->id]
+        );
+
+        $user = User::updateOrCreate(
+        [
+            'email' => $user->email,
+        ],
+        [
+            'nom' => $user->user['family_name'],
+            'prenom' => $user->user['given_name'],
+            'google_token' => $user->token,
+            'type' => 1,
+            'id_role' => 1,
+            'type' => 1,
+            'id_google' => $googleId->id
+        ]);
+
+        $this->storeToQB($user);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
         return redirect(route('accueil', absolute: false));
     }
 }

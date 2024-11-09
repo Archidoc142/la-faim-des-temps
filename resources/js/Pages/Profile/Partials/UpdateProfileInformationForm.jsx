@@ -12,6 +12,7 @@ export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
     className = "",
+    userType
 }) {
     const [t, i18n] = useTranslation("global");
     const user = usePage().props.auth.user;
@@ -114,10 +115,11 @@ export default function UpdateProfileInformation({
                         <TextInput
                             id="email"
                             type="email"
-                            className="mt-1 block w-full bg-white rounded-md"
+                            className={"mt-1 block w-full bg-white rounded-md" + ( userType != 0 ? " text-gray-400 hover:cursor-not-allowed" : "")}
                             defaultValue={user.data.email}
                             onChange={(e) => setData("email", e.target.value)}
                             required
+                            disabled={userType != 0}
                             autoComplete="username"
                         />
 
