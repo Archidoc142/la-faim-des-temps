@@ -3,7 +3,7 @@ import ActionCell from "./ActionCell"
 import Cell from "./Cell"
 import StarsComment from "@/Components/StarsComment";
 
-export default function CommentaireRow({ commentaire, toggledMenuId, setToggledMenuId, page, setCommentaireShow, commentaireShow, setCommentaire }) {
+export default function CommentaireRow({ commentaire, toggledMenuId, setToggledMenuId, page, setCommentaireShow, setCommentaire }) {
 
     const options = [
         { label: "Supprimer", route: "/admin/commentaire/destroy/" + commentaire.id, type: "DELETE" },
