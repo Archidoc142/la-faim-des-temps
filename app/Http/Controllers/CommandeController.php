@@ -269,7 +269,7 @@ class CommandeController extends Controller
                 'line_items' => $items,
                 'mode' => 'payment',
                 'success_url' => route('commande-success') . '?session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url' => route('panier'),
+                'cancel_url' => route('commande-cancel'). '?session_id={CHECKOUT_SESSION_ID}'
             ],
         );
 
@@ -324,5 +324,22 @@ class CommandeController extends Controller
     }
 
 
-    public function cancel(Request $request) {}
+    public function cancel(Request $request)
+    {
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $sessionId = $request->get('session_id');
+
+        $session = \Stripe\Checkout\Session::retrieve($sessionId);
+
+        if (!$session) {
+            throw new NotFoundHttpException;
+        }
+
+        $commande = Commande::where('session_id', $request->session_id);
+        CommandeProduit::where('id_commande', $commande->first()->id)->delete();
+        $commande->delete();
+
+        return redirect('/panier');
+    }
 }

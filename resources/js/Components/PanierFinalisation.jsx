@@ -41,12 +41,16 @@ export default function PanierFinalisation({panier, prix, setBoxVisible, adresse
         produits: panier
     })
 
-    // à finaliser : empêcher useOutside quand submitting est défini en true
     function useOutside(ref) {
+        const submittingRef = useRef(submitting);
+
+        useEffect(() => {
+            submittingRef.current = submitting;
+        }, [submitting]);
+
         useEffect(() => {
             function handleClickOutside(e) {
-                if (out.current && !out.current.contains(e.target) && !submitting) { // <-- submitting est false peu importe le state, bizarre
-                    //alert(submitting)
+                if (out.current && !out.current.contains(e.target) && !submittingRef.current) {
                     setBoxVisible(false)
                 }
             }

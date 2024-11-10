@@ -88,6 +88,8 @@ class RegisteredUserController extends Controller
     {
         $user = Socialite::driver('google')->user();
 
+        $userExists = GoogleId::where('client_id', $user->id)->exists();
+
         $googleId = GoogleId::firstOrCreate(
             ['client_id' => $user->id]
         );
@@ -106,9 +108,11 @@ class RegisteredUserController extends Controller
             'id_google' => $googleId->id
         ]);
 
-        $this->storeToQB($user);
-
-        event(new Registered($user));
+        if(!$userExists)
+        {
+            $this->storeToQB($user);
+            event(new Registered($user));
+        }
 
         Auth::login($user);
 
