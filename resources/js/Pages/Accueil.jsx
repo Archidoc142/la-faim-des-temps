@@ -8,8 +8,10 @@ import ferme from '../../../public/img/ferme.jpg'
 import assiette from '../../../public/img/assiette.jpg'
 import { useEffect, useState } from 'react';
 import StarsComment from '@/Components/StarsComment';
+import Carrousel from '@/Components/Carrousel';
 
-export default function Accueil({ commentaires }) {
+export default function Accueil({ commentaires, images }) {
+
     const [t, i18n] = useTranslation("global");
 
     useEffect(() => {
@@ -86,9 +88,9 @@ export default function Accueil({ commentaires }) {
             {commentaires && commentaires.data.length > 0 ? <div className='bg-[#041A37] pt-6 text-center'>
                 <p className='text-white font-bold text-3xl'>{t("Accueil.commentaire")}</p>
 
-                <div className='py-6 px-4 flex items-center justify-center gap-8 md:gap-24'>
-                    <button onClick={() => movePostLeft(index)}>
-                        <svg className='w-20 h-20 md:w-24 md:h-24 border-gray-400 border-4 bg-white hover:bg-slate-500 rounded-[50%]' viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
+                <div className='py-6 px-4 flex items-center justify-center gap-8'>
+                    <button onClick={() => movePostLeft()}>
+                        <svg className='w-20 h-20 md:w-24 md:h-24 rounded-[50%]' viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
                     </button>
 
                     <div className='bg-white rounded-lg px-8 w-[50%] min-h-[160px] border-gray-400 border-4 pt-8 py-2'>
@@ -101,8 +103,8 @@ export default function Accueil({ commentaires }) {
                     </div>
 
 
-                    <button onClick={() => movePostRight(index)}>
-                        <svg className='w-20 h-20 md:w-24 md:h-24 border-gray-400 border-4 bg-white hover:bg-slate-500 rounded-[50%]' viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
+                    <button onClick={() => movePostRight()}>
+                        <svg className='w-20 h-20 md:w-24 md:h-24 rounded-[50%]' viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
                     </button>
                 </div>
 
@@ -115,6 +117,8 @@ export default function Accueil({ commentaires }) {
                         ></span>
                     ))}
                 </div>
+
+                {images.data.length > 0 ? <Carrousel images={images.data} i18n={i18n} /> : null}
             </div> : null }
         </>
     );

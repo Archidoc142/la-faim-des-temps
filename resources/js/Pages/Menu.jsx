@@ -234,15 +234,29 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
             <Head title="Menu" />
 
-
             {/*Entête*/}
-            <div className='bg-[#EBEBEB] justify-center py-8 px-10 md:py-20 md:px-20'>
-                <h1 className='text-center text-3xl font-semibold mb-2'>{t("Menu.titre")}</h1>
-                <p className='text-center'>{t("Menu.sous-titre")}</p>
+            <div className='bg-[#EBEBEB] justify-center py-8 mb-20 px-10 md:py-20 md:px-20'>
+                <h1 className='text-center text-3xl md:text-5xl font-semibold mb-2'>{t("Menu.titre")}</h1>
+                <p className='text-center text-lg'>{t("Menu.sous-titre")}</p>
             </div>
 
-            {/*Coût des portions*/}
-            <div className='p-10 md:p-20 m-auto'>
+            {/*Lien qui mène au menu*/}
+            <a href="#menuAncre" className='flex gap-2 items-center text-black bg-blue-300 sticky w-fit top-48'>
+                <svg className='' fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="16px" height="15px" viewBox="0 0 30.727 30.727"
+                    xml:space="preserve">
+                    <g>
+                        <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536c0.977-0.977,2.559-0.976,3.536,0
+		l11.095,11.093L26.461,6.647c0.977-0.976,2.559-0.976,3.535,0C30.971,7.624,30.971,9.206,29.994,10.183z"/>
+                    </g>
+                </svg>
+                {t("Menu.ancre")}
+            </a>
+
+
+            {/*Coût des portions - CETTE SECTION EST MISE EN COMMENTAIRE POUR POUVOIR L'AFFICHER AU BESOIN DANS LE FUTUR
+
+            <div className='p-10 !pt-5 md:p-20 m-auto'>
                 <h2 className='text-2xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
 
                 <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center max-w-[1000px]'>
@@ -256,7 +270,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                         </div>
                     ))}
                 </div>
-            </div>
+            </div>*/}
 
             {/*Récupérer ta commande*/}
             <div className='p-10 !pt-5 w-fit m-auto md:p-20'>
@@ -282,7 +296,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             </div>
 
             {/*Menu de la semaine*/}
-            <div className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7'>
+            <div id="menuAncre" className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7'>
 
                 {user && user.data.role == "admin" ?
                     <MenuDateRetour

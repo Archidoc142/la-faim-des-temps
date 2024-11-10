@@ -74,7 +74,8 @@
         "date-passed" : "La date limite pour cette semaine est passée.",
         "next-friday" : "Vous pourrez commander à nouveau à 12:00 le ",
         "menu-indisponible" : "Le menu est présentement indisponible.",
-        "menu-back" : "Il sera de retour le "
+        "menu-back" : "Il sera de retour le ",
+        "ancre" : "Descendre jusqu'au menu!"
     },
     "Panier": {
         "vide": "Vide",
