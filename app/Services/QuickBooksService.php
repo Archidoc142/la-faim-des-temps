@@ -7,6 +7,7 @@ use App\Http\Models\Commande;
 use App\Models\ProduitFormat;
 use App\Models\QBId;
 use App\Models\TarifLivraison;
+use Exception;
 use Illuminate\Support\Facades\Crypt;
 use QuickBooksOnline\API\DataService\DataService;
 use QuickBooksOnline\API\Facades\Customer;
@@ -14,6 +15,7 @@ use QuickBooksOnline\API\Facades\Invoice;
 use QuickBooksOnline\API\Facades\Item;
 use QuickBooksOnline\API\Facades\Account;
 use Illuminate\Http\Request;
+use QuickBooksOnline\API\Exception\ServiceException;
 use QuickBooksOnline\API\Facades\Deposit;
 use QuickBooksOnline\API\Facades\Payment;
 
@@ -280,14 +282,26 @@ class QuickBooksService
 
     public function refreshTokens()
     {
-        $OAuth2LoginHelper = $this->initOAuth2LoginHelper();
+        if(QBToken::exists())
+        {
+            $OAuth2LoginHelper = $this->initOAuth2LoginHelper();
+            $oldRefreshToken = QBToken::getToken('refresh');
 
-        $oldRefreshToken = QBToken::getToken('refresh');
-
-        $accessTokenObj = $OAuth2LoginHelper->refreshAccessTokenWithRefreshToken($oldRefreshToken);
-
-        $this->storeTokens($accessTokenObj);
-
+            try
+            {
+                $accessTokenObj = $OAuth2LoginHelper->refreshAccessTokenWithRefreshToken($oldRefreshToken);
+                $this->storeTokens($accessTokenObj);
+                return true;
+            }
+            catch(ServiceException $e)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public function initOAuth2LoginHelper()
@@ -403,8 +417,18 @@ class QuickBooksService
         }
     }
 
-    public function tokensValid()
+    public function revokeTokens()
     {
-        
+        $OAuth2LoginHelper = $this->initOAuth2LoginHelper();
+
+        //$refreshToken = QBToken::getToken("refresh");
+        $accessToken = QBToken::getToken("access");
+
+        $revokeResult = $OAuth2LoginHelper->revokeToken($accessToken);
+        //$revokeResult = $OAuth2LoginHelper->revokeToken($refreshToken);
+
+        if($revokeResult){
+            dd("RefreshToken Token revoked.");
+        }
     }
 }

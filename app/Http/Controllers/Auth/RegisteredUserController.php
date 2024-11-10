@@ -31,6 +31,8 @@ class RegisteredUserController extends Controller
     {
         $quickBooksService = new QuickBooksService();
 
+        if($quickBooksService->refreshTokens())
+
         try {
             $resultingCustomerObj = $quickBooksService->sendToQB($user);
         } catch (Exception $e) {

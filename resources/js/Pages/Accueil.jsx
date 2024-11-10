@@ -1,5 +1,5 @@
 import TitleSection from '@/Components/TitleSection';
-import { Link, Head } from '@inertiajs/react';
+import { Link, Head, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import AccueilImg from '@/Components/AccueilImg';
 import HeadWithImage from '@/Components/HeadWithImage';
@@ -10,9 +10,10 @@ import { useEffect, useState } from 'react';
 import StarsComment from '@/Components/StarsComment';
 import Carrousel from '@/Components/Carrousel';
 
-export default function Accueil({ commentaires, images }) {
+export default function Accueil({ commentaires, images, qbValid }) {
 
     const [t, i18n] = useTranslation("global");
+    const user = usePage().props.auth.user;
 
     useEffect(() => {
         let params = new URLSearchParams(document.location.search);
@@ -21,6 +22,10 @@ export default function Accueil({ commentaires, images }) {
 
         if (isLogout || commandePassee) {
             localStorage.setItem("panier", JSON.stringify([]));
+        }
+
+        if(user && user.data.role == "admin" && !qbValid) {
+            alert("AVERTISSEMENT: Authentification QuickBooks échouée.\n\nLes nouveaux clients et les commandes n'apparaîtront pas sur votre QuickBooks.\n\nReconnectez votre compte dans la section \"QuickBooks\" du menu administrateur pour régler le problème.")
         }
     }, [])
 

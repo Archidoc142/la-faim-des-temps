@@ -8,14 +8,21 @@ use App\Http\Resources\ImageAccueilResource;
 use App\Models\Commentaire;
 use App\Models\Image;
 use App\Models\QBToken;
+use App\Services\QuickBooksService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AccueilController extends Controller
 {
-    public function accueil()
+    public function accueil(Request $request)
     {
-        $exists = QBToken::exists();
+        $qbValid = null;
+
+        if(!is_null($request->user()) && $request->user()->role->nom == "admin")
+        {
+            $quickBooksService = new QuickBooksService();
+            $qbValid = $quickBooksService->refreshTokens();
+        }
 
         /* Commentaires */
         $commentaires = CommentaireResource::collection(
@@ -38,7 +45,7 @@ class AccueilController extends Controller
         return Inertia::render('Accueil', [
             'commentaires' => $commentaires,
             'images' => $imagesResource,
-            'qbExists' => $exists
+            'qbValid' => $qbValid
         ]);
     }
 
