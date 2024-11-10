@@ -30,7 +30,7 @@ Route::get('/histoire', function () {
 
 Route::get('/menu', [ProduitController::class, 'index'])->name('menu.index');
 
-Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class)->name('panier');
+Route::get('/panier', [PanierController::class, 'index'])->name('panier');
 
 Route::controller(CommandeController::class)->group(function() {
     Route::post('/commande', [CommandeController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class)->name('envoiCommande');

@@ -74,7 +74,8 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'telephone' => $request->telephone,
             'password' => Hash::make($request->password),
-            'id_role' => 1
+            'id_role' => 1,
+            "type" => 0
         ]);
 
         $this->storeToQB($user);

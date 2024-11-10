@@ -11,11 +11,13 @@ import GoogleLogin from '@/Components/GoogleLogin';
 export default function Login({ status, canResetPassword }) {
 
     const [t, i18n] = useTranslation("global");
+    const params = new URLSearchParams(document.location.search);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
         remember: false,
+        redirectToPanier: !!params.get("target")
     });
 
     const submit = (e) => {

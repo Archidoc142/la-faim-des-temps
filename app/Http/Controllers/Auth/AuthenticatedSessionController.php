@@ -22,8 +22,8 @@ class AuthenticatedSessionController extends Controller
     {
         $quickBooksService = new QuickBooksService();
 
-        //If token exist refesh it, else display a error 
-        if(QBToken::exists()) 
+        //If token exist refesh it, else display a error
+        if(QBToken::exists())
             $quickBooksService->refreshTokens();
 
         return Inertia::render('Auth/Login', [
@@ -46,6 +46,9 @@ class AuthenticatedSessionController extends Controller
         //tentative de création de compte QuickBooks si aucun compte n'est lié et que l'utilisateur n'est pas admin
         if($request->user()->role->nom != "admin" && $request->user()->id_qb === null)
             $quickBooksService->sendToQB($request->user());
+
+        if($request->redirectToPanier)
+            return redirect("/panier?loggedIn=1");
 
         return redirect()->intended(route('accueil', absolute: false));
     }

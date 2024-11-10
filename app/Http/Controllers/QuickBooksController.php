@@ -18,12 +18,10 @@ class QuickBooksController extends Controller
 
         $tokensValid = false;
 
-        /*if(QBToken::exists())
+        if(QBToken::exists())
         {
             $tokensValid = $quickBooksService->refreshTokens();
-        }*/
-
-        $tokensValid = $quickBooksService->revokeTokens();
+        }
 
         $OAuth2LoginHelper = $quickBooksService->initOAuth2LoginHelper();
         // Get the Authorization URL from the SDK
