@@ -38,7 +38,6 @@ export default function ImageForm({ image, setPopupActif }) {
 
     function submit(e) {
         e.preventDefault();
-        setPopupActif(false);
 
         console.log(data)
         console.log(data.saisons == [false, false, false, false])
@@ -47,11 +46,16 @@ export default function ImageForm({ image, setPopupActif }) {
             alert("Sélectionnez au moins une saison si l'image est saisonnière.")
 
         else
+        {
+            setPopupActif(false);
+
             post('/admin/image', {
                 preserveScroll: true,
                 onError: (errors) => { setPopupActif(true); alert(errors[0]); },
                 //onFinish: () => { setPopupActif(false); } // ferme le pop-up mm avec des erreurs
             });
+        }
+
     }
 
     function upload(e) {

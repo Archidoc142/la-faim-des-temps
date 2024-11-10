@@ -7,6 +7,7 @@ use App\Http\Resources\CommentaireResource;
 use App\Http\Resources\ImageAccueilResource;
 use App\Models\Commentaire;
 use App\Models\Image;
+use App\Models\QBToken;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,6 +15,8 @@ class AccueilController extends Controller
 {
     public function accueil()
     {
+        $exists = QBToken::exists();
+
         /* Commentaires */
         $commentaires = CommentaireResource::collection(
             Commentaire::where('masque', true)
@@ -34,7 +37,8 @@ class AccueilController extends Controller
 
         return Inertia::render('Accueil', [
             'commentaires' => $commentaires,
-            'images' => $imagesResource
+            'images' => $imagesResource,
+            'qbExists' => $exists
         ]);
     }
 

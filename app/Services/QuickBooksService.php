@@ -402,4 +402,9 @@ class QuickBooksService
             $this->sendInvoiceEmail($invoice[0], $user->email);
         }
     }
+
+    public function tokensValid()
+    {
+        
+    }
 }

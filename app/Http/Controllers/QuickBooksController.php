@@ -15,11 +15,11 @@ class QuickBooksController extends Controller
     public function index(Request $request)
     {
         $quickBooksService = new QuickBooksService();
+        $exists = QBToken::exists();
 
-        if(QBToken::exists())
+        if($exists)
         {
             $quickBooksService->refreshTokens();
-            //$quickBooksService->getAllAccounts();
         }
 
         $OAuth2LoginHelper = $quickBooksService->initOAuth2LoginHelper();
@@ -28,7 +28,8 @@ class QuickBooksController extends Controller
         $authUrl = $OAuth2LoginHelper->getAuthorizationCodeURL();
 
         return Inertia::render('Admin/QuickBooksAuth', [
-            'url' => $authUrl
+            'url' => $authUrl,
+            'qbExists' => $exists
         ]);
     }
 
@@ -46,10 +47,9 @@ class QuickBooksController extends Controller
         $quickBooksService->storeTokens($accessTokenObj);
         $quickBooksService->initItems();
 
-        //$quickBooksService->exportAllItems();
-
         return Inertia::render('Admin/QuickBooksAuth', [
-            'url' => QBToken::getToken("access")
+            'url' => QBToken::getToken("access"),
+            'qbExists' => true
         ]);
     }
 }
