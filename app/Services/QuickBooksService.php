@@ -209,6 +209,7 @@ class QuickBooksService
     {
         $dataService = $this->configureDataService();
         $dataService->SendEmail($invoice, $email);   //Envoie de la facture par courriel au client, la personnalisation du courriel en question ce fais dans la configuration de QB
+        $dataService->SendEmail($invoice, 'dragonwhites.minecraftgaming@gmail.com');   //Envoie de la même facture au propriétaire en guise de notification
     }
 
     //Cette fonction permet de créer une facture dans QuickBooks
