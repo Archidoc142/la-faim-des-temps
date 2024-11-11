@@ -30,7 +30,7 @@ export default function Carrousel({ images, i18n }) {
                         key={i}
                         src={`/img/${images[i].src}`}
                         alt={"img_plat_" + i}
-                        className={"max-w-[60%] mb-6 mt-4 border-4 border-white " + (index == i ? "block" : "hidden")}
+                        className={"max-h-[500px] mb-6 mt-4 border-4 border-white " + (index == i ? "block" : "hidden")}
                     />
                 )}
 
