@@ -17,6 +17,7 @@ use App\Http\Controllers\TexteStatique;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use App\Http\Resources\CommentaireResource;
+use App\Http\Controllers\FormatController;
 use App\Models\Commentaire;
 use App\Models\Produit;
 use Illuminate\Foundation\Application;
@@ -84,6 +85,10 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::get('admin/tarifs', 'index')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarifs");
         Route::post('admin/tarif/updateTarif', 'updateTarif')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateTarif");
         Route::post('admin/tarif/updateFormat', 'updateFormat')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateFormat");
+    });
+
+    Route::controller(FormatController::class)->group(function() {
+        Route::post('/admin/tarif', 'store');
     });
 
     Route::controller(ProducteurController::class)->group(function() {
