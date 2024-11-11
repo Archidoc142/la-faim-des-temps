@@ -52,6 +52,17 @@ class FormatController extends Controller
             'nom' => $request->nomEN,
             'description' => $request->descriptionEN
         ]);
+
+        // Association du format à chaque produit
+        $rows = count(DB::table('produit')->get());
+
+        for($i = 3; $i <= $rows; $i++)
+        {
+            DB::table('produit_format')->insert([
+                'id_produit' => $i,
+                'id_format' => $lastInsertedId
+                ]);
+        }
     }
 
     /**
