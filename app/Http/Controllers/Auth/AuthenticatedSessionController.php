@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\GoogleId;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,9 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Services\QuickBooksService;
 use App\Models\QBToken;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -51,6 +55,58 @@ class AuthenticatedSessionController extends Controller
             return redirect("/panier?loggedIn=1");
 
         return redirect()->intended(route('accueil', absolute: false));
+    }
+
+    public function googleLogin(Request $request)
+    {
+        if(!is_null($request->target))
+            return Socialite::driver('google')
+                    ->with(["state" => "panier"])
+                    ->redirect();
+
+        return Socialite::driver('google')
+            ->redirect();
+    }
+
+    public function google(Request $request)
+    {
+        $user = Socialite::driver('google')->stateless()->user();
+        $userExists = GoogleId::where('client_id', $user->id)->exists();
+
+        $googleId = GoogleId::firstOrCreate(
+            ['client_id' => $user->id]
+        );
+
+        $user = User::updateOrCreate(
+        [
+            'email' => $user->email,
+        ],
+        [
+            'nom' => $user->user['family_name'],
+            'prenom' => $user->user['given_name'],
+            'google_token' => $user->token,
+            'type' => 1,
+            'id_role' => 1,
+            'type' => 1,
+            'id_google' => $googleId->id
+        ]);
+
+        if(!$userExists || is_null($user->id_qb))
+        {
+            $qbService = new QuickBooksService();
+            $qbService->sendCustomer($user);
+
+            event(new Registered($user));
+        }
+
+        Auth::login($user);
+
+        $state = $request->input("state");
+
+        if(!is_null($state))
+            return redirect("/panier?loggedIn=1");
+
+        return redirect(route('accueil', absolute: false));
     }
 
     /**

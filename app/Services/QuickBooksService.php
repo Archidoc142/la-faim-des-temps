@@ -21,6 +21,19 @@ use QuickBooksOnline\API\Facades\Payment;
 
 class QuickBooksService
 {
+    public function sendCustomer(User $user)
+    {
+        $quickBooksService = new QuickBooksService();
+
+        if($quickBooksService->refreshTokens())
+
+        try {
+            $resultingCustomerObj = $quickBooksService->sendToQB($user);
+        } catch (Exception $e) {
+            // Do sommething with the exception
+        }
+    }
+
     private function getGUID()
     {
         if (function_exists('com_create_guid')){
@@ -255,6 +268,8 @@ class QuickBooksService
                 $invoiceData["BillAddr"]["Line3"] = "Sherbrooke, QC  " . $commande->adresse->code_postal;
             }
         }
+
+        dump($invoiceData);
 
         $invoiceObj = Invoice::create($invoiceData);
 

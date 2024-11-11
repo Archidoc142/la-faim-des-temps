@@ -59,7 +59,7 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
 
                 <h3 className="font-bold text-3xl mb-4">{data.livraison ? t("Panier.total") : "Total"}</h3>
 
-                <div className="flex justify-center flex-col mx-20 mb-4">
+                <div className="flex justify-center flex-col mx-14 mb-4">
                     <div className="border-b-black border-b-[1px] pb-3">
                         <div className="flex justify-between">
                             <p>{t("Panier.article")} :</p>

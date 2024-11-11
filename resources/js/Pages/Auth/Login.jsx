@@ -12,12 +12,13 @@ export default function Login({ status, canResetPassword }) {
 
     const [t, i18n] = useTranslation("global");
     const params = new URLSearchParams(document.location.search);
+    const redirectToPanier = !!params.get("target");
 
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
         remember: false,
-        redirectToPanier: !!params.get("target")
+        redirectToPanier: redirectToPanier
     });
 
     const submit = (e) => {
@@ -47,7 +48,7 @@ export default function Login({ status, canResetPassword }) {
                     <div className='p-6 2xl:px-16'>
                         <h2 className='text-center font-bold text-2xl mb-8 mt-2'>{t("Login.title1")}<br />{t("Login.title2")}</h2>
 
-                        <GoogleLogin/>
+                        <GoogleLogin redirectToPanier={redirectToPanier}/>
                         {/* div de la partie utile du formulaire (grise)*/}
                         <div className='bg-[#f7f6f6] rounded-md p-6 2xl:pt-10 lg:px-10 lg:pb-24'>
                             <form onSubmit={submit}>
@@ -113,7 +114,7 @@ export default function Login({ status, canResetPassword }) {
                                     <br />
 
                                     <Link
-                                        href={route('register')}
+                                        href={"/register" + (redirectToPanier ? "?target=panier" : "")}
                                         className="underline text-sm text-[#006ce5] hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                     >
                                         {t("Login.creer_compte")}

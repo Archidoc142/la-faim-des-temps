@@ -27,19 +27,6 @@ class RegisteredUserController extends Controller
         return Inertia::render('Auth/Register');
     }
 
-    private function storeToQB($user)
-    {
-        $quickBooksService = new QuickBooksService();
-
-        if($quickBooksService->refreshTokens())
-
-        try {
-            $resultingCustomerObj = $quickBooksService->sendToQB($user);
-        } catch (Exception $e) {
-            // Do sommething with the exception
-        }
-    }
-
     /**
      * Handle an incoming registration request.
      *
@@ -47,10 +34,12 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $qbService = new QuickBooksService();
+
         $request->validate([
             'prenom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
             'nom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
-            'email' => 'required|string|lowercase|email|max:128|unique:'.User::class,
+            'email' => 'required|string|lowercase|regex:/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/|max:100|unique:'.User::class,
             'telephone' => 'nullable|numeric|digits:10',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ],[
@@ -78,46 +67,14 @@ class RegisteredUserController extends Controller
             "type" => 0
         ]);
 
-        $this->storeToQB($user);
+        $qbService->sendCustomer($user);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('accueil', absolute: false));
-    }
-
-    public function google(Request $request)
-    {
-        $user = Socialite::driver('google')->user();
-
-        $userExists = GoogleId::where('client_id', $user->id)->exists();
-
-        $googleId = GoogleId::firstOrCreate(
-            ['client_id' => $user->id]
-        );
-
-        $user = User::updateOrCreate(
-        [
-            'email' => $user->email,
-        ],
-        [
-            'nom' => $user->user['family_name'],
-            'prenom' => $user->user['given_name'],
-            'google_token' => $user->token,
-            'type' => 1,
-            'id_role' => 1,
-            'type' => 1,
-            'id_google' => $googleId->id
-        ]);
-
-        if(!$userExists)
-        {
-            $this->storeToQB($user);
-            event(new Registered($user));
-        }
-
-        Auth::login($user);
+        if($request->redirectToPanier)
+            return redirect("/panier?loggedIn=1");
 
         return redirect(route('accueil', absolute: false));
     }

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Services\QuickBooksService;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -55,7 +56,7 @@ class ProfileController extends Controller
 
         if($client->email != $request->email)
         {
-            $rules['email'] = 'required|string|lowercase|email|max:128|unique:'.User::class;
+            $rules['email'] = 'required|string|lowercase|regex:/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/|max:100|unique:'.User::class;
             $messages['email.required'] = 'Veuillez entrer un courriel.';
             $messages['email.email'] = 'Veuillez entrer un courriel valide.';
             $messages['email.regex'] = 'Le format du courriel entré est invalide.';
@@ -73,6 +74,12 @@ class ProfileController extends Controller
         $client->telephone = $request->telephone;
 
         $client->save();
+
+        if(!is_null($client->id_qb))
+        {
+            $qbService = new QuickBooksService();
+            $qbService->updateCustomer($client);
+        }
 
         return Redirect::route('profile.edit');
     }
