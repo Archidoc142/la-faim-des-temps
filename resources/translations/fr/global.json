@@ -75,9 +75,7 @@
         "next-friday": "Vous pourrez commander à nouveau à 12:00 le ",
         "menu-indisponible": "Le menu est présentement indisponible.",
         "menu-back": "Il sera de retour le ",
-        "ancre": "Descendre jusqu'au menu!",
-        "test": "en francais",
-        "autre": "fr"
+        "ancre": "Descendre jusqu'au menu!"
     },
     "Panier": {
         "vide": "Vide",
@@ -160,5 +158,17 @@
         "accueil": "Accueil",
         "histoire": "Notre histoire",
         "avis": "Votre avis"
+    },
+    "M": {
+        "e": "n"
+    },
+    "t": {
+        "e": "s"
+    },
+    "f": {
+        "e": "i"
+    },
+    "k": {
+        "f": "n"
     }
 }
