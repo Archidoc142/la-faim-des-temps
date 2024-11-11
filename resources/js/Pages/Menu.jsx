@@ -68,26 +68,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }
     }
 
-    /*  async function changeText(groupe, nom, texteFR, texteEN) {
-
-          if (groupe && nom && texteFR && texteEN) {
-              const data = {
-                  groupe: groupe,
-                  nom: nom,
-                  texteFR: texteFR,
-                  texteEN: texteEN,
-              };
-
-              router.post('/modifier-texte', data, {
-                  preserveScroll: true,
-                  onError: (errors) => { alert(errors[0]); }
-              });
-          }
-          else {
-              alert("Un élément est manquant.")
-          }
-      }*/
-
     async function changeText(nouveau_texte) {
         if (nouveau_texte) {
             let data = {};
@@ -333,20 +313,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
 
 
-                    {/*Lien qui mène au menu*/}
-                <div className='flex items-end'>
-                    <a href="#menuAncre" className='flex items-center text-black border-b-2 border-[#BB285C] shadow-lg p-1 sticky w-fit top-48'>
-                        <svg className='' fill="#000000" width="34px" height="34px" viewBox="-8.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.28 20.040c-0.24 0-0.44-0.080-0.6-0.24l-6.44-6.44c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l5.84 5.84 5.84-5.84c0.32-0.32 0.84-0.32 1.2 0 0.32 0.32 0.32 0.84 0 1.2l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24z" />
-                        </svg>
 
-                        {t("Menu.ancre")}
-
-                        <svg className='ml-2' fill="#000000" height="24px" width="24px" version="1.1" id="soupeicon" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 297 297" xmlSpace="preserve">
-                            <path d="M292.943,168.477c0.83-2.996,0.213-6.209-1.67-8.684c-1.882-2.474-4.811-3.927-7.921-3.927H13.647 c-3.109,0-6.039,1.453-7.921,3.927c-1.883,2.475-2.5,5.688-1.67,8.683c16.204,58.481,66.323,101.01,125.403,108.62H27.27 c-5.496,0-9.952,4.456-9.952,9.952c0,5.496,4.456,9.952,9.952,9.952h242.459c5.496,0,9.952-4.456,9.952-9.952 c0-5.496-4.456-9.952-9.952-9.952H167.54C226.618,269.485,276.737,226.957,292.943,168.477z M148.5,258.415 c-53.742,0-101.772-33.386-121.06-82.645h242.118C250.269,225.029,202.24,258.415,148.5,258.415z" /> <path d="M79.227,123.815c5.495,0,9.952-4.456,9.952-9.952V44.59c0-5.496-4.457-9.952-9.952-9.952c-5.496,0-9.953,4.456-9.953,9.952 v69.273C69.273,119.359,73.73,123.815,79.227,123.815z" /> <path d="M217.773,123.815c5.496,0,9.953-4.456,9.953-9.952V44.59c0-5.496-4.457-9.952-9.953-9.952 c-5.495,0-9.952,4.456-9.952,9.952v69.273C207.821,119.359,212.278,123.815,217.773,123.815z" /> <path d="M148.5,89.179c5.496,0,9.952-4.456,9.952-9.952V9.952c0-5.496-4.456-9.952-9.952-9.952c-5.496,0-9.952,4.456-9.952,9.952 v69.274C138.548,84.723,143.004,89.179,148.5,89.179z" />
-                        </svg>
-                    </a>
-                </div>
 
                 {/*Coût des portions - CETTE SECTION EST MISE EN COMMENTAIRE POUR POUVOIR L'AFFICHER AU BESOIN DANS LE FUTUR
 
