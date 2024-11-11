@@ -7,12 +7,15 @@ import { useTranslation } from 'react-i18next';
 
 import logo from '../../../../public/img/logo-rect.jpg'
 import GoogleLogin from '@/Components/GoogleLogin';
+import { useState } from 'react';
 
 export default function Login({ status, canResetPassword }) {
 
     const [t, i18n] = useTranslation("global");
     const params = new URLSearchParams(document.location.search);
     const redirectToPanier = !!params.get("target");
+
+    const [submitting, setSubmitting] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
@@ -24,9 +27,13 @@ export default function Login({ status, canResetPassword }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('login'), {
-            onFinish: () => reset('password'),
-        });
+        if(!submitting) {
+            setSubmitting(true);
+
+            post(route('login'), {
+                onFinish: () => { reset('password'); setSubmitting(false); },
+            });
+        }
     };
 
     return (
@@ -50,7 +57,7 @@ export default function Login({ status, canResetPassword }) {
 
                         <GoogleLogin redirectToPanier={redirectToPanier}/>
                         {/* div de la partie utile du formulaire (grise)*/}
-                        <div className='bg-[#f7f6f6] rounded-md p-6 2xl:pt-10 lg:px-10 lg:pb-24'>
+                        <div className='bg-[#f7f6f6] rounded-md p-6 2xl:pt-10 lg:px-10 lg:pb-10'>
                             <form onSubmit={submit}>
 
                                 <div>
@@ -121,7 +128,7 @@ export default function Login({ status, canResetPassword }) {
                                     </Link>
 
                                     <div className="flex justify-center mt-8 2xl:mt-14">
-                                        <button className='bg-[#0844a4] text-white font-bold p-2 px-8 rounded-[4px]'>
+                                        <button className={(submitting ? "bg-gray-400 hover:cursor-not-allowed": "bg-[#0844a4] hover:bg-[#1f55ac]") + " text-white font-bold p-2 px-8 rounded-[4px]"}>
                                             {t("Login.connexion")}
                                         </button>
                                     </div>

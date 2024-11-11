@@ -18,6 +18,7 @@ class CommandeResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'qb_invoice_id' => $this->qb_invoice_id,
             'livraison' => $this->livraison,
             'frais_livraison' => $this->frais_livraison,
             'total' => $this->total,

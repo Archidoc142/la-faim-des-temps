@@ -37,6 +37,9 @@ export default function Commande({ commande, produits, prevPage }) {
                 <p className="font-medium col-span-4">Code :</p>
                 <p className="col-span-8">#{commande.data.id}</p>
 
+                <p className="font-medium col-span-4">Code facture QuickBooks :</p>
+                <p className="col-span-8">#{commande.data.qb_invoice_id}</p>
+
                 <p className="font-medium col-span-4">Date :</p>
                 <p className="col-span-8">{date.toLocaleDateString('fr-FR', options)}</p>
 
