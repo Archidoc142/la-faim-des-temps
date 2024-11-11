@@ -5,7 +5,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import TextAreaInput from '@/Components/TextAreaInput';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 
 
@@ -16,6 +16,8 @@ export default function Producteur({
     setData,
     errors
 }) {
+    const user = usePage().props.auth.user;
+
     const imgFile = '/img/';
     let image = null;
 
@@ -93,7 +95,8 @@ export default function Producteur({
                     className={`${producteur.id % 2 === 0 ? 'bg-[#7A163C80]' : ''} my-5 rounded-lg m-3 py-4 lg:m-8`}
                     id={producteur.id}
                 >
-                    {editMode ?
+                    {user && user.data.role == "admin" ?
+                    editMode ?
                         <div className="flex items-end gap-5 pt-3">
                             <svg onClick={() => {
                                 setEditMode(false);
@@ -164,6 +167,7 @@ export default function Producteur({
                                 />                            
                             </svg>
                         </div>
+                    : null
                     }
                     <div className='lg:grid lg:grid-cols-2 lg:p-4'>
                         {
