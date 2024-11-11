@@ -3,6 +3,7 @@ import HeadCell from "@/Components/Admin/Table/HeadCell";
 import HeadActionCell from "@/Components/Admin/Table/HeadActionCell";
 import { useEffect, useState } from "react";
 import TarifRow from "@/Components/Admin/Table/TarifRow";
+import AddTarifForm from "@/Components/Admin/AddTarifForm";
 import { useForm } from "@inertiajs/react";
 
 export default function Tarifs({ tarifs, formats }) {
@@ -13,6 +14,8 @@ export default function Tarifs({ tarifs, formats }) {
         montant: "",
         type: "",
     });
+
+    const [popupActif, setPopupActif] = useState(false)
 
     const resetTarifData = () => {
         reset("id", "idIndex", "montant", "type");
@@ -66,7 +69,7 @@ export default function Tarifs({ tarifs, formats }) {
                             return <TarifRow
                                 tarif={t}
                                 type={"tarif"}
-                                id = {id}
+                                id={id}
                                 key={id}
                                 editableId={editableId}
                                 seteditableId={seteditableId}
@@ -84,7 +87,7 @@ export default function Tarifs({ tarifs, formats }) {
                             return <TarifRow
                                 tarif={f}
                                 type={"format"}
-                                id = {id}
+                                id={id}
                                 key={id}
                                 editableId={editableId}
                                 seteditableId={seteditableId}
@@ -98,6 +101,15 @@ export default function Tarifs({ tarifs, formats }) {
                     </tbody>
                 </table>
             </form>
-        </AdminLayout>
+            <div className="flex justify-end mt-4">
+                <button onClick={() => setPopupActif(true)} className="p-2 w-60 rounded-md text-lg bg-[#7A163C] text-white font-bold hover:cursor-pointer hover:bg-slate-700">Ajouter un tarif</button>
+            </div>
+
+            {popupActif ?
+                <AddTarifForm
+                    setPopupActif={setPopupActif}
+                />
+                : null}
+        </AdminLayout >
     );
 }
