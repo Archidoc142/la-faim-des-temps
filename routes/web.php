@@ -10,7 +10,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
+use App\Http\Controllers\SaisonController;
 use App\Http\Controllers\TarifLivraisonController;
+use App\Http\Controllers\TexteStatique;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use App\Http\Resources\CommentaireResource;
@@ -58,13 +60,13 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::get('/admin', function() { return redirect()->route('admin.clients');})->name('admin.accueil');
 
     Route::post('/menu/modifier', [ProduitController::class, 'update'])->name('menu.update');
-    //Route::post('/dates-menu', [DatesMenuController::class, 'update']);
+
+    Route::post('/modifier-texte', [TexteStatique::class, 'update']);
 
 
     Route::controller(ImageController::class)->group(function() {
         Route::get('/admin/images', 'index')->name('admin.images');
         Route::post('/admin/image', 'store');
-        //Route::delete('/admin/image/{id}', 'destroy');
         Route::post('/admin/del-image', 'destroy');
     });
 

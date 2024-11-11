@@ -6,6 +6,7 @@ import FormatsMenu from '@/Components/FormatsMenu';
 import MenuBase from '@/Components/MenuBase';
 import MenuPrinc from '@/Components/MenuPrinc';
 import MenuDateRetour from '@/Components/MenuDateRetour';
+import ModifButton from '@/Components/Admin/ModifButton';
 
 export default function Menu({ formats, langFormats, tarifs, produits, dates_menu, token, ajd, heure }) {
 
@@ -66,6 +67,49 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }
     }
 
+    /*  async function changeText(groupe, nom, texteFR, texteEN) {
+
+          if (groupe && nom && texteFR && texteEN) {
+              const data = {
+                  groupe: groupe,
+                  nom: nom,
+                  texteFR: texteFR,
+                  texteEN: texteEN,
+              };
+
+              router.post('/modifier-texte', data, {
+                  preserveScroll: true,
+                  onError: (errors) => { alert(errors[0]); }
+              });
+          }
+          else {
+              alert("Un élément est manquant.")
+          }
+      }*/
+
+    async function changeText(nouveau_texte) {
+        if (nouveau_texte) {
+            let data = {};
+
+            for (let index = 0; index < nouveau_texte.length; index++) {
+                data[index] = {
+                    "groupe": nouveau_texte[index][0],
+                    "target": nouveau_texte[index][1],
+                    "fr": nouveau_texte[index][2],
+                    "en": nouveau_texte[index][3]
+                }
+            }
+
+            router.post('/modifier-texte', data, {
+                preserveScroll: true,
+                onError: (errors) => { alert(errors[0]); }
+            });
+        }
+        else {
+            alert("Un élément est manquant.")
+        }
+    }
+
     useEffect(() => {
         if (Object.keys(errors).length > 0) {
             let errorMsg = ""
@@ -83,10 +127,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     const user = usePage().props.auth.user;
 
     const [t, i18n] = useTranslation("global");
-
-    //séparer les formats selon la langue
-    const FrFormats = langFormats.filter(format => format.id_langue == 1);
-    const EnFormats = langFormats.filter(format => format.id_langue == 2);
 
     let d = new Date();
 
@@ -109,6 +149,17 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     const [vendrediNextYYYY, setVendrediNextYYYY] = useState(dates_menu[3].date);
 
     const [editMode, setEditMode] = useState(false);
+
+
+
+
+    const [editRecupMode, setEditRecupMode] = useState(false);//###############################
+
+    let statiqueFR = [];
+    let statiqueEN = [];
+
+
+
 
     let dr = new Date(dates_menu[0].date);  //date retour à partir de la BD
     let dv = new Date(dates_menu[1].date);  //vendredi de *cette* période de commande
@@ -238,21 +289,64 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 <p className='text-center text-lg'>{t("Menu.sous-titre")}</p>
             </div>
 
-            {/*Lien qui mène au menu*/}
-            <a href="#menuAncre" className='flex gap-2 items-center text-black bg-blue-300 sticky w-fit top-48'>
-                <svg className='' fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="16px" height="15px" viewBox="0 0 30.727 30.727"
-                    xml:space="preserve">
-                    <g>
-                        <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536c0.977-0.977,2.559-0.976,3.536,0
-		l11.095,11.093L26.461,6.647c0.977-0.976,2.559-0.976,3.535,0C30.971,7.624,30.971,9.206,29.994,10.183z"/>
-                    </g>
-                </svg>
-                {t("Menu.ancre")}
-            </a>
 
 
-            {/*Coût des portions - CETTE SECTION EST MISE EN COMMENTAIRE POUR POUVOIR L'AFFICHER AU BESOIN DANS LE FUTUR
+
+
+
+
+
+
+
+
+
+
+            {/* #################################################################
+            {/* #################################################################
+            {/* ################################################################# */}
+
+            <div className='pl-5 bg-yellow-200'>
+                {t("Menu.test")}
+                <br />
+                {t("Menu.autre")}
+            </div>
+            <p className='text-3xl text-red-700 mb-12 hover:cursor-pointer'
+                onClick={() => changeText([["Menu", "test", "en francais", "and english"], ["Menu", "autre", "fr", "en"]])}>BTN CHANGEMENT DE TEXTE
+            </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    {/*Lien qui mène au menu*/}
+                <div className='flex items-end'>
+                    <a href="#menuAncre" className='flex items-center text-black border-b-2 border-[#BB285C] shadow-lg p-1 sticky w-fit top-48'>
+                        <svg className='' fill="#000000" width="34px" height="34px" viewBox="-8.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.28 20.040c-0.24 0-0.44-0.080-0.6-0.24l-6.44-6.44c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l5.84 5.84 5.84-5.84c0.32-0.32 0.84-0.32 1.2 0 0.32 0.32 0.32 0.84 0 1.2l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24z" />
+                        </svg>
+
+                        {t("Menu.ancre")}
+
+                        <svg className='ml-2' fill="#000000" height="24px" width="24px" version="1.1" id="soupeicon" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 297 297" xmlSpace="preserve">
+                            <path d="M292.943,168.477c0.83-2.996,0.213-6.209-1.67-8.684c-1.882-2.474-4.811-3.927-7.921-3.927H13.647 c-3.109,0-6.039,1.453-7.921,3.927c-1.883,2.475-2.5,5.688-1.67,8.683c16.204,58.481,66.323,101.01,125.403,108.62H27.27 c-5.496,0-9.952,4.456-9.952,9.952c0,5.496,4.456,9.952,9.952,9.952h242.459c5.496,0,9.952-4.456,9.952-9.952 c0-5.496-4.456-9.952-9.952-9.952H167.54C226.618,269.485,276.737,226.957,292.943,168.477z M148.5,258.415 c-53.742,0-101.772-33.386-121.06-82.645h242.118C250.269,225.029,202.24,258.415,148.5,258.415z" /> <path d="M79.227,123.815c5.495,0,9.952-4.456,9.952-9.952V44.59c0-5.496-4.457-9.952-9.952-9.952c-5.496,0-9.953,4.456-9.953,9.952 v69.273C69.273,119.359,73.73,123.815,79.227,123.815z" /> <path d="M217.773,123.815c5.496,0,9.953-4.456,9.953-9.952V44.59c0-5.496-4.457-9.952-9.953-9.952 c-5.495,0-9.952,4.456-9.952,9.952v69.273C207.821,119.359,212.278,123.815,217.773,123.815z" /> <path d="M148.5,89.179c5.496,0,9.952-4.456,9.952-9.952V9.952c0-5.496-4.456-9.952-9.952-9.952c-5.496,0-9.952,4.456-9.952,9.952 v69.274C138.548,84.723,143.004,89.179,148.5,89.179z" />
+                        </svg>
+                    </a>
+                </div>
+
+                {/*Coût des portions - CETTE SECTION EST MISE EN COMMENTAIRE POUR POUVOIR L'AFFICHER AU BESOIN DANS LE FUTUR
 
             <div className='p-10 !pt-5 md:p-20 m-auto'>
                 <h2 className='text-2xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
@@ -270,31 +364,117 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 </div>
             </div>*/}
 
-            {/*Récupérer ta commande*/}
-            <div className='p-10 !pt-5 w-fit m-auto md:p-20'>
-                <h2 className='text-2xl text-[#BB285C] text-center font-bold mb-9 md:mb-12 max-w-96 m-auto'>{t("Menu.recuperer")}</h2>
+                {/*Récupérer ta commande*/}
+                <div className='p-10 !pt-5 w-fit m-auto md:p-20'>
+                    <h2 className='text-2xl text-[#BB285C] text-center font-bold mb-9 md:mb-12 max-w-96 m-auto'>{t("Menu.recuperer")}</h2>
 
-                <div className='bg-[#EBEBEB] rounded-2xl p-10 mb-12 max-w-[1000px] md:w-auto'>
-                    <h3 className='text-center font-bold mb-5 md:text-xl'>{t("Menu.livr-titre")}</h3>
-                    <p className='text-sm md:text-base'>{t("Menu.livr-p")}</p>
-                    <br />
-                    <br />
-                    <p className='mb-5 text-sm md:text-base'>{t("Menu.livr-heure")}<b>{dateDelivery}</b>.</p>
-                    <div className='mb-5'>
-                        <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-sherb")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[0].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""} {t("Menu.livr-sherb")}</p>
-                        <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-autre")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[1].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""}</p>
+                    <div className='bg-[#EBEBEB] rounded-2xl p-10 mb-12 max-w-[1000px] md:w-auto'>
+
+
+
+
+                        {console.log("edit", editRecupMode)
+                        }
+                        {/* #################################
+                    COMPONENT NON FONCTIONNEL */
+                            user && user.data.role == "admin" ?
+                                <ModifButton
+                                    editMode={editRecupMode}
+                                    setEditMode={setEditRecupMode}
+                                    couleur="#000"
+                                />
+                                :
+                                null}
+
+
+
+
+                        {/* #################################
+                    BOUTONS DE TEXTAREA QUI FONCTIONNENT PCQ LE COMPONENT MARCHE PAS */
+                            user && user.data.role == "admin" ?
+                                <>
+                                    {editRecupMode ?
+                                        <div className="flex items-center gap-5">
+                                            <svg onClick={() => setEditRecupMode(false)} fill="#ffffff" height="200px" width="200px" className="h-fit max-w-8 hover:fill-[#BB285C] cursor-pointer" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 460.775 460.775" xmlSpace="preserve" stroke="none" >
+                                                <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z" />
+                                            </svg>
+
+                                            <button onClick={() => changeText([
+                                                ["Menu", "livr-p", statiqueFR[0], statiqueEN[0]],
+                                                ["Menu", "livr-info", statiqueFR[1], statiqueEN[1]]])} type='button'>
+                                                <svg width="118px" height="118px" className="h-fit max-w-10  hover:fill-[#BB285C]" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" stroke="none">
+                                                    <path fillRule="evenodd" clipRule="evenodd" d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z" fill="#fffff" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        :
+                                        <svg onClick={() => setEditRecupMode(true)} width="200px" height="200px" viewBox="0 0 24 24" className="h-fit max-w-10 hover:stroke-[#BB285C] hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff" >
+                                            <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                                            <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#fffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                                        </svg>
+                                    }
+                                </> : null
+                        }
+
+
+
+
+
+
+
+                        <h3 className='text-center font-bold mb-5 md:text-xl'>{t("Menu.livr-titre")}</h3>
+                        {/* #################################
+                    TEXTAREA */
+                            editRecupMode ?
+                                <>
+                                    <label htmlFor="livr1-fr">Français</label>
+                                    <textarea className='w-full mb-2' name="livr1-fr" id="livr1-fr" placeholder="Entrez le texte approprié en FRANÇAIS"
+                                        defaultValue={t('Menu.livr-p', { lng: 'fr' })}
+                                        onChange={(e) => { statiqueFR[0] = e.target.value }}></textarea>
+
+                                    <label htmlFor="livr1-en">Anglais</label>
+                                    <textarea className='w-full' name="livr1-en" id="livr1-en" placeholder="Entrez le texte approprié en ANGLAIS"
+                                        defaultValue={t('Menu.livr-p', { lng: 'en' })}
+                                        onChange={(e) => { statiqueEN[0] = e.target.value }}></textarea>
+                                </>
+                                :
+                                <p className='text-sm md:text-base'>{t("Menu.livr-p")}</p>
+                        }
+                        <br />
+                        <br />
+                        <p className='mb-5 text-sm md:text-base'>{t("Menu.livr-heure")}<b>{dateDelivery}</b>.</p>
+                        <div className='mb-5'>
+                            <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-sherb")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[0].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""} {t("Menu.livr-sherb")}</p>
+                            <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-autre")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[1].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""}</p>
+                        </div>
+                        {editRecupMode ?
+                            <>
+                                <label htmlFor="livr1-fr">Français</label>
+                                <textarea className='w-full mb-2' name="livr2-fr" id="livr2-fr" placeholder="Entrez le texte approprié en FRANÇAIS"
+                                    defaultValue={t('Menu.livr-info', { lng: 'fr' })}
+                                    onChange={(e) => { statiqueFR[1] = e.target.value }}></textarea>
+
+                                <label htmlFor="livr2-en">Anglais</label>
+                                <textarea className='w-full' name="livr2-en" id="livr2-en" placeholder="Entrez le texte approprié en ANGLAIS"
+                                    defaultValue={t('Menu.livr-info', { lng: 'en' })}
+                                    onChange={(e) => { statiqueEN[1] = e.target.value }}></textarea>
+                            </>
+                            :
+                            <p className='text-[#BB285C] italic'>{t("Menu.livr-info")}</p>
+                        }
                     </div>
-                    <p className='text-[#BB285C] italic'>{t("Menu.livr-info")}</p>
-                </div>
 
-                <div className='bg-[#EBEBEB] rounded-2xl p-10 justify-center max-w-[1000px] md:w-auto'>
-                    <h3 className='text-center font-bold mb-5  md:text-xl'>{t("Menu.venir-titre")}</h3>
-                    <p className='text-sm md:text-base'>{t("Menu.venir-p")}</p>
+
+
+
+                    <div className='bg-[#EBEBEB] rounded-2xl p-10 justify-center max-w-[1000px] md:w-auto'>
+                        <h3 className='text-center font-bold mb-5  md:text-xl'>{t("Menu.venir-titre")}</h3>
+                        <p className='text-sm md:text-base'>{t("Menu.venir-p")}</p>
+                    </div>
                 </div>
-            </div>
 
             {/*Menu de la semaine*/}
-            <div id="menuAncre" className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7'>
+            < div id="menuAncre" className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7' >
 
                 {user && user.data.role == "admin" ?
                     <MenuDateRetour
@@ -305,7 +485,8 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                         dateMenuLund={dateMenuLund}
                         changeDateBD={changeDateBD}
                     />
-                    : null}
+                    : null
+                }
 
                 <form onSubmit={submit}>
 
@@ -405,8 +586,8 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                         : null}
 
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 
 }
