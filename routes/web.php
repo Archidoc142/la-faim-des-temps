@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccueilController;
 use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommandeController;
@@ -22,15 +23,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Accueil', [
-        'commentaires' => CommentaireResource::collection(
-            Commentaire::where('masque', true)
-            ->whereNotNull('commentaire')
-            ->limit(10)
-            ->get())
-    ]);
-})->name('accueil');
+Route::get('/', [AccueilController::class, 'accueil'])->name('accueil');
 
 Route::get('/histoire', function () {
     return Inertia::render('Histoire');
@@ -96,6 +89,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::controller(ProducteurController::class)->group(function() {
         Route::post('/producteurs', 'store')->name('envoiNewProducteur');
         Route::post('/admin/producteur/update', 'update')->name('updateProducteur');
+        Route::post('/admin/producteur/delete', 'destroy');
     });
 });
 

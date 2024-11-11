@@ -6,6 +6,7 @@ import FormatsMenu from '@/Components/FormatsMenu';
 import MenuBase from '@/Components/MenuBase';
 import MenuPrinc from '@/Components/MenuPrinc';
 import MenuDateRetour from '@/Components/MenuDateRetour';
+import GoDownButton from '@/Components/GoDownButton';
 import ModifButton from '@/Components/Admin/ModifButton';
 
 export default function Menu({ formats, langFormats, tarifs, produits, dates_menu, token, ajd, heure }) {
@@ -282,6 +283,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         <div className='Menu bg-white'>
 
             <Head title="Menu" />
+            <GoDownButton />
 
             {/*Entête*/}
             <div className='bg-[#EBEBEB] justify-center py-8 mb-20 px-10 md:py-20 md:px-20'>
