@@ -370,25 +370,12 @@ class QuickBooksService
             'RedirectURI' => $config['oauth_redirect_uri'],
             'scope' => $config['oauth_scope'],
             'baseUrl' => "development",
-            'QBORealmID' => "9341453160686081",                 //valeur à changer pour déploiement
+            'QBORealmID' => env("QBO_REALM_ID"),                 //valeur à changer pour déploiement
             'accessTokenKey' => QBToken::getToken("access"),
             'refreshTokenKey' => QBToken::getToken("refresh")
         ));
     }
 
-    public function getAllAccounts()
-    {
-        $dataService = $this->configureDataService();
-
-        $accountArray = $dataService->Query("select * from Term where Name LIKE '%Due%'");
-
-        if(is_null($accountArray))
-            $accountArray = $dataService->Query("select * from Term where Name LIKE '%Due%'");
-
-
-        dd($accountArray);
-
-    }
     public function sendPayment($user, $commande)
     {
         $dataService = $this->configureDataService();
@@ -426,7 +413,6 @@ class QuickBooksService
         }
         else
         {
-            //dump($resultingDeposit);
             $invoice = $dataService->Query("SELECT * FROM Invoice WHERE Id='" . $commande->qb_id . "'" );
             $this->sendInvoiceEmail($invoice[0], $user->email);
         }

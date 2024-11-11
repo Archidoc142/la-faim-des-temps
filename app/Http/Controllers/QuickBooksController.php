@@ -35,23 +35,28 @@ class QuickBooksController extends Controller
 
     public function callback(Request $request)
     {
-        $quickBooksService = new QuickBooksService();
+        if(is_null($request->error))
+        {
+            $quickBooksService = new QuickBooksService();
 
-        $authCode = $request->query('code');
-        $realmId = $request->query('realmId');
+            $authCode = $request->query('code');
+            $realmId = $request->query('realmId');
 
-        $OAuth2LoginHelper = $quickBooksService->initOAuth2LoginHelper();
+            $OAuth2LoginHelper = $quickBooksService->initOAuth2LoginHelper();
 
-        $accessTokenObj = $OAuth2LoginHelper->exchangeAuthorizationCodeForToken($authCode, $realmId);
+            $accessTokenObj = $OAuth2LoginHelper->exchangeAuthorizationCodeForToken($authCode, $realmId);
 
-        $quickBooksService->storeTokens($accessTokenObj);
-        $quickBooksService->initItems();
+            $quickBooksService->storeTokens($accessTokenObj);
+            $quickBooksService->initItems();
 
-        $authUrl = $OAuth2LoginHelper->getAuthorizationCodeURL();
+            /*$authUrl = $OAuth2LoginHelper->getAuthorizationCodeURL();
 
-        return Inertia::render('Admin/QuickBooksAuth', [
-            'url' => $authUrl,
-            'tokensValid' => true
-        ]);
+            return Inertia::render('Admin/QuickBooksAuth', [
+                'url' => $authUrl,
+                'tokensValid' => true
+            ]);*/
+        }
+
+        return redirect("/admin/quickbooks");
     }
 }
