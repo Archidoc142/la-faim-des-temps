@@ -51,7 +51,9 @@ class QuickBooksService
     private function getIncomeAccountObj($dataService)
     {
         $accountArray = $dataService->Query("select * from Account where AccountType='Income' and AccountSubType='SalesOfProductIncome'");
+        dump($accountArray);
         $error = $dataService->getLastError();
+        dd($error);
         if ($error) {
             dd($error);
         } else {
@@ -64,7 +66,7 @@ class QuickBooksService
         $incomeAccountRequestObj = Account::create([
             "AccountType" => 'Income',
             "AccountSubType" => 'SalesOfProductIncome',
-            "Name" => "IncomeAccount-" . $this->getGUID()
+            "Name" => "40000 Ventes"
         ]);
         $incomeAccountObject = $dataService->Add($incomeAccountRequestObj);
         $error = $dataService->getLastError();
@@ -81,7 +83,6 @@ class QuickBooksService
     {
         $dataService = $this->configureDataService();
 
-        // À REMPLACER PAR LE BON COMPTE EN PRODUCTION
         $incomeAccount = $this->getIncomeAccountObj($dataService);
 
         $items = ProduitFormat::all();
@@ -376,12 +377,40 @@ class QuickBooksService
         ));
     }
 
+    private function getBankAccount($dataService)
+    {
+        $bankAccounts = $dataService->Query("select * from Account where Name like '%10000 Compte chèques (5020)%'");
+
+        $error = $dataService->getLastError();
+        if ($error) {
+            dd($error);
+        } else {
+            if (is_array($bankAccounts) && sizeof($bankAccounts) > 0) {
+                return current($bankAccounts);
+            }
+        }
+
+        // Create Income Account
+        $bankAccountRequestObj = Account::create([
+            "AccountType" => 'Bank',
+            "AccountSubType" => 'Checking',
+            "Name" => "10000 Compte chèques (5020)"
+        ]);
+        $bankAccountObject = $dataService->Add($bankAccountRequestObj);
+        $error = $dataService->getLastError();
+        if ($error) {
+            dd($error);
+        } else {
+            return $bankAccountObject;
+        }
+
+    }
+
     public function sendPayment($user, $commande)
     {
         $dataService = $this->configureDataService();
 
-        $bankAccountArray = $dataService->Query("select * from Account where AccountType='Bank' and AccountSubType='Checking'");
-        $bankAccount = current($bankAccountArray);
+        $bankAccount = $this->getBankAccount($dataService);
 
         $paymentData = [
             "CustomerRef" => [ "value" => strval($user->id_qb) ],

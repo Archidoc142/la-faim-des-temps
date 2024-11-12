@@ -54,7 +54,7 @@ class AuthenticatedSessionController extends Controller
         if($request->redirectToPanier)
             return redirect("/panier?loggedIn=1");
 
-        return redirect()->intended(route('accueil', absolute: false));
+        return redirect("/?loggedIn=1");
     }
 
     public function googleLogin(Request $request)
@@ -106,7 +106,7 @@ class AuthenticatedSessionController extends Controller
         if(!is_null($state))
             return redirect("/panier?loggedIn=1");
 
-        return redirect(route('accueil', absolute: false));
+        return redirect("/?loggedIn=1");
     }
 
     /**

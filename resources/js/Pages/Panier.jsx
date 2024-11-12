@@ -32,8 +32,10 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
         const justLoggedIn = params.get("loggedIn");
 
         if(justLoggedIn)
+        {
             setBoxVisible(true);
-
+            showMessageFlash(1, "Bienvenue " + user.data.prenom + "!");
+        }
     }, []);
 
     // Message Flash

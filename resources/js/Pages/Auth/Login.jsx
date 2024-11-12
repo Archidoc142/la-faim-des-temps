@@ -4,6 +4,7 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
+import MessageFlash from '@/Components/MessageFlash';
 
 import logo from '../../../../public/img/logo-rect.jpg'
 import GoogleLogin from '@/Components/GoogleLogin';
@@ -16,6 +17,8 @@ export default function Login({ status, canResetPassword }) {
     const redirectToPanier = !!params.get("target");
 
     const [submitting, setSubmitting] = useState(false);
+    const [messageVisibility, setMessageVisibility] = useState(true)
+
 
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
@@ -41,6 +44,15 @@ export default function Login({ status, canResetPassword }) {
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+
+            {redirectToPanier ?
+                <MessageFlash
+                    status={2}
+                    message="Veuillez vous connecter pour passer une commande."
+                    visibility={messageVisibility}
+                    setVisibility={setMessageVisibility}
+                />
+            : null}
 
             <div className='bg-white rounded-lg m-6 flex min-h-[80%] 2xl:min-h-[90%] border-2 border-gray-500'>
                 <div className='hidden lg:block border-r-2 border-r-gray-500 w-[60%] p-6'>

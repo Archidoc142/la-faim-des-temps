@@ -9,14 +9,19 @@ import assiette from '../../../public/img/assiette.jpg'
 import { useEffect, useState } from 'react';
 import StarsComment from '@/Components/StarsComment';
 import Carrousel from '@/Components/Carrousel';
+import MessageFlash from '@/Components/MessageFlash';
 
 export default function Accueil({ commentaires, images, qbValid }) {
 
     const [t, i18n] = useTranslation("global");
     const user = usePage().props.auth.user;
 
+    const params = new URLSearchParams(document.location.search);
+    const loggedIn = params.get("loggedIn");
+
+    const [messageVisibility, setMessageVisibility] = useState(true)
+
     useEffect(() => {
-        let params = new URLSearchParams(document.location.search);
         let isLogout = params.get("isLogout");
         let commandePassee = params.get("commandePassee");
 
@@ -27,6 +32,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
         if(user && user.data.role == "admin" && !qbValid) {
             alert("AVERTISSEMENT: Authentification QuickBooks échouée.\n\nLes nouveaux clients et les commandes n'apparaîtront pas sur votre QuickBooks.\n\nReconnectez votre compte dans la section \"QuickBooks\" du menu administrateur pour régler le problème.")
         }
+
     }, [])
 
     const [index, setIndex] = useState(0)
@@ -47,6 +53,15 @@ export default function Accueil({ commentaires, images, qbValid }) {
 
     return (
         <>
+            {loggedIn ?
+                <MessageFlash
+                    status={1}
+                    message={"Bienvenue " + user.data.prenom + "!"}
+                    visibility={messageVisibility}
+                    setVisibility={setMessageVisibility}
+                />
+            : null}
+
             <Head title={t("Onglet.accueil")} />
             {/* this dont work */}
             <HeadWithImage
