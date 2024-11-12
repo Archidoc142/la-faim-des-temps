@@ -50,10 +50,9 @@ class QuickBooksService
 
     private function getIncomeAccountObj($dataService)
     {
-        $accountArray = $dataService->Query("select * from Account where AccountType='Income' and AccountSubType='SalesOfProductIncome'");
-        dump($accountArray);
+        $accountArray = $dataService->Query("select * from Account where Name like '%40000 Ventes%'");
         $error = $dataService->getLastError();
-        dd($error);
+
         if ($error) {
             dd($error);
         } else {
@@ -225,7 +224,7 @@ class QuickBooksService
     {
         $dataService = $this->configureDataService();
         $dataService->SendEmail($invoice, $email);   //Envoie de la facture par courriel au client, la personnalisation du courriel en question ce fais dans la configuration de QB
-        $dataService->SendEmail($invoice, 'dragonwhites.minecraftgaming@gmail.com');   //Envoie de la même facture au propriétaire en guise de notification
+        //$dataService->SendEmail($invoice, 'dragonwhites.minecraftgaming@gmail.com');   //Envoie de la même facture au propriétaire en guise de notification
     }
 
     //Cette fonction permet de créer une facture dans QuickBooks
@@ -270,7 +269,7 @@ class QuickBooksService
             }
         }
 
-        dump($invoiceData);
+        //dump($invoiceData);
 
         $invoiceObj = Invoice::create($invoiceData);
 
@@ -371,7 +370,7 @@ class QuickBooksService
             'RedirectURI' => $config['oauth_redirect_uri'],
             'scope' => $config['oauth_scope'],
             'baseUrl' => "development",
-            'QBORealmID' => env("QBO_REALM_ID"),                 //valeur à changer pour déploiement
+            'QBORealmID' => env("QB_REALM_ID"),                 //valeur à changer pour déploiement
             'accessTokenKey' => QBToken::getToken("access"),
             'refreshTokenKey' => QBToken::getToken("refresh")
         ));
