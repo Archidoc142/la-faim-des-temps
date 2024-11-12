@@ -23,7 +23,7 @@ export default function Commande({ commande, produits, prevPage }) {
                 <p className="col-span-8">{user.prenom + " " + user.nom}</p>
 
                 <p className="font-medium col-span-4">Téléphone :</p>
-                <p className="col-span-8">({user.telephone.substring(0, 3)}) {user.telephone.substring(3, 6)}-{user.telephone.substring(6, 10)}</p>
+                <p className="col-span-8">{commande.data.phone}</p>
 
                 <p className="font-medium col-span-4">Courriel :</p>
                 <p className="col-span-8">{user.email}</p>
@@ -62,7 +62,7 @@ export default function Commande({ commande, produits, prevPage }) {
                         >
                             <div className="grid grid-cols-12">
                                 <p className="font-bold col-span-4">{p.produit.nom}</p>
-                                <p className="col-span-8">{p.prix_vente}$</p>
+                                {p.format.id > 2 ? <p className="col-span-8">{p.prix_vente}$</p> : null}
                             </div>
                             <p>{p.nom_format}</p>
                         </div>
