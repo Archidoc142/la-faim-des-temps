@@ -18,6 +18,10 @@ export default function Producteurs( { producteurs }) {
         setShowProducteur(!showProducteur)
     }
 
+    function hideForm() {
+        setShowProducteur(false)
+    }
+
     const { data, setData, post, errors, reset } = useForm({
         id: '',
         nom: '',
@@ -66,7 +70,10 @@ export default function Producteurs( { producteurs }) {
 
                 {user && user.data.role == "admin" ?
                     <div>
-                        <AddProducteur className={showProducteur ? "block" : "hidden"} />
+                        <AddProducteur className={
+                            showProducteur ? "block" : "hidden"}
+                            toggleShowProducteur={toggleShowProducteur} 
+                        />
                         <AddProducteurButton
                             toggleShowProducteur={toggleShowProducteur}
                             className={showProducteur ? "hidden" : "block"}
