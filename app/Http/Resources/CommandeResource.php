@@ -16,6 +16,12 @@ class CommandeResource extends JsonResource
 
     public function toArray(Request $request): array
     {
+        $phone = $this->telephone;
+        if (is_null($phone))
+            $formattedPhone = "---";
+        else
+            $formattedPhone = "(" . substr($phone, 0, 3) . ") " . substr($phone, 3, 3) . "-" . substr($phone, 6, 4);
+
         return [
             'id' => $this->id,
             'qb_invoice_id' => $this->qb_invoice_id,
@@ -24,6 +30,7 @@ class CommandeResource extends JsonResource
             'total' => $this->total,
             'adresse' => $this->adresse,
             'user' => $this->user,
+            'phone' => $formattedPhone,
             'etat_commande' => $this->etat_commande,
             'created_at' => date('Y/m/d', strtotime($this->created_at))
         ];

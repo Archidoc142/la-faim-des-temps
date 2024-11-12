@@ -2,19 +2,19 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import autoprefixer from 'autoprefixer';
 
-export default function MenuBase({ date_retour, vendrediYYYY, dateMenuVend, dateMenuLund, changeDateBD }) {
+export default function MenuBase({ date_retour, dateMenuRetour, vendrediYYYY, dateMenuVend, dateMenuLund, changeDateBD }) {
 
     return (
         <>
             {date_retour !== null ?
                 //une date de retour est en place
                 <div className="flex flex-wrap lg:mr-[-2.5em]">
-                    <p className='w-full font-semibold italic text-white text-end text-lg'>*Ce menu sera caché jusqu'au {date_retour}</p>
+                    <p className='w-full font-semibold italic text-white text-end text-lg'>*Ce menu sera caché jusqu'au {dateMenuRetour}</p>
                     <div className="flex items-center mt-2 w-full justify-end">
                         <p className='italic text-white text-end text-lg mr-5'>Changer la date programmée du menu pour le </p>
                         <input id="dateRetour"
-                            min={vendrediYYYY}
-                            defaultValue={vendrediYYYY}
+                            min={date_retour}
+                            defaultValue={date_retour}
                             type="date"
                             placeholder="Prochaine date d'affichage"
                             onChange={(event) => changeDateBD(1, event.target.value)}></input>

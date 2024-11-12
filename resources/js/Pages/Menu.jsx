@@ -7,6 +7,8 @@ import MenuBase from '@/Components/MenuBase';
 import MenuPrinc from '@/Components/MenuPrinc';
 import MenuDateRetour from '@/Components/MenuDateRetour';
 import GoDownButton from '@/Components/GoDownButton';
+import ModifButton from '@/Components/Admin/ModifButton';
+import TextareaStatique from '@/Components/Admin/TextareaStatique';
 
 export default function Menu({ formats, langFormats, tarifs, produits, dates_menu, token, ajd, heure }) {
 
@@ -67,6 +69,29 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }
     }
 
+    async function changeText(nouveau_texte) {
+        if (nouveau_texte) {
+            let data = {};
+
+            for (let index = 0; index < nouveau_texte.length; index++) {
+                data[index] = {
+                    "groupe": nouveau_texte[index][0],
+                    "target": nouveau_texte[index][1],
+                    "fr": nouveau_texte[index][2],
+                    "en": nouveau_texte[index][3]
+                }
+            }
+
+            router.post('/modifier-texte', data, {
+                preserveScroll: true,
+                onError: (errors) => { alert(errors[0]); }
+            });
+        }
+        else {
+            alert("Un élément est manquant.")
+        }
+    }
+
     useEffect(() => {
         if (Object.keys(errors).length > 0) {
             let errorMsg = ""
@@ -84,10 +109,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     const user = usePage().props.auth.user;
 
     const [t, i18n] = useTranslation("global");
-
-    //séparer les formats selon la langue
-    const FrFormats = langFormats.filter(format => format.id_langue == 1);
-    const EnFormats = langFormats.filter(format => format.id_langue == 2);
 
     let d = new Date();
 
@@ -109,7 +130,24 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     const [lundiNextYYYY, setLundiNextYYYY] = useState(dates_menu[4].date);
     const [vendrediNextYYYY, setVendrediNextYYYY] = useState(dates_menu[3].date);
 
-    const [editMode, setEditMode] = useState(false);
+    const [editMode, setEditMode] = useState(false);    //modifier les plats du menu
+
+
+    /* TEXTE STATIQUE "LIVRAISON" */
+    const [editLivrMode, setEditLivrMode] = useState(false);
+
+    const [livrpfr, setLivrpfr] = useState(t('Menu.livr-p', { lng: 'fr' }));
+    const [livrpen, setLivrpen] = useState(t('Menu.livr-p', { lng: 'en' }));
+
+    const [livrinfofr, setLivrinfofr] = useState(t('Menu.livr-info', { lng: 'fr' }));
+    const [livrinfoen, setLivrinfoen] = useState(t('Menu.livr-info', { lng: 'en' }));
+
+    /* TEXTE STATIQUE "PASSEZ NOUS VOIR" */
+    const [editVenirMode, setEditVenirMode] = useState(false);
+
+    const [venirpfr, setVenirpfr] = useState(t('Menu.venir-p', { lng: 'fr' }));
+    const [venirpen, setVenirpen] = useState(t('Menu.venir-p', { lng: 'en' }));
+
 
     let dr = new Date(dates_menu[0].date);  //date retour à partir de la BD
     let dv = new Date(dates_menu[1].date);  //vendredi de *cette* période de commande
@@ -265,8 +303,31 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 <h2 className='text-2xl text-[#BB285C] text-center font-bold mb-9 md:mb-12 max-w-96 m-auto'>{t("Menu.recuperer")}</h2>
 
                 <div className='bg-[#EBEBEB] rounded-2xl p-10 mb-12 max-w-[1000px] md:w-auto'>
+
+                    <ModifButton
+                        afficher={user && user.data.role == "admin"}
+                        editMode={editLivrMode}
+                        setEditMode={setEditLivrMode}
+                        changeText={changeText}
+                        elemChange={[
+                            ["Menu", "livr-p", livrpfr, livrpen],
+                            ["Menu", "livr-info", livrinfofr, livrinfoen]
+                        ]}
+                        couleur="black"
+                    />
+
                     <h3 className='text-center font-bold mb-5 md:text-xl'>{t("Menu.livr-titre")}</h3>
-                    <p className='text-sm md:text-base'>{t("Menu.livr-p")}</p>
+                    {editLivrMode ?
+
+                        <TextareaStatique
+                            setStatiqueFR={setLivrpfr}
+                            setStatiqueEN={setLivrpen}
+                            element="Menu.livr-p"
+                        />
+                        :
+                        <p className='text-sm md:text-base'>{t("Menu.livr-p")}</p>
+                    }
+
                     <br />
                     <br />
                     <p className='mb-5 text-sm md:text-base'>{t("Menu.livr-heure")}<b>{dateDelivery}</b>.</p>
@@ -274,28 +335,62 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                         <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-sherb")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[0].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""} {t("Menu.livr-sherb")}</p>
                         <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-autre")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[1].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""}</p>
                     </div>
-                    <p className='text-[#BB285C] italic'>{t("Menu.livr-info")}</p>
+
+                    {editLivrMode ?
+                        <TextareaStatique
+                            setStatiqueFR={setLivrinfofr}
+                            setStatiqueEN={setLivrinfoen}
+                            element="Menu.livr-info"
+                        />
+                        :
+                        <p className='text-[#BB285C] italic'>{t("Menu.livr-info")}</p>
+                    }
                 </div>
 
+
+
+
                 <div className='bg-[#EBEBEB] rounded-2xl p-10 justify-center max-w-[1000px] md:w-auto'>
+
+                    <ModifButton
+                        afficher={user && user.data.role == "admin"}
+                        editMode={editVenirMode}
+                        setEditMode={setEditVenirMode}
+                        changeText={changeText}
+                        elemChange={[
+                            ["Menu", "venir-p", venirpfr, venirpen],
+                        ]}
+                        couleur="black"
+                    />
+
                     <h3 className='text-center font-bold mb-5  md:text-xl'>{t("Menu.venir-titre")}</h3>
-                    <p className='text-sm md:text-base'>{t("Menu.venir-p")}</p>
+                    {editVenirMode ?
+                        <TextareaStatique
+                            setStatiqueFR={setVenirpfr}
+                            setStatiqueEN={setVenirpen}
+                            element="Menu.venir-p"
+                        />
+                        :
+                        <p className='text-sm md:text-base'>{t("Menu.venir-p")}</p>
+                    }
                 </div>
             </div>
 
             {/*Menu de la semaine*/}
-            <div id="menuAncre" className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7'>
+            < div id="menuAncre" className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7' >
 
-                {user && user.data.role == "admin" ?
-                    <MenuDateRetour
-                        date_retour={dates_menu[0].date}
-                        //vendrediYYYY={vendrediYYYY}
-                        vendrediYYYY={vendrediNextYYYY}
-                        dateMenuVend={dateMenuVend}
-                        dateMenuLund={dateMenuLund}
-                        changeDateBD={changeDateBD}
-                    />
-                    : null}
+                {
+                    user && user.data.role == "admin" ?
+                        <MenuDateRetour
+                            date_retour={dates_menu[0].date}
+                            dateMenuRetour={dateMenuRetour}
+                            vendrediYYYY={vendrediNextYYYY}
+                            dateMenuVend={dateMenuVend}
+                            dateMenuLund={dateMenuLund}
+                            changeDateBD={changeDateBD}
+                        />
+                        : null
+                }
 
                 <form onSubmit={submit}>
 
@@ -395,8 +490,8 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                         : null}
 
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 
 }

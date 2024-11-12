@@ -26,25 +26,28 @@ class DatesMenuController extends Controller
         if ($date == null && $id == 1) {
 
             /* ACTIF */
-            $vend = Carbon::parse('last friday');
+            $day = Carbon::parse('last friday');
             $db_date = DatesMenu::find(2);
-            $db_date->date = $vend;
+            $db_date->date = $day;
             $db_date->save();
 
-            $lund = Carbon::parse('last monday');
+            //$lund = Carbon::parse('last monday');
+            $day->addDays(3);
             $db_date = DatesMenu::find(3);
-            $db_date->date = $lund;
+            $db_date->date = $day;
             $db_date->save();
 
             /* PROCHAIN */
-            $vend = Carbon::parse('this friday');
+            $day = Carbon::parse('this friday');
             $db_date = DatesMenu::find(4);
-            $db_date->date = $vend;
+            $db_date->date = $day;
             $db_date->save();
 
-            $lund = Carbon::parse('this monday');
+            //$lund = Carbon::parse('this monday');
+            $day->addDays(3);
+            $db_date = DatesMenu::find(3);
             $db_date = DatesMenu::find(5);
-            $db_date->date = $lund;
+            $db_date->date = $day;
             $db_date->save();
 
             /* RETOUR */
