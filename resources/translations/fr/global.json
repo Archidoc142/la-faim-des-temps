@@ -131,7 +131,9 @@
         "thirdSectionText2": "À La faim des temps, quasiment tout est recyclé ou composté. Nous sommes très fiers que notre poubelle soit de la taille d'une corbeille à papiers de bureaux. Notre chère clientèle nous rapporte les contenants pour les plats du traiteur. Ces derniers sont ensuite nettoyés et assainis avant d'être réutilisés."
     },
     "Producteur": {
-        "titre": "Nos Producteurs"
+        "titre": "Nos Producteurs",
+        "flashUpdate": "Le producteur a été mis à jour",
+        "flashDelete": "Le producteur a été supprimé"
     },
     "Error": {
         "title": "Erreur ",

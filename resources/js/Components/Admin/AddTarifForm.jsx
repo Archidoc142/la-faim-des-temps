@@ -4,7 +4,7 @@ import TextAreaInput from '@/Components/TextAreaInput';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 
-export default function AddTarifForm({ setPopupActif }) {
+export default function AddTarifForm({ setPopupActif, showMessageFlash }) {
     const { data, setData, post } = useForm({
         montant: "",
         nomFR: "",
@@ -21,6 +21,8 @@ export default function AddTarifForm({ setPopupActif }) {
             preserveScroll: true,
             onError: (errors) => { setPopupActif(true); alert(errors[0]); },
         });
+
+        showMessageFlash(1, "Tarif ajouté avec succès");
     }
 
     return (

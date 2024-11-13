@@ -7,16 +7,18 @@ import TextInput from '@/Components/TextInput';
 import TextAreaInput from '@/Components/TextAreaInput';
 import { router, usePage } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
-
+import { useTranslation } from "react-i18next";
 
 export default function Producteur({
     producteur, 
     langue, 
     data,
     setData,
-    errors
+    errors,
+    showMessageFlash
 }) {
     const user = usePage().props.auth.user;
+    const [t, i18n] = useTranslation("global");
 
     const imgFile = '/img/';
     let image = null;
@@ -86,6 +88,8 @@ export default function Producteur({
                 preserveScroll: true,
                 onError: (errors) => { alert(errors[0]); }
             });
+
+            showMessageFlash(1, t("Producteur.flashDelete"));
         }
     }
 
