@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Password extends Mailable
+class Order extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,7 +29,7 @@ class Password extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Mot de passe - La faims des temps',
+            subject: 'Reçu - La faims des temps',
         );
     }
 
@@ -39,7 +39,7 @@ class Password extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'password',
+            view: 'order',
         );
     }
 

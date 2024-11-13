@@ -92,7 +92,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     });
 });
 
-Route::post('/mdp', [MailController::class, 'sendMailPassword'])->name('retrieve-password');
+Route::post('/order', [MailController::class, 'sendMail'])->name('sendOrderByMail');
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);
 
