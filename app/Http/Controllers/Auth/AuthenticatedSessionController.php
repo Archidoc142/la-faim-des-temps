@@ -59,7 +59,7 @@ class AuthenticatedSessionController extends Controller
 
     public function googleLogin(Request $request)
     {
-        if(!is_null($request->target))
+        if(isset($request->target))
             return Socialite::driver('google')
                     ->with(["state" => "panier"])
                     ->redirect();
@@ -103,7 +103,7 @@ class AuthenticatedSessionController extends Controller
 
         $state = $request->input("state");
 
-        if(!is_null($state))
+        if($state == "panier")
             return redirect("/panier?loggedIn=1");
 
         return redirect("/?loggedIn=1");
