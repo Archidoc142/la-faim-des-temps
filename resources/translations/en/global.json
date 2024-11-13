@@ -15,10 +15,10 @@
         "histoire": "Our story",
         "avis": "Your opinion",
         "date": "LIMIT DATE TO ORDER :",
-        "connexion" : "Login",
-        "nextMenu" : "RELEASE OF THE NEXT MENU :",
-        "compte" : "My account",
-        "logout" : "Logout"
+        "connexion": "Login",
+        "nextMenu": "RELEASE OF THE NEXT MENU :",
+        "compte": "My account",
+        "logout": "Logout"
     },
     "Compte": {
         "titre": "FIRST TIME?",
@@ -31,26 +31,26 @@
         "mdp": "Password",
         "confirmer_mdp": "Confirm password",
         "deja_inscrit": "Already registered? (Login)",
-        "crtpas" : "Current Password",
-        "newpas" : "New Password",
-        "conpas" : "Confirm Password",
-        "save" : "Save",
-        "saved" : "Saved",
-        "prinfo" : "Profile Information",
-        "updpr" : "Update your account's profile information.",
-        "uppas" : "Update Password",
-        "enspas" : "Ensure your account is using a long, random password to stay secure.",
-        "vide" : "Empty"
+        "crtpas": "Current Password",
+        "newpas": "New Password",
+        "conpas": "Confirm Password",
+        "save": "Save",
+        "saved": "Saved",
+        "prinfo": "Profile Information",
+        "updpr": "Update your account's profile information.",
+        "uppas": "Update Password",
+        "enspas": "Ensure your account is using a long, random password to stay secure.",
+        "vide": "Empty"
     },
     "Login": {
         "title1": "Welcome to",
         "title2": "La faim des temps",
-        "mdp_oublie" : "Forgot your password?",
-        "creer_compte" : "No account yet? Create one!",
-        "connexion" : "Login",
-        "email" : "Email",
-        "mdp" : "Password",
-        "souvenir" : "Remember me"
+        "mdp_oublie": "Forgot your password?",
+        "creer_compte": "No account yet? Create one!",
+        "connexion": "Login",
+        "email": "Email",
+        "mdp": "Password",
+        "souvenir": "Remember me"
     },
     "Menu": {
         "titre": "Weekly caterer menu",
@@ -58,24 +58,25 @@
         "portion": "COST BY PORTION",
         "recuperer": "TWO WAYS TO COLLECT YOUR ORDER",
         "menu-titre": "Menu of the week",
-        "add-panier" : "ADD TO CART",
-        "go-panier" : "GO TO MY CART",
-        "formats" : "SIZES",
-        "plat-principaux" : "Main dishes",
-        "livr-titre" : "HOME DELIVERY",
-        "livr-p" : "A different menu every Friday morning; Simply contact us by email or via our website to place your order and receive the dishes you want in the portions you want. An excellent way to save time, energy and avoid waste (yes, we do see your old carrots begging you not to order pizza).",
-        "livr-heure" : "The home delivery is between 3:00 p.m. and 6:00 p.m. on Friday, ",
-        "livr-titre-sherb" : "Delivery fees Sherbrooke zone",
-        "livr-sherb" : "for orders under $60.00,",
-        "livr-titre-autre" : "Delivery fees Fleurimont and Rock Forest zones",
-        "livr-info" : "Please leave an appropriately sized cooler visible outside for your order.",
-        "venir-titre" : "COME SEE US",
-        "venir-p" : "You can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choices of fine charcuterie.",
-        "date-passed" : "The limit date for this week has passed.",
-        "next-friday" : "You can order again at 12PM on ",
-        "menu-indisponible" : "The menu is currently unavailable.",
-        "menu-back" : "It will be back on ",
-        "ancre" : "Scroll down to the menu!"
+        "add-panier": "ADD TO CART",
+        "go-panier": "GO TO MY CART",
+        "formats": "SIZES",
+        "plat-principaux": "Main dishes",
+        "livr-titre": "HOME DELIVERY",
+        "livr-p": "A different menu every Friday morning; Simply contact us by email or via our website to place your order and receive the dishes you want in the portions you want. An excellent way to save time, energy and avoid waste (yes, we do see your old carrots begging you not to order pizza).",
+        "livr-heure": "The home delivery is between 3:00 p.m. and 6:00 p.m. on Friday, ",
+        "livr-titre-sherb": "Delivery fees Sherbrooke zone",
+        "livr-sherb": "for orders under $60.00,",
+        "livr-titre-autre": "Delivery fees Fleurimont and Rock Forest zones",
+        "livr-info": "Please leave an appropriately sized cooler visible outside for your order.",
+        "venir-titre": "COME SEE US",
+        "venir-p": "kYou can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choices of fine charcuterie.",
+        "date-passed": "The limit date for this week has passed.",
+        "next-friday": "You can order again at 12PM on ",
+        "menu-indisponible": "The menu is currently unavailable.",
+        "menu-back": "It will be back on ",
+        "ancre": "Scroll down to the menu!",
+        "bienajoute" : "The dish has been added to the cart"
     },
     "Panier": {
         "vide": "Empty",
@@ -83,33 +84,33 @@
         "total": "Grand total",
         "pass": "Pass my order",
         "choice": "How do you want to receive your order ?",
-        "cueillette" : "Picking",
-        "finaliser" : "Finalize the order...",
-        "article" : "Articles",
-        "livraison" : "Shipping",
-        "adresse" : "Address",
-        "allergen" : "Add your allergens",
-        "placeholder" : "Egg, Milk, Peanut, Soy...",
-        "terminer" : "Finish",
-        "address" : "At which address do you want to receive your order?",
-        "info1" : "An amount applies to delivery on orders under",
-        "info2" : "in the Sherbrooke area.",
-        "add" : "Add an address",
-        "alertSuccess" : "Are you sure you want to delete this address?",
-        "flashDelete" : "The item has been deleted from the cart",
-        "addAddressTitle" : "Adding a new address",
-        "civic" : "Civic number",
-        "rue" : "Street name",
-        "app" : "Apartment number (optional)",
-        "postal" : "Postal code",
-        "vider" : "Empty the cart",
-        "mFlash" : "The cart has been emptied"
+        "cueillette": "Picking",
+        "finaliser": "Finalize the order...",
+        "article": "Articles",
+        "livraison": "Shipping",
+        "adresse": "Address",
+        "allergen": "Add your allergens",
+        "placeholder": "Egg, Milk, Peanut, Soy...",
+        "terminer": "Finish",
+        "address": "At which address do you want to receive your order?",
+        "info1": "An amount applies to delivery on orders under",
+        "info2": "in the Sherbrooke area.",
+        "add": "Add an address",
+        "alertSuccess": "Are you sure you want to delete this address?",
+        "flashDelete": "The item has been deleted from the cart",
+        "addAddressTitle": "Adding a new address",
+        "civic": "Civic number",
+        "rue": "Street name",
+        "app": "Apartment number (optional)",
+        "postal": "Postal code",
+        "vider": "Empty the cart",
+        "mFlash": "The cart has been emptied"
     },
     "Avis": {
-        "addAvis" : "Add a comment",
-        "avisDesc" : "Your opinion is important for us. Do not hesitate to share your experience with us and with the other users of our website!",
-        "comment" : "Comment",
-        "send" : "Send"
+        "addAvis": "Add a comment",
+        "avisDesc": "Your opinion is important for us. Do not hesitate to share your experience with us and with the other users of our website!",
+        "comment": "Comment",
+        "send": "Send"
     },
     "Valeurs": {
         "titre": "Our values",
@@ -134,31 +135,47 @@
         "titre": "Our Producers"
     },
     "Error": {
-        "title" : "Error ",
-
+        "title": "Error ",
         "503": "Service Unavailable",
         "500": "Server Error",
         "404": "Page Not Found",
         "403": "Forbidden",
-
         "503Desc": "Sorry, we are doing some maintenance. Please check back soon.",
         "500Desc": "Whoops, something went wrong on our servers.",
         "404Desc": "Sorry, the page you are looking for could not be found.",
         "403Desc": "Sorry, you are forbidden from accessing this page."
     },
     "Histoire": {
-        "desc1" : "After several years maturing in the mind of our chef, Yannick Pellerin, the project took off in 2020 under the name Tri Corvi Traiteur before reaching its final form in 2023. With experience in both the restaurant industry and fine grocery, Yannick had always wanted to bring his two passions together into a single business. It took the union of talents from sometimes very different backgrounds, as well as a good deal of creativity, to bring this vision to life from nothing. We now have the privilege of offering the best of ourselves to the Sherbrooke community.",
-        "desc2" : "While searching for a suitable space, downtown naturally stood out as the ideal place to establish ourselves. Long-time admirers of the Centro, our team thrives on the energy and synergy of our fellow entrepreneurs from all fields here.",
-        "desc3" : "Throughout this process, we traveled across Quebec to find delicious products to share, but above all, remarkable people to meet and introduce to others. Our criteria remain and will always be the same: to offer you unique, high-quality products from our terroir, crafted by artisans who are mindful of the Nature around them.",
-        "desc4" : "Our criteria remain and will always be the same: to offer you unique, high-quality products from our terroir, crafted by artisans who are mindful of the Nature around them.",
-        "desc5" : "Executive chef and graduate of Laval’s culinary school, Yannick has been honing his craft in the restaurant industry for nearly 20 years. He began his culinary journey during his studies at Cégep de Sherbrooke (first at the now-closed Placette, then at Café Bla-Bla) before continuing his training in Montreal at various restaurants, and later in fine and large-scale grocery stores, where he gained solid experience as a cheese merchant.",
-        "desc6" : "During his culinary studies, he stood out for his love of historical cuisine, exploring medieval Europe and New France to add unique flavors and spice combinations to his chef’s repertoire. Paradoxically, this love for the past resides in a decidedly nonconformist chef who frequently questions his craft. Status quo is not part of Yannick’s vocabulary; he is always seeking new ways to cook, whether it’s grilling or smoking fresh pasta, or finding inspiration in novels and movies rather than cookbooks.",
-        "histoire" : "Our story",
-        "aventure" : "An adventure"
+        "desc1": "After several years maturing in the mind of our chef, Yannick Pellerin, the project took off in 2020 under the name Tri Corvi Traiteur before reaching its final form in 2023. With experience in both the restaurant industry and fine grocery, Yannick had always wanted to bring his two passions together into a single business. It took the union of talents from sometimes very different backgrounds, as well as a good deal of creativity, to bring this vision to life from nothing. We now have the privilege of offering the best of ourselves to the Sherbrooke community.",
+        "desc2": "While searching for a suitable space, downtown naturally stood out as the ideal place to establish ourselves. Long-time admirers of the Centro, our team thrives on the energy and synergy of our fellow entrepreneurs from all fields here.",
+        "desc3": "Throughout this process, we traveled across Quebec to find delicious products to share, but above all, remarkable people to meet and introduce to others. Our criteria remain and will always be the same: to offer you unique, high-quality products from our terroir, crafted by artisans who are mindful of the Nature around them.",
+        "desc4": "Our criteria remain and will always be the same: to offer you unique, high-quality products from our terroir, crafted by artisans who are mindful of the Nature around them.",
+        "desc5": "Executive chef and graduate of Laval’s culinary school, Yannick has been honing his craft in the restaurant industry for nearly 20 years. He began his culinary journey during his studies at Cégep de Sherbrooke (first at the now-closed Placette, then at Café Bla-Bla) before continuing his training in Montreal at various restaurants, and later in fine and large-scale grocery stores, where he gained solid experience as a cheese merchant.",
+        "desc6": "During his culinary studies, he stood out for his love of historical cuisine, exploring medieval Europe and New France to add unique flavors and spice combinations to his chef’s repertoire. Paradoxically, this love for the past resides in a decidedly nonconformist chef who frequently questions his craft. Status quo is not part of Yannick’s vocabulary; he is always seeking new ways to cook, whether it’s grilling or smoking fresh pasta, or finding inspiration in novels and movies rather than cookbooks.",
+        "histoire": "Our story",
+        "aventure": "An adventure"
     },
     "Onglet": {
-        "Accueil" : "Home",
+        "accueil" : "Home",
         "histoire" : "Our story",
-        "avis" : "Your opinion"
+        "avis" : "Your opinion",
+        "mdp": "Password"
+    },
+    "M": {
+        "e": "u"
+    },
+    "t": {
+        "e": "t"
+    },
+    "f": {
+        "e": "f"
+    },
+    "k": {
+        "f": "e"
+    },
+    "Mdp" : {
+        "message": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
+        "button" : "Send the email",
+        "title" : "Forget password?"
     }
 }

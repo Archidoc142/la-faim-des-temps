@@ -1,7 +1,7 @@
 import { Head } from "@inertiajs/react";
-import headImage from '../../../public/img/story.jpg'
 import logo from '../../../public/img/logo-big.jpg'
 import yannick from '../../../public/img/yannick.jpg'
+import HeadWithImage from '@/Components/HeadWithImage';
 import { useTranslation } from "react-i18next";
 
 export default function Histoire() {
@@ -12,11 +12,13 @@ export default function Histoire() {
 
             <Head title={t("Onglet.histoire")} />
 
-            <div className="h-[40vh] bg-cover flex flex-col justify-center" style={{ backgroundImage: `url('${headImage}')` }}>
-                <div className='bg-white bg-opacity-75'>
-                    <h1 className='font-serif text-[#04203f] text-center text-4xl h-16 flex items-center justify-center'>{t("Histoire.histoire")}</h1>
-                </div>
-            </div>
+            <HeadWithImage
+                imgFile="/img/story.jpg"
+                title={t("Histoire.histoire")}
+                button={false}
+                buttonText="none"
+                path="/"
+            />
 
             <div className="block md:flex md:mx-6">
                 <div className="block md:flex items-center md:max-w-[450px]">
@@ -39,7 +41,7 @@ export default function Histoire() {
                 </div>
             </div>
 
-            <p className="px-8 py-4 text-center text-[12px] md:text-[14px] lg:text-base xl:text-lg text-white bg-[#061f3d] font-bold italic lg:my-8">"{t("Histoire.desc4")}"</p>
+            <p className="px-8 py-4 text-center text-[12px] md:text-[14px] lg:text-base xl:text-lg text-white bg-[#061f3d] font-bold italic lg:my-8"><span className="text-[#7A163C] text-4xl">"</span>{t("Histoire.desc4")}<span className="text-[#7A163C] text-4xl">"</span></p>
 
             <div className="xl:px-12 xl:py-6">
                 <div className="md:hidden">

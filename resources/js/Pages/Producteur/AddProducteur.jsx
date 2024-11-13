@@ -5,7 +5,7 @@ import TextAreaInput from '@/Components/TextAreaInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 
-export default function AddProducteur({ className }) {
+export default function AddProducteur({ className, toggleShowProducteur }) {
     const imgUrl = '/img/';
     let image = null;
 
@@ -42,9 +42,27 @@ export default function AddProducteur({ className }) {
 
     return (
         <>
-            <div className={'bg-[#7A163C80] my-5 rounded-lg m-3 py-4 lg:m-8 ' + (className)}>
+            <div className={'bg-[#7A163C80] my-5 rounded-lg m-3 py-4 lg:m-8 ' + (className)}
+            id='addProducteurForm'>
                 <form onSubmit={submit}>
                     <div className='lg:grid lg:grid-cols-2 lg:p-4'>
+                        <div className='col-span-2'>
+                        <svg onClick={toggleShowProducteur} 
+                                fill="#ffffff" 
+                                height="200px" 
+                                width="200px" 
+                                className="h-fit max-w-8 hover:fill-[#BB285C] cursor-pointer ml-auto" 
+                                version="1.1" 
+                                id="Capa_1" 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                xmlnsXlink="http://www.w3.org/1999/xlink" 
+                                viewBox="0 0 460.775 460.775" 
+                                xmlSpace="preserve" 
+                                stroke="none" 
+                            >
+                                <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z" />
+                            </svg>
+                        </div>
                         <div>
                             <img className="h-60 mb-2 m-auto" src={imgSrc} alt={image ? image.alt : "image vide"} />
                             <p className="italic text-center mb-6 text-white">{filename}</p>
@@ -69,7 +87,7 @@ export default function AddProducteur({ className }) {
                                 <InputLabel 
                                     htmlFor="nom" 
                                     value="Nom du producteur:" 
-                                    className='text-[#296ACF]'
+                                    className='text-white'
                                 />
 
                                 <TextInput
@@ -92,7 +110,7 @@ export default function AddProducteur({ className }) {
                                 <InputLabel 
                                     htmlFor="url" 
                                     value="Lien vers le site du producteur:" 
-                                    className='text-[#296ACF]'
+                                    className='text-white'
                                 />
 
                                 <TextInput
@@ -114,7 +132,7 @@ export default function AddProducteur({ className }) {
                                     <InputLabel 
                                         htmlFor="descriptionFR" 
                                         value="Description du producteur (Français):" 
-                                        className='text-[#296ACF]'
+                                        className='text-white'
                                     />
 
                                     <TextAreaInput
@@ -136,7 +154,7 @@ export default function AddProducteur({ className }) {
                                     <InputLabel 
                                         htmlFor="descriptionEN" 
                                         value="Description du producteur (Anglais):" 
-                                        className='text-[#296ACF]'
+                                        className='text-white'
                                     />
 
                                     <TextAreaInput
@@ -159,7 +177,7 @@ export default function AddProducteur({ className }) {
                                 <InputLabel 
                                     htmlFor="adresse" 
                                     value="Adresse du producteur:" 
-                                    className='text-[#296ACF]'
+                                    className='text-white'
                                 />
 
                                 <TextInput

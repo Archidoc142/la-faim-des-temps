@@ -11,10 +11,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
+use App\Http\Controllers\SaisonController;
 use App\Http\Controllers\TarifLivraisonController;
+use App\Http\Controllers\TexteStatique;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use App\Http\Resources\CommentaireResource;
+use App\Http\Controllers\FormatController;
 use App\Models\Commentaire;
 use App\Models\Produit;
 use Illuminate\Foundation\Application;
@@ -51,13 +54,13 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
     Route::get('/admin', function() { return redirect()->route('admin.clients');})->name('admin.accueil');
 
     Route::post('/menu/modifier', [ProduitController::class, 'update'])->name('menu.update');
-    //Route::post('/dates-menu', [DatesMenuController::class, 'update']);
+
+    Route::patch('/modifier-texte', [TexteStatique::class, 'update']);
 
 
     Route::controller(ImageController::class)->group(function() {
         Route::get('/admin/images', 'index')->name('admin.images');
         Route::post('/admin/image', 'store');
-        //Route::delete('/admin/image/{id}', 'destroy');
         Route::post('/admin/del-image', 'destroy');
     });
 
@@ -82,6 +85,10 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::get('admin/tarifs', 'index')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarifs");
         Route::post('admin/tarif/updateTarif', 'updateTarif')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateTarif");
         Route::post('admin/tarif/updateFormat', 'updateFormat')->middleware(EnsureUserIsLoggedIn::class)->name("admin.tarif.updateFormat");
+    });
+
+    Route::controller(FormatController::class)->group(function() {
+        Route::post('/admin/tarif', 'store');
     });
 
     Route::controller(ProducteurController::class)->group(function() {
