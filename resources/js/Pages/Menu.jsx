@@ -87,7 +87,10 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
             router.patch('/modifier-texte', textData, {
                 preserveScroll: true,
-                onError: (errors) => { alert(errors[0]); }
+                onError: (errors) => { alert(errors[0]); },
+                preserveState: 'errors',
+                onFinish: () => { console.log("hin");
+                 setEditVenirMode(false); setEditLivrMode(false);}
             });
         }
         else {
@@ -135,6 +138,13 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
 
     /* TEXTE STATIQUE "LIVRAISON" */
+    /* vrais textes
+    const [livrpfr, setLivrpfr] = useState(t('Menu.livr-p', { lng: 'fr' }));
+    const [livrpen, setLivrpen] = useState(t('Menu.livr-p', { lng: 'en' }));
+
+    const [livrinfofr, setLivrinfofr] = useState(t('Menu.livr-info', { lng: 'fr' }));
+    const [livrinfoen, setLivrinfoen] = useState(t('Menu.livr-info', { lng: 'en' }));*/
+
     const [editLivrMode, setEditLivrMode] = useState(false);
 
     const [livrpfr, setLivrpfr] = useState(t('Menu.livr-p', { lng: 'fr' }));
@@ -142,6 +152,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
     const [livrinfofr, setLivrinfofr] = useState(t('Menu.livr-info', { lng: 'fr' }));
     const [livrinfoen, setLivrinfoen] = useState(t('Menu.livr-info', { lng: 'en' }));
+
 
     /* TEXTE STATIQUE "PASSEZ NOUS VOIR" */
     const [editVenirMode, setEditVenirMode] = useState(false);
@@ -215,6 +226,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
         checkIntervalleMenu();
         setAfficherMenu(true);
+
 
     }, [i18n.language])
 

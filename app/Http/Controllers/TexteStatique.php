@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class TexteStatique extends Controller
 {
@@ -39,5 +40,6 @@ class TexteStatique extends Controller
             file_put_contents($urlEN, $newENJsonString);
         }
 
+        return redirect("/menu");
     }
 }
