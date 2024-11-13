@@ -156,9 +156,10 @@
         "aventure": "An adventure"
     },
     "Onglet": {
-        "Accueil": "Home",
-        "histoire": "Our story",
-        "avis": "Your opinion"
+        "accueil" : "Home",
+        "histoire" : "Our story",
+        "avis" : "Your opinion",
+        "mdp": "Password"
     },
     "M": {
         "e": "u"
@@ -171,5 +172,10 @@
     },
     "k": {
         "f": "e"
+    },
+    "Mdp" : {
+        "message": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
+        "button" : "Send the email",
+        "title" : "Forget password?"
     }
 }
