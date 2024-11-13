@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from 'react';
 import Dropdown from '@/Components/Dropdown';
 
 import logo from '../../../public/img/logo-rect.jpg'
+import PanierIndicateur from './PanierIndicateur';
 
 export default function Header() {
 
@@ -24,6 +25,39 @@ export default function Header() {
     const options = { weekday: 'long', day: 'numeric', month: 'long' };
     const tempDate = dateToShow.toLocaleDateString('fr-FR', options) + ' à 16:00';
     const [date, setDate] = useState(tempDate)
+
+    const [nbPanier, setNbPanier] = useState(0)
+
+    const refreshNbPanier = () => {
+        const panierStr = localStorage.getItem("panier");
+
+        if(panierStr) {
+            const panier = JSON.parse(panierStr);
+            let qte = 0;
+
+            panier.forEach(produit => {
+                qte += produit.qte;
+            });
+            setNbPanier(qte);
+        }
+        else {
+            setNbPanier(0);
+        }
+    }
+
+    useEffect(() => {
+        refreshNbPanier();
+
+        function storageEventHandler(event) {
+            refreshNbPanier();
+        }
+
+        window.addEventListener("storage", storageEventHandler);
+        return () => {
+            // Remove the handler when the component unmounts
+            window.removeEventListener("storage", storageEventHandler);
+        };
+    }, [])
 
     useEffect(() => {
         if (canCommand){
@@ -142,11 +176,15 @@ export default function Header() {
 
                         {/* Panier*/}
                         <Link href='/panier' onClick={handleClosure}>
-                            <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" fill='transparent' stroke="#fff" strokeWidth="2">
-                                <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
-                                       M10 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0
-                                       M18 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
-                            </svg>
+                            <div className='relative'>
+                                { nbPanier > 0 ? <PanierIndicateur nbPanier={nbPanier}/> : null}
+                                <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" fill='transparent' stroke="#fff" strokeWidth="2">
+                                    <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
+                                        M10 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0
+                                        M18 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
+                                </svg>
+                            </div>
+
                         </Link>
 
                         {/* Langue*/}

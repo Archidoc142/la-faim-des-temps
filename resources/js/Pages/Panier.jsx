@@ -52,6 +52,8 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
     const resetPanier = () => {
         setPanier({})
         localStorage.setItem("panier", JSON.stringify([]));
+        window.dispatchEvent(new Event("storage"));
+
         showMessageFlash(1, t("Panier.mFlash"))
     }
 
