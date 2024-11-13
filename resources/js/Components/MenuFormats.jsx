@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 
-export default function MenuFormats({ produitId, formats, putPanier }) {
+export default function MenuFormats({ produitId, formats, putPanier, showMessageFlash}) {
 
     const [t, i18n] = useTranslation("global");
     const [isSizesOpen, setIsSizesOpen] = React.useState(false);
@@ -23,7 +23,7 @@ export default function MenuFormats({ produitId, formats, putPanier }) {
                     </thead>
                     <tbody>
                         {isSizesOpen && (formats.map(format => (
-                            <tr onClick={() => putPanier(format.id, produitId)} key={format.id} className='cursor-pointer border-2 border-[#BB285C] rounded-2xl p-5 justify-center text-start'>
+                            <tr onClick={() => {putPanier(format.id, produitId); showMessageFlash(1, t("Menu.bienajoute"));}} key={format.id} className='cursor-pointer border-2 border-[#BB285C] rounded-2xl p-5 justify-center text-start'>
                                 <td className='py-1 px-2 border-x-2 border-b-2 border-[#BB285C] bg-white hover:bg-[#f8ece1] flex flex-nowrap items-center justify-between'>
                                     <p className='mr-5'>{i18n.language == 'fr' ? format.nom.fr + " (" + format.montant + "$)" : format.nom.en + " ($" + format.montant + ")"} </p>
                                     <div>
