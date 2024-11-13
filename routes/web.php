@@ -55,7 +55,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 
     Route::post('/menu/modifier', [ProduitController::class, 'update'])->name('menu.update');
 
-    Route::post('/modifier-texte', [TexteStatique::class, 'update']);
+    Route::patch('/modifier-texte', [TexteStatique::class, 'update']);
 
 
     Route::controller(ImageController::class)->group(function() {

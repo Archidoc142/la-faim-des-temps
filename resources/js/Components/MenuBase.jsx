@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from "react";
 import autoprefixer from 'autoprefixer';
 
-export default function MenuBase({ produit, putPanier, editable, setData, data, afficherMenu }) {
+export default function MenuBase({ produit, putPanier, editable, setData, data, afficherMenu, showMessageFlash }) {
 
     const [t, i18n] = useTranslation("global");
 
@@ -52,7 +52,7 @@ export default function MenuBase({ produit, putPanier, editable, setData, data, 
                     :
                     <button
                         type="button"
-                        onClick={() => putPanier(produit.formats[0].id, produit.id)}
+                        onClick={() => {putPanier(produit.formats[0].id, produit.id); showMessageFlash(1, t("Menu.bienajoute"));}}
                         className=" inline-block min-w-40 mt-8 p-1.5 text-sm text-white font-semibold border border-[#BB285C] bg-[#BB285C] hover:border-white hover:cursor-pointer justify-self-center"
                     >
                         {t("Menu.add-panier")}
