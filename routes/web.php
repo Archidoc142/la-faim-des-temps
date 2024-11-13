@@ -7,6 +7,7 @@ use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\DatesMenuController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
@@ -90,6 +91,8 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::post('/admin/producteur/delete', 'destroy');
     });
 });
+
+Route::post('/mdp', [MailController::class, 'sendMailPassword'])->name('retrieve-password');
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);
 
