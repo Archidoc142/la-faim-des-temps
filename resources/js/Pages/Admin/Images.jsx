@@ -6,8 +6,6 @@ import Image from '@/Components/Admin/Image';
 
 export default function Images({ res, token }) {
 
-    //console.log("\n###", res);
-
     const [popupActif, setPopupActif] = useState(false)
     const [sendImage, setSendImage] = useState(null)
 

@@ -11,6 +11,8 @@ class TexteStatique extends Controller
      */
     public function update(Request $request)
     {
+        //dd($request);
+
         $urlFR = resource_path() . "/translations/fr/global.json";
         $urlEN = resource_path() . "/translations/en/global.json";
 
@@ -36,5 +38,6 @@ class TexteStatique extends Controller
             $newENJsonString = json_encode($ENdata, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             file_put_contents($urlEN, $newENJsonString);
         }
+
     }
 }

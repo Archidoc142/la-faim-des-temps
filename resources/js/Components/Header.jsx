@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import i18next from 'i18next'
 import { useEffect, useState, useRef } from 'react';
 import Dropdown from '@/Components/Dropdown';
+import { Inertia } from '@inertiajs/inertia'
 
 import logo from '../../../public/img/logo-rect.jpg'
 import PanierIndicateur from './PanierIndicateur';
@@ -60,7 +61,7 @@ export default function Header() {
     }, [])
 
     useEffect(() => {
-        if (canCommand){
+        if (canCommand) {
             // Peut commander
             setMessage(t("Header.date"))
 
@@ -84,6 +85,10 @@ export default function Header() {
     const handleChangeLanguage = (e) => {
         i18next.changeLanguage(e.target.value)
         document.cookie = "lng=" + i18n.language + "; max-age=31536000";
+
+        if (url.startsWith('/forgot-password')) {
+            Inertia.get(/changeLanguage/ + i18n.language)
+        }
     }
 
     const toggleMenu = () => {

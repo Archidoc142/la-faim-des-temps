@@ -7,6 +7,7 @@ use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\DatesMenuController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\FormatController;
 use App\Models\Commentaire;
 use App\Models\Produit;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -62,7 +64,7 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 
     Route::post('/menu/modifier', [ProduitController::class, 'update'])->name('menu.update');
 
-    Route::post('/modifier-texte', [TexteStatique::class, 'update']);
+    Route::patch('/modifier-texte', [TexteStatique::class, 'update']);
 
 
     Route::controller(ImageController::class)->group(function() {
@@ -113,6 +115,19 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::get('/admin/quickbooks', 'index')->name('admin.quickbooks');
         Route::get('/admin/quickbooks/callback', 'callback')->name('admin.quickbooks.callback');
     });
+});
+
+Route::post('/order', [MailController::class, 'sendMail'])->name('sendOrderByMail');
+
+Route::get('/changeLanguage/{locale}', function (string $locale) {
+    if (!in_array($locale, ['en', 'fr'])) {
+        abort(400);
+    }
+
+    App::setLocale($locale);
+    session(['locale' => $locale]);
+
+    return redirect()->back();
 });
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);

@@ -68,14 +68,15 @@
         "livr-titre-sherb": "Delivery fees Sherbrooke zone",
         "livr-sherb": "for orders under $60.00,",
         "livr-titre-autre": "Delivery fees Fleurimont and Rock Forest zones",
-        "livr-info": "CHANGPlease leave an appropriately sized cooler visible outside for your order.",
+        "livr-info": "Please leave an appropriately sized cooler visible outside for your order.",
         "venir-titre": "COME SEE US",
-        "venir-p": "You can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choices of fine charcuterie.",
+        "venir-p": "kYou can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choices of fine charcuterie.",
         "date-passed": "The limit date for this week has passed.",
         "next-friday": "You can order again at 12PM on ",
         "menu-indisponible": "The menu is currently unavailable.",
         "menu-back": "It will be back on ",
-        "ancre": "Scroll down to the menu!"
+        "ancre": "Scroll down to the menu!",
+        "bienajoute" : "The dish has been added to the cart"
     },
     "Panier": {
         "vide": "Empty",
@@ -158,7 +159,8 @@
         "accueil" : "Home",
         "histoire" : "Our story",
         "avis" : "Your opinion",
-        "mdp": "Password"
+        "mdp": "Password",
+        "resetmdp" : "Reset Password"
     },
     "M": {
         "e": "u"
@@ -175,6 +177,8 @@
     "Mdp" : {
         "message": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
         "button" : "Send the email",
-        "title" : "Forget password?"
+        "title" : "Forget password?",
+        "mdp" : "Password :",
+        "confirm" : "Confirm Password :"
     }
 }

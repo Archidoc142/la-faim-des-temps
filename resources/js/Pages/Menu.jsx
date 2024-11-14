@@ -9,6 +9,7 @@ import MenuDateRetour from '@/Components/MenuDateRetour';
 import GoDownButton from '@/Components/GoDownButton';
 import ModifButton from '@/Components/Admin/ModifButton';
 import TextareaStatique from '@/Components/Admin/TextareaStatique';
+import MessageFlash from '@/Components/MessageFlash';
 
 export default function Menu({ formats, langFormats, tarifs, produits, dates_menu, token, ajd, heure }) {
 
@@ -49,8 +50,10 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('menu.update'), { preserveScroll: true });
-        setEditMode(false);
+        post(route('menu.update'), {
+            preserveScroll: true,
+            preserveState: 'errors',
+        });
     };
 
     async function changeDateBD(id, nouv_valeur) {
@@ -64,17 +67,17 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
             router.post('/dates-menu', dateData, {
                 preserveScroll: true,
-                onError: (errors) => { alert(errors[0]); }
+                onError: (errors) => { alert(errors[0]); },
             });
         }
     }
 
     async function changeText(nouveau_texte) {
         if (nouveau_texte) {
-            let data = {};
+            let textData = {};
 
             for (let index = 0; index < nouveau_texte.length; index++) {
-                data[index] = {
+                textData[index] = {
                     "groupe": nouveau_texte[index][0],
                     "target": nouveau_texte[index][1],
                     "fr": nouveau_texte[index][2],
@@ -82,7 +85,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 }
             }
 
-            router.post('/modifier-texte', data, {
+            router.patch('/modifier-texte', textData, {
                 preserveScroll: true,
                 onError: (errors) => { alert(errors[0]); }
             });
@@ -100,8 +103,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             })
 
             alert(errorMsg);
-
-            setEditMode(true);
         }
 
     }, [errors])
@@ -213,6 +214,8 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }*/
 
         checkIntervalleMenu();
+        setAfficherMenu(true);
+
     }, [i18n.language])
 
     function checkIntervalleMenu() {
@@ -244,6 +247,16 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }
     }
 
+    // Message Flash
+    const [message, setMessage] = useState("")
+    const [messageV, setMessageV] = useState(false)
+    const [messageS, setMessageS] = useState(false)
+
+    const showMessageFlash = (status, message, visibility = true) => {
+        setMessageS(status)
+        setMessage(message)
+        setMessageV(visibility)
+    }
 
     function putPanier(format, produit) {
         let panier = JSON.parse(localStorage.getItem("panier"))
@@ -274,6 +287,13 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
             <Head title="Menu" />
             <GoDownButton />
+
+            <MessageFlash
+                status={messageS}
+                message={message}
+                visibility={messageV}
+                setVisibility={setMessageV}
+            />
 
             {/*Entête*/}
             <div className='bg-[#EBEBEB] justify-center py-8 mb-20 px-10 md:py-20 md:px-20'>
@@ -319,7 +339,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
                     <h3 className='text-center font-bold mb-5 md:text-xl'>{t("Menu.livr-titre")}</h3>
                     {editLivrMode ?
-
                         <TextareaStatique
                             setStatiqueFR={setLivrpfr}
                             setStatiqueEN={setLivrpen}
@@ -347,9 +366,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                         <p className='text-[#BB285C] italic'>{t("Menu.livr-info")}</p>
                     }
                 </div>
-
-
-
 
                 <div className='bg-[#EBEBEB] rounded-2xl p-10 justify-center max-w-[1000px] md:w-auto'>
 
@@ -446,6 +462,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             setData={setData}
                             data={data}
                             afficherMenu={afficherMenu}
+                            showMessageFlash={showMessageFlash}
                         />
                         <MenuBase
                             produit={menu[1]}
@@ -454,6 +471,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             setData={setData}
                             data={data}
                             afficherMenu={afficherMenu}
+                            showMessageFlash={showMessageFlash}
                         />
 
                     </div>
@@ -474,6 +492,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                                         formIndex={i + 1}
                                         key={produit.id}
                                         afficherMenu={afficherMenu}
+                                        showMessageFlash={showMessageFlash}
                                     />
                                     : ""}
                                 </div>
