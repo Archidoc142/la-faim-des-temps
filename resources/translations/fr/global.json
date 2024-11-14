@@ -159,7 +159,8 @@
         "accueil" : "Accueil",
         "histoire" : "Notre histoire",
         "avis" : "Votre avis",
-        "mdp": "Mot de passe"
+        "mdp": "Mot de passe",
+        "resetmdp" : "Réinitialiser le mot de passe"
     },
     "M": {
         "e": "n"
@@ -176,6 +177,8 @@
     "Mdp" : {
         "message": "Vous avez oublié votre mot de passe? Aucun problème. Mettez votre courriel, puis nous vous enverrons un courriel à cette adresse.",
         "button" : "Envoyer le courriel",
-        "title" : "Mot de passe oublié?"
+        "title" : "Mot de passe oublié?",
+        "mdp" : "Mot de passe :",
+        "confirm" : "Confirmer le mot de passe :"
     }
 }
