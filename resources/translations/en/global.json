@@ -159,7 +159,8 @@
         "accueil" : "Home",
         "histoire" : "Our story",
         "avis" : "Your opinion",
-        "mdp": "Password"
+        "mdp": "Password",
+        "resetmdp" : "Reset Password"
     },
     "M": {
         "e": "u"
@@ -176,6 +177,8 @@
     "Mdp" : {
         "message": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
         "button" : "Send the email",
-        "title" : "Forget password?"
+        "title" : "Forget password?",
+        "mdp" : "Password :",
+        "confirm" : "Confirm Password :"
     }
 }
