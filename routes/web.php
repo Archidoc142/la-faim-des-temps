@@ -19,6 +19,7 @@ use App\Http\Resources\CommentaireResource;
 use App\Models\Commentaire;
 use App\Models\Produit;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -93,6 +94,17 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
 });
 
 Route::post('/order', [MailController::class, 'sendMail'])->name('sendOrderByMail');
+
+Route::get('/changeLanguage/{locale}', function (string $locale) {
+    if (!in_array($locale, ['en', 'fr'])) {
+        abort(400);
+    }
+
+    App::setLocale($locale);
+    session(['locale' => $locale]);
+
+    return redirect()->back();
+});
 
 Route::get('/producteurs', [ProducteurController::class, 'index']);
 

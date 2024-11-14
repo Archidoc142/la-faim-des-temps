@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@gsap/react": "^2.1.1",
+        "@inertiajs/inertia": "^0.11.1",
         "gsap": "^3.12.5",
         "i18next": "^23.15.1",
         "react-i18next": "^15.0.2",
