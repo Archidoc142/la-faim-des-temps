@@ -30,8 +30,6 @@ export default function Login({ status, canResetPassword }) {
         <div className='h-full md:p-8 xl:px-[8rem]'>
             <Head title="Log in" />
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-
             <div className='bg-white rounded-lg m-6 flex min-h-[80%] 2xl:min-h-[90%] border-2 border-gray-500'>
                 <div className='hidden lg:block border-r-2 border-r-gray-500 w-[60%] p-6'>
                     {/* div Image*/}
