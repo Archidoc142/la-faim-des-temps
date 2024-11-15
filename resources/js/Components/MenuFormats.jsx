@@ -3,7 +3,7 @@ import { useState, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-export default function MenuFormats({ produitId, formats, putPanier }) {
+export default function MenuFormats({ produitId, formats, putPanier, showMessageFlash}) {
 
     const [t, i18n] = useTranslation("global");
     const [isSizesOpen, setIsSizesOpen] = useState(false);
@@ -28,14 +28,13 @@ export default function MenuFormats({ produitId, formats, putPanier }) {
             <div
                 key={formats.id}
                 className='border border-[#BB285C] hover:border-white hover:cursor-pointer self-end mt-4 md:mt-0'
-                onClick={() => toggleState()}
             >
                 <div className='md:w-64 text-center'>
-                    <p className='select-none p-1 text-sm text-white font-semibold border-2 border-[#BB285C] bg-[#BB285C]'>{t("Menu.formats")}</p>
+                    <p onClick={() => toggleState()} className='select-none p-1 text-sm text-white font-semibold border-2 border-[#BB285C] bg-[#BB285C]'>{t("Menu.formats")}</p>
 
                     <div ref={container} className='overflow-hidden h-0'>
                         {(formats.map(format => (
-                            <div onClick={() => putPanier(format.id, produitId)} key={format.id} className='cursor-pointer border-2 border-[#BB285C] justify-center text-start'>
+                            <div onClick={() => {putPanier(format.id, produitId); showMessageFlash(1, t("Menu.bienajoute"));}} key={format.id} className='cursor-pointer border-2 border-[#BB285C] justify-center text-start'>
                                 <div className='py-1 px-2 border-x-2 border-b-2 border-[#BB285C] bg-white hover:bg-[#f8ece1] flex flex-nowrap items-center justify-between'>
                                     <p className='mr-5'>{i18n.language == 'fr' ? format.nom.fr + " (" + format.montant + "$)" : format.nom.en + " ($" + format.montant + ")"} </p>
                                     <div className='group'>

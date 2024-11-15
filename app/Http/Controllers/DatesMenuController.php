@@ -142,7 +142,5 @@ class DatesMenuController extends Controller
                 $db_date->save();
             }
         }
-
-        //return redirect("/menu");
     }
 }

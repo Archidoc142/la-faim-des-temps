@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import MenuFormats from '@/Components/MenuFormats';
 import { useEffect, useState } from "react";
 
-export default function MenuPrinc({ produit, putPanier, editable, setData, categories, data, formIndex, afficherMenu }) {
+export default function MenuPrinc({ produit, putPanier, editable, setData, categories, data, formIndex, afficherMenu, showMessageFlash}) {
 
     const [t, i18n] = useTranslation("global");
 
@@ -68,6 +68,7 @@ export default function MenuPrinc({ produit, putPanier, editable, setData, categ
                         produitId={produitId}
                         formats={produit.formats}
                         putPanier={putPanier}
+                        showMessageFlash={showMessageFlash}
                     />
                 }
             </div>
