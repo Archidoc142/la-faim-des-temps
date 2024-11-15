@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
 
 class TexteStatique extends Controller
@@ -12,8 +13,6 @@ class TexteStatique extends Controller
      */
     public function update(Request $request)
     {
-        //dd($request);
-
         $urlFR = resource_path() . "/translations/fr/global.json";
         $urlEN = resource_path() . "/translations/en/global.json";
 
@@ -40,6 +39,6 @@ class TexteStatique extends Controller
             file_put_contents($urlEN, $newENJsonString);
         }
 
-        return redirect("/menu");
+        return redirect()->back();
     }
 }

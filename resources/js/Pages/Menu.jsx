@@ -89,14 +89,15 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 preserveScroll: true,
                 onError: (errors) => { alert(errors[0]); },
                 preserveState: 'errors',
-                onFinish: () => { console.log("hin");
-                 setEditVenirMode(false); setEditLivrMode(false);}
+                //onFinish: () => { setEditVenirMode(false); setEditLivrMode(false); window.location.href="/menu"; }
+                onFinish: () => { setEditVenirMode(false); setEditLivrMode(false); window.location.reload(); }
             });
         }
         else {
             alert("Un élément est manquant.")
         }
     }
+
 
     useEffect(() => {
         if (Object.keys(errors).length > 0) {
@@ -138,13 +139,14 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
 
     /* TEXTE STATIQUE "LIVRAISON" */
-    /* vrais textes
-    const [livrpfr, setLivrpfr] = useState(t('Menu.livr-p', { lng: 'fr' }));
+    /* textes affichés
+    const [affichlivrpfr, setAffichLivrpfr] = useState(t('Menu.livr-p', { lng: 'fr' }));
     const [livrpen, setLivrpen] = useState(t('Menu.livr-p', { lng: 'en' }));
 
     const [livrinfofr, setLivrinfofr] = useState(t('Menu.livr-info', { lng: 'fr' }));
-    const [livrinfoen, setLivrinfoen] = useState(t('Menu.livr-info', { lng: 'en' }));*/
+    const [livrinfoen, setLivrinfoen] = useState(t('Menu.livr-info', { lng: 'en' })); */
 
+    /* texte d'edit */
     const [editLivrMode, setEditLivrMode] = useState(false);
 
     const [livrpfr, setLivrpfr] = useState(t('Menu.livr-p', { lng: 'fr' }));
@@ -225,8 +227,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }
 
         checkIntervalleMenu();
-        setAfficherMenu(true);
-
 
     }, [i18n.language])
 
