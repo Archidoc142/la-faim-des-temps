@@ -86,9 +86,7 @@ export default function Header() {
         i18next.changeLanguage(e.target.value)
         document.cookie = "lng=" + i18n.language + "; max-age=31536000";
 
-        if (url.startsWith('/forgot-password')) {
-            Inertia.get(/changeLanguage/ + i18n.language)
-        }
+        Inertia.get(/changeLanguage/ + i18n.language)
     }
 
     const toggleMenu = () => {

@@ -1,6 +1,6 @@
 <x-mail::message>
 {{-- Intro Lines --}}
-@lang('befbtn')
+@lang('email.befbtn')
 
 {{-- Action Button --}}
 @isset($actionText)
@@ -11,20 +11,20 @@
     };
 ?>
 <x-mail::button :url="$actionUrl" :color="$color">
-    @lang('btn')
+    @lang('email.btn')
 </x-mail::button>
 @endisset
 
 {{-- Outro Lines --}}
-@lang('aftbtn')
-@lang('befsal')
+@lang('email.aftbtn')
+@lang('email.befsal')
 
 
 {{-- Salutation --}}
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@lang('regards')<br>
+@lang('email.regards')<br>
 {{ config('app.name') }}
 @endif
 
