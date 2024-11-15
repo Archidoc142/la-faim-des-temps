@@ -19,7 +19,14 @@ export default function GoDownButton() {
         gsap.to(window, {
             duration: 1,
             scrollTo: { y: "#menuAncre", offsetY: 100 },
+            marker: true,
+            start: "top top",
+            end: "bottom 100%",
         });
+    }
+
+    const handleRotation = () => {
+
     }
 
     return (
