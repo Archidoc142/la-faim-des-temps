@@ -56,7 +56,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         });
     };
 
-    async function changeDateBD(id, nouv_valeur) {
+    async function changeDateBD(id, nouv_valeur, isDeletion) {
 
         if (nouv_valeur || nouv_valeur == null) {
             const dateData = {
@@ -68,6 +68,13 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             router.post('/dates-menu', dateData, {
                 preserveScroll: true,
                 onError: (errors) => { alert(errors[0]); },
+                onFinish: () => {
+                    if (isDeletion) {
+                        showMessageFlash(1, "La date de retour a été supprimée")
+                    } else {
+                        showMessageFlash(1, "La date de retour a été modifiée")
+                    }
+                }
             });
         }
     }

@@ -187,7 +187,6 @@ export default function Header() {
                                         M18 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
                                 </svg>
                             </div>
-
                         </Link>
 
                         {/* Langue*/}
