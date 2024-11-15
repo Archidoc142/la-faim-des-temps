@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('format', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->decimal('montant', 10, 2);
-            $table->string("nom_interne", 4)->nullable();
+        Schema::create('qb_tokens', function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
+            $table->longtext('encrypted_token');
+            $table->dateTime('expiration_date');
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('format');
+        Schema::dropIfExists('qb_tokens');
     }
 };

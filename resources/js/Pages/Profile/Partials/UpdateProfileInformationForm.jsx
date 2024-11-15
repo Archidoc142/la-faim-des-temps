@@ -121,6 +121,7 @@ export default function UpdateProfileInformation({
                             required
                             disabled={userType != 0}
                             autoComplete="username"
+                            max="100"
                         />
 
                         <InputError className="mt-2" message={errors.email} />

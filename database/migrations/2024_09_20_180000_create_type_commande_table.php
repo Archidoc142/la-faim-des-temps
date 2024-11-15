@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('format', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->decimal('montant', 10, 2);
-            $table->string("nom_interne", 4)->nullable();
+        Schema::create('type_commande', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom');
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('format');
+        Schema::dropIfExists('type_commande');
     }
 };

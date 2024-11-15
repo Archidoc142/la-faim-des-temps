@@ -35,11 +35,9 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
 
-    Route::get('/auth/redirect', function () {
-        return Socialite::driver('google')->redirect();
-    })->name('google.redirect');
+    Route::get('/auth/redirect', [AuthenticatedSessionController::class, 'googleLogin'])->name('google.redirect');
 
-    Route::get('/auth/callback', [RegisteredUserController::class, 'google'])->name('google.callback');
+    Route::get('/auth/callback', [AuthenticatedSessionController::class, 'google'])->name('google.callback');
 });
 
 Route::middleware('auth')->group(function () {

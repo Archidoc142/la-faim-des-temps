@@ -24,6 +24,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->bigInteger('id_role')->unsigned();
+            $table->bigInteger('id_qb')->unsigned()->nullable();
             $table->bigInteger('id_google')->unsigned()->nullable();
         });
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
+use App\Http\Controllers\QuickBooksController;
 use App\Http\Controllers\SaisonController;
 use App\Http\Controllers\TarifLivraisonController;
 use App\Http\Controllers\TexteStatique;
@@ -34,8 +35,14 @@ Route::get('/histoire', function () {
 
 Route::get('/menu', [ProduitController::class, 'index'])->name('menu.index');
 
-Route::get('/panier', [PanierController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
-Route::post('/commande', [CommandeController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class)->name('envoiCommande');
+Route::get('/panier', [PanierController::class, 'index'])->name('panier');
+
+Route::controller(CommandeController::class)->group(function() {
+    Route::post('/commande', [CommandeController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class)->name('envoiCommande');
+    Route::post('/checkout', 'checkout')->name('checkout')->middleware(EnsureUserIsLoggedIn::class);
+    Route::get('/success', 'success')->name('commande-success');
+    Route::get('/cancel', 'cancel')->name('commande-cancel');
+});
 
 Route::get('/avis', [CommentaireController::class, 'index'])->middleware(EnsureUserIsLoggedIn::class);
 Route::post('/avis', [CommentaireController::class, 'store'])->middleware(EnsureUserIsLoggedIn::class);
@@ -97,6 +104,16 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::post('/producteurs', 'store')->name('envoiNewProducteur');
         Route::post('/admin/producteur/update', 'update')->name('updateProducteur');
         Route::post('/admin/producteur/delete', 'destroy');
+    });
+
+    Route::controller(QuickBooksController::class)->group(function() {
+        Route::get('/admin/quickbooks', 'index')->name('admin.quickbooks');
+        Route::get('/admin/quickbooks/callback', 'callback')->name('admin.quickbooks.callback');
+    });
+
+    Route::controller(QuickBooksController::class)->group(function() {
+        Route::get('/admin/quickbooks', 'index')->name('admin.quickbooks');
+        Route::get('/admin/quickbooks/callback', 'callback')->name('admin.quickbooks.callback');
     });
 });
 

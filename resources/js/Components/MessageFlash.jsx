@@ -42,6 +42,7 @@ export default function MessageFlash({ status, message, visibility, duration = 3
     }, [visible])
 
     return (
+
         <div ref={container} className="fixed left-4 top-40 min-w-[350px]">
         {visible ?
             <div className={`flex gap-4 items-center px-4 rounded-[15px] text-center text-white text-lg bg-gradient-to-r from-[#041a37] to-[#0d3466] border-2 top-[8%] py-3
@@ -64,7 +65,6 @@ export default function MessageFlash({ status, message, visibility, duration = 3
                             <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
                                 <path d="M12 2 A10 10 0 1 1 12 22 A10 10 0 1 1 12 2 M15 9 L9 15 M9 9 L15 15" stroke="#86211f" strokeWidth={2} />
                             </svg>
-
                             : null}
 
                 <p>{message}</p>

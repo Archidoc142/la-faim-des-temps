@@ -194,7 +194,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         }
 
         //Gérer l'affichage du menu
-        if (user && user.data.role == "admin")
+        /*if (user && user.data.role == "admin")
             setAfficherMenu(true)
         else {
             //si une date de retour est programmée
@@ -211,7 +211,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                 else
                     setAfficherMenu(false);
             }
-        }
+        }*/
 
         checkIntervalleMenu();
         setAfficherMenu(true);
@@ -219,6 +219,8 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     }, [i18n.language])
 
     function checkIntervalleMenu() {
+        // Toujours afficher menu (pour tests)
+        /*
         if (ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12)) {
             changeDateBD(1, "prochain");
             setAfficherMenu(true);
@@ -226,7 +228,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         else if (ajd > lundiYYYY || (ajd === lundiYYYY && heure >= 16)) {
             setAfficherMenu(false);
             nextMenuText();
-        }
+        }*/
     }
 
     function nextMenuText() {
@@ -261,6 +263,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         checkKeys(panier, produit, format)
 
         localStorage.setItem("panier", JSON.stringify(panier))
+        window.dispatchEvent(new Event("storage"));
     }
 
     // Key 1 = produit - Key 2 = format
