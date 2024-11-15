@@ -22,6 +22,7 @@ class Commande extends Model
         'id_adresse',
         'id_utilisateur',
         'id_etat_commande',
+        'id_type_commande',
 
         'status',
         'session_id',
@@ -43,6 +44,11 @@ class Commande extends Model
     public function etat_commande(): BelongsTo
     {
         return $this->belongsTo(EtatCommande::class, 'id_etat_commande');
+    }
+
+    public function type_commande(): BelongsTo
+    {
+        return $this->belongsTo(TypeCommande::class, 'id_type_commande');
     }
 
     public function ProduitsCommande() : BelongsToMany

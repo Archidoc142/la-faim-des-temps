@@ -18,16 +18,25 @@ export default function Accueil({ commentaires, images, qbValid }) {
 
     const params = new URLSearchParams(document.location.search);
     const loggedIn = params.get("loggedIn");
+    const isLogout = params.get("isLogout");
+    const commandePassee = params.get("commandePassee");
 
     const [messageVisibility, setMessageVisibility] = useState(true)
+    const [message, setMessage] = useState("")
 
     useEffect(() => {
-        let isLogout = params.get("isLogout");
-        let commandePassee = params.get("commandePassee");
 
         if (isLogout || commandePassee) {
             localStorage.setItem("panier", JSON.stringify([]));
+            window.dispatchEvent(new Event("storage"));
         }
+
+        if(isLogout)
+            setMessage("Déconnexion réussie, à la prochaine!");
+        else if(loggedIn)
+            setMessage("Bienvenue " + user.data.prenom + "!");
+        else if(commandePassee)
+            setMessage("Nous avons bien reçu votre commande, merci!");
 
         if(user && user.data.role == "admin" && !qbValid) {
             alert("AVERTISSEMENT: Authentification QuickBooks échouée.\n\nLes nouveaux clients et les commandes n'apparaîtront pas sur votre QuickBooks.\n\nReconnectez votre compte dans la section \"QuickBooks\" du menu administrateur pour régler le problème.")
@@ -53,10 +62,10 @@ export default function Accueil({ commentaires, images, qbValid }) {
 
     return (
         <>
-            {loggedIn ?
+            {loggedIn || commandePassee || isLogout ?
                 <MessageFlash
                     status={1}
-                    message={"Bienvenue " + user.data.prenom + "!"}
+                    message={message}
                     visibility={messageVisibility}
                     setVisibility={setMessageVisibility}
                 />

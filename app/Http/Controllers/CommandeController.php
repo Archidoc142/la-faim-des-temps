@@ -12,6 +12,7 @@ use App\Models\CommandeProduit;
 use App\Models\Format;
 use App\Models\Produit;
 use App\Models\ProduitFormat;
+use App\Models\QBToken;
 use App\Models\SecteurCode;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Services\QuickBooksService;
@@ -23,7 +24,7 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        $commandes = Commande::with('user')->where('status', 'paid')->latest()->paginate(5);
+        $commandes = Commande::with('user')/*->where('status', 'paid')*/->latest()->paginate(5);
 
         return Inertia::render('Admin/Commandes', [
             'commandes' => CommandeResource::collection($commandes)
@@ -68,7 +69,7 @@ class CommandeController extends Controller
         return response('');
     }
 
-    private function sendCommandeBD(Request $request)
+    private function sendCommandeBD(Request $request, $enLigne)
     {
         $idAdresse = null;
 
@@ -104,6 +105,7 @@ class CommandeController extends Controller
         $commande->id_adresse = $idAdresse;
         $commande->id_etat_commande = 1;
         $commande->allergenes = $request->allergenes;
+        $commande->id_type_commande = $enLigne ? 1 : 2;
 
         $commande->save();
 
@@ -162,8 +164,6 @@ class CommandeController extends Controller
             ];
         }
 
-        //dump($itemsQb);
-
         $quickBooksService->createInvoice($commande, $itemsQb, $sendEmail);
     }
 
@@ -173,8 +173,10 @@ class CommandeController extends Controller
 
     public function store(Request $request)
     {
-        $commande = $this->sendCommandeBD($request);
-        $this->sendCommandeQB($commande, true);
+        $commande = $this->sendCommandeBD($request, false);
+
+        if(QBToken::exists())
+            $this->sendCommandeQB($commande, true);
 
         return redirect('/?commandePassee=1');
     }
@@ -273,9 +275,8 @@ class CommandeController extends Controller
             ],
         );
 
-        $commande = $this->sendCommandeBD($request);
+        $commande = $this->sendCommandeBD($request, true);
 
-        $commande->status = "unpaid";
         $commande->session_id = $session->id;
         $commande->stripe_id = $request->user()->stripe_id;
 
@@ -305,22 +306,17 @@ class CommandeController extends Controller
 
         $commande = Commande::where('session_id', $sessionId)->first();
 
-        if ($commande->status == "unpaid")
-            $commande->status = "paid";
-
         $commande->save();
 
-        $this->sendCommandeQB($commande, false);
-
         $user = $commande->user()->first();
-        $quickBooksService->sendPayment($user, $commande);
 
-        //dump("Commande passée!");
+        if(QBToken::exists())
+        {
+            $this->sendCommandeQB($commande, false);
+            $quickBooksService->sendPayment($user, $commande);
+        }
 
         return redirect('/?commandePassee=1');
-
-        //dd($commande->ProduitsCommande()->get());
-        // retourner vers page confirmation commande + vider panier (localstorage)
     }
 
 

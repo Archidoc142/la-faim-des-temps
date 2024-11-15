@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use QuickBooksOnline\API\Exception\ServiceException;
 use QuickBooksOnline\API\Facades\Deposit;
 use QuickBooksOnline\API\Facades\Payment;
+use TypeError;
 
 class QuickBooksService
 {
@@ -26,26 +27,11 @@ class QuickBooksService
         $quickBooksService = new QuickBooksService();
 
         if($quickBooksService->refreshTokens())
-
-        try {
-            $resultingCustomerObj = $quickBooksService->sendToQB($user);
-        } catch (Exception $e) {
-            // Do sommething with the exception
+        {
+            return $quickBooksService->sendToQB($user);
         }
-    }
 
-    private function getGUID()
-    {
-        if (function_exists('com_create_guid')){
-            return com_create_guid();
-        }else{
-            mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
-            $charid = strtoupper(md5(uniqid(rand(), true)));
-            $hyphen = chr(45);// "-"
-            $uuid = // "{"
-                $hyphen.substr($charid, 0, 8);
-            return $uuid;
-        }
+        return false;
     }
 
     private function getIncomeAccountObj($dataService)
@@ -163,25 +149,20 @@ class QuickBooksService
 
         //Si l'ajout du client à QuickBooks est un succès, on ajoute son ID QuickBooks à la table QB_id s'il n'existe pas déjà,
         // sinon on ne fait pas de lien avec QuickBooks (une tentative création de compte QuickBooks est faites à chaque connexion s'il n'y a pas de compte lié)
-        if($resultingCustomerObj !== null) {
+        if(isset($resultingCustomerObj)) {
             $objId = intval($resultingCustomerObj->Id);
 
             // //On ajoute l'id de la table QB_id du client à la table User
             $user->id_qb = $objId;
             $user->save();
-
-            $this->updateCustomer($user);
         }
 
         //TO DO: créer un affichage pour les erreurs
         $error = $dataService->getLastError();
-        if ($error) {
-            return "The Status code is: " . $error->getHttpStatusCode() . "\n" .
-               "The Helper message is: " . $error->getOAuthHelperError() . "\n" .
-               "The Response message is: " . $error->getResponseBody() . "\n";
-        } else {
-            return $resultingCustomerObj;
-        }
+        if($error)
+            return false;
+
+        return $objId;
     }
 
     //Cette fonction permet de faire une update des information client dans quickbooks
@@ -211,13 +192,8 @@ class QuickBooksService
 
         //TO DO: créer un affichage pour les erreurs
         $error = $dataService->getLastError();
-        if ($error) {
-            return "The Status code is: " . $error->getHttpStatusCode() . "\n" .
-               "The Helper message is: " . $error->getOAuthHelperError() . "\n" .
-               "The Response message is: " . $error->getResponseBody() . "\n";
-        } else {
-            return $resultingCustomerObj;
-        }
+
+        return !$error;
     }
 
     private function sendInvoiceEmail($invoice, $email)
@@ -230,68 +206,78 @@ class QuickBooksService
     //Cette fonction permet de créer une facture dans QuickBooks
     //l'envoi de la facture par courriel au client est fait automatiquement
     public function createInvoice($commande, $items, $sendEmail) {
-        $dataService = $this->configureDataService();
-
-        $salesTermQuery = $dataService->Query("select * from Term where Name LIKE '%Due%'");
-        if(is_null($salesTermQuery))
-            $salesTermQuery = $dataService->Query("select * from Term where Name LIKE '%Payable%'");
-
-        $salesTerm = current($salesTermQuery);
-        $invoiceData = [
-            "Line" => $items,
-            "CustomerRef" => [
-                "value" => $commande->user->id_qb
-            ],
-            "BillEmail" => [
-                "Address" => $commande->user->email
-            ],
-            "EmailStatus" => "NeedToSend",
-            "DueDate" => date("Y-m-d", strtotime('next thursday')),
-            "SalesTermRef" => [ "value" => strval($salesTerm->Id) ],
-            "PrivateNote" => (is_null($commande->allergenes) ? "Aucun allergène" : "Allergènes : " . $commande->allergenes )
-        ];
-
-        if($commande->livraison)
+        try
         {
-            $invoiceData["BillAddr"] = [
-                "Line1" => $commande->user->prenom . " " . $commande->user->nom,
-                "Line2" => $commande->adresse->no_civique . " " . $commande->adresse->rue
+            $dataService = $this->configureDataService();
+
+            $salesTermQuery = $dataService->Query("select * from Term where Name LIKE '%Due%'");
+
+            if(is_null($salesTermQuery))
+                $salesTermQuery = $dataService->Query("select * from Term where Name LIKE '%Payable%'");
+
+            $customerIdQb = $commande->user->id_qb;
+
+            if(is_null($customerIdQb))
+            {
+                $customerIdQb = $this->sendCustomer($commande->user);
+
+                if(!$customerIdQb)
+                    return false;
+            }
+
+            $salesTerm = current($salesTermQuery);
+            $invoiceData = [
+                "Line" => $items,
+                "CustomerRef" => [
+                    "value" => $commande->user->id_qb
+                ],
+                "BillEmail" => [
+                    "Address" => $commande->user->email
+                ],
+                "EmailStatus" => "NeedToSend",
+                "DueDate" => date("Y-m-d", strtotime('next thursday')),
+                "SalesTermRef" => [ "value" => strval($salesTerm->Id) ],
+                "PrivateNote" => (is_null($commande->allergenes) ? "Aucun allergène" : "Allergènes : " . $commande->allergenes )
             ];
 
-            if($commande->adresse->appartement)
+            if($commande->livraison)
             {
-                $invoiceData["BillAddr"]["Line3"] = "Appt " . $commande->adresse->appartement;
-                $invoiceData["BillAddr"]["Line4"] = "Sherbrooke, QC  " . $commande->adresse->code_postal;
+                $invoiceData["BillAddr"] = [
+                    "Line1" => $commande->user->prenom . " " . $commande->user->nom,
+                    "Line2" => $commande->adresse->no_civique . " " . $commande->adresse->rue
+                ];
+
+                if($commande->adresse->appartement)
+                {
+                    $invoiceData["BillAddr"]["Line3"] = "Appt " . $commande->adresse->appartement;
+                    $invoiceData["BillAddr"]["Line4"] = "Sherbrooke, QC  " . $commande->adresse->code_postal;
+                }
+                else
+                {
+                    $invoiceData["BillAddr"]["Line3"] = "Sherbrooke, QC  " . $commande->adresse->code_postal;
+                }
             }
-            else
+
+            $invoiceObj = Invoice::create($invoiceData);
+            $resultingInvoiceObj = $dataService->Add($invoiceObj);
+
+            $error = $dataService->getLastError();
+
+            if(!$error)
             {
-                $invoiceData["BillAddr"]["Line3"] = "Sherbrooke, QC  " . $commande->adresse->code_postal;
+                $commande->qb_id = $resultingInvoiceObj->Id;
+                $commande->qb_invoice_id = intval($resultingInvoiceObj->DocNumber); // non, ce n'est pas une erreur...
+                $commande->save();
+
+                if($sendEmail)
+                    $this->sendInvoiceEmail($resultingInvoiceObj, $commande->user->email);
             }
+
+            return !$error;
         }
-
-        //dump($invoiceData);
-
-        $invoiceObj = Invoice::create($invoiceData);
-
-        $resultingInvoiceObj = $dataService->Add($invoiceObj);
-
-        //dump($dataService->getLastError());
-
-        $commande->qb_id = $resultingInvoiceObj->Id;
-        $commande->qb_invoice_id = intval($resultingInvoiceObj->DocNumber); // non, ce n'est pas une erreur...
-        $commande->save();
-
-        if($sendEmail)
-            $this->sendInvoiceEmail($resultingInvoiceObj, $commande->user->email);
-
-        //TO DO: créer un affichage pour les erreurs
-        $error = $dataService->getLastError();
-        if ($error) {
-            return "The Status code is: " . $error->getHttpStatusCode() . "\n" .
-               "The Helper message is: " . $error->getOAuthHelperError() . "\n" .
-               "The Response message is: " . $error->getResponseBody() . "\n";
-        } else {
-            return $resultingInvoiceObj;
+        catch(TypeError | Exception $e)
+        {
+            return false;
         }
     }
 
@@ -407,42 +393,43 @@ class QuickBooksService
 
     public function sendPayment($user, $commande)
     {
-        $dataService = $this->configureDataService();
-
-        $bankAccount = $this->getBankAccount($dataService);
-
-        $paymentData = [
-            "CustomerRef" => [ "value" => strval($user->id_qb) ],
-            "TotalAmt" => $commande->total,
-            "Line" => [
-                [
-                    "Amount" => $commande->total,
-                    "LinkedTxn" => [
-                    [
-                        "TxnId" => strval($commande->qb_id),
-                        "TxnType" => "Invoice"
-                    ]],
-                ]
-            ],
-            "DepositToAccountRef" => [ "value" => strval($bankAccount->Id) ]
-        ];
-
-        $payment = Payment::create($paymentData);
-
-        $dataService->Add($payment);
-
-        $error = $dataService->getLastError();
-
-        if ($error) {
-            dd($error);
-            echo "The Status code is: " . $error->getHttpStatusCode() . "\n";
-            echo "The Helper message is: " . $error->getOAuthHelperError() . "\n";
-            echo "The Response message is: " . $error->getResponseBody() . "\n";
-        }
-        else
+        try
         {
-            $invoice = $dataService->Query("SELECT * FROM Invoice WHERE Id='" . $commande->qb_id . "'" );
-            $this->sendInvoiceEmail($invoice[0], $user->email);
+            $dataService = $this->configureDataService();
+
+            $bankAccount = $this->getBankAccount($dataService);
+
+            $paymentData = [
+                "CustomerRef" => [ "value" => strval($user->id_qb) ],
+                "TotalAmt" => $commande->total,
+                "Line" => [
+                    [
+                        "Amount" => $commande->total,
+                        "LinkedTxn" => [
+                        [
+                            "TxnId" => strval($commande->qb_id),
+                            "TxnType" => "Invoice"
+                        ]],
+                    ]
+                ],
+                "DepositToAccountRef" => [ "value" => strval($bankAccount->Id) ]
+            ];
+
+            $payment = Payment::create($paymentData);
+            $dataService->Add($payment);
+
+            $error = $dataService->getLastError();
+
+            if (!$error) {
+                $invoice = $dataService->Query("SELECT * FROM Invoice WHERE Id='" . $commande->qb_id . "'" );
+                $this->sendInvoiceEmail($invoice[0], $user->email);
+            }
+
+            return !$error;
+        }
+        catch(Exception | TypeError $e)
+        {
+            return false;
         }
     }
 
