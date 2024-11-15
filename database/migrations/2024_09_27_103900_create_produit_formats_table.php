@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('id_produit')->unsigned();
             $table->bigInteger('id_format')->unsigned();
+            $table->integer('id_qb')->unsigned()->nullable();
         });
 
         Schema::table('produit_format', function (Blueprint $table) {

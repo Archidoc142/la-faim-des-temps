@@ -20,7 +20,8 @@ class Format extends Model
     protected $fillable = [
         'montant',
         'nom',
-        'description'
+        'description',
+        'nom_interne'
     ];
 
     public function langue($lang)

@@ -9,6 +9,7 @@ export default function Avis() {
 
     // Demander à Yannick pour une valeur par défaut
     const [note, setNote] = useState(4)
+    const [submitting, setSubmitting] = useState(false)
     const { data, setData, post, errors, processing } = useForm({
         note: note,
         comment: ''
@@ -16,7 +17,13 @@ export default function Avis() {
 
     const submit = (e) => {
         e.preventDefault();
-        router.post('/avis', data)
+
+        if(!submitting)
+        {
+            router.post('/avis', data);
+            setSubmitting(true);
+        }
+
     };
 
     useEffect(() => {
@@ -46,7 +53,7 @@ export default function Avis() {
                 </div>
 
                 <div className="flex justify-center">
-                    <button className="bg-[#7A163C] hover:bg-[#550F2A] text-white font-bold rounded-md py-2 px-12">{t("Avis.send")}</button>
+                    <button className={(submitting ? "bg-gray-400 hover:cursor-not-allowed" : "bg-[#7A163C] hover:bg-[#550F2A]")+ " text-white font-bold rounded-md py-2 px-12"}>{t("Avis.send")}</button>
                 </div>
             </form>
         </div>

@@ -43,12 +43,17 @@ export default function ImageForm({ image, setPopupActif }) {
             alert("Sélectionnez au moins une saison si l'image est saisonnière.")
 
         else
+        {
+            setPopupActif(false);
+
             post('/admin/image', {
                 preserveScroll: true,
                 onError: (errors) => { alert(errors[0]); },
                 preserveState: 'errors',
                 onFinish: () => { setPopupActif(false); }
             });
+        }
+
     }
 
     function upload(e) {

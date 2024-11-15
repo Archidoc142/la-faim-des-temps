@@ -25,6 +25,7 @@ class CommandeFactory extends Factory
             'id_adresse' => $this->faker->numberBetween(1, 7),
             'id_utilisateur' => rand(1 , 5),
             'id_etat_commande' => $this->faker->numberBetween(1, 2),
+            'id_type_commande' => $this->faker->numberBetween(1, 2),
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now')
         ];
     }
