@@ -45,7 +45,7 @@ export default function GoDownButton() {
     }, []);
 
     return (
-        <div onClick={handleScrollToTarget} className="fixed right-6 bottom-6 rounded-full bg-green-600 cursor-pointer">
+        <div onClick={handleScrollToTarget} className="fixed right-6 bottom-6 rounded-full bg-green-600 border-4 border-green-800 cursor-pointer">
             <svg ref={container} width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v13M5 12l7 7 7-7" /></svg>
         </div>
     )
