@@ -49,7 +49,7 @@ class CommentaireController extends Controller
             'id_utilistateur' => Auth::id()
         ]);
 
-        return redirect('/');
+        return redirect('/?avisEnvoye=1');
     }
 
     /**

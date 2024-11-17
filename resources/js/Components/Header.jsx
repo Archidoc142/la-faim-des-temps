@@ -122,7 +122,7 @@ export default function Header() {
     return (
         <header className='border-b border-[#9b9b9b] sticky top-0 z-30'>
             <div className='flex bg-white'>
-                <a href="/" className='content-center'><img className='hidden lg:block w-auto self-center max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" /></a>
+                <Link href="/" className='content-center'><img className='hidden lg:block w-auto self-center max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" /></Link>
 
                 <div className='flex py-10 items-center flex-nowrap justify-between w-full max-h-[80px] lg:max-h-[70px] bg-[#041a37] pl-6 xl:pl-8'>
                     {/* Menu*/}
@@ -139,7 +139,7 @@ export default function Header() {
                             <Link className={`text-xs xl:text-base ${url === '/valeurs' ? 'text-white' : 'hover:text-gray-300'}`} href='/valeurs'><strong>{t("Header.valeurs")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/producteurs' ? 'text-white' : 'hover:text-gray-300'}`} href='/producteurs'><strong>{t("Header.producteurs")}</strong></Link>
                             <Link className={`text-xs xl:text-base ${url === '/histoire' ? 'text-white' : 'hover:text-gray-300'}`} href='/histoire'><strong>{t("Header.histoire")}</strong></Link>
-                            {user ? user.data.role !== "admin" ? <Link className={`text-xs xl:text-base ${url === '/avis' ? 'text-white' : false}`} href='/avis'><strong>{t("Header.avis")}</strong></Link> : null : null}
+                            {user ? user.data.role !== "admin" ? <Link className={`text-xs xl:text-base ${url === '/avis' ? 'text-white' : 'hover:text-gray-300'}`} href='/avis'><strong>{t("Header.avis")}</strong></Link> : null : null}
                         </div>
                     </div>
 

@@ -15,7 +15,7 @@ export default function PanierChoix({ data, setData, setContentBox, setBoxVisibl
         newData.frais_livraison = 0
 
         setData(newData)
-        setSecteur("cueillette")
+        setSecteur(t("Panier.cueillette"))
         setContentBox(2)
     }
 
@@ -40,7 +40,7 @@ export default function PanierChoix({ data, setData, setContentBox, setBoxVisibl
                 <div
                     className="bg-[#AAA] rounded-xl w-[48%] sm:w-[50%] h-[160px] sm:h-[200px] flex flex-col text-center cursor-pointer hover:bg-gray-500"
                     onClick={() => handleLivraisonChoice()}>
-                    <Camion  text={t("Panier.livraison")} />
+                    <Camion text={t("Panier.livraison")} />
                 </div>
 
                 <div
