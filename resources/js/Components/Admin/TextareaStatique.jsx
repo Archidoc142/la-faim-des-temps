@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 
 export default function TextareaStatique({ setStatiqueFR, setStatiqueEN, element, couleur }) {
-export default function TextareaStatique({ setStatiqueFR, setStatiqueEN, element, couleur }) {
     const [t, i18n] = useTranslation("global");
 
     return (

@@ -31,7 +31,6 @@ export default function Valeurs() {
                     "en": nouveau_texte[index][3]
                 }
             }
-console.log(textData);
             router.patch('/modifier-texte', textData, {
                 preserveScroll: true,
                 onError: (errors) => { alert(errors[0]); },
