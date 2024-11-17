@@ -137,9 +137,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
                     condition={plus2Img}
                     src={imgV[idImg2]['src']}
                     alt={i18n.language === 'fr' ? imgV[idImg2]['legende']['fr'] : imgV[idImg2]['legende']['en']}
-                    legend={i18n.language === 'fr'
-                        ? imgV[idImg2]['legende']['fr']
-                        : imgV[idImg2]['legende']['en']}
+                    legend={i18n.language === 'fr' ? imgV[idImg2]['legende']['fr'] : imgV[idImg2]['legende']['en']}
                 />
 
                 <div className='py-12 px-8 items-center content-center'>
@@ -148,8 +146,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
                         editMode={editBistroMode}
                         setEditMode={setEditBistroMode}
                         changeText={changeText}
-                        elemChange={[
-                            ["Accueil", "bistro-description", bistropfr, bistropen]]}
+                        elemChange={[["Accueil", "bistro-description", bistropfr, bistropen]]}
                         couleur="white"
                     />
 
@@ -174,9 +171,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
                     condition={imgV.length > 0}
                     src={imgV[idImg1]['src']}
                     alt={i18n.language === 'fr' ? imgV[idImg1]['legende']['fr'] : imgV[idImg1]['legende']['en']}
-                    legend={i18n.language === 'fr'
-                        ? imgV[idImg1]['legende']['fr']
-                        : imgV[idImg1]['legende']['en']}
+                    legend={i18n.language === 'fr' ? imgV[idImg1]['legende']['fr'] : imgV[idImg1]['legende']['en']}
                 />
             </div>
 
