@@ -86,7 +86,16 @@ class ImageSaisonSeeder extends Seeder
             [
                 'id_image' => 4,
                 'id_saison' => 4,
-            ]
+            ],
+
+            [
+                'id_image' => 5,
+                'id_saison' => 2,
+            ],
+            [
+                'id_image' => 5,
+                'id_saison' => 3,
+            ],
         ]);
     }
 }
