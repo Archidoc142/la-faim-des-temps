@@ -68,7 +68,7 @@
         "plat-principaux": "Main dishes",
         "livr-titre": "HOME DELIVERY",
         "livr-p": "A different menu every Friday morning; Simply contact us by email or via our website to place your order and receive the dishes you want in the portions you want. An excellent way to save time, energy and avoid waste (yes, we do see your old carrots begging you not to order pizza).",
-        "livr-heure": "The home delivery is between 3:00 p.m. and 6:00 p.m. on Friday, ",
+        "livr-heure": "The next home delivery will be between 3:00 p.m. and 6:00 p.m. on Friday, ",
         "livr-titre-sherb": "Delivery fees Sherbrooke zone",
         "livr-sherb": "for orders under $60.00,",
         "livr-titre-autre": "Delivery fees Fleurimont and Rock Forest zones",
@@ -80,7 +80,7 @@
         "menu-indisponible": "The menu is currently unavailable.",
         "menu-back": "It will be back on ",
         "ancre": "Scroll down to the menu!",
-        "bienajoute" : "The dish has been added to the cart"
+        "bienajoute": "The dish has been added to the cart"
     },
     "Panier": {
         "vide": "Empty",
@@ -186,7 +186,7 @@
     "k": {
         "f": "e"
     },
-    "Mdp" : {
+    "Mdp": {
         "message": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
         "button" : "Send the email",
         "title" : "Forget password?",
