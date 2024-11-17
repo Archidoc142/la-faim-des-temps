@@ -42,6 +42,7 @@ export default function MessageFlash({ status, message, visibility, duration = 3
     }, [visible])
 
     return (
+
         <div ref={container} className="fixed left-4 top-40 min-w-[350px]">
         {visible ?
             <div className={`flex gap-4 items-center px-4 rounded-[15px] text-center text-white text-lg bg-gradient-to-r from-[#041a37] to-[#0d3466] border-2 top-[8%] py-3
@@ -51,7 +52,7 @@ export default function MessageFlash({ status, message, visibility, duration = 3
                 }`}>
 
                 {status === 1 ?
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1f8444" class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1f8444" className="bi bi-check-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                         <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
                     </svg>
@@ -64,7 +65,6 @@ export default function MessageFlash({ status, message, visibility, duration = 3
                             <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
                                 <path d="M12 2 A10 10 0 1 1 12 22 A10 10 0 1 1 12 2 M15 9 L9 15 M9 9 L15 15" stroke="#86211f" strokeWidth={2} />
                             </svg>
-
                             : null}
 
                 <p>{message}</p>

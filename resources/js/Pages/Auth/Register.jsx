@@ -12,6 +12,8 @@ import logoBig from '../../../../public/img/logo-big.jpg';
 export default function Register() {
 
     const [t, i18n] = useTranslation("global");
+    const params = new URLSearchParams(document.location.search);
+    const redirectToPanier = !!params.get("target");
 
     const { data, setData, post, processing, errors, reset } = useForm({
         prenom: '',
@@ -20,6 +22,7 @@ export default function Register() {
         telephone: '',
         password: '',
         password_confirmation: '',
+        redirectToPanier: redirectToPanier
     });
 
     const submit = (e) => {
@@ -76,7 +79,6 @@ export default function Register() {
                                                 value={data.nom}
                                                 className="mt-1 block w-full"
                                                 autoComplete="nom"
-                                                isFocused={true}
                                                 onChange={(e) => setData('nom', e.target.value)}
                                                 required
                                             />
@@ -93,6 +95,7 @@ export default function Register() {
                                                 name="email"
                                                 value={data.email}
                                                 className="mt-1 block w-full"
+                                                max="100"
                                                 autoComplete="email"
                                                 onChange={(e) => setData('email', e.target.value)}
                                                 required

@@ -6,6 +6,7 @@ import Dropdown from '@/Components/Dropdown';
 import { Inertia } from '@inertiajs/inertia'
 
 import logo from '../../../public/img/logo-rect.jpg'
+import PanierIndicateur from './PanierIndicateur';
 
 export default function Header() {
 
@@ -25,6 +26,39 @@ export default function Header() {
     const options = { weekday: 'long', day: 'numeric', month: 'long' };
     const tempDate = dateToShow.toLocaleDateString('fr-FR', options) + ' à 16:00';
     const [date, setDate] = useState(tempDate)
+
+    const [nbPanier, setNbPanier] = useState(0)
+
+    const refreshNbPanier = () => {
+        const panierStr = localStorage.getItem("panier");
+
+        if(panierStr) {
+            const panier = JSON.parse(panierStr);
+            let qte = 0;
+
+            panier.forEach(produit => {
+                qte += produit.qte;
+            });
+            setNbPanier(qte);
+        }
+        else {
+            setNbPanier(0);
+        }
+    }
+
+    useEffect(() => {
+        refreshNbPanier();
+
+        function storageEventHandler(event) {
+            refreshNbPanier();
+        }
+
+        window.addEventListener("storage", storageEventHandler);
+        return () => {
+            // Remove the handler when the component unmounts
+            window.removeEventListener("storage", storageEventHandler);
+        };
+    }, [])
 
     useEffect(() => {
         if (canCommand) {
@@ -100,11 +134,11 @@ export default function Header() {
 
                     <div className='hidden lg:flex'>
                         <div className='text-[#b7b6a9] flex gap-8 xl:gap-12 items-center'>
-                            <Link className={`text-xs xl:text-base ${url === '/' ? 'text-white' : false}`} href='/'><strong>{t("Header.accueil")}</strong></Link>
-                            <Link className={`text-xs xl:text-base ${url === '/menu' ? 'text-white' : false}`} href='/menu'><strong>{t("Header.menu")}</strong></Link>
-                            <Link className={`text-xs xl:text-base ${url === '/valeurs' ? 'text-white' : false}`} href='/valeurs'><strong>{t("Header.valeurs")}</strong></Link>
-                            <Link className={`text-xs xl:text-base ${url === '/producteurs' ? 'text-white' : false}`} href='/producteurs'><strong>{t("Header.producteurs")}</strong></Link>
-                            <Link className={`text-xs xl:text-base ${url === '/histoire' ? 'text-white' : false}`} href='/histoire'><strong>{t("Header.histoire")}</strong></Link>
+                            <Link className={`text-xs xl:text-base ${url === '/' ? 'text-white' : 'hover:text-gray-300'}`} href='/'><strong>{t("Header.accueil")}</strong></Link>
+                            <Link className={`text-xs xl:text-base ${url === '/menu' ? 'text-white' : 'hover:text-gray-300'}`} href='/menu'><strong>{t("Header.menu")}</strong></Link>
+                            <Link className={`text-xs xl:text-base ${url === '/valeurs' ? 'text-white' : 'hover:text-gray-300'}`} href='/valeurs'><strong>{t("Header.valeurs")}</strong></Link>
+                            <Link className={`text-xs xl:text-base ${url === '/producteurs' ? 'text-white' : 'hover:text-gray-300'}`} href='/producteurs'><strong>{t("Header.producteurs")}</strong></Link>
+                            <Link className={`text-xs xl:text-base ${url === '/histoire' ? 'text-white' : 'hover:text-gray-300'}`} href='/histoire'><strong>{t("Header.histoire")}</strong></Link>
                             {user ? user.data.role !== "admin" ? <Link className={`text-xs xl:text-base ${url === '/avis' ? 'text-white' : false}`} href='/avis'><strong>{t("Header.avis")}</strong></Link> : null : null}
                         </div>
                     </div>
@@ -145,11 +179,14 @@ export default function Header() {
 
                         {/* Panier*/}
                         <Link href='/panier' onClick={handleClosure}>
-                            <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" fill='transparent' stroke="#fff" strokeWidth="2">
-                                <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
-                                       M10 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0
-                                       M18 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
-                            </svg>
+                            <div className='relative'>
+                                { nbPanier > 0 ? <PanierIndicateur nbPanier={nbPanier}/> : null}
+                                <svg className='ml-8 ' width="28" height="28" viewBox="0 0 24 24" fill='transparent' stroke="#fff" strokeWidth="2">
+                                    <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1
+                                        M10 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0
+                                        M18 20.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>
+                                </svg>
+                            </div>
                         </Link>
 
                         {/* Langue*/}

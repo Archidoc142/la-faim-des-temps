@@ -20,6 +20,15 @@ return new class extends Migration
             $table->bigInteger('id_adresse')->unsigned()->nullable();
             $table->bigInteger('id_utilisateur')->unsigned();
             $table->bigInteger('id_etat_commande')->unsigned();
+            $table->bigInteger('id_type_commande')->unsigned();
+
+            // pour Stripe
+            $table->string('session_id')->nullable();
+            $table->string('stripe_id')->nullable();
+
+            $table->bigInteger('qb_id')->nullable();
+            $table->bigInteger('qb_invoice_id')->nullable();
+
             $table->timestamps();
         });
 
@@ -27,6 +36,7 @@ return new class extends Migration
             $table->foreign('id_adresse')->references('id')->on('adresse');
             $table->foreign('id_utilisateur')->references('id')->on('users');
             $table->foreign('id_etat_commande')->references('id')->on('etat_commande');
+            $table->foreign('id_type_commande')->references('id')->on('type_commande');
         });
     }
 

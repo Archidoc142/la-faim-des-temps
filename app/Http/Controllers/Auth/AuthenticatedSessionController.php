@@ -4,12 +4,18 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\GoogleId;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Services\QuickBooksService;
+use App\Models\QBToken;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -18,6 +24,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
+        $quickBooksService = new QuickBooksService();
+
+        //If token exist refesh it, else display a error
+        if(QBToken::exists())
+            $quickBooksService->refreshTokens();
+
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
@@ -29,11 +41,72 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $quickBooksService = new QuickBooksService();
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('accueil', absolute: false));
+        //tentative de création de compte QuickBooks si aucun compte n'est lié et que l'utilisateur n'est pas admin
+        if($request->user()->role->nom != "admin" && $request->user()->id_qb === null)
+            $quickBooksService->sendToQB($request->user());
+
+        if($request->redirectToPanier)
+            return redirect("/panier?loggedIn=1");
+
+        return redirect("/?loggedIn=1");
+    }
+
+    public function googleLogin(Request $request)
+    {
+        if(isset($request->target))
+            return Socialite::driver('google')
+                    ->with(["state" => "panier"])
+                    ->redirect();
+
+        return Socialite::driver('google')
+            ->redirect();
+    }
+
+    public function google(Request $request)
+    {
+        $user = Socialite::driver('google')->stateless()->user();
+        $userExists = GoogleId::where('client_id', $user->id)->exists();
+
+        $googleId = GoogleId::firstOrCreate(
+            ['client_id' => $user->id]
+        );
+
+        $user = User::updateOrCreate(
+        [
+            'email' => $user->email,
+        ],
+        [
+            'nom' => $user->user['family_name'],
+            'prenom' => $user->user['given_name'],
+            'google_token' => $user->token,
+            'type' => 1,
+            'id_role' => 1,
+            'type' => 1,
+            'id_google' => $googleId->id
+        ]);
+
+        if(!$userExists || is_null($user->id_qb))
+        {
+            $qbService = new QuickBooksService();
+            $qbService->sendCustomer($user);
+
+            event(new Registered($user));
+        }
+
+        Auth::login($user);
+
+        $state = $request->input("state");
+
+        if($state == "panier")
+            return redirect("/panier?loggedIn=1");
+
+        return redirect("/?loggedIn=1");
     }
 
     /**
