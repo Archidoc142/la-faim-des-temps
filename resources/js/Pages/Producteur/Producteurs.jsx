@@ -56,7 +56,7 @@ export default function Producteurs({ producteurs }) {
                 <Head title={t("Producteur.titre")} />
 
                 <HeadWithImage
-                    imgFile="/img/producteurBack.jpg"
+                    imgFile="/img/HeadProducteur.jpg"
                     title={t("Producteur.titre")}
                     button={false}
                     buttonText="none"

@@ -340,6 +340,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             setStatiqueFR={setLivrpfr}
                             setStatiqueEN={setLivrpen}
                             element="Menu.livr-p"
+                            couleur="black"
                         />
                         :
                         <p className='text-sm md:text-base'>{t("Menu.livr-p")}</p>
@@ -358,6 +359,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             setStatiqueFR={setLivrinfofr}
                             setStatiqueEN={setLivrinfoen}
                             element="Menu.livr-info"
+                            couleur="black"
                         />
                         :
                         <p className='text-[#BB285C] italic'>{t("Menu.livr-info")}</p>
@@ -383,6 +385,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             setStatiqueFR={setVenirpfr}
                             setStatiqueEN={setVenirpen}
                             element="Menu.venir-p"
+                            couleur="black"
                         />
                         :
                         <p className='text-sm md:text-base'>{t("Menu.venir-p")}</p>

@@ -68,7 +68,7 @@
         "livr-titre-sherb": "Frais de livraison secteur Sherbrooke",
         "livr-sherb": "pour les commandes de moins de 60.00$,",
         "livr-titre-autre": "Frais de livraison secteurs Fleurimont et Rock Forest",
-        "livr-info": "Merci de laisser une glacière de taille appropriée visible à l’extérieur pour votre commande.",
+        "livr-info": "Merci de laisser une glacière de taille appropriée visible depuis le phare.",
         "venir-titre": "PASSEZ NOUS VOIR",
         "venir-p": "kmVous pouvez également passer en boutique entre 16:00 et 17:00 pour récupérer votre commande sur place. Profitez-en pour vous procurer de quoi faire l'apéro en revenant chez vous parmi nos choix de charcuteries fines.",
         "date-passed": "La date limite pour cette semaine est passée.",
@@ -76,7 +76,7 @@
         "menu-indisponible": "Le menu est présentement indisponible.",
         "menu-back": "Il sera de retour le ",
         "ancre": "Descendre jusqu'au menu!",
-        "bienajoute" : "Le plat a été ajouté au panier"
+        "bienajoute": "Le plat a été ajouté au panier"
     },
     "Panier": {
         "vide": "Vide",
@@ -124,7 +124,7 @@
         "vert": "vert",
         "et": "et",
         "secondSectionTitlePart2": "Inclusif",
-        "secondSectionText": "Soucieux de notre environnement et conscients qu'une entreprise alimentaire peut rapidement produire beaucoup de déchets, nous avons mis sur pied plusieurs stratégies pour réduire au maximum notre empreinte environnementale.",
+        "secondSectionText": "Soucieux de notre environnement et conscients qu'une entreprise alimentaire peut rapidement produire beaucoup de déchets, nous avons mis sur pied plusieurs stratégies pour réduire au maximum notre empreinte environnementale. alwudhlawhd",
         "thirdSectionTitle": "Nos Gestes",
         "thirdSectionSbuTitle1": "Produits Locaux",
         "thirdSectionText1": "Nos partenaires sont majoritairement Sherbrookois... ou Québécois (on aime un peu trop l'île d'Orléans pour s'en passer). De plus nous utilisons des ingrédients locaux autant que possible et notre menu bistro change au rythme des saisons. Nous choisissons aussi prioritairement des producteurs ou artisans biologiques/naturels.",
@@ -158,11 +158,11 @@
         "aventure": "Une aventure"
     },
     "Onglet": {
-        "accueil" : "Accueil",
-        "histoire" : "Notre histoire",
-        "avis" : "Votre avis",
+        "accueil": "Accueil",
+        "histoire": "Notre histoire",
+        "avis": "Votre avis",
         "mdp": "Mot de passe",
-        "resetmdp" : "Réinitialiser le mot de passe"
+        "resetmdp": "Réinitialiser le mot de passe"
     },
     "M": {
         "e": "n"
@@ -176,11 +176,11 @@
     "k": {
         "f": "n"
     },
-    "Mdp" : {
+    "Mdp": {
         "message": "Vous avez oublié votre mot de passe? Aucun problème. Mettez votre courriel, puis nous vous enverrons un courriel à cette adresse.",
-        "button" : "Envoyer le courriel",
-        "title" : "Mot de passe oublié?",
-        "mdp" : "Mot de passe :",
-        "confirm" : "Confirmer le mot de passe :"
+        "button": "Envoyer le courriel",
+        "title": "Mot de passe oublié?",
+        "mdp": "Mot de passe :",
+        "confirm": "Confirmer le mot de passe :"
     }
 }

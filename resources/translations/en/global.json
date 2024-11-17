@@ -76,7 +76,7 @@
         "menu-indisponible": "The menu is currently unavailable.",
         "menu-back": "It will be back on ",
         "ancre": "Scroll down to the menu!",
-        "bienajoute" : "The dish has been added to the cart"
+        "bienajoute": "The dish has been added to the cart"
     },
     "Panier": {
         "vide": "Empty",
@@ -118,7 +118,7 @@
         "titrePagePart2": "Initiatives",
         "titrePagePart3": "Environmental",
         "firstSectionTitle": "Our Values",
-        "firstSectionText": "From the beginning, we have always sought to integrate as many good environmental practices as possible into our operations, for the simple reason that it aligns with the core values of our founders. You can’t eat well with land that’s overexploited and polluted...",
+        "firstSectionText": "From the beginning, we have always sought to integrate as many good environmental practices as possible into our operations, for the simple reason that it aligns with the core values of our founders. You can’t eat well with land that’s overexploited and polluted... hello tester",
         "secondSectionTitlePart1": "For a Centro",
         "plus": "More",
         "vert": "green",
@@ -158,11 +158,11 @@
         "aventure": "An adventure"
     },
     "Onglet": {
-        "accueil" : "Home",
-        "histoire" : "Our story",
-        "avis" : "Your opinion",
+        "accueil": "Home",
+        "histoire": "Our story",
+        "avis": "Your opinion",
         "mdp": "Password",
-        "resetmdp" : "Reset Password"
+        "resetmdp": "Reset Password"
     },
     "M": {
         "e": "u"
@@ -176,11 +176,11 @@
     "k": {
         "f": "e"
     },
-    "Mdp" : {
+    "Mdp": {
         "message": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
-        "button" : "Send the email",
-        "title" : "Forget password?",
-        "mdp" : "Password :",
-        "confirm" : "Confirm Password :"
+        "button": "Send the email",
+        "title": "Forget password?",
+        "mdp": "Password :",
+        "confirm": "Confirm Password :"
     }
 }
