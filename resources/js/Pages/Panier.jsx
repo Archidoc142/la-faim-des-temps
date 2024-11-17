@@ -1,4 +1,4 @@
-import { Link, Head } from '@inertiajs/react';
+import { Link, Head, router, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 
 import Item from '../item'
@@ -12,6 +12,7 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
     const [panier, setPanier] = useState(JSON.parse(localStorage.getItem("panier")))
     const [total, setTotal] = useState(0)
     const [boxVisible, setBoxVisible] = useState(false)
+    const user = usePage().props.auth.user
 
     const calculateCost = () => {
         const totalCost = panier.reduce((acc, item) => {
@@ -25,7 +26,16 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
     };
 
     useEffect(() => {
-        calculateCost()
+        calculateCost();
+
+        const params = new URLSearchParams(document.location.search);
+        const justLoggedIn = params.get("loggedIn");
+
+        if(justLoggedIn)
+        {
+            setBoxVisible(true);
+            showMessageFlash(1, "Bienvenue " + user.data.prenom + "!");
+        }
     }, []);
 
     // Message Flash
@@ -42,7 +52,13 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
     const resetPanier = () => {
         setPanier({})
         localStorage.setItem("panier", JSON.stringify([]));
+        window.dispatchEvent(new Event("storage"));
+
         showMessageFlash(1, t("Panier.mFlash"))
+    }
+
+    const handleButtonClick = () => {
+        user ? setBoxVisible(true) : router.get("/login?target=panier");
     }
 
     return (
@@ -87,7 +103,7 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
 
                         <button
                             className='bg-[#7A163C] text-2xl px-4 py-2 border-black border-[1px]'
-                            onClick={() => setBoxVisible(true)}
+                            onClick={handleButtonClick}
                         >
                             {t("Panier.pass")}
                         </button>

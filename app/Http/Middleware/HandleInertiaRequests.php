@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
         $date        = new \DateTimeImmutable();
         $lundi16h    = strtotime('monday this week 16:00');
         $vendredi12h = strtotime('friday this week 12:00');
+        $vendredi0h = strtotime('friday this week 00:00');
 
         if ($date->getTimestamp() <= $lundi16h || $date->getTimestamp() >= $vendredi12h) {
 
@@ -57,7 +58,11 @@ class HandleInertiaRequests extends Middleware
             $canCommand = true;
 
         } else {
-            $dateToShow = strtotime("next friday");
+            if ($date->getTimestamp() >= $vendredi0h) {
+                $dateToShow = strtotime("today");
+            } else {
+                $dateToShow = strtotime("next friday");
+            }
         }
 
         if (isset($date_de_retour)) {

@@ -57,6 +57,7 @@ export default function PanierItem({
             return item;
         });
         localStorage.setItem("panier", JSON.stringify(mappedPanier));
+        window.dispatchEvent(new Event("storage"));
     };
 
     const updateQte = (newQte) => {
@@ -68,6 +69,7 @@ export default function PanierItem({
         });
         setPanier(mappedPanier);
         localStorage.setItem("panier", JSON.stringify(mappedPanier));
+        window.dispatchEvent(new Event("storage"));
         setQte(newQte);
     };
 

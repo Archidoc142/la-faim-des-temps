@@ -8,7 +8,7 @@ import AddProducteurButton from './AddProducteurButton';
 import PaginationBar from '@/Components/PaginationBar';
 import HeadWithImage from '@/Components/HeadWithImage';
 
-export default function Producteurs({ producteurs }) {
+export default function Producteurs( { producteurs }) {
     const user = usePage().props.auth.user;
 
     const [t, i18n] = useTranslation("global"); // translation

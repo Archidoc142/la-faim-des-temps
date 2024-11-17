@@ -1,16 +1,31 @@
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
-export default function PanierFinal({ post, data, prix, setData, adresse, setContentBox, setBoxVisible, secteur }) {
+export default function PanierFinal({ post, data, prix, setData, adresse, setContentBox, setBoxVisible, secteur, submitting, setSubmitting, setEnLigne }) {
 
     const [t, i18n] = useTranslation("global")
+    const [allergenes, setAllergenes] = useState(true)
 
     /*const codeIn = data.adresse.code_postal.substring(0,3);
     const secteur = secteurs.data.filter((s) => s.codes.includes(codeIn));
 
     console.log(codeIn)*/
 
-    const submitCommande = () => {
-        post(route('envoiCommande'))
+    const checkAllergenes = () => {
+        if(allergenes && data.allergenes == "") {
+            alert("Veuillez ajouter vos allergènes.\nSi vous n'en avez pas, cochez la case « Je n'ai pas d'allergènes ».");
+            return false;
+        }
+        return true;
+    }
+
+    const submitCommande = (online) => {
+        if(checkAllergenes() && !submitting)
+        {
+            setEnLigne(online)
+            setSubmitting(true)
+            setContentBox(4)
+        }
     }
 
     let nomAdresse = "";
@@ -38,15 +53,13 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
                     </button>
                 </div>
 
-
                 <h2 className="font-bold text-3xl pb-6 pt-10">{t("Panier.pass")}</h2>
-
 
                 <p className="font-bold text-lg pb-4 mx-10 mb-6 border-b-black border-b-[1px]">{t("Panier.finaliser")}</p>
 
                 <h3 className="font-bold text-3xl mb-4">{data.livraison ? t("Panier.total") : "Total"}</h3>
 
-                <div className="flex justify-center flex-col mx-20 mb-4">
+                <div className="flex justify-center flex-col mx-14 mb-4">
                     <div className="border-b-black border-b-[1px] pb-3">
                         <div className="flex justify-between">
                             <p>{t("Panier.article")} :</p>
@@ -71,20 +84,35 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
                         </div> : <div className="mb-8"></div>
                 }
 
-                <div className="text-left px-8 mt-6 mb-4">
+                <div className="text-left px-8 mt-6 mb-3">
                     <h4 className="font-bold mb-2">{t("Panier.allergen")}</h4>
                     <textarea
                         id="allergene"
                         maxLength="128"
                         placeholder={t("Panier.placeholder")}
-                        className="w-full min-h-[100px] max-h-[100px]"
+                        className={"w-full min-h-[100px] max-h-[100px]" + (!allergenes ? " bg-gray-300 hover:cursor-not-allowed" : "")}
                         onChange={(e) => setData("allergenes", e.target.value)}
+                        required={allergenes}
+                        disabled={!allergenes}
                     />
                 </div>
 
-                <button onClick={submitCommande} className="font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-[5px]">
-                    {t("Panier.terminer")}
-                </button>
+                <div className="mb-6 w-full flex justify-start items-center px-8">
+                    <input type="checkbox" name="allergenes" id="allergenes" className="mr-3" onChange={(e) => setAllergenes(!allergenes)} />
+                    <label htmlFor="allergenes">Je n'ai pas d'allergènes.</label>
+                </div>
+
+                <div className="flex flex-col w-80 mx-auto gap-2 mb-2">
+                    <button onClick={() => submitCommande(true)} className={"font-bold text-white bg-green-600 hover:bg-green-500 rounded px-4 py-2" + (submitting ? " hover:cursor-not-allowed" : "")}>
+                        <span className="text-lg">Payer en ligne</span> <br/>
+                        <span className="font-normal">(carte de crédit)</span>
+                    </button>
+
+                    <button onClick={() => submitCommande(false)} className={"font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-2 mt-1" + (submitting ? " hover:cursor-not-allowed" : "")}>
+                        <span>Payer plus tard</span> <br/>
+                        <span className="font-normal">(Interac, comptant...)</span>
+                    </button>
+                </div>
             </div>
         </>
     )

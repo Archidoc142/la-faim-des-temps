@@ -41,11 +41,6 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $file = $request->file('img');
-        $imageName = $file->getClientOriginalName();
-
-        if(Image::where('nom_fichier', $imageName)->exists()) {
-            return back()->withErrors("Ce nom de fichier existe déjà dans la liste d'images.");
-        }
 
         if ($request['imgExists']) {
             /* MODIFIER UNE IMAGE */
@@ -93,6 +88,11 @@ class ImageController extends Controller
 
         } else {
             /* AJOUTER UNE IMAGE */
+            $imageName = $file->getClientOriginalName();
+
+            if(Image::where('nom_fichier', $imageName)->exists()) {
+                return back()->withErrors("Ce nom de fichier existe déjà dans la liste d'images.");
+            }
 
             $rules = [
                 'descriptionFr' => 'required',

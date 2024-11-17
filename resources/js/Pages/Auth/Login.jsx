@@ -4,26 +4,39 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
+import MessageFlash from '@/Components/MessageFlash';
 
 import logo from '../../../../public/img/logo-rect.jpg'
 import GoogleLogin from '@/Components/GoogleLogin';
+import { useState } from 'react';
 
 export default function Login({ status, canResetPassword }) {
 
     const [t, i18n] = useTranslation("global");
+    const params = new URLSearchParams(document.location.search);
+    const redirectToPanier = !!params.get("target");
+
+    const [submitting, setSubmitting] = useState(false);
+    const [messageVisibility, setMessageVisibility] = useState(true)
+
 
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
         remember: false,
+        redirectToPanier: redirectToPanier
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('login'), {
-            onFinish: () => reset('password'),
-        });
+        if(!submitting) {
+            setSubmitting(true);
+
+            post(route('login'), {
+                onFinish: () => { reset('password'); setSubmitting(false); },
+            });
+        }
     };
 
     return (
@@ -32,6 +45,14 @@ export default function Login({ status, canResetPassword }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
+            {redirectToPanier ?
+                <MessageFlash
+                    status={2}
+                    message="Veuillez vous connecter pour passer une commande."
+                    visibility={messageVisibility}
+                    setVisibility={setMessageVisibility}
+                />
+            : null}
             <div className='bg-white rounded-lg m-6 flex min-h-[80%] 2xl:min-h-[90%] border-2 border-gray-500'>
                 <div className='hidden lg:block border-r-2 border-r-gray-500 w-[60%] p-6'>
                     {/* div Image*/}
@@ -45,9 +66,9 @@ export default function Login({ status, canResetPassword }) {
                     <div className='p-6 2xl:px-16'>
                         <h2 className='text-center font-bold text-2xl mb-8 mt-2'>{t("Login.title1")}<br />{t("Login.title2")}</h2>
 
-                        <GoogleLogin/>
+                        <GoogleLogin redirectToPanier={redirectToPanier}/>
                         {/* div de la partie utile du formulaire (grise)*/}
-                        <div className='bg-[#f7f6f6] rounded-md p-6 2xl:pt-10 lg:px-10 lg:pb-24'>
+                        <div className='bg-[#f7f6f6] rounded-md p-6 2xl:pt-10 lg:px-10 lg:pb-10'>
                             <form onSubmit={submit}>
 
                                 <div>
@@ -111,14 +132,14 @@ export default function Login({ status, canResetPassword }) {
                                     <br />
 
                                     <Link
-                                        href={route('register')}
+                                        href={"/register" + (redirectToPanier ? "?target=panier" : "")}
                                         className="underline text-sm text-[#006ce5] hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                     >
                                         {t("Login.creer_compte")}
                                     </Link>
 
                                     <div className="flex justify-center mt-8 2xl:mt-14">
-                                        <button className='bg-[#0844a4] text-white font-bold p-2 px-8 rounded-[4px]'>
+                                        <button className={(submitting ? "bg-gray-400 hover:cursor-not-allowed": "bg-[#0844a4] hover:bg-[#1f55ac]") + " text-white font-bold p-2 px-8 rounded-[4px]"}>
                                             {t("Login.connexion")}
                                         </button>
                                     </div>
