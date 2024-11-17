@@ -35,11 +35,6 @@ class LegendeLangueSeeder extends Seeder
                 'id_image' => '4',
                 'legende' => 'Une définition pour l\'image necessitatibus'
             ],
-            [
-                'id_langue' => '1',
-                'id_image' => '5',
-                'legende' => 'Une définition pour l\'image ipsum'
-            ],
 
             /* ENGLISH */
             [
@@ -61,11 +56,6 @@ class LegendeLangueSeeder extends Seeder
                 'id_langue' => '2',
                 'id_image' => '4',
                 'legende' => 'A definition for the image necessitatibus'
-            ],
-            [
-                'id_langue' => '2',
-                'id_image' => '5',
-                'legende' => 'A definition for the image ipsum'
             ],
         ]);
     }
