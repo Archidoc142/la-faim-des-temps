@@ -1,7 +1,8 @@
 import TitleSection from '@/Components/TitleSection';
-import { Link, Head, usePage } from '@inertiajs/react';
+import { Link, Head, router, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import AccueilImg from '@/Components/AccueilImg';
+import AccueilImgSaison from '@/Components/AccueilImgSaison';
 import HeadWithImage from '@/Components/HeadWithImage';
 
 import ferme from '../../../public/img/ferme.jpg'
@@ -9,6 +10,8 @@ import assiette from '../../../public/img/assiette.jpg'
 import { useEffect, useState } from 'react';
 import StarsComment from '@/Components/StarsComment';
 import Carrousel from '@/Components/Carrousel';
+import ModifButton from '@/Components/Admin/ModifButton';
+import TextareaStatique from '@/Components/Admin/TextareaStatique';
 import MessageFlash from '@/Components/MessageFlash';
 
 export default function Accueil({ commentaires, images, qbValid }) {
@@ -60,6 +63,53 @@ export default function Accueil({ commentaires, images, qbValid }) {
         setIndex(index)
     }
 
+    let imgV = images.data.filter(i => !i.is_paysage)   // les images height > width
+    const [plus2Img, setPlusPort] = useState(imgV.length > 1)
+
+    let idImg1 = Math.floor(Math.random() * (imgV.length))
+    let idImg2 = 0;
+    if (plus2Img) {
+        idImg2 = Math.floor(Math.random() * (imgV.length))
+        while (idImg2 == idImg1) {
+            idImg2 = Math.floor(Math.random() * (imgV.length))
+        }
+    }
+
+    let imgH = images.data.filter(i => i.is_paysage)   // les images width > height
+    let idImgH = Math.floor(Math.random() * (imgH.length))
+
+
+    /* TEXTE STATIQUE "UNE CUISINE DE STYLE BISTRO" */
+    const [editBistroMode, setEditBistroMode] = useState(false);
+
+    const [bistropfr, setBistropfr] = useState(t('Accueil.bistro-description', { lng: 'fr' }));
+    const [bistropen, setBistropen] = useState(t('Accueil.bistro-description', { lng: 'en' }));
+
+    async function changeText(nouveau_texte) {
+        if (nouveau_texte) {
+            let textData = {};
+
+            for (let index = 0; index < nouveau_texte.length; index++) {
+                textData[index] = {
+                    "groupe": nouveau_texte[index][0],
+                    "target": nouveau_texte[index][1],
+                    "fr": nouveau_texte[index][2],
+                    "en": nouveau_texte[index][3]
+                }
+            }
+
+            router.patch('/modifier-texte', textData, {
+                preserveScroll: true,
+                onError: (errors) => { alert(errors[0]); },
+                preserveState: 'errors',
+                onFinish: () => { setEditBistroMode(false); window.location.reload(); }
+            });
+        }
+        else {
+            alert("Un élément est manquant.")
+        }
+    }
+
     return (
         <>
             {loggedIn || commandePassee || isLogout ?
@@ -81,13 +131,53 @@ export default function Accueil({ commentaires, images, qbValid }) {
                 path="/menu"
             />
 
-            <div className='bg-[#04203f] py-12 px-8'>
-                <h2 className='font-serif text-white text-center text-4xl font-medium mb-8 px-4'>
-                    {t("Accueil.bistro")}
-                </h2>
-                <p className='font-serif text-white text-center text-xl'>
-                    {t("Accueil.bistro-description")}
-                </p>
+            <div className={'grid grid-cols-1 ' + (plus2Img ? 'md:grid-cols-2 lg:grid-cols-3' : (imgV.length > 0 ? 'lg:grid-cols-2' : null))}>
+                <AccueilImgSaison
+                    classname="hidden lg:block"
+                    condition={plus2Img}
+                    src={imgV[idImg2]['src']}
+                    alt={i18n.language === 'fr' ? imgV[idImg2]['legende']['fr'] : imgV[idImg2]['legende']['en']}
+                    legend={i18n.language === 'fr'
+                        ? imgV[idImg2]['legende']['fr']
+                        : imgV[idImg2]['legende']['en']}
+                />
+
+                <div className='py-12 px-8 items-center content-center'>
+                    <ModifButton
+                        afficher={user && user.data.role == "admin"}
+                        editMode={editBistroMode}
+                        setEditMode={setEditBistroMode}
+                        changeText={changeText}
+                        elemChange={[
+                            ["Accueil", "bistro-description", bistropfr, bistropen]]}
+                        couleur="white"
+                    />
+
+                    <h2 className='font-serif text-white text-center text-4xl font-medium mb-8 px-4'>
+                        {t("Accueil.bistro")}
+                    </h2>
+                    {editBistroMode ?
+                        <TextareaStatique
+                            setStatiqueFR={setBistropfr}
+                            setStatiqueEN={setBistropen}
+                            element="Accueil.bistro-description"
+                            couleur="white"
+                        />
+                        :
+                        <p className='font-serif text-white text-center text-xl'>{t("Accueil.bistro-description")}</p>
+                    }
+
+                </div>
+
+                <AccueilImgSaison
+                    classname=""
+                    condition={imgV.length > 0}
+                    src={imgV[idImg1]['src']}
+                    alt={i18n.language === 'fr' ? imgV[idImg1]['legende']['fr'] : imgV[idImg1]['legende']['en']}
+                    legend={i18n.language === 'fr'
+                        ? imgV[idImg1]['legende']['fr']
+                        : imgV[idImg1]['legende']['en']}
+                />
             </div>
 
             {/* Carrousel images */}
@@ -99,7 +189,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
 
             <div className='lg:flex flex-row-reverse lg:h-[40rem] '>
                 <TitleSection title={t("Accueil.assiette")} color="bg-rose-900" />
-                <AccueilImg src={assiette} alt="...à l'assiette!" legend="Lorem ipsum" />
+                <AccueilImg src={imgH.length > 0 ? ('../../../img/' + imgH[idImgH]['src']) : assiette} alt="...à l'assiette!" legend={imgH.length > 0 ? (i18n.language === 'fr' ? imgH[idImgH]['legende']['fr'] : imgH[idImgH]['legende']['en']) : "...à l'assiette!"} />
             </div>
 
             {commentaires && commentaires.data.length > 0 ? <div className='bg-[#041A37] pt-6 text-center'>
@@ -136,7 +226,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
                 </div>
 
                 {images.data.length > 0 ? <Carrousel images={images.data} i18n={i18n} /> : null}
-            </div> : null }
+            </div> : null}
         </>
     );
 }

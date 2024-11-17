@@ -56,7 +56,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         });
     };
 
-    async function changeDateBD(id, nouv_valeur) {
+    async function changeDateBD(id, nouv_valeur, isDeletion) {
 
         if (nouv_valeur || nouv_valeur == null) {
             const dateData = {
@@ -68,6 +68,13 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             router.post('/dates-menu', dateData, {
                 preserveScroll: true,
                 onError: (errors) => { alert(errors[0]); },
+                onFinish: () => {
+                    if (isDeletion) {
+                        showMessageFlash(1, "La date de retour a été supprimée")
+                    } else {
+                        showMessageFlash(1, "La date de retour a été modifiée")
+                    }
+                }
             });
         }
     }
@@ -87,13 +94,16 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
             router.patch('/modifier-texte', textData, {
                 preserveScroll: true,
-                onError: (errors) => { alert(errors[0]); }
+                onError: (errors) => { alert(errors[0]); },
+                preserveState: 'errors',
+                onFinish: () => { setEditVenirMode(false); setEditLivrMode(false); window.location.reload(); }
             });
         }
         else {
             alert("Un élément est manquant.")
         }
     }
+
 
     useEffect(() => {
         if (Object.keys(errors).length > 0) {
@@ -142,6 +152,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
     const [livrinfofr, setLivrinfofr] = useState(t('Menu.livr-info', { lng: 'fr' }));
     const [livrinfoen, setLivrinfoen] = useState(t('Menu.livr-info', { lng: 'en' }));
+
 
     /* TEXTE STATIQUE "PASSEZ NOUS VOIR" */
     const [editVenirMode, setEditVenirMode] = useState(false);
@@ -193,34 +204,24 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             }
         }
 
-        //Gérer l'affichage du menu
-        /*if (user && user.data.role == "admin")
-            setAfficherMenu(true)
-        else {
-            //si une date de retour est programmée
-            if (dates_menu[0].date !== null) {
-                console.log("date_retourrr", dates_menu[0].date, "\n ajd", ajd);
-
-                // la fin du retour programmé
-                if (ajd == dates_menu[0].date) {
-                    changeDateBD(1, null);  //enlever date retour
-                    console.log("ajd = fin date retour");
-
-                    checkIntervalleMenu();
-                }
-                else
-                    setAfficherMenu(false);
+        //si une date de retour est programmée
+        if (dates_menu[0].date !== null) {
+            // la fin du retour programmé
+            if (ajd == dates_menu[0].date) {
+                changeDateBD(1, null);  //enlever date retour
+                checkIntervalleMenu();
             }
-        }*/
+            else
+                setAfficherMenu(false);
+        }
 
         checkIntervalleMenu();
-        setAfficherMenu(true);
+
+        setAfficherMenu(true);  // Toujours afficher menu (pour tests) #####-/--###-####-########
 
     }, [i18n.language])
 
     function checkIntervalleMenu() {
-        // Toujours afficher menu (pour tests)
-        /*
         if (ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12)) {
             changeDateBD(1, "prochain");
             setAfficherMenu(true);
@@ -228,7 +229,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         else if (ajd > lundiYYYY || (ajd === lundiYYYY && heure >= 16)) {
             setAfficherMenu(false);
             nextMenuText();
-        }*/
+        }
     }
 
     function nextMenuText() {
@@ -343,9 +344,10 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             setStatiqueFR={setLivrpfr}
                             setStatiqueEN={setLivrpen}
                             element="Menu.livr-p"
+                            couleur="black"
                         />
                         :
-                        <p className='text-sm md:text-base'>{t("Menu.livr-p")}</p>
+                        <p className='text-sm md:text-base text-justify'>{t("Menu.livr-p")}</p>
                     }
 
                     <br />
@@ -361,9 +363,10 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             setStatiqueFR={setLivrinfofr}
                             setStatiqueEN={setLivrinfoen}
                             element="Menu.livr-info"
+                            couleur="black"
                         />
                         :
-                        <p className='text-[#BB285C] italic'>{t("Menu.livr-info")}</p>
+                        <p className='text-[#BB285C] italic text-sm md:text-base text-justify'>{t("Menu.livr-info")}</p>
                     }
                 </div>
 
@@ -386,9 +389,10 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             setStatiqueFR={setVenirpfr}
                             setStatiqueEN={setVenirpen}
                             element="Menu.venir-p"
+                            couleur="black"
                         />
                         :
-                        <p className='text-sm md:text-base'>{t("Menu.venir-p")}</p>
+                        <p className='text-sm md:text-base text-justify'>{t("Menu.venir-p")}</p>
                     }
                 </div>
             </div>
@@ -477,7 +481,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                     </div>
                     {/* PLATS PRINCIPAUX */}
                     <div className='border-2 border-[#EBEBEB] rounded-2xl p-5 md:p-7 justify-center text-center w-[100%] md:max-w-[1000px] md:m-auto'>
-                        <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl lg:text-6xl'>{t("Menu.plat-principaux")}</h3>
+                        <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl md:text-6xl'>{t("Menu.plat-principaux")}</h3>
 
                         {
                             menu.map((produit, i) => (
