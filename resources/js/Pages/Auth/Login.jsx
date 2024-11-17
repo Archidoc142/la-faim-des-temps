@@ -15,10 +15,10 @@ export default function Login({ status, canResetPassword }) {
     const [t, i18n] = useTranslation("global");
     const params = new URLSearchParams(document.location.search);
     const redirectToPanier = !!params.get("target");
+    const fromRegister = !!params.get("fromRegister");
 
     const [submitting, setSubmitting] = useState(false);
     const [messageVisibility, setMessageVisibility] = useState(true)
-
 
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
@@ -45,10 +45,10 @@ export default function Login({ status, canResetPassword }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            {redirectToPanier ?
+            {redirectToPanier && !fromRegister ?
                 <MessageFlash
                     status={2}
-                    message="Veuillez vous connecter pour passer une commande."
+                    message={t("Login.panier_msg")}
                     visibility={messageVisibility}
                     setVisibility={setMessageVisibility}
                 />

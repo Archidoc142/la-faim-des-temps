@@ -20,7 +20,7 @@ export default function Avis() {
 
         if(!submitting)
         {
-            router.post('/avis', data);
+            post('/avis');
             setSubmitting(true);
         }
 

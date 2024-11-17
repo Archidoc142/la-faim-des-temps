@@ -29,19 +29,19 @@ export default function Footer() {
                     {/* Côté gauche en format lg*/}
                     <div className='my-6 lg:m-0'>
                         <FooterProps title="Contact" message="cavistefaimdestemps@gmail.com" />
-                        <FooterArray title="Horaire" array={newH} />
-                        <FooterProps title="Adresse" message="9-297 rue King Ouest, Sherbrooke, J1H 1R2" />
+                        <FooterArray title={t("Footer.horaire")} array={newH} />
+                        <FooterProps title={t("Footer.adresse")} message="9-297 rue King Ouest, Sherbrooke, J1H 1R2" />
                     </div>
 
                     {/* Côté droit en format lg*/}
                     <div>
-                        <FooterLink title="À propos" />
+                        <FooterLink title={t("Footer.a_propos")} />
 
                         <div className='flex justify-center'>
-                            <p className='arsenal italic text-white text-xl font-bold'>Entrez dans notre ruelle méconnue!</p>
+                            <p className='arsenal italic text-white text-xl font-bold'>{t("Footer.ruelle")}!</p>
                         </div>
 
-                        <div className='mt-2 flex p-6 lg:p-0 justify-center lg:justify-normal gap-6 2xl:justify-center'>
+                        <div className='mt-4 flex p-6 lg:p-0 justify-center lg:justify-normal gap-6 2xl:justify-center'>
                             <InstagramLogo />
                             <FacebookLogo />
                         </div>

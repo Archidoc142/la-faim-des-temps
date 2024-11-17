@@ -34,7 +34,7 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
         if(justLoggedIn)
         {
             setBoxVisible(true);
-            showMessageFlash(1, "Bienvenue " + user.data.prenom + "!");
+            showMessageFlash(1, t("Login.bienvenue") + " " + user.data.prenom + "!");
         }
     }, []);
 

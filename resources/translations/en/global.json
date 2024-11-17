@@ -13,12 +13,12 @@
         "valeurs": "Our values",
         "producteurs": "Our producers",
         "histoire": "Our story",
-        "avis": "Your opinion",
-        "date": "LIMIT DATE TO ORDER :",
+        "avis": "Your review",
+        "date": "DEADLINE TO ORDER :",
         "connexion": "Login",
         "nextMenu": "RELEASE OF THE NEXT MENU :",
         "compte": "My account",
-        "logout": "Logout"
+        "logout": "Log out"
     },
     "Compte": {
         "titre": "FIRST TIME?",
@@ -50,7 +50,11 @@
         "connexion": "Login",
         "email": "Email",
         "mdp": "Password",
-        "souvenir": "Remember me"
+        "souvenir": "Remember me",
+        "panier_msg": "Please log in or register to place an order.",
+        "google": "Sign in with Google",
+        "bienvenue": "Welcome",
+        "logout": "Successfully logged out, see you later!"
     },
     "Menu": {
         "titre": "Weekly caterer menu",
@@ -69,9 +73,9 @@
         "livr-sherb": "for orders under $60.00,",
         "livr-titre-autre": "Delivery fees Fleurimont and Rock Forest zones",
         "livr-info": "Please leave an appropriately sized cooler visible outside for your order.",
-        "venir-titre": "COME SEE US",
+        "venir-titre": "COME VISIT US",
         "venir-p": "You can also come to the store between 4:00 p.m. and 5:00 p.m. to collect your order on site. Take the opportunity to pick up something for an aperitif when you get home from our choices of fine charcuterie.",
-        "date-passed": "The limit date for this week has passed.",
+        "date-passed": "The deadline for this week has passed.",
         "next-friday": "You can order again at 12PM on ",
         "menu-indisponible": "The menu is currently unavailable.",
         "menu-back": "It will be back on ",
@@ -82,9 +86,9 @@
         "vide": "Empty",
         "titre": "My cart",
         "total": "Grand total",
-        "pass": "Pass my order",
+        "pass": "Place my order",
         "choice": "How do you want to receive your order ?",
-        "cueillette": "Picking",
+        "cueillette": "Pick up",
         "finaliser": "Finalize the order...",
         "article": "Articles",
         "livraison": "Shipping",
@@ -104,13 +108,21 @@
         "app": "Apartment number (optional)",
         "postal": "Postal code",
         "vider": "Empty the cart",
-        "mFlash": "The cart has been emptied"
+        "mFlash": "The cart has been emptied",
+        "pas_allergenes": "I do not have allergens.",
+        "payer_en_ligne_1": "Pay online",
+        "payer_en_ligne_2": "(credit card)",
+        "payer_plus_tard_1": "Pay later",
+        "payer_plus_tard_2": "(Interac, cash...)",
+        "envoi_cmd": "Your order is being sent",
+        "commande_recue": "We have successfully received your order, thank you!"
     },
     "Avis": {
         "addAvis": "Add a comment",
         "avisDesc": "Your opinion is important for us. Do not hesitate to share your experience with us and with the other users of our website!",
         "comment": "Comment",
-        "send": "Send"
+        "send": "Send",
+        "submitted": "Your review has been submitted! It will appear on the home page soon."
     },
     "Valeurs": {
         "titre": "Our values",
@@ -158,7 +170,7 @@
     "Onglet": {
         "accueil" : "Home",
         "histoire" : "Our story",
-        "avis" : "Your opinion",
+        "avis" : "Your review",
         "mdp": "Password",
         "resetmdp" : "Reset Password"
     },
@@ -180,5 +192,11 @@
         "title" : "Forget password?",
         "mdp" : "Password :",
         "confirm" : "Confirm Password :"
+    },
+    "Footer": {
+        "horaire": "Opening hours",
+        "adresse": "Address",
+        "a_propos": "About us",
+        "ruelle": "Enter our undiscovered alley"
     }
 }

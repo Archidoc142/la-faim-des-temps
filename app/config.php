@@ -5,6 +5,6 @@ return array(
     'client_id' => env("QB_CLIENT_ID"),
     'client_secret' => env("QB_CLIENT_SECRET"),
     'oauth_scope' => 'com.intuit.quickbooks.accounting openid profile email phone address',
-    'oauth_redirect_uri' => 'http://localhost:8000/admin/quickbooks/callback',
+    'oauth_redirect_uri' => env("APP_URL") . '/admin/quickbooks/callback',
 )
 ?>

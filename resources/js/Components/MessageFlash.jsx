@@ -43,7 +43,7 @@ export default function MessageFlash({ status, message, visibility, duration = 3
 
     return (
 
-        <div ref={container} className="fixed left-4 top-40 min-w-[350px]">
+        <div ref={container} className="fixed left-4 top-40 min-w-[350px] z-50">
         {visible ?
             <div className={`flex gap-4 items-center px-4 rounded-[15px] text-center text-white text-lg bg-gradient-to-r from-[#041a37] to-[#0d3466] border-2 top-[8%] py-3
              ${status === 1 ? "border-[#1f8444]" :
