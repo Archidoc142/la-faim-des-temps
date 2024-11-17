@@ -16,11 +16,6 @@ class ImageSeeder extends Seeder
     {
         DB::table('image')->insert([
             [
-                'nom_fichier' => 'default.jpg',
-                'vitrine' => 1,
-                'saisonnier' => 0
-            ],
-            [
                 'nom_fichier' => 'duck.jpg',
                 'vitrine' => 1,
                 'saisonnier' => 0
