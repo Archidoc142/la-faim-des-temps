@@ -10,9 +10,9 @@ import assiette from '../../../public/img/assiette.jpg'
 import { useEffect, useState } from 'react';
 import StarsComment from '@/Components/StarsComment';
 import Carrousel from '@/Components/Carrousel';
-import MessageFlash from '@/Components/MessageFlash';
 import ModifButton from '@/Components/Admin/ModifButton';
 import TextareaStatique from '@/Components/Admin/TextareaStatique';
+import MessageFlash from '@/Components/MessageFlash';
 
 export default function Accueil({ commentaires, images, qbValid }) {
 
