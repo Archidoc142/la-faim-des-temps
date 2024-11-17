@@ -6,11 +6,6 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
     const [t, i18n] = useTranslation("global")
     const [allergenes, setAllergenes] = useState(true)
 
-    /*const codeIn = data.adresse.code_postal.substring(0,3);
-    const secteur = secteurs.data.filter((s) => s.codes.includes(codeIn));
-
-    console.log(codeIn)*/
-
     const checkAllergenes = () => {
         if(allergenes && data.allergenes == "") {
             alert("Veuillez ajouter vos allergènes.\nSi vous n'en avez pas, cochez la case « Je n'ai pas d'allergènes ».");
@@ -99,18 +94,18 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
 
                 <div className="mb-6 w-full flex justify-start items-center px-8">
                     <input type="checkbox" name="allergenes" id="allergenes" className="mr-3" onChange={(e) => setAllergenes(!allergenes)} />
-                    <label htmlFor="allergenes">Je n'ai pas d'allergènes.</label>
+                    <label htmlFor="allergenes">{t("Panier.pas_allergenes")}</label>
                 </div>
 
                 <div className="flex flex-col w-80 mx-auto gap-2 mb-2">
                     <button onClick={() => submitCommande(true)} className={"font-bold text-white bg-green-600 hover:bg-green-500 rounded px-4 py-2" + (submitting ? " hover:cursor-not-allowed" : "")}>
-                        <span className="text-lg">Payer en ligne</span> <br/>
-                        <span className="font-normal">(carte de crédit)</span>
+                        <span className="text-lg">{t("Panier.payer_en_ligne_1")}</span> <br/>
+                        <span className="font-normal">{t("Panier.payer_en_ligne_2")}</span>
                     </button>
 
                     <button onClick={() => submitCommande(false)} className={"font-bold text-white bg-[#06306D] hover:bg-[#467ed2] rounded px-4 py-2 mt-1" + (submitting ? " hover:cursor-not-allowed" : "")}>
-                        <span>Payer plus tard</span> <br/>
-                        <span className="font-normal">(Interac, comptant...)</span>
+                        <span>{t("Panier.payer_plus_tard_1")}</span> <br/>
+                        <span className="font-normal">{t("Panier.payer_plus_tard_2")}</span>
                     </button>
                 </div>
             </div>
