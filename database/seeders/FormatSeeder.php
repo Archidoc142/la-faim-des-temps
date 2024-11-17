@@ -15,19 +15,24 @@ class FormatSeeder extends Seeder
     {
         DB::table('format')->insert([
             [
-                'montant' => '10'
+                'montant' => '10',
+                'nom_interne' => ''
             ],
             [
-                'montant' => '15'
+                'montant' => '15',
+                'nom_interne' => ''
             ],
             [
-                'montant' => '11'
+                'montant' => '11',
+                'nom_interne' => 'INDI',
             ],
             [
-                'montant' => '20'
+                'montant' => '20',
+                'nom_interne' => 'TAT',
             ],
             [
-                'montant' => '33'
+                'montant' => '33',
+                'nom_interne' => 'FAM'
             ],
         ]);
     }

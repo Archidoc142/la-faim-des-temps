@@ -3,8 +3,8 @@ import { useEffect, useRef } from "react"
 
 export default function Commande({ commande, produits, prevPage }) {
 
-    console.log(commande)
-    console.log(produits)
+    //console.log(commande)
+    //console.log(produits)
 
     const user = commande.data.user
     const allergenes = produits.data[0].commande.allergenes
@@ -13,6 +13,7 @@ export default function Commande({ commande, produits, prevPage }) {
     const date = new Date(commande.data.created_at)
 
     const adresse = commande.data.adresse;
+    const qb = !!commande.data.qb_invoice_id;
 
     return (
         <AdminLayout title={"Commande #" + commande.data.id} prevPage={prevPage} commandePage={true}>
@@ -23,7 +24,7 @@ export default function Commande({ commande, produits, prevPage }) {
                 <p className="col-span-8">{user.prenom + " " + user.nom}</p>
 
                 <p className="font-medium col-span-4">Téléphone :</p>
-                <p className="col-span-8">{commande.data.phone}</p>
+                <p className="col-span-8">{user.telephone}</p>
 
                 <p className="font-medium col-span-4">Courriel :</p>
                 <p className="col-span-8">{user.email}</p>
@@ -37,11 +38,17 @@ export default function Commande({ commande, produits, prevPage }) {
                 <p className="font-medium col-span-4">Code :</p>
                 <p className="col-span-8">#{commande.data.id}</p>
 
+                <p className="font-medium col-span-4">Code facture QuickBooks :</p>
+                <p className={"col-span-8" + (!qb ? " text-red-600 font-bold" : "" )}>{qb ? "#" + commande.data.qb_invoice_id : "Non envoyé à QuickBooks"}</p>
+
                 <p className="font-medium col-span-4">Date :</p>
                 <p className="col-span-8">{date.toLocaleDateString('fr-FR', options)}</p>
 
                 <p className="font-medium col-span-4">Type de commande :</p>
                 <p className="col-span-8">{commande.data.livraison ? "Livraison" : "Cueillette"}</p>
+
+                <p className="font-medium col-span-4">Type de paiement :</p>
+                <p className="col-span-8">{commande.data.type_commande.nom}</p>
 
                 <p className="font-medium col-span-4">Adresse de livraison :</p>
                 <p className="col-span-8">

@@ -10,21 +10,41 @@ import assiette from '../../../public/img/assiette.jpg'
 import { useEffect, useState } from 'react';
 import StarsComment from '@/Components/StarsComment';
 import Carrousel from '@/Components/Carrousel';
+import MessageFlash from '@/Components/MessageFlash';
 import ModifButton from '@/Components/Admin/ModifButton';
 import TextareaStatique from '@/Components/Admin/TextareaStatique';
 
-export default function Accueil({ commentaires, images }) {
+export default function Accueil({ commentaires, images, qbValid }) {
 
     const [t, i18n] = useTranslation("global");
     const user = usePage().props.auth.user;
 
-    useEffect(() => {
-        let params = new URLSearchParams(document.location.search);
-        let isLogout = params.get("isLogout");
+    const params = new URLSearchParams(document.location.search);
+    const loggedIn = params.get("loggedIn");
+    const isLogout = params.get("isLogout");
+    const commandePassee = params.get("commandePassee");
 
-        if (isLogout) {
+    const [messageVisibility, setMessageVisibility] = useState(true)
+    const [message, setMessage] = useState("")
+
+    useEffect(() => {
+
+        if (isLogout || commandePassee) {
             localStorage.setItem("panier", JSON.stringify([]));
+            window.dispatchEvent(new Event("storage"));
         }
+
+        if(isLogout)
+            setMessage("Déconnexion réussie, à la prochaine!");
+        else if(loggedIn)
+            setMessage("Bienvenue " + user.data.prenom + "!");
+        else if(commandePassee)
+            setMessage("Nous avons bien reçu votre commande, merci!");
+
+        if(user && user.data.role == "admin" && !qbValid) {
+            alert("AVERTISSEMENT: Authentification QuickBooks échouée.\n\nLes nouveaux clients et les commandes n'apparaîtront pas sur votre QuickBooks.\n\nReconnectez votre compte dans la section \"QuickBooks\" du menu administrateur pour régler le problème.")
+        }
+
     }, [])
 
     const [index, setIndex] = useState(0)
@@ -92,6 +112,15 @@ export default function Accueil({ commentaires, images }) {
 
     return (
         <>
+            {loggedIn || commandePassee || isLogout ?
+                <MessageFlash
+                    status={1}
+                    message={message}
+                    visibility={messageVisibility}
+                    setVisibility={setMessageVisibility}
+                />
+            : null}
+
             <Head title={t("Onglet.accueil")} />
 
             <HeadWithImage

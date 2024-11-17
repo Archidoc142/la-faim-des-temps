@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Services\QuickBooksService;
+use Exception;
 use Laravel\Socialite\Facades\Socialite;
 
 class RegisteredUserController extends Controller
@@ -32,10 +34,12 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $qbService = new QuickBooksService();
+
         $request->validate([
-            'prenom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
-            'nom' => 'required|max:64|regex:/^[A-ZÀ-Ü][a-zà-ù-]+$/',
-            'email' => 'required|string|lowercase|email|max:128|unique:'.User::class,
+            'prenom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+(-[\p{Lu}][\p{Ll}]+)*$/u',
+            'nom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+(-[\p{Lu}][\p{Ll}]+)*$/u',
+            'email' => 'required|string|regex:/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/|max:100|unique:'.User::class,
             'telephone' => 'nullable|numeric|digits:10',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ],[
@@ -56,45 +60,21 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
-            'email' => $request->email,
+            'email' => strtolower($request->email),
             'telephone' => $request->telephone,
             'password' => Hash::make($request->password),
             'id_role' => 1,
-            'type' => 0
+            "type" => 0
         ]);
+
+        $qbService->sendCustomer($user);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('accueil', absolute: false));
-    }
-
-    public function google(Request $request)
-    {
-        $user = Socialite::driver('google')->user();
-
-        $googleId = GoogleId::firstOrCreate(
-            ['client_id' => $user->id]
-        );
-
-        $user = User::updateOrCreate(
-        [
-            'email' => $user->email,
-        ],
-        [
-            'nom' => $user->user['family_name'],
-            'prenom' => $user->user['given_name'],
-            'google_token' => $user->token,
-            'type' => 1,
-            'id_role' => 1,
-            'type' => 1,
-            'id_google' => $googleId->id
-        ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
+        if($request->redirectToPanier)
+            return redirect("/panier?loggedIn=1");
 
         return redirect(route('accueil', absolute: false));
     }
