@@ -307,7 +307,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             <div className='p-10 !pt-5 md:p-20 m-auto'>
                 <h2 className='text-2xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
 
-                <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center max-w-[1000px]'>
+                <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center max-w-[1200px]'>
                     {formats.map(format => (
                         <div key={format.id} className='border-2 border-[#EBEBEB] rounded-2xl p-5 justify-center text-center w-[90%] md:w-[30%] max-w-[350px]'>
                             <FormatsMenu
@@ -324,7 +324,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             <div className='p-10 !pt-5 w-fit m-auto md:p-20'>
                 <h2 className='text-2xl text-[#BB285C] text-center font-bold mb-9 md:mb-12 max-w-96 m-auto'>{t("Menu.recuperer")}</h2>
 
-                <div className='bg-[#EBEBEB] rounded-2xl p-10 mb-12 max-w-[1000px] md:w-auto'>
+                <div className='bg-[#EBEBEB] rounded-2xl p-10 mb-12 max-w-[1200px] md:w-auto'>
 
                     <ModifButton
                         afficher={user && user.data.role == "admin"}
@@ -351,11 +351,16 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                     }
 
                     <br />
+                    <br />
+
                     <p className='mb-5 text-sm md:text-base'>{t("Menu.livr-heure")}<b>{dateDelivery}</b>.</p>
-                    <div className='mb-5'>
+                    <div className=''>
                         <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-sherb")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[0].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""} {t("Menu.livr-sherb")}</p>
                         <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-autre")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[1].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""}</p>
                     </div>
+
+                    <br />
+                    <br />
 
                     {editLivrMode ?
                         <TextareaStatique
@@ -365,11 +370,11 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             couleur="black"
                         />
                         :
-                        <p className='text-[#BB285C] italic text-sm md:text-base text-justify'>{t("Menu.livr-info")}</p>
+                        <p className='text-[#BB285C] italic text-sm md:text-base lg:text-center'>{t("Menu.livr-info")}</p>
                     }
                 </div>
 
-                <div className='bg-[#EBEBEB] rounded-2xl p-10 justify-center max-w-[1000px] md:w-auto'>
+                <div className='bg-[#EBEBEB] rounded-2xl p-10 justify-center max-w-[1200px] md:w-auto'>
 
                     <ModifButton
                         afficher={user && user.data.role == "admin"}
@@ -428,7 +433,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             </>
                         : null}
 
-                    <div className='max-w-[1000px] flex justify-end mb-5 m-auto'>
+                    <div className='max-w-[1200px] flex justify-end mb-5 m-auto'>
                         {user && user.data.role == "admin" ?
                             <>
                                 {editMode ?
@@ -455,7 +460,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
 
 
-                    <div className='m-auto justify-center pb-10 grid gap-10 grid-cols-1 md:grid-cols-2 max-w-[1000px]'>
+                    <div className='m-auto justify-center pb-10 grid gap-10 grid-cols-1 md:grid-cols-2 max-w-[1200px]'>
                         {/* SOUPE + PLAT DU CHEF */}
 
                         <MenuBase
@@ -479,7 +484,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
                     </div>
                     {/* PLATS PRINCIPAUX */}
-                    <div className='border-2 border-[#EBEBEB] rounded-2xl p-5 md:p-7 justify-center text-center w-[100%] md:max-w-[1000px] md:m-auto'>
+                    <div className='border-2 border-[#EBEBEB] rounded-2xl p-5 md:p-7 justify-center text-center w-[100%] md:max-w-[1200px] md:m-auto'>
                         <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl md:text-6xl'>{t("Menu.plat-principaux")}</h3>
 
                         {

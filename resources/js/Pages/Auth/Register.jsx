@@ -38,7 +38,7 @@ export default function Register() {
             <Head title="Register" />
 
 
-            <div className="w-full m-0 py-10 md:py-20 md:w-[75%] md:m-auto ">
+            <div className="w-full m-0 py-10 md:py-20 md:w-[75%] md:max-w-[1200px] md:m-auto ">
 
                 <div className='bg-white rounded-lg m-6 min-h-[80%] 2xl:min-h-[90%] border-2 border-[#BB285C]'>
                     <div className='text-center p-3 text-2xl font-bold border-b-2 border-[#BB285C]'>{t("Compte.titre")}</div>
@@ -51,8 +51,8 @@ export default function Register() {
                             <div className='p-10 2xl:px-16 '>
                                 <h2 className='text-center font-bold text-2xl mb-8 mt-2'>{t("Compte.bienvenue")}</h2>
 
-                                <div className='bg-[#f7f6f6] rounded-md text-center p-6 2xl:pt-10 lg:px-10 lg:pb-12 md:text-end'>
-                                    <form onSubmit={submit} className='bg-[#F7F6F6] text-start p-3 md:p-7 lg:px-10 pb-10'>
+                                <div className='bg-[#EBEBEB] rounded-md text-center p-6 2xl:pt-10 lg:px-10 lg:pb-12 md:text-end'>
+                                    <form onSubmit={submit} className='bg-[#EBEBEB] text-start p-3 md:p-7 lg:px-10 pb-10'>
                                         <div>
                                             <InputLabel htmlFor="prenom" value={t("Compte.prenom")} />
 
@@ -60,7 +60,7 @@ export default function Register() {
                                                 id="prenom"
                                                 name="prenom"
                                                 value={data.prenom}
-                                                className="mt-1 block w-full"
+                                                className=" block w-full"
                                                 autoComplete="prenom"
                                                 isFocused={true}
                                                 onChange={(e) => setData('prenom', e.target.value)}
@@ -77,7 +77,7 @@ export default function Register() {
                                                 id="nom"
                                                 name="nom"
                                                 value={data.nom}
-                                                className="mt-1 block w-full"
+                                                className=" block w-full"
                                                 autoComplete="nom"
                                                 onChange={(e) => setData('nom', e.target.value)}
                                                 required
@@ -94,7 +94,7 @@ export default function Register() {
                                                 type="email"
                                                 name="email"
                                                 value={data.email}
-                                                className="mt-1 block w-full"
+                                                className=" block w-full"
                                                 max="100"
                                                 autoComplete="email"
                                                 onChange={(e) => setData('email', e.target.value)}
@@ -110,7 +110,7 @@ export default function Register() {
                                             <PhoneInput
                                                 id="telephone"
                                                 onChange={(tel) => { setData('telephone', normalize(tel));}}
-                                                className="bg-[#F7F6F6] mt-1 block w-full border-t-transparent border-x-transparent border-b-[#BB285C] focus:border-[#7A163C] focus:ring-[#7A163C] shadow-sm"
+                                                className="bg-[#EBEBEB]  block w-full border-t-transparent border-x-transparent border-b-[#BB285C] focus:border-[#7A163C] focus:ring-[#7A163C] shadow-sm"
                                             />
 
                                             <InputError message={errors.telephone} className="mt-2" />
@@ -124,7 +124,7 @@ export default function Register() {
                                                 type="password"
                                                 name="password"
                                                 value={data.password}
-                                                className="mt-1 block w-full"
+                                                className=" block w-full"
                                                 autoComplete="new-password"
                                                 onChange={(e) => setData('password', e.target.value)}
                                                 required
@@ -141,7 +141,7 @@ export default function Register() {
                                                 type="password"
                                                 name="password_confirmation"
                                                 value={data.password_confirmation}
-                                                className="mt-1 block w-full"
+                                                className=" block w-full"
                                                 autoComplete="new-password"
                                                 onChange={(e) => setData('password_confirmation', e.target.value)}
                                                 required
