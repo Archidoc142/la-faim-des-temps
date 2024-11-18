@@ -133,7 +133,7 @@
         "titrePagePart2": "Initiatives",
         "titrePagePart3": "Environmental",
         "firstSectionTitle": "Our Values",
-        "firstSectionText": "From the beginning, we have always sought to integrate as many good environmental practices as possible into our operations, for the simple reason that it aligns with the core values of our founders. You can’t eat well with land that’s overexploited and polluted...",
+        "firstSectionText": "From the beginning, we have always sought to integrate as many good environmental practices as possible into our operations, for the simple reason that it aligns with the core values of our founders. You can’t eat well with land that’s overexploited and polluted... hello tester",
         "secondSectionTitlePart1": "For a Centro",
         "plus": "More",
         "vert": "green",
@@ -147,7 +147,9 @@
         "thirdSectionText2": "At La faim des temps, almost everything is recycled or composted. We are very proud that our trash can is the size of a small office paper basket. Our dear customers return the containers from our catering service. These are then cleaned, sanitized, and reused."
     },
     "Producteur": {
-        "titre": "Our Producers"
+        "titre": "Our Producers",
+        "flashUpdate": "The producer has been updated",
+        "flashDelete": "The producer has been deleted"
     },
     "Error": {
         "title": "Error ",
@@ -175,7 +177,7 @@
         "histoire" : "Our story",
         "avis" : "Your review",
         "mdp": "Password",
-        "resetmdp" : "Reset Password"
+        "resetmdp": "Reset Password"
     },
     "M": {
         "e": "u"
