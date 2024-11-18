@@ -1,15 +1,24 @@
+import { useState } from "react";
+
 import AdminLayout from "@/Layouts/AdminLayout";
 import HeadCell from "@/Components/Admin/Table/HeadCell";
 import CommandeRow from "@/Components/Admin/Table/CommandeRow";
 import HeadActionCell from "@/Components/Admin/Table/HeadActionCell";
 import PaginationBar from "@/Components/PaginationBar";
-import { useState } from "react"
 import Commande from "@/Pages/Admin/Commande";
-
+import InputLabel from "@/Components/InputLabel";
+import TextInput from "@/Components/TextInput";
+import SearchBar from "@/Components/SearchBar";
 export default function Commandes({ commandes }) {
-    console.log(commandes)
-
     const [toggledMenuId, setToggledMenuId] = useState(0);
+
+    const [searchInput, setSearchInput] = useState("");
+
+    const filteredCommandes = searchInput.length > 0
+        ? commandes.data.filter((commande) => {
+            return commande.user.nom.toLowerCase().includes(searchInput.toLowerCase());
+        })
+        : commandes.data;
 
     return (
         <AdminLayout title="Commandes">
@@ -17,6 +26,12 @@ export default function Commandes({ commandes }) {
                 <div className="text-center py-4 text-lg text-gray-500 font-bold italic">Aucune commandes</div>
             ) : (
                 <>
+                    <SearchBar 
+                        labelName="Recherche: "
+                        placeHolder={"Nom du client"}
+                        value={searchInput}
+                        setValue={setSearchInput}
+                    />
                     <table className="border w-full table-fixed">
                         <thead>
                             <tr>
@@ -28,7 +43,7 @@ export default function Commandes({ commandes }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {commandes.data.map((c, i) =>
+                            {filteredCommandes.map((c, i) =>
                                 <CommandeRow
                                     commande={c}
                                     key={i}

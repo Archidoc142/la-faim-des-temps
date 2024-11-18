@@ -88,29 +88,6 @@
         "total": "Sous-total",
         "pass": "Passer ma commande",
         "choice": "Comment voulez-vous recevoir votre commande ?",
-<<<<<<< HEAD
-        "cueillette": "Cueillette",
-        "finaliser": "Finaliser la commande...",
-        "article": "Articles",
-        "livraison": "Livraison",
-        "adresse": "Adresse",
-        "allergen": "Ajoutez vos allergènes",
-        "placeholder": "Oeuf, Lait, Arachide, Soja...",
-        "terminer": "Terminer",
-        "address": "À quelle adresse voulez-vous recevoir votre commande?",
-        "info1": "Un montant s'applique à la livraison sur les commandes en dessous de",
-        "info2": "au secteur de Sherbrooke.",
-        "add": "Ajouter une adresse",
-        "alertSuccess": "Êtes-vous sûr de vouloir supprimer cette adresse ?",
-        "flashDelete": "Le plat a été retiré du panier",
-        "addAddressTitle": "Ajout d'une nouvelle adresse",
-        "civic": "Numéro civique",
-        "rue": "Nom de rue",
-        "app": "Numéro d'appartement (facultaif)",
-        "postal": "Code postal",
-        "vider": "Vider le panier",
-        "mFlash": "Le panier a été vidé"
-=======
         "cueillette" : "Cueillette",
         "finaliser" : "Finaliser la commande...",
         "article" : "Articles",
@@ -139,7 +116,6 @@
         "payer_plus_tard_2": "(Interac, comptant...)",
         "envoi_cmd": "Envoi de votre commande",
         "commande_recue": "Nous avons bien reçu votre commande, merci!"
->>>>>>> 185449c6e121dc48375b2d7789ba634c0c4f9826
     },
     "Avis": {
         "addAvis": "Ajouter un avis",
@@ -214,12 +190,6 @@
     },
     "Mdp": {
         "message": "Vous avez oublié votre mot de passe? Aucun problème. Mettez votre courriel, puis nous vous enverrons un courriel à cette adresse.",
-<<<<<<< HEAD
-        "button": "Envoyer le courriel",
-        "title": "Mot de passe oublié?",
-        "mdp": "Mot de passe :",
-        "confirm": "Confirmer le mot de passe :"
-=======
         "button" : "Envoyer le courriel",
         "title" : "Mot de passe oublié?",
         "mdp" : "Mot de passe :",
@@ -230,6 +200,5 @@
         "adresse": "Adresse",
         "a_propos": "À propos",
         "ruelle": "Entrez dans notre ruelle méconnue"
->>>>>>> 185449c6e121dc48375b2d7789ba634c0c4f9826
     }
 }

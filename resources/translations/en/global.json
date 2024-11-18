@@ -170,15 +170,9 @@
         "aventure": "An adventure"
     },
     "Onglet": {
-<<<<<<< HEAD
-        "accueil": "Home",
-        "histoire": "Our story",
-        "avis": "Your opinion",
-=======
         "accueil" : "Home",
         "histoire" : "Our story",
         "avis" : "Your review",
->>>>>>> 185449c6e121dc48375b2d7789ba634c0c4f9826
         "mdp": "Password",
         "resetmdp": "Reset Password"
     },
@@ -196,12 +190,6 @@
     },
     "Mdp": {
         "message": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
-<<<<<<< HEAD
-        "button": "Send the email",
-        "title": "Forget password?",
-        "mdp": "Password :",
-        "confirm": "Confirm Password :"
-=======
         "button" : "Send the email",
         "title" : "Forget password?",
         "mdp" : "Password :",
@@ -212,6 +200,5 @@
         "adresse": "Address",
         "a_propos": "About us",
         "ruelle": "Enter our undiscovered alley"
->>>>>>> 185449c6e121dc48375b2d7789ba634c0c4f9826
     }
 }
