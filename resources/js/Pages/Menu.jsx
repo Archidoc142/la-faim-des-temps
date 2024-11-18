@@ -53,7 +53,9 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
         post(route('menu.update'), {
             preserveScroll: true,
             preserveState: 'errors',
+            onSuccess: () => showMessageFlash(1, "Le menu a été modifié")
         });
+
     };
 
     async function changeDateBD(id, nouv_valeur, isDeletion) {
@@ -68,7 +70,18 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             router.post('/dates-menu', dateData, {
                 preserveScroll: true,
                 onError: (errors) => { alert(errors[0]); },
-                onFinish: () => {
+                /*onFinish: () => {
+                    if (isDeletion) {
+                        showMessageFlash(1, "La date de retour a été supprimée")
+                    } else {
+                        showMessageFlash(1, "La date de retour a été modifiée")
+                    }
+                    window.location.reload();
+                    history.replaceState(null, null, "#menuAncre");
+                },*/
+                onSuccess: () => {
+                    window.location.reload();
+                    history.replaceState(null, null, "#menuAncre");
                     if (isDeletion) {
                         showMessageFlash(1, "La date de retour a été supprimée")
                     } else {
@@ -114,7 +127,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
             alert(errorMsg);
         }
-
     }, [errors])
 
     const user = usePage().props.auth.user;
@@ -135,7 +147,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     const [dateMenuLund, setDateMenuLund] = useState(tempDate);
     const [dateMenuRetour, setDateMenuRetour] = useState(tempDate);
 
-    //const [ajdYYYY, setAjdYYYY] = useState(d.getFullYear() + "-" + (d.getMonth() + 1).toString().padStart(2, '0') + "-" + d.getDate().toString().padStart(2, '0'));
     const [lundiYYYY, setLundiYYYY] = useState(dates_menu[2].date);
     const [vendrediYYYY, setVendrediYYYY] = useState(dates_menu[1].date);
     const [lundiNextYYYY, setLundiNextYYYY] = useState(dates_menu[4].date);
@@ -349,19 +360,13 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                         :
                         <p className='text-sm md:text-base text-justify'>{t("Menu.livr-p")}</p>
                     }
-
-                    <br />
-                    <br />
-
+                    <br /><br />
                     <p className='mb-5 text-sm md:text-base'>{t("Menu.livr-heure")}<b>{dateDelivery}</b>.</p>
                     <div className=''>
                         <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-sherb")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[0].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""} {t("Menu.livr-sherb")}</p>
                         <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-autre")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[1].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""}</p>
                     </div>
-
-                    <br />
-                    <br />
-
+                    <br /><br />
                     {editLivrMode ?
                         <TextareaStatique
                             setStatiqueFR={setLivrinfofr}
@@ -404,22 +409,20 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             {/*Menu de la semaine*/}
             < div id="menuAncre" className='bg-[#04203f] !pt-5 p-10 md:p-12 lg:p-20 mt-7' >
 
-                {
-                    user && user.data.role == "admin" ?
-                        <MenuDateRetour
-                            date_retour={dates_menu[0].date}
-                            dateMenuRetour={dateMenuRetour}
-                            vendrediYYYY={vendrediNextYYYY}
-                            dateMenuVend={dateMenuVend}
-                            dateMenuLund={dateMenuLund}
-                            changeDateBD={changeDateBD}
-                        />
-                        : null
-                }
+                {user && user.data.role == "admin" ?
+                    <MenuDateRetour
+                        date_retour={dates_menu[0].date}
+                        dateMenuRetour={dateMenuRetour}
+                        vendrediYYYY={vendrediNextYYYY}
+                        dateMenuVend={dateMenuVend}
+                        dateMenuLund={dateMenuLund}
+                        changeDateBD={changeDateBD}
+                    />
+                    : null}
 
                 <form onSubmit={submit}>
 
-                    <h2 className='text-[#FFD8AD] text-center my-8 imperial text-6xl md:text-7xl lg:text-8xl md:my-12'>{t("Menu.menu-titre")}</h2>
+                    <h2 className='text-[#FFD8AD] text-center my-8 imperial mr-2 text-6xl md:text-7xl lg:text-8xl md:my-12'>{t("Menu.menu-titre")}</h2>
 
                     {!afficherMenu ?
                         dates_menu[0].date !== null ?
@@ -458,8 +461,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                         }
                     </div>
 
-
-
                     <div className='m-auto justify-center pb-10 grid gap-10 grid-cols-1 md:grid-cols-2 max-w-[1200px]'>
                         {/* SOUPE + PLAT DU CHEF */}
 
@@ -481,31 +482,29 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             afficherMenu={afficherMenu}
                             showMessageFlash={showMessageFlash}
                         />
-
                     </div>
+
                     {/* PLATS PRINCIPAUX */}
                     <div className='border-2 border-[#EBEBEB] rounded-2xl p-5 md:p-7 justify-center text-center w-[100%] md:max-w-[1200px] md:m-auto'>
-                        <h3 className='imperial text-[#FFD8AD] pb-4 text-5xl md:text-6xl'>{t("Menu.plat-principaux")}</h3>
+                        <h3 className='imperial mr-2 text-[#FFD8AD] pb-4 text-5xl md:text-6xl'>{t("Menu.plat-principaux")}</h3>
 
-                        {
-                            menu.map((produit, i) => (
-                                <div key={produit.id}>{produit.id > 2 ?
-                                    <MenuPrinc
-                                        produit={menu[menu.findIndex(data => data.id === produit.id)]}
-                                        putPanier={putPanier}
-                                        editable={editMode}
-                                        setData={setData}
-                                        categories={produits.data}
-                                        data={data}
-                                        formIndex={i + 1}
-                                        key={produit.id}
-                                        afficherMenu={afficherMenu}
-                                        showMessageFlash={showMessageFlash}
-                                    />
-                                    : ""}
-                                </div>
-                            ))
-                        }
+                        {menu.map((produit, i) => (
+                            <div key={produit.id}>{produit.id > 2 ?
+                                <MenuPrinc
+                                    produit={menu[menu.findIndex(data => data.id === produit.id)]}
+                                    putPanier={putPanier}
+                                    editable={editMode}
+                                    setData={setData}
+                                    categories={produits.data}
+                                    data={data}
+                                    formIndex={i + 1}
+                                    key={produit.id}
+                                    afficherMenu={afficherMenu}
+                                    showMessageFlash={showMessageFlash}
+                                />
+                                : ""}
+                            </div>
+                        ))}
                     </div>
 
                     {afficherMenu ?
@@ -516,10 +515,8 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                             {t("Menu.go-panier")}
                         </Link>
                         : null}
-
                 </form>
             </div >
         </div >
     );
-
 }
