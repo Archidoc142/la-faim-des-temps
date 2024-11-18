@@ -13,42 +13,44 @@ export default function AddAddress({ setContentBox, setBoxVisible, data, setData
     const submit = (e) => {
         e.preventDefault();
 
-        const re = /^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$/
-
-        if(re.exec(postalCode))
+        if(rue.trim().length !== 0)
         {
-            const codeIn = postalCode.substring(0,3);
+            const re = /^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$/
 
-            if (codesValides.includes(codeIn)) {
-                const secteur = secteurs.data.filter((s) => s.codes.includes(codeIn));
-                setSecteur(secteur[0].nom);
+            if(re.exec(postalCode))
+            {
+                const codeIn = postalCode.substring(0,3);
 
-                let montant = secteur[0].montant;
+                if (codesValides.includes(codeIn)) {
+                    const secteur = secteurs.data.filter((s) => s.codes.includes(codeIn));
+                    setSecteur(secteur[0].nom);
 
-                if (secteur[0].nom === "Sherbrooke" && data.total >= seuilGratuit) {
-                    montant = 0;
+                    let montant = secteur[0].montant;
+
+                    if (secteur[0].nom === "Sherbrooke" && data.total >= seuilGratuit) {
+                        montant = 0;
+                    }
+
+                    const adresse = {no_civique: noCivique, rue: rue, no_appt: noAppt, code_postal: postalCode}
+
+                    let newData = data
+                    newData.adresse = adresse
+                    newData.adresse_exists = false
+                    newData.adresse_id = 0
+                    newData.frais_livraison = montant
+                    newData.total = data.sous_total + montant
+                    setData(newData)
+
+                    setContentBox(2);
+                } else {
+                    alert(t("Panier.no_livraison"))
                 }
-
-                const adresse = {no_civique: noCivique, rue: rue, no_appt: noAppt, code_postal: postalCode}
-
-                let newData = data
-                newData.adresse = adresse
-                newData.adresse_exists = false
-                newData.adresse_id = 0
-                newData.frais_livraison = montant
-                newData.total = data.sous_total + montant
-                setData(newData)
-
-                setContentBox(2);
-            } else {
-                alert("Désolé, nous livrons seulement au centre de Sherbrooke, à Fleurimont et à Rock Forest.")
+            }
+            else
+            {
+                alert(t("Panier.invalid_cp"));
             }
         }
-        else
-        {
-            alert("Le format du code postal est invalide.");
-        }
-
     };
 
     const handlePostalChange = (e) => {
