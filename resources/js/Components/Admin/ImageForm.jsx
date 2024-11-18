@@ -39,21 +39,27 @@ export default function ImageForm({ image, setPopupActif }) {
     function submit(e) {
         e.preventDefault();
 
-        if(data.saisonnier && JSON.stringify(data.saisons) === JSON.stringify([false, false, false, false]))
-            alert("Sélectionnez au moins une saison si l'image est saisonnière.")
-
+        if(data.descriptionFr.trim().length === 0 || data.descriptionEn.trim().length === 0)
+        {
+            alert("Veuillez indiquer la description de l'image dans les deux langues.")
+        }
         else
         {
-            setPopupActif(false);
+            if(data.saisonnier && JSON.stringify(data.saisons) === JSON.stringify([false, false, false, false]))
+                alert("Sélectionnez au moins une saison si l'image est saisonnière.")
 
-            post('/admin/image', {
-                preserveScroll: true,
-                onError: (errors) => { alert(errors[0]); },
-                preserveState: 'errors',
-                onFinish: () => { setPopupActif(false); }
-            });
+            else
+            {
+                setPopupActif(false);
+
+                post('/admin/image', {
+                    preserveScroll: true,
+                    onError: (errors) => { alert(errors[0]); },
+                    preserveState: 'errors',
+                    onFinish: () => { setPopupActif(false); }
+                });
+            }
         }
-
     }
 
     function upload(e) {

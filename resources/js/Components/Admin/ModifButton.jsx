@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 export default function ModifButton({ afficher, editMode, setEditMode, changeText, elemChange, couleur }) {
+    if(afficher)
     return (
 
         <div className='mb-5' key={elemChange}>
@@ -31,4 +32,6 @@ export default function ModifButton({ afficher, editMode, setEditMode, changeTex
             }
         </div>
     )
+
+    return null;
 }

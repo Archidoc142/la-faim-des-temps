@@ -74,7 +74,7 @@ export default function Histoire() {
                 path="/"
             />
 
-            <div className="block md:flex md:mx-6">
+            <div className="block md:flex max-w-[80%] m-auto items-center">
                 <div className="block md:flex items-center md:max-w-[450px]">
                     <img
                         src={logo}
@@ -162,7 +162,7 @@ export default function Histoire() {
                     <p className="px-8 py-4 text-center text-[12px] md:text-[14px] lg:text-base xl:text-lg text-white bg-[#061f3d] font-bold italic lg:my-8"><span className="text-[#7A163C] text-4xl">"</span>{t("Histoire.desc4")}<span className="text-[#7A163C] text-4xl">"</span></p>
                 }
             </div>
-            <div className="xl:px-12 xl:py-6">
+            <div className="xl:py-6 max-w-[80%] m-auto items-center">
                 <div className="md:hidden">
                     <img
                         src={yannick}
@@ -171,7 +171,7 @@ export default function Histoire() {
                     />
                 </div>
 
-                <div className="md:flex">
+                <div className="lg:flex">
                     <div className="md:mt-8">
                         <h2 className='font-serif text-[#04203f] text-center md:text-left md:pl-8 text-3xl md:text-4xl font-bold'>Yannick Pellerin</h2>
                         <ModifButton
@@ -212,18 +212,21 @@ export default function Histoire() {
                             </>
                             :
                             <>
-                                <p className="px-8 md:pl-8 md:w-[90%] pt-4 text-justify text-sm lg:text-base xl:text-lg">
-                                {t("Histoire.desc5")}<br /><br />
-                                </p>
-                                <p className="px-8 pb-8 text-justify text-sm lg:text-base xl:text-lg">{t("Histoire.desc6")}</p>
+                                <div className="hidden md:block md:mr-8">
+                                    <p className="md:pl-8 md:pr-8 pt-4 text-justify text-sm lg:text-base xl:text-lg">
+                                        {t("Histoire.desc5")}<br /><br />
+                                    </p>
+                                    <p className="md:px-8 pb-8 text-justify text-sm lg:text-base xl:text-lg">{t("Histoire.desc6")}</p>
+                                </div>
                             </>
                         }
                     </div>
-                    <div className="hidden md:block md:mr-8">
+
+                    <div className="hidden md:block md:ml-10 md:mr-8">
                         <img
                             src={yannick}
                             alt="yannick-img"
-                            className="mx-auto my-6 max-w-[300px]"
+                            className="mx-auto py-6 max-w-[300px]"
                         />
                     </div>
                 </div>

@@ -49,6 +49,24 @@ export default function UpdateProfileInformation({
             >
                 <div className="sm:flex justify-between">
                     <div className="mb-4 sm:w-[48%]">
+                        <InputLabel
+                                htmlFor="prenom"
+                                value={t("Compte.prenom")}
+                            />
+
+                        <TextInput
+                            id="prenom"
+                            className="mt-1 block w-full bg-white rounded-md"
+                            defaultValue={user.data.prenom}
+                            onChange={(e) => setData("prenom", e.target.value)}
+                            required
+                            autoComplete="prenom"
+                        />
+
+                        <InputError className="mt-2" message={errors.prenom} />
+                    </div>
+
+                    <div className="sm:w-[48%]">
                         <InputLabel htmlFor="nom" value={t("Compte.nom")} />
 
                         <TextInput
@@ -62,24 +80,6 @@ export default function UpdateProfileInformation({
                         />
 
                         <InputError className="mt-2" message={errors.nom} />
-                    </div>
-
-                    <div className="sm:w-[48%]">
-                        <InputLabel
-                            htmlFor="prenom"
-                            value={t("Compte.prenom")}
-                        />
-
-                        <TextInput
-                            id="prenom"
-                            className="mt-1 block w-full bg-white rounded-md"
-                            defaultValue={user.data.prenom}
-                            onChange={(e) => setData("prenom", e.target.value)}
-                            required
-                            autoComplete="prenom"
-                        />
-
-                        <InputError className="mt-2" message={errors.prenom} />
                     </div>
                 </div>
 

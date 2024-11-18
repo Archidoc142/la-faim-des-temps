@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -30,6 +31,7 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        //dd($request);
         $request->validate([
             'email' => 'required|email',
         ]);
@@ -41,16 +43,29 @@ class PasswordResetLinkController extends Controller
         $locale = session('locale', 'fr');
         App::setLocale($locale);
 
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        // On doit vérifier d'abord si l'utilisateur est créé avec un compte Google.
+        // Si oui (type = 1), on ne peut pas reset le mot de passe. (connexion gérée par Google)
+        $user = User::where('email', $request->email)->first();
 
-        if ($status == Password::RESET_LINK_SENT) {
-            return back()->with('status', __($status));
+        if(isset($user) && $user->type == 1)
+        {
+            throw ValidationException::withMessages([
+                'email' => [trans("passwords.google")],
+            ]);
         }
+        else
+        {
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
 
-        throw ValidationException::withMessages([
-            'email' => [trans($status)],
-        ]);
+            if ($status == Password::RESET_LINK_SENT) {
+                return back()->with('status', __($status));
+            }
+
+            throw ValidationException::withMessages([
+                'email' => [trans($status)],
+            ]);
+        }
     }
 }

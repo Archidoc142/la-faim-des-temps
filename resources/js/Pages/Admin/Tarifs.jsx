@@ -39,7 +39,13 @@ export default function Tarifs({ tarifs, formats }) {
     const submit = (e) => {
         e.preventDefault();
 
-        if (data.type === "tarif") {
+        if(data.montant.trim().length === 0) {
+            alert("Veuillez entrer un tarif.");
+        }
+        else if(isNaN(data.montant)) {
+            alert("Veuillez entrer un tarif valide.");
+        }
+        else if (data.type === "tarif") {
             post(route("admin.tarif.updateTarif"));
         } else {
             post(route("admin.tarif.updateFormat"));
@@ -77,8 +83,8 @@ export default function Tarifs({ tarifs, formats }) {
                 <table className="border w-full table-fixed">
                     <thead>
                         <tr>
-                            <HeadCell title="nom" width="96" />
-                            <HeadCell title="montant" width="72" />
+                            <HeadCell title="Nom" width="96" />
+                            <HeadCell title="Montant" width="72" />
                             <HeadActionCell />
                         </tr>
                     </thead>
