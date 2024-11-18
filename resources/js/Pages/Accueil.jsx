@@ -23,6 +23,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
     const loggedIn = params.get("loggedIn");
     const isLogout = params.get("isLogout");
     const commandePassee = params.get("commandePassee");
+    const avisEnvoye = params.get("avisEnvoye");
 
     const [messageVisibility, setMessageVisibility] = useState(true)
     const [message, setMessage] = useState("")
@@ -35,11 +36,14 @@ export default function Accueil({ commentaires, images, qbValid }) {
         }
 
         if(isLogout)
-            setMessage("Déconnexion réussie, à la prochaine!");
+            setMessage(t("Login.logout"));
         else if(loggedIn)
-            setMessage("Bienvenue " + user.data.prenom + "!");
+            setMessage(t("Login.bienvenue") + " " + user.data.prenom + "!");
         else if(commandePassee)
-            setMessage("Nous avons bien reçu votre commande, merci!");
+            setMessage(t("Panier.commande_recue"));
+        else if(avisEnvoye)
+            setMessage(t("Avis.submitted"));
+
 
         if(user && user.data.role == "admin" && !qbValid) {
             alert("AVERTISSEMENT: Authentification QuickBooks échouée.\n\nLes nouveaux clients et les commandes n'apparaîtront pas sur votre QuickBooks.\n\nReconnectez votre compte dans la section \"QuickBooks\" du menu administrateur pour régler le problème.")
@@ -112,7 +116,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
 
     return (
         <>
-            {loggedIn || commandePassee || isLogout ?
+            {loggedIn || commandePassee || isLogout || avisEnvoye ?
                 <MessageFlash
                     status={1}
                     message={message}
@@ -137,9 +141,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
                     condition={plus2Img}
                     src={imgV[idImg2]['src']}
                     alt={i18n.language === 'fr' ? imgV[idImg2]['legende']['fr'] : imgV[idImg2]['legende']['en']}
-                    legend={i18n.language === 'fr'
-                        ? imgV[idImg2]['legende']['fr']
-                        : imgV[idImg2]['legende']['en']}
+                    legend={i18n.language === 'fr' ? imgV[idImg2]['legende']['fr'] : imgV[idImg2]['legende']['en']}
                 />
 
                 <div className='py-12 px-8 items-center content-center'>
@@ -148,8 +150,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
                         editMode={editBistroMode}
                         setEditMode={setEditBistroMode}
                         changeText={changeText}
-                        elemChange={[
-                            ["Accueil", "bistro-description", bistropfr, bistropen]]}
+                        elemChange={[["Accueil", "bistro-description", bistropfr, bistropen]]}
                         couleur="white"
                     />
 
@@ -174,9 +175,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
                     condition={imgV.length > 0}
                     src={imgV[idImg1]['src']}
                     alt={i18n.language === 'fr' ? imgV[idImg1]['legende']['fr'] : imgV[idImg1]['legende']['en']}
-                    legend={i18n.language === 'fr'
-                        ? imgV[idImg1]['legende']['fr']
-                        : imgV[idImg1]['legende']['en']}
+                    legend={i18n.language === 'fr' ? imgV[idImg1]['legende']['fr'] : imgV[idImg1]['legende']['en']}
                 />
             </div>
 

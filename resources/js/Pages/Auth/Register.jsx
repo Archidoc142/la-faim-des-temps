@@ -52,7 +52,7 @@ export default function Register() {
                                 <h2 className='text-center font-bold text-2xl mb-8 mt-2'>{t("Compte.bienvenue")}</h2>
 
                                 <div className='bg-[#f7f6f6] rounded-md text-center p-6 2xl:pt-10 lg:px-10 lg:pb-12 md:text-end'>
-                                    <form onSubmit={submit} className='bg-[#F7F6F6] text-start p-3 md:p-7 lg:p-10 pb-10 mt-5'>
+                                    <form onSubmit={submit} className='bg-[#F7F6F6] text-start p-3 md:p-7 lg:px-10 pb-10'>
                                         <div>
                                             <InputLabel htmlFor="prenom" value={t("Compte.prenom")} />
 
@@ -157,7 +157,7 @@ export default function Register() {
                                         </div>
                                     </form>
                                     <Link
-                                        href={route('login')}
+                                        href={"/login" + (redirectToPanier ? "?target=panier&fromRegister=1" : "")}
                                         className="w-fit mt-3 p-3 underline text-sm text-[#0844A4] hover:text-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 justify-self-center md:justify-self-end"
                                     >
                                         {t("Compte.deja_inscrit")}
