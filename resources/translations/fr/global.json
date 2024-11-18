@@ -110,12 +110,15 @@
         "vider" : "Vider le panier",
         "mFlash" : "Le panier a été vidé",
         "pas_allergenes": "Je n'ai pas d'allergènes",
+        "allergene_alert": "Veuillez ajouter vos allergènes.\nSi vous n'en avez pas, cochez la case « Je n'ai pas d'allergènes ».",
         "payer_en_ligne_1": "Payer en ligne",
         "payer_en_ligne_2": "(carte de crédit)",
         "payer_plus_tard_1": "Payer plus tard",
         "payer_plus_tard_2": "(Interac, comptant...)",
         "envoi_cmd": "Envoi de votre commande",
-        "commande_recue": "Nous avons bien reçu votre commande, merci!"
+        "commande_recue": "Nous avons bien reçu votre commande, merci!",
+        "no_livraison": "Désolé, nous livrons seulement au centre de Sherbrooke, à Fleurimont et à Rock Forest.",
+        "invalid_cp": "Le format du code postal est invalide."
     },
     "Avis": {
         "addAvis": "Ajouter un avis",

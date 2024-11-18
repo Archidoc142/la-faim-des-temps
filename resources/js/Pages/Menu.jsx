@@ -351,7 +351,6 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                     }
 
                     <br />
-                    <br />
                     <p className='mb-5 text-sm md:text-base'>{t("Menu.livr-heure")}<b>{dateDelivery}</b>.</p>
                     <div className='mb-5'>
                         <p className='text-sm md:text-base'><b>{t("Menu.livr-titre-sherb")} : </b>{i18n.language == "fr" ? "" : "$"}{tarifs[0].montant.toFixed(2)}{i18n.language == "fr" ? "$" : ""} {t("Menu.livr-sherb")}</p>
