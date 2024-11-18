@@ -72,7 +72,7 @@ class ProducteurController extends Controller
             'description' => $request->descriptionEN
         ]);
 
-        return redirect("/producteurs");
+        return back();
     }
 
     /**
@@ -151,7 +151,7 @@ class ProducteurController extends Controller
 
         $descriptionEN->save();
 
-        return redirect("/producteurs");
+        return back();
     }
 
     /**
@@ -180,6 +180,6 @@ class ProducteurController extends Controller
 
         $producteur->delete();
 
-        return redirect("/producteurs");
+        return back();
     }
 }
