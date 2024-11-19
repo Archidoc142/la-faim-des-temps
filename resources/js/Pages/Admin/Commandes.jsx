@@ -11,14 +11,27 @@ import TextInput from "@/Components/TextInput";
 import SearchBar from "@/Components/SearchBar";
 export default function Commandes({ commandes }) {
     const [toggledMenuId, setToggledMenuId] = useState(0);
-
     const [searchInput, setSearchInput] = useState("");
+    const [searchResult, setSearchResult] = useState([]);
 
-    const filteredCommandes = searchInput.length > 0
-        ? commandes.data.filter((commande) => {
-            return commande.user.nom.toLowerCase().includes(searchInput.toLowerCase());
-        })
-        : commandes.data;
+    const searchHandler = (searchInput) => {
+        setSearchInput(searchInput);
+
+        if (searchInput !== "") {
+            const newCommandes = commandes.data.filter((commande) => {
+                // Object.values(commande)[0] == numéro de facture
+                // Object.values(commande)[6] == information du client
+                return (
+                    Object.values(commande)[0].toString().toLowerCase().includes(searchInput.toLowerCase()) ||
+                    Object.values(commande)[6].nom.toLowerCase().includes(searchInput.toLowerCase()) || 
+                    Object.values(commande)[6].prenom.toLowerCase().includes(searchInput.toLowerCase())
+                );
+                });
+            setSearchResult(newCommandes);
+        } else {
+            setSearchResult(commandes);
+        }
+    };
 
     return (
         <AdminLayout title="Commandes">
@@ -26,11 +39,12 @@ export default function Commandes({ commandes }) {
                 <div className="text-center py-4 text-lg text-gray-500 font-bold italic">Aucune commandes</div>
             ) : (
                 <>
-                    <SearchBar 
+                    <SearchBar
                         labelName="Recherche: "
                         placeHolder={"Nom du client"}
                         value={searchInput}
                         setValue={setSearchInput}
+                        searchWord={searchHandler}
                     />
                     <table className="border w-full table-fixed">
                         <thead>
@@ -43,26 +57,40 @@ export default function Commandes({ commandes }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredCommandes.map((c, i) =>
-                                <CommandeRow
-                                    commande={c}
-                                    key={i}
-                                    showClient={true}
-                                    toggledMenuId={toggledMenuId}
-                                    setToggledMenuId={setToggledMenuId}
-                                    page={commandes.meta.current_page}
-                                />
+                            {searchInput.length < 1 ? (
+                                commandes.data.map((c, i) => (
+                                    <CommandeRow
+                                        commande={c}
+                                        key={i}
+                                        showClient={true}
+                                        toggledMenuId={toggledMenuId}
+                                        setToggledMenuId={setToggledMenuId}
+                                        page={commandes.meta.current_page}
+                                    />
+                                ))
+                            ) : (
+                                searchResult.length > 0 ? (
+                                    searchResult.map((c, i) => (
+                                        <CommandeRow
+                                            commande={c}
+                                            key={i}
+                                            showClient={true}
+                                            toggledMenuId={toggledMenuId}
+                                            setToggledMenuId={setToggledMenuId}
+                                            page={commandes.meta.current_page}
+                                        />
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="5" className="text-center py-4 text-lg text-gray-500 font-bold italic">
+                                            Aucun résultat trouvé
+                                        </td>
+                                    </tr>
+                                )
                             )}
                         </tbody>
                     </table>
                     <PaginationBar links={commandes.meta.links} />
-
-                    {/* { commandeShow ?
-                        <Commande
-                            commande={commande}
-                            setCommandeShow={setCommandeShow}
-                        /> : null
-                    } */}
                 </>
             )}
         </AdminLayout>

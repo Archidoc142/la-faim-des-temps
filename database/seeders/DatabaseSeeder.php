@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             AdresseSeeder::class,
             ClientSeeder::class,
             TypeCommandeSeeder::class,
-            //CommandeSeeder::class,
+            CommandeSeeder::class,
             DateRetourSeeder::class,
             LegendeLangueSeeder::class,
             ProducteurLangueSeeder::class
