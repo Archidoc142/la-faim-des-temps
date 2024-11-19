@@ -3,6 +3,8 @@
 namespace App\Mail;
 
 use App\Http\Resources\UserResource;
+use App\Models\Commande;
+use App\Models\CommandeProduit;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,9 +20,9 @@ class Order extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public User $user)
+    public function __construct(public Commande $commande)
     {
-        $this->user = $user;
+        $this->commande = $commande;
     }
 
     /**
@@ -29,7 +31,7 @@ class Order extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reçu - La faims des temps',
+            subject: trans("email.subject") . " #" . $this->commande->id
         );
     }
 
@@ -38,8 +40,14 @@ class Order extends Mailable
      */
     public function content(): Content
     {
+        $produits = CommandeProduit::where('id_commande', $this->commande->id)->get();
+
         return new Content(
-            view: 'order',
+            view: 'mail.order',
+            with: [
+                "commande" => $this->commande,
+                "produits" => $produits
+            ]
         );
     }
 

@@ -6,5 +6,6 @@ return [
     "aftbtn" => "Ce lien de réinitialisation de mot de passe expirera dans 60 minutes.\n\n",
     "befsal" => "Si vous n'avez pas envoyé la demande de changement de mot de passe, vous pouvez ignorer ce courriel.",
     "btn" => "Réinitialiser le mot de passe",
-    "trouble" => "Si vous avez des problèmes en avec le bouton \"Réinitialiser le mot de passe\", copier et coller ce lien dans votre navigateur=>"
+    "trouble" => "Si vous avez des problèmes en avec le bouton \"Réinitialiser le mot de passe\", copier et coller ce lien dans votre navigateur=>",
+    "subject" => "Confirmation de votre commande"
 ];
