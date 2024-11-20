@@ -316,7 +316,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             {/*Coût des portions - CETTE SECTION EST MISE EN COMMENTAIRE POUR POUVOIR L'AFFICHER AU BESOIN DANS LE FUTUR
 
             <div className='p-10 !pt-5 md:p-20 m-auto'>
-                <h2 className='text-xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
+                <h2 className='text-xl md:text-2xl text-[#BB285C] text-center mb-9 md:mb-12 max-w-96 m-auto font-bold'>{t("Menu.portion")}</h2>
 
                 <div className='flex flex-wrap gap-y-7 gap-x-12 m-auto justify-center max-w-[1200px]'>
                     {formats.map(format => (
@@ -333,7 +333,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
             {/*Récupérer ta commande*/}
             <div className='p-10 !pt-5 w-fit m-auto md:p-20'>
-                <h2 className='text-xl text-[#BB285C] text-center font-bold mb-9 md:mb-12 max-w-96 m-auto'>{t("Menu.recuperer")}</h2>
+                <h2 className='text-xl md:text-2xl text-[#BB285C] text-center font-bold mb-9 md:mb-12 max-w-96 m-auto'>{t("Menu.recuperer")}</h2>
 
                 <div className='bg-[#EBEBEB] rounded-2xl p-10 mb-12 max-w-[1200px] md:w-auto'>
 
