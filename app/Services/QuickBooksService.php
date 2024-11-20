@@ -155,6 +155,15 @@ class QuickBooksService
             // //On ajoute l'id de la table QB_id du client à la table User
             $user->id_qb = $objId;
             $user->save();
+
+            //Changement du displayName pour ajouter le nom complet du client et son id QuickBooks
+            $customer = $dataService->FindbyId('customer', $user->id_qb);
+            $QBuserObj =Customer::update($customer, [
+                "DisplayName" => $user->prenom. " ". $user->nom . " #" . $user->id_qb
+            ]);
+
+            $resultingCustomerObj = $dataService->Update($QBuserObj);
+
         }
 
         //TO DO: créer un affichage pour les erreurs
