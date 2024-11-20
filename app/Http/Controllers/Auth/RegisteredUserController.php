@@ -36,6 +36,10 @@ class RegisteredUserController extends Controller
     {
         $qbService = new QuickBooksService();
 
+        $request->merge([
+            "email" => strtolower($request->email)
+        ]);
+
         $request->validate([
             'prenom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+(-[\p{Lu}][\p{Ll}]+)*$/u',
             'nom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+(-[\p{Lu}][\p{Ll}]+)*$/u',
@@ -60,7 +64,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
-            'email' => strtolower($request->email),
+            'email' => $request->email,
             'telephone' => $request->telephone,
             'password' => Hash::make($request->password),
             'id_role' => 1,

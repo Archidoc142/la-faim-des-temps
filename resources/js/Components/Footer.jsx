@@ -27,7 +27,7 @@ export default function Footer() {
 
                 <div className='lg:flex gap-32 2xl:gap-48'>
                     {/* Côté gauche en format lg*/}
-                    <div className='my-6 lg:m-0'>
+                    <div className='my-6 lg:m-0 text-center lg:text-start'>
                         <FooterProps title="Contact" message="cavistefaimdestemps@gmail.com" />
                         <FooterArray title={t("Footer.horaire")} array={newH} />
                         <FooterProps title={t("Footer.adresse")} message="9-297 rue King Ouest, Sherbrooke, J1H 1R2" />
@@ -38,10 +38,10 @@ export default function Footer() {
                         <FooterLink title={t("Footer.a_propos")} />
 
                         <div className='flex justify-center'>
-                            <p className='arsenal italic text-white text-xl font-bold'>{t("Footer.ruelle")}!</p>
+                            <p className='arsenal italic text-white text-center lg:text-start text-xl font-bold'>{t("Footer.ruelle")}!</p>
                         </div>
 
-                        <div className='mt-4 flex p-6 lg:p-0 justify-center lg:justify-normal gap-6 2xl:justify-center'>
+                        <div className='mt-4 flex p-6 lg:p-0 justify-center lg:justify-normal gap-8 '>
                             <InstagramLogo />
                             <FacebookLogo />
                         </div>

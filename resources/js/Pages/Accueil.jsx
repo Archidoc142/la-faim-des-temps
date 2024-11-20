@@ -154,7 +154,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
                         couleur="white"
                     />
 
-                    <h2 className='font-serif text-white text-center text-4xl font-medium mb-8 px-4'>
+                    <h2 className='font-serif text-white text-center text-2xl md:text-4xl font-medium mb-8 px-4'>
                         {t("Accueil.bistro")}
                     </h2>
                     {editBistroMode ?
@@ -165,7 +165,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
                             couleur="white"
                         />
                         :
-                        <p className='font-serif text-white text-center text-xl'>{t("Accueil.bistro-description")}</p>
+                        <p className='font-serif text-white text-center text-base md:text-xl'>{t("Accueil.bistro-description")}</p>
                     }
 
                 </div>
