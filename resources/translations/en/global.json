@@ -110,12 +110,15 @@
         "vider": "Empty the cart",
         "mFlash": "The cart has been emptied",
         "pas_allergenes": "I do not have allergens.",
+        "allergene_alert": "Please add your allergens.\nIf you do not have any, select the \"I do not have allergens\" option.",
         "payer_en_ligne_1": "Pay online",
         "payer_en_ligne_2": "(credit card)",
         "payer_plus_tard_1": "Pay later",
         "payer_plus_tard_2": "(Interac, cash...)",
         "envoi_cmd": "Your order is being sent",
-        "commande_recue": "We have successfully received your order, thank you!"
+        "commande_recue": "We have successfully received your order, thank you!",
+        "no_livraison": "Sorry, we only deliver to the center of Sherbrooke, Fleurimont and Rock Forest.",
+        "invalid_cp": "The postal code is invalid."
     },
     "Avis": {
         "addAvis": "Add a comment",
@@ -130,7 +133,7 @@
         "titrePagePart2": "Initiatives",
         "titrePagePart3": "Environmental",
         "firstSectionTitle": "Our Values",
-        "firstSectionText": "From the beginning, we have always sought to integrate as many good environmental practices as possible into our operations, for the simple reason that it aligns with the core values of our founders. You can’t eat well with land that’s overexploited and polluted...",
+        "firstSectionText": "From the beginning, we have always sought to integrate as many good environmental practices as possible into our operations, for the simple reason that it aligns with the core values of our founders. You can’t eat well with land that’s overexploited and polluted... hello tester",
         "secondSectionTitlePart1": "For a Centro",
         "plus": "More",
         "vert": "green",
@@ -144,7 +147,9 @@
         "thirdSectionText2": "At La faim des temps, almost everything is recycled or composted. We are very proud that our trash can is the size of a small office paper basket. Our dear customers return the containers from our catering service. These are then cleaned, sanitized, and reused."
     },
     "Producteur": {
-        "titre": "Our Producers"
+        "titre": "Our Producers",
+        "flashUpdate": "The producer has been updated",
+        "flashDelete": "The producer has been deleted"
     },
     "Error": {
         "title": "Error ",
@@ -172,19 +177,7 @@
         "histoire" : "Our story",
         "avis" : "Your review",
         "mdp": "Password",
-        "resetmdp" : "Reset Password"
-    },
-    "M": {
-        "e": "u"
-    },
-    "t": {
-        "e": "t"
-    },
-    "f": {
-        "e": "f"
-    },
-    "k": {
-        "f": "e"
+        "resetmdp": "Reset Password"
     },
     "Mdp": {
         "message": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",

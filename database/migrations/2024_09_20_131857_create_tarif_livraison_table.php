@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tarif_livraison', function (Blueprint $table) {
             $table->id();
             $table->string('nom', length: 64);
-            $table->integer('montant');
+            $table->decimal('montant', 10, 2);
             $table->timestamps();
         });
     }

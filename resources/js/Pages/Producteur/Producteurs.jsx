@@ -7,6 +7,7 @@ import AddProducteur from './AddProducteur';
 import AddProducteurButton from './AddProducteurButton';
 import PaginationBar from '@/Components/PaginationBar';
 import HeadWithImage from '@/Components/HeadWithImage';
+import MessageFlash from '@/Components/MessageFlash';
 
 export default function Producteurs( { producteurs }) {
     const user = usePage().props.auth.user;
@@ -14,12 +15,19 @@ export default function Producteurs( { producteurs }) {
     const [t, i18n] = useTranslation("global"); // translation
     const [showProducteur, setShowProducteur] = useState(false)
 
-    const toggleShowProducteur = () => {
-        setShowProducteur(!showProducteur)
+    // Message Flash
+    const [message, setMessage] = useState("")
+    const [messageV, setMessageV] = useState(false)
+    const [messageS, setMessageS] = useState(false)
+
+    const showMessageFlash = (status, message, visibility = true) => {
+        setMessageS(status)
+        setMessage(message)
+        setMessageV(visibility)
     }
 
-    function hideForm() {
-        setShowProducteur(false)
+    const toggleShowProducteur = () => {
+        setShowProducteur(!showProducteur)
     }
 
     const { data, setData, post, errors, reset } = useForm({
@@ -38,6 +46,8 @@ export default function Producteurs( { producteurs }) {
         post(route('updateProducteur'), {
             preserveScroll: true
         });
+
+        showMessageFlash(1, t("Producteur.flashUpdate"));
     };
 
     return (
@@ -46,11 +56,18 @@ export default function Producteurs( { producteurs }) {
                 <Head title={t("Producteur.titre")} />
 
                 <HeadWithImage
-                    imgFile="/img/producteurBack.jpg"
+                    imgFile="/img/HeadProducteur.jpg"
                     title={t("Producteur.titre")}
                     button={false}
                     buttonText="none"
                     path="/"
+                />
+
+                <MessageFlash
+                    status={messageS}
+                    message={message}
+                    visibility={messageV}
+                    setVisibility={setMessageV}
                 />
 
                 {producteurs.data.map(producteur => (
@@ -62,13 +79,14 @@ export default function Producteurs( { producteurs }) {
                                 data={data}
                                 setData={setData}
                                 errors={errors}
+                                showMessageFlash={showMessageFlash}
                             />
                             <hr />
                         </form>
                     </div>
                 ))}
 
-                {user && user.data.role == "admin" ?
+                {user && user.data.role == "admin" && producteurs.meta.current_page === producteurs.meta.last_page ?
                     <div>
                         <AddProducteur className={
                             showProducteur ? "block" : "hidden"}

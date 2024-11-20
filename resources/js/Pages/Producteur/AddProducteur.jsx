@@ -38,6 +38,7 @@ export default function AddProducteur({ className, toggleShowProducteur }) {
         post(route('envoiNewProducteur'), {
             preserveScroll: true
         });
+        toggleShowProducteur();
     };
 
     return (

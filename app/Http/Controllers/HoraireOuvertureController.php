@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\HoraireOuverture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class HoraireOuvertureController extends Controller
 {
@@ -12,7 +14,11 @@ class HoraireOuvertureController extends Controller
      */
     public function index()
     {
-        //
+        $horaire = HoraireOuverture::all();
+
+        return Inertia::render('Admin/Horaire', [
+            'horaire' => $horaire
+        ]);
     }
 
     /**
@@ -50,9 +56,44 @@ class HoraireOuvertureController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, HoraireOuverture $HoraireOuverture)
+    public function update(Request $request)
     {
-        //
+        $date = HoraireOuverture::find($request->input('id'));
+
+        $rules = [
+            'heure_ouverture' => ['required', 'regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/'],
+            'heure_fermeture' => ['required', 'regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/'],
+        ];
+
+        $messages = [
+            'heure_ouverture.required' => 'Veuillez entrer une heure d\'ouverture.',
+            'heure_ouverture.regex' => 'Le format de l\'heure d\'ouverture entré est invalide.',
+            'heure_fermeture.required' => 'Veuillez entrer une heure de fermeture.',
+            'heure_fermeture.regex' => 'Le format de l\'heure de fermeture entré est invalide.',
+        ];
+
+        $validation = Validator::make($request->all(), $rules, $messages);
+
+        if ($validation->fails()) {
+            return back()->withErrors($validation->errors())->withInput();
+        }
+
+        $date->heure_ouverture = $request->input('heure_ouverture');
+        $date->heure_fermeture = $request->input('heure_fermeture');
+
+        $date->save();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function toggle(int $id)
+    {
+        $date = HoraireOuverture::find($id);
+        $date->ouvert = !$date->ouvert;
+        $date->save();
     }
 
     /**

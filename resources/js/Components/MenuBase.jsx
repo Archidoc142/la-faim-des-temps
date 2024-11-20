@@ -27,8 +27,8 @@ export default function MenuBase({ produit, putPanier, editable, setData, data, 
             <div key={produit.id} className='flex flex-col items-center justify-between  border-2 border-[#EBEBEB] rounded-2xl p-5 md:p-7 text-center md:w-auto'>
                 <div className='w-full'>
                     <div>
-                        <h3 className='justify-center text-[#FFD8AD] imperial pb-1 text-5xl md:text-6xl'>{i18n.language == 'fr' ? produit.formats[0].nom.fr : produit.formats[0].nom.en}</h3>
-                        <p className='self-center text-[#FFD8AD] pb-4 imperial text-3xl md:text-4xl pl-3'>{i18n.language == 'fr' ? produit.formats[0].montant + "$" : "$" + produit.formats[0].montant}</p>
+                        <h3 className='justify-center text-[#FFD8AD] imperial mr-2 pb-1 text-5xl md:text-6xl'>{i18n.language == 'fr' ? produit.formats[0].nom.fr : produit.formats[0].nom.en}</h3>
+                        <p className='self-center text-[#FFD8AD] pb-4 imperial mr-2 text-3xl md:text-4xl pl-3'>{i18n.language == 'fr' ? produit.formats[0].montant + "$" : "$" + produit.formats[0].montant}</p>
                     </div>
 
                     {editable ?
@@ -53,7 +53,7 @@ export default function MenuBase({ produit, putPanier, editable, setData, data, 
                     <button
                         type="button"
                         onClick={() => {putPanier(produit.formats[0].id, produit.id); showMessageFlash(1, t("Menu.bienajoute"));}}
-                        className=" inline-block min-w-40 mt-8 p-1.5 text-sm text-white font-semibold border border-[#BB285C] bg-[#BB285C] hover:border-white hover:cursor-pointer justify-self-center"
+                        className=" inline-block w-44 mt-8 p-1.5 text-sm text-white font-semibold border border-[#BB285C] bg-[#BB285C] hover:border-white hover:cursor-pointer justify-self-center"
                     >
                         {t("Menu.add-panier")}
                     </button>

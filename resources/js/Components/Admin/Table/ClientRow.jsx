@@ -38,7 +38,6 @@ export default function ClientRow({ client, editableId, seteditableId, data, set
                     <Cell>{client.prenom}</Cell>
                     <Cell>{client.email}</Cell>
                     <Cell>{client.telephone}</Cell>
-
                 </>
             }
             {/* <Cell>{client.created_at}</Cell>        //Retrait à la demande du client*/}

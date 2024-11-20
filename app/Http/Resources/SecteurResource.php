@@ -16,7 +16,7 @@ class SecteurResource extends JsonResource
     public function toArray(Request $request): array
     {
         $codes = $this->secteurCodes();
-        $tarifLivraison = $this->tarifLivraison()->montant;
+        $tarifLivraison = floatval($this->tarifLivraison()->montant);
 
         return [
             "nom" => $this->nom,

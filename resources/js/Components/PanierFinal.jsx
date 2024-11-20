@@ -7,8 +7,8 @@ export default function PanierFinal({ post, data, prix, setData, adresse, setCon
     const [allergenes, setAllergenes] = useState(true)
 
     const checkAllergenes = () => {
-        if(allergenes && data.allergenes == "") {
-            alert("Veuillez ajouter vos allergènes.\nSi vous n'en avez pas, cochez la case « Je n'ai pas d'allergènes ».");
+        if(allergenes && data.allergenes.trim().length === 0) {
+            alert(t("Panier.allergene_alert"));
             return false;
         }
         return true;

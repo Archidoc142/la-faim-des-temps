@@ -4,7 +4,7 @@ import TextAreaInput from '@/Components/TextAreaInput';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 
-export default function AddTarifForm({ setPopupActif }) {
+export default function AddTarifForm({ setPopupActif, showMessageFlash }) {
     const { data, setData, post } = useForm({
         montant: "",
         nomFR: "",
@@ -15,12 +15,20 @@ export default function AddTarifForm({ setPopupActif }) {
 
     function submit(e) {
         e.preventDefault();
-        setPopupActif(false);
 
-        post('/admin/tarif', {
-            preserveScroll: true,
-            onError: (errors) => { setPopupActif(true); alert(errors[0]); },
-        });
+        if(data.descriptionEN.trim().length === 0 || data.descriptionFR.trim().length === 0 || data.nomEN.trim().length === 0 || data.nomFR.trim().length === 0)
+        {
+            alert("Veuillez remplir tous les champs.")
+        }
+        else
+        {
+            setPopupActif(false);
+
+            post('/admin/tarif', {
+                preserveScroll: true,
+                onError: (errors) => { setPopupActif(true); alert(errors[0]); },
+            });
+        }
     }
 
     return (
@@ -39,9 +47,9 @@ export default function AddTarifForm({ setPopupActif }) {
                                 </svg>
                             </div>
                             <div className="flex flex-col gap-y-1">
-                                <InputLabel 
-                                    htmlFor="montant" 
-                                    value="Montant:" 
+                                <InputLabel
+                                    htmlFor="montant"
+                                    value="Montant:"
                                     className='text-xl'
                                 />
                                 <TextInput
@@ -59,9 +67,9 @@ export default function AddTarifForm({ setPopupActif }) {
                             </div>
 
                             <div className="flex flex-col gap-y-1">
-                                <InputLabel 
-                                    htmlFor="nomFR" 
-                                    value="Nom (Français):" 
+                                <InputLabel
+                                    htmlFor="nomFR"
+                                    value="Nom (Français):"
                                     className='text-xl'
                                 />
                                 <TextInput
@@ -79,9 +87,9 @@ export default function AddTarifForm({ setPopupActif }) {
                             </div>
 
                             <div className="flex flex-col gap-y-1">
-                                <InputLabel 
-                                    htmlFor="descriptionFR" 
-                                    value="Description (Français):" 
+                                <InputLabel
+                                    htmlFor="descriptionFR"
+                                    value="Description (Français):"
                                     className='text-xl'
                                 />
                                 <TextAreaInput
@@ -99,9 +107,9 @@ export default function AddTarifForm({ setPopupActif }) {
                             </div>
 
                             <div className="flex flex-col gap-y-1">
-                                <InputLabel 
-                                    htmlFor="nomEN" 
-                                    value="Nom (Anglais):" 
+                                <InputLabel
+                                    htmlFor="nomEN"
+                                    value="Nom (Anglais):"
                                     className='text-xl'
                                 />
                                 <TextInput
@@ -119,9 +127,9 @@ export default function AddTarifForm({ setPopupActif }) {
                             </div>
 
                             <div className="flex flex-col gap-y-1">
-                                <InputLabel 
-                                    htmlFor="descriptionEN" 
-                                    value="Desciption (Anglais):" 
+                                <InputLabel
+                                    htmlFor="descriptionEN"
+                                    value="Desciption (Anglais):"
                                     className='text-xl'
                                 />
                                 <TextAreaInput
