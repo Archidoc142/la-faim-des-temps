@@ -19,7 +19,6 @@
 @lang('email.aftbtn')
 @lang('email.befsal')
 
-
 {{-- Salutation --}}
 @if (! empty($salutation))
 {{ $salutation }}
