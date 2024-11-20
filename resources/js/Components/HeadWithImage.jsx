@@ -8,7 +8,7 @@ export default function HeadWithImage(props) {
                 {props.button && (
                     <div className='flex justify-center'>
                         <Link href={props.path}>
-                            <button className='mt-8 lg:mt-6 uppercase bg-[#7A163C] text-white font-bold text-lg lg:text-base px-8 py-2 rounded-sm shadow-md hover:shadow-lg'>{props.buttonText}</button>
+                            <button className='mt-8 lg:mt-6 uppercase bg-[#7A163C] text-white font-bold text-lg lg:text-base px-8 py-2 rounded-sm shadow-lg border border-[#7A163C] hover:border-white'>{props.buttonText}</button>
                         </Link>
                     </div>
                 )}
