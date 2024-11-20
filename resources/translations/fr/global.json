@@ -179,18 +179,6 @@
         "mdp": "Mot de passe",
         "resetmdp": "Réinitialiser le mot de passe"
     },
-    "M": {
-        "e": "n"
-    },
-    "t": {
-        "e": "s"
-    },
-    "f": {
-        "e": "i"
-    },
-    "k": {
-        "f": "n"
-    },
     "Mdp": {
         "message": "Vous avez oublié votre mot de passe? Aucun problème. Mettez votre courriel, puis nous vous enverrons un courriel à cette adresse.",
         "button" : "Envoyer le courriel",
