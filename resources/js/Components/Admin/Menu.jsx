@@ -34,6 +34,10 @@ export default function Menu() {
                 </svg>
             </MenuItem>
 
+            <MenuItem name="Horaire" routeName="horaire">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </MenuItem>
+
             {/* This is use to generate the acces token for quickbook TODO: each 100 day */}
             <MenuItem name="QuickBooks" routeName="quickbooks">
                 <svg width="30" height="30" viewBox="0 0 14 14" fill='white'>
