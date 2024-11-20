@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import TarifRow from "@/Components/Admin/Table/TarifRow";
 import AddTarifForm from "@/Components/Admin/AddTarifForm";
 import { useForm } from "@inertiajs/react";
+import MessageFlash from '@/Components/MessageFlash';
 
 export default function Tarifs({ tarifs, formats }) {
 
@@ -23,6 +24,17 @@ export default function Tarifs({ tarifs, formats }) {
 
     const [editableId, seteditableId] = useState(0);
     const [toggledMenuId, setToggledMenuId] = useState(0);
+
+    // Message Flash
+    const [message, setMessage] = useState("")
+    const [messageV, setMessageV] = useState(false)
+    const [messageS, setMessageS] = useState(false)
+
+    const showMessageFlash = (status, message, visibility = true) => {
+        setMessageS(status)
+        setMessage(message)
+        setMessageV(visibility)
+    }
 
     const submit = (e) => {
         e.preventDefault();
@@ -59,6 +71,14 @@ export default function Tarifs({ tarifs, formats }) {
 
     return (
         <AdminLayout title="Tarifs">
+
+            <MessageFlash
+                status={messageS}
+                message={message}
+                visibility={messageV}
+                setVisibility={setMessageV}
+            />
+
             <form method="post" onSubmit={submit}>
                 <table className="border w-full table-fixed">
                     <thead>
@@ -114,6 +134,7 @@ export default function Tarifs({ tarifs, formats }) {
             {popupActif ?
                 <AddTarifForm
                     setPopupActif={setPopupActif}
+                    showMessageFlash={showMessageFlash}
                 />
                 : null}
         </AdminLayout >

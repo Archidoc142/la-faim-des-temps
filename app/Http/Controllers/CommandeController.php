@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Resources\CommandeResource;
 use App\Http\Resources\CommandeProduitResource;
+use App\Mail\Order;
 use App\Models\Adresse;
 use App\Models\CommandeProduit;
 use App\Models\Format;
@@ -14,8 +15,11 @@ use App\Models\Produit;
 use App\Models\ProduitFormat;
 use App\Models\QBToken;
 use App\Models\SecteurCode;
+use App\Models\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Services\QuickBooksService;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
 
 class CommandeController extends Controller
 {
@@ -177,6 +181,15 @@ class CommandeController extends Controller
 
         if(QBToken::exists())
             $this->sendCommandeQB($commande, true);
+
+        Mail::to($request->user())->send(new Order($commande));
+
+        $locale = config("app.locale");
+        $admin = User::where("id_role", 2)->first();
+
+        App::setLocale("fr");
+        Mail::to($admin)->send(new Order($commande));
+        App::setLocale($locale);
 
         return redirect('/?commandePassee=1');
     }

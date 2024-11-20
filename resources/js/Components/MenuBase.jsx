@@ -53,7 +53,7 @@ export default function MenuBase({ produit, putPanier, editable, setData, data, 
                     <button
                         type="button"
                         onClick={() => {putPanier(produit.formats[0].id, produit.id); showMessageFlash(1, t("Menu.bienajoute"));}}
-                        className=" inline-block min-w-40 mt-8 p-1.5 text-sm text-white font-semibold border border-[#BB285C] bg-[#BB285C] hover:border-white hover:cursor-pointer justify-self-center"
+                        className=" inline-block w-44 mt-8 p-1.5 text-sm text-white font-semibold border border-[#BB285C] bg-[#BB285C] hover:border-white hover:cursor-pointer justify-self-center"
                     >
                         {t("Menu.add-panier")}
                     </button>

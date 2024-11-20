@@ -58,7 +58,7 @@ export default function MenuPrinc({ produit, putPanier, editable, setData, categ
                             onChange={(e) => { setDescriptionEn(e.target.value) }}></textarea>
                     </div>
                     :
-                    <p className='text-white md:text-lg'>{i18n.language == 'fr' ? produit.description.fr : produit.description.en}</p>
+                    <p className='text-white md:text-lg flex-1'>{i18n.language == 'fr' ? produit.description.fr : produit.description.en}</p>
                 }
 
                 {editable || !afficherMenu ?

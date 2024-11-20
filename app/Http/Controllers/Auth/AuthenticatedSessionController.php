@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Mail\Order;
 use App\Models\GoogleId;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use App\Services\QuickBooksService;
 use App\Models\QBToken;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthenticatedSessionController extends Controller
@@ -48,7 +50,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         //tentative de création de compte QuickBooks si aucun compte n'est lié et que l'utilisateur n'est pas admin
-        if($request->user()->role->nom != "admin" && $request->user()->id_qb === null)
+        if(QBToken::exists() && $request->user()->role->nom != "admin" && $request->user()->id_qb === null)
             $quickBooksService->sendToQB($request->user());
 
         if($request->redirectToPanier)
