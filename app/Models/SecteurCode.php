@@ -20,6 +20,6 @@ class SecteurCode extends Model
 
     public function secteur(): BelongsTo
     {
-        return $this->belongsTo(SecteurCode::class, 'id_secteur');
+        return $this->belongsTo(Secteur::class, 'id_secteur');
     }
 }

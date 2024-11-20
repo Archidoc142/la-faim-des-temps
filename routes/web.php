@@ -20,6 +20,8 @@ use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use App\Http\Resources\CommentaireResource;
 use App\Http\Controllers\FormatController;
+use App\Mail\Order;
+use App\Models\Commande;
 use App\Models\Commentaire;
 use App\Models\Produit;
 use Illuminate\Foundation\Application;
@@ -28,6 +30,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [AccueilController::class, 'accueil'])->name('accueil');
+
+Route::get('/mail', function () {
+    $commande = Commande::latest()->first();
+    return new Order($commande);
+});
 
 Route::get('/histoire', function () {
     return Inertia::render('Histoire');
@@ -123,6 +130,8 @@ Route::get('/changeLanguage/{locale}', function (string $locale) {
     if (!in_array($locale, ['en', 'fr'])) {
         abort(400);
     }
+
+    dd($locale);
 
     App::setLocale($locale);
     session(['locale' => $locale]);
