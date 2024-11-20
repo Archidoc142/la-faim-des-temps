@@ -13,7 +13,8 @@ class HoraireOuverture extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [
-        'jour',
+        'jour_fr',
+        'jour_en',
         'ouvert',
     ];
 }

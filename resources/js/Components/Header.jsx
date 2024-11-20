@@ -135,10 +135,10 @@ export default function Header() {
                     <div className='hidden lg:flex'>
                         <div className='text-[#b7b6a9] flex gap-8 xl:gap-12 items-center'>
                             <Link className={`text-xs xl:text-base ${url === '/' ? 'text-white' : 'hover:text-gray-300'}`} href='/'><strong>{t("Header.accueil")}</strong></Link>
-                            <Link className={`text-xs xl:text-base ${url === '/menu' ? 'text-white' : 'hover:text-gray-300'}`} href='/menu'><strong>{t("Header.menu")}</strong></Link>
-                            <Link className={`text-xs xl:text-base ${url === '/valeurs' ? 'text-white' : 'hover:text-gray-300'}`} href='/valeurs'><strong>{t("Header.valeurs")}</strong></Link>
-                            <Link className={`text-xs xl:text-base ${url === '/producteurs' ? 'text-white' : 'hover:text-gray-300'}`} href='/producteurs'><strong>{t("Header.producteurs")}</strong></Link>
-                            <Link className={`text-xs xl:text-base ${url === '/histoire' ? 'text-white' : 'hover:text-gray-300'}`} href='/histoire'><strong>{t("Header.histoire")}</strong></Link>
+                            <Link className={`text-xs xl:text-base ${url.includes('/menu') ? 'text-white' : 'hover:text-gray-300'}`} href='/menu'><strong>{t("Header.menu")}</strong></Link>
+                            <Link className={`text-xs xl:text-base ${url.includes('/valeurs') ? 'text-white' : 'hover:text-gray-300'}`} href='/valeurs'><strong>{t("Header.valeurs")}</strong></Link>
+                            <Link className={`text-xs xl:text-base ${url.includes('/producteurs') ? 'text-white' : 'hover:text-gray-300'}`} href='/producteurs'><strong>{t("Header.producteurs")}</strong></Link>
+                            <Link className={`text-xs xl:text-base ${url.includes('/histoire') ? 'text-white' : 'hover:text-gray-300'}`} href='/histoire'><strong>{t("Header.histoire")}</strong></Link>
                             {user ? user.data.role !== "admin" ? <Link className={`text-xs xl:text-base ${url === '/avis' ? 'text-white' : 'hover:text-gray-300'}`} href='/avis'><strong>{t("Header.avis")}</strong></Link> : null : null}
                         </div>
                     </div>
@@ -201,11 +201,11 @@ export default function Header() {
 
             <div id='menu' className='lg:hidden hidden text-center text-lg absolute z-20'>
                 <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] w-screen py-4 border-y-2 border-[#dfdfdf] ${url === '/' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/'>{t("Header.accueil")}</Link>
-                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/menu' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/menu'>{t("Header.menu")}</Link>
-                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/valeurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/valeurs'>{t("Header.valeurs")}</Link>
-                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/producteurs' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/producteurs'>{t("Header.producteurs")}</Link>
-                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/histoire' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/histoire'>{t("Header.histoire")}</Link>
-                {user ? user.data.role !== "admin" ? <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url === '/avis' ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/avis'>{t("Header.avis")}</Link> : null : null}
+                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url.includes('/menu') ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/menu'>{t("Header.menu")}</Link>
+                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url.includes('/valeurs') ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/valeurs'>{t("Header.valeurs")}</Link>
+                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url.includes('/producteurs') ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/producteurs'>{t("Header.producteurs")}</Link>
+                <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url.includes('/histoire') ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/histoire'>{t("Header.histoire")}</Link>
+                {user ? user.data.role !== "admin" ? <Link onClick={handleClosure} className={`block hover:bg-[#dfdfdf] py-4 border-b-2 border-[#dfdfdf] ${url.includes('/avis') ? 'bg-[#dfdfdf]' : 'bg-[#fff]'}`} href='/avis'>{t("Header.avis")}</Link> : null : null}
             </div>
 
             {/* flash*/}

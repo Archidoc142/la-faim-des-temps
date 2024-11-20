@@ -20,6 +20,9 @@ use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
 use App\Http\Resources\CommentaireResource;
 use App\Http\Controllers\FormatController;
+use App\Http\Controllers\HoraireOuvertureController;
+use App\Mail\Order;
+use App\Models\Commande;
 use App\Models\Commentaire;
 use App\Models\Produit;
 use Illuminate\Foundation\Application;
@@ -28,6 +31,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [AccueilController::class, 'accueil'])->name('accueil');
+
+Route::get('/mail', function () {
+    $commande = Commande::latest()->first();
+    return new Order($commande);
+});
 
 Route::get('/histoire', function () {
     return Inertia::render('Histoire');
@@ -111,9 +119,10 @@ Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::get('/admin/quickbooks/callback', 'callback')->name('admin.quickbooks.callback');
     });
 
-    Route::controller(QuickBooksController::class)->group(function() {
-        Route::get('/admin/quickbooks', 'index')->name('admin.quickbooks');
-        Route::get('/admin/quickbooks/callback', 'callback')->name('admin.quickbooks.callback');
+    Route::controller(HoraireOuvertureController::class)->group(function() {
+        Route::get('/admin/horaire', 'index')->name('admin.horaire');
+        Route::post('/admin/horaire/toggle/{id}', 'toggle')->name('admin.horaire.toggle');
+        Route::post('/admin/horaire/update', 'update')->name('admin.horaire.update');
     });
 });
 
@@ -123,6 +132,8 @@ Route::get('/changeLanguage/{locale}', function (string $locale) {
     if (!in_array($locale, ['en', 'fr'])) {
         abort(400);
     }
+
+    dd($locale);
 
     App::setLocale($locale);
     session(['locale' => $locale]);

@@ -510,7 +510,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
                     {afficherMenu ?
                         <Link
                             href='/panier'
-                            className="block m-auto w-fit text-sm md:text-base py-4 px-8 mt-10 md:mt-12 lg:mt-20  text-[#BB285C] font-bold bg-transparent border-2 border-[#BB285C] hover:bg-[#BB285C] hover:text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 justify-self-center"
+                            className="block m-auto w-fit text-sm md:text-base py-4 px-8 mt-10 md:mt-12 lg:mt-20  text-[#BB285C] font-bold bg-transparent border-4 border-[#BB285C] hover:bg-[#BB285C] hover:text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 justify-self-center"
                         >
                             {t("Menu.go-panier")}
                         </Link>
