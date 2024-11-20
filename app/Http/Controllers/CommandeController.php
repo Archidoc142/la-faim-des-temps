@@ -21,14 +21,31 @@ use App\Services\QuickBooksService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 
+
 class CommandeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $commandes = Commande::with('user')/*->where('status', 'paid')*/->latest()->paginate(5);
+        if($request->search)
+        {
+            $commandes = Commande::with('user')
+                ->where('id',  $request->search)
+                ->orWhereHas('user', function($query) use ($request) {
+                    $query->where('nom', 'like', '%' . $request->search . '%')
+                          ->orWhere('prenom', 'like', '%' . $request->search . '%');
+                })
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
+        }
+        else
+        {
+            $commandes = Commande::with('user')->latest()->paginate(5);
+        }
+        // $commandes = Commande::with('user')/*->where('status', 'paid')*/->latest()->paginate(5);
 
         return Inertia::render('Admin/Commandes', [
             'commandes' => CommandeResource::collection($commandes)
