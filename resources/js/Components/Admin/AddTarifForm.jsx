@@ -4,7 +4,7 @@ import TextAreaInput from '@/Components/TextAreaInput';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 
-export default function AddTarifForm({ setPopupActif }) {
+export default function AddTarifForm({ setPopupActif, showMessageFlash }) {
     const { data, setData, post } = useForm({
         montant: "",
         nomFR: "",

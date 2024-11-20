@@ -29,7 +29,7 @@ export default function MenuFormats({ produitId, formats, putPanier, showMessage
                 key={formats.id}
                 className='border border-[#BB285C] hover:border-white hover:cursor-pointer self-end mt-4 md:mt-0'
             >
-                <div className='md:w-64 text-center'>
+                <div className='lg:w-[270x] text-center'>
                     <p onClick={() => toggleState()} className='select-none p-1 text-sm text-white font-semibold border-2 border-[#BB285C] bg-[#BB285C]'>{t("Menu.formats")}</p>
 
                     <div ref={container} className='overflow-hidden h-0'>
