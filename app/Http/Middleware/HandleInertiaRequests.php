@@ -6,6 +6,7 @@ use App\Http\Resources\UserResource;
 use App\Models\HoraireOuverture;
 use App\Models\DatesMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -76,6 +77,11 @@ class HandleInertiaRequests extends Middleware
         {
             $user = new UserResource($request->user());
         }
+
+        if(isset($_COOKIE["lng"]))
+            App::setLocale($_COOKIE["lng"]);
+        else
+            App::setLocale(session("locale", config("app.locale")));
 
         return [
             ...parent::share($request),
