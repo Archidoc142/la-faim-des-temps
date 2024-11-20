@@ -163,7 +163,7 @@
 
                 <div id="total">
                     <p>Total :
-                        <span class="bold">{{number_format((float)($commande->total + $commande->frais_livraison), 2, ',', '')}} $</span>
+                        <span class="bold">{{number_format((float)($commande->total), 2, ',', '')}} $</span>
                     </p>
                 </div>
             </div>
