@@ -131,7 +131,7 @@ Route::get('/changeLanguage/{locale}', function (string $locale) {
         abort(400);
     }
 
-    dd($locale);
+    //dd($locale);
 
     App::setLocale($locale);
     session(['locale' => $locale]);
