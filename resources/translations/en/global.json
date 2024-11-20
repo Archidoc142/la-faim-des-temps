@@ -177,18 +177,6 @@
         "mdp": "Password",
         "resetmdp" : "Reset Password"
     },
-    "M": {
-        "e": "u"
-    },
-    "t": {
-        "e": "t"
-    },
-    "f": {
-        "e": "f"
-    },
-    "k": {
-        "f": "e"
-    },
     "Mdp": {
         "message": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
         "button" : "Send the email",

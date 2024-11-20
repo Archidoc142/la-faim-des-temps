@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('HoraireOuverture', function (Blueprint $table) {
             $table->id();
-            $table->string('jour', length: 16);
+            $table->string('jour_fr', length: 16);
+            $table->string('jour_en', length: 16);
             $table->boolean('ouvert');
             $table->string('heure_ouverture', length: 32)->nullable();
             $table->string('heure_fermeture', length: 32)->nullable();
