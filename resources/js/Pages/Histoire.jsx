@@ -74,7 +74,7 @@ export default function Histoire() {
                 path="/"
             />
 
-            <div className="block md:flex max-w-[80%] m-auto items-center">
+            <div className="block md:flex 2xl:max-w-[80%] m-auto items-center">
                 <div className="block md:flex items-center md:max-w-[450px]">
                     <img
                         src={logo}
@@ -83,7 +83,7 @@ export default function Histoire() {
                     />
                 </div>
 
-                <div className="md:py-8 lg:w-full lg:mx-8 xl:32">
+                <div className="md:py-8 lg:w-full lg:mx-8 xl:32 mb-10">
                     <h2 className='font-serif text-[#04203f] text-center text-3xl md:text-4xl font-bold'>{t("Histoire.aventure")}</h2>
                     <ModifButton
                         afficher={user && user.data.role == "admin"}
@@ -137,7 +137,7 @@ export default function Histoire() {
                 </div>
             </div>
 
-            <div className="bg-[#061f3d] p-5">
+            <div className="bg-[#061f3d] p-5 mb-10">
                 <ModifButton
                             afficher={user && user.data.role == "admin"}
                             editMode={editDesc2}
@@ -156,13 +156,12 @@ export default function Histoire() {
                             element="Histoire.desc4"
                             couleur="white"
                         />
-
                     </>
                     :
                     <p className="px-8 py-4 text-center text-[12px] md:text-[14px] lg:text-base xl:text-lg text-white bg-[#061f3d] font-bold italic lg:my-8"><span className="text-[#7A163C] text-4xl">"</span>{t("Histoire.desc4")}<span className="text-[#7A163C] text-4xl">"</span></p>
                 }
             </div>
-            <div className="xl:py-6 max-w-[80%] m-auto items-center">
+            <div className="xl:py-6 2xl:max-w-[80%] m-auto items-center">
                 <div className="md:hidden">
                     <img
                         src={yannick}
@@ -172,7 +171,7 @@ export default function Histoire() {
                 </div>
 
                 <div className="lg:flex">
-                    <div className="md:mt-8">
+                    <div className="md:mt-8 pb-10">
                         <h2 className='font-serif text-[#04203f] text-center md:text-left md:pl-8 text-3xl md:text-4xl font-bold'>Yannick Pellerin</h2>
                         <ModifButton
                             afficher={user && user.data.role == "admin"}
@@ -212,11 +211,11 @@ export default function Histoire() {
                             </>
                             :
                             <>
-                                <div className="hidden md:block md:mr-8">
-                                    <p className="md:pl-8 md:pr-8 pt-4 text-justify text-sm lg:text-base xl:text-lg">
+                                <div className="block md:mr-8">
+                                    <p className="px-8 pt-4 text-justify text-sm lg:text-base xl:text-lg">
                                         {t("Histoire.desc5")}<br /><br />
                                     </p>
-                                    <p className="md:px-8 pb-8 text-justify text-sm lg:text-base xl:text-lg">{t("Histoire.desc6")}</p>
+                                    <p className="px-8 text-justify text-sm lg:text-base xl:text-lg">{t("Histoire.desc6")}</p>
                                 </div>
                             </>
                         }
