@@ -42,7 +42,7 @@ class RegisteredUserController extends Controller
 
         $request->validate([
             'prenom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+(-[\p{Lu}][\p{Ll}]+)*$/u',
-            'nom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+(-[\p{Lu}][\p{Ll}]+)*$/u',
+            'nom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+([ -][\p{Lu}][\p{Ll}]+)*$/u',
             'email' => 'required|string|regex:/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/|max:100|unique:'.User::class,
             'telephone' => 'nullable|numeric|digits:10',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
