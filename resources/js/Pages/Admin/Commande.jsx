@@ -69,9 +69,9 @@ export default function Commande({ commande, produits, prevPage }) {
                         >
                             <div className="grid grid-cols-12">
                                 <p className="font-bold col-span-4">{p.produit.nom}</p>
-                                {p.format.id > 2 ? <p className="col-span-8">{p.prix_vente}$</p> : null}
+                                <p className="col-span-8">{p.prix_vente}$</p>
                             </div>
-                            <p>{p.nom_format}</p>
+                            {p.format.id > 2 ? <p>{p.nom_format}</p> : null}
                         </div>
                     )
                 })}

@@ -38,10 +38,11 @@ export default function Commandes({ commandes }) {
                     <table className="border w-full table-fixed">
                         <thead>
                             <tr>
-                                <HeadCell title="Numéro de facture" width="96" />
-                                <HeadCell title="Client" width="96" />
+                                <HeadCell title="Numéro de facture" width="36" />
+                                <HeadCell title="Numéro QuickBooks" width="36" />
+                                <HeadCell title="Client" width="48" />
                                 <HeadCell title="Montant" width="36" />
-                                <HeadCell title="Date de Vente" width="48" />
+                                <HeadCell title="Date de Vente" width="36" />
                                 <HeadActionCell />
                             </tr>
                         </thead>
