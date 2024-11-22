@@ -223,9 +223,10 @@ export default function Accueil({ commentaires, images, qbValid }) {
                         ></span>
                     ))}
                 </div>
-
-                {images.data.length > 0 ? <Carrousel images={images.data} i18n={i18n} /> : null}
             </div> : null}
+
+            {images.data.length > 0 ? <Carrousel images={images.data} i18n={i18n} /> : null}
+
         </>
     );
 }
