@@ -38,7 +38,6 @@ export default function Commentaires({ horaire }) {
             })
 
             alert(errorMsg);
-            console.log(errors);
         }
 
     }, [errors])

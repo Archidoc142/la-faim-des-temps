@@ -86,7 +86,7 @@ export default function Producteurs( { producteurs }) {
                     </div>
                 ))}
 
-                {user && user.data.role == "admin" ?
+                {user && user.data.role == "admin" && producteurs.meta.current_page === producteurs.meta.last_page ?
                     <div>
                         <AddProducteur className={
                             showProducteur ? "block" : "hidden"}

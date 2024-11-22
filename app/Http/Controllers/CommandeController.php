@@ -21,14 +21,31 @@ use App\Services\QuickBooksService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 
+
 class CommandeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $commandes = Commande::with('user')/*->where('status', 'paid')*/->latest()->paginate(5);
+        if($request->search)
+        {
+            $commandes = Commande::with('user')
+                ->where('id',  $request->search)
+                ->orWhereHas('user', function($query) use ($request) {
+                    $query->where('nom', 'like', '%' . $request->search . '%')
+                          ->orWhere('prenom', 'like', '%' . $request->search . '%');
+                })
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
+        }
+        else
+        {
+            $commandes = Commande::with('user')->latest()->paginate(5);
+        }
+        // $commandes = Commande::with('user')/*->where('status', 'paid')*/->latest()->paginate(5);
 
         return Inertia::render('Admin/Commandes', [
             'commandes' => CommandeResource::collection($commandes)
@@ -171,6 +188,18 @@ class CommandeController extends Controller
         $quickBooksService->createInvoice($commande, $itemsQb, $sendEmail);
     }
 
+    private function sendMail($request, $commande)
+    {
+        Mail::to($request->user())->send(new Order($commande));
+
+        $locale = config("app.locale");
+        $admin = User::where("id_role", 2)->first();
+
+        App::setLocale("fr");
+        Mail::to($admin)->send(new Order($commande));
+        App::setLocale($locale);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -182,14 +211,7 @@ class CommandeController extends Controller
         if(QBToken::exists())
             $this->sendCommandeQB($commande, true);
 
-        Mail::to($request->user())->send(new Order($commande));
-
-        $locale = config("app.locale");
-        $admin = User::where("id_role", 2)->first();
-
-        App::setLocale("fr");
-        Mail::to($admin)->send(new Order($commande));
-        App::setLocale($locale);
+        $this->sendMail($request, $commande);
 
         return redirect('/?commandePassee=1');
     }
@@ -322,6 +344,8 @@ class CommandeController extends Controller
         $commande->save();
 
         $user = $commande->user()->first();
+
+        $this->sendMail($request, $commande);
 
         if(QBToken::exists())
         {

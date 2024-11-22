@@ -99,7 +99,7 @@
     <div id="main">
         <img id="logo-top" src="{{ URL::asset("img/logo-big.jpg")}}" alt="La faim des Temps">
 
-        <p>{{__("email.bonjour") . " " . $commande->user->prenom}}!</p>
+        <p>{{__("email.bonjour") . " " . $commande->user->prenom}},</p>
         <br>
         <p>{{__("email.merci")}}</p>
         @if ($commande->type_commande->nom == "Payée séparément")
@@ -129,6 +129,7 @@
                     @endif
                 </div>
                 <p>{{__("email.commande")}} <span class="bold">#{{$commande->id}}</span></p>
+                <p>Code QB : <span class="bold">{{$commande->qb_invoice_id ? "#" . $commande->qb_invoice_id : "N/A"}}</span></p>
                 <p>{{$commande->livraison ? __("email.livraison") : __("email.cueillette")}}</p>
                 <p>{{$commande->type_commande->id == 1 ? __("email.en_ligne") : __("email.separement") }}</p>
                 @if($commande->allergenes)
@@ -163,7 +164,7 @@
 
                 <div id="total">
                     <p>Total :
-                        <span class="bold">{{number_format((float)($commande->total + $commande->frais_livraison), 2, ',', '')}} $</span>
+                        <span class="bold">{{number_format((float)($commande->total), 2, ',', '')}} $</span>
                     </p>
                 </div>
             </div>

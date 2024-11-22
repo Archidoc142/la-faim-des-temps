@@ -63,7 +63,6 @@ export default function Tarifs({ tarifs, formats }) {
             });
 
             alert(errorMsg);
-            console.log(errors);
         }
     }, [errors]);
 
