@@ -72,28 +72,36 @@ class AuthenticatedSessionController extends Controller
 
     public function google(Request $request)
     {
-        $user = Socialite::driver('google')->stateless()->user();
-        $userExists = GoogleId::where('client_id', $user->id)->exists();
+        $googleUser = Socialite::driver('google')->stateless()->user();
+        $userExists = GoogleId::where('client_id', $googleUser->id)->exists();
+        $user = null;
 
         $googleId = GoogleId::firstOrCreate(
-            ['client_id' => $user->id]
+            ['client_id' => $googleUser->id]
         );
 
-        $user = User::updateOrCreate(
-        [
-            'email' => $user->email,
-        ],
-        [
-            'nom' => $user->user['family_name'],
-            'prenom' => $user->user['given_name'],
-            'google_token' => $user->token,
-            'type' => 1,
-            'id_role' => 1,
-            'type' => 1,
-            'id_google' => $googleId->id
-        ]);
+        if(!$userExists)
+        {
+            $user = User::create(
+                [
+                    'email' => $googleUser->email,
+                    'nom' => $googleUser->user['family_name'],
+                    'prenom' => $googleUser->user['given_name'],
+                    'google_token' => $googleUser->token,
+                    'type' => 1,
+                    'id_role' => 1,
+                    'type' => 1,
+                    'id_google' => $googleId->id
+                ]);
+        }
+        else
+        {
+            $user = User::where("email", $googleUser->email)->first();
+            $user->google_token = $user->token;
+            $user->save();
+        }
 
-        if(!$userExists || is_null($user->id_qb))
+        if(is_null($user->id_qb))
         {
             $qbService = new QuickBooksService();
             $qbService->sendCustomer($user);

@@ -10,6 +10,7 @@ export default function CommandeRow({commande, showClient, toggledMenuId, setTog
     return (
         <tr>
             <Cell>{commande.id}</Cell>
+            <Cell>{commande.qb_invoice_id ? commande.qb_invoice_id : <span className="text-red-600">Non envoyé</span>}</Cell>
             {showClient ? <Cell>{commande.user.prenom + " " + commande.user.nom}</Cell> : null}
             <Cell>{commande.total} $</Cell>
             <Cell>{commande.created_at}</Cell>
