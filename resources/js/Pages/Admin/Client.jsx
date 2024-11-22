@@ -10,8 +10,6 @@ export default function Client({client, commandes, prevPage})
 {
     const nomComplet = client.data.prenom + " " + client.data.nom;
 
-    console.log(commandes);
-
     const [ toggledMenuId, setToggledMenuId ] = useState(0);
 
     return (
