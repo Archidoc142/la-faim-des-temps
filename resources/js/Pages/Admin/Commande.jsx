@@ -3,9 +3,6 @@ import { useEffect, useRef } from "react"
 
 export default function Commande({ commande, produits, prevPage }) {
 
-    //console.log(commande)
-    //console.log(produits)
-
     const user = commande.data.user
     const allergenes = produits.data[0].commande.allergenes
 

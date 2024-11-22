@@ -15,11 +15,18 @@ export default function GoDownButton() {
         }, []);
     }
 
+    let scrolledValue = 1
+
+    window.onscroll = function (e) {
+        scrolledValue = 1
+    }
+
     const handleScrollToTarget = () => {
         gsap.to(window, {
-            duration: 1,
+            duration: scrolledValue,
             scrollTo: { y: "#menuAncre", offsetY: 100 },
         });
+        scrolledValue = 0
     }
 
     const container = useRef()
