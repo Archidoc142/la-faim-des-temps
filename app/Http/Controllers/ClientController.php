@@ -78,7 +78,7 @@ class ClientController extends Controller
 
         $rules = [
             'prenom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+(-[\p{Lu}][\p{Ll}]+)*$/u',
-            'nom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+(-[\p{Lu}][\p{Ll}]+)*$/u',
+            'nom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+([ -][\p{Lu}][\p{Ll}]+)*$/u',
             'telephone' => 'nullable|numeric|digits:10'
         ];
 
