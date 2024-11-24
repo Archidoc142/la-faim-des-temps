@@ -50,7 +50,7 @@ export default function Carrousel({ images, i18n }) {
                 ))}
             </div>
 
-            <div className="text-white italic pb-4">
+            <div className="text-white italic pb-4 text-center">
                 <p>{images[index].legende[i18n.language]}</p>
             </div>
         </div>

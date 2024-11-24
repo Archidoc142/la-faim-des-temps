@@ -133,7 +133,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
     const [t, i18n] = useTranslation("global");
 
-    let d = new Date();
+    let d = new Date(ajd);
 
     const [afficherMenu, setAfficherMenu] = useState(true);
 
@@ -228,16 +228,19 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
         checkIntervalleMenu();
 
-        setAfficherMenu(true);  // Toujours afficher menu (pour tests) #####-/--###-####-########
+        //setAfficherMenu(true);  // Toujours afficher menu (pour tests) #####-/--###-####-########
 
     }, [i18n.language])
 
     function checkIntervalleMenu() {
-        if (ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12)) {
+        console.log(ajd)
+        if ((ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12))/* && ()*/) {
+            console.log(1)
             changeDateBD(1, "prochain");
             setAfficherMenu(true);
         }
         else if (ajd > lundiYYYY || (ajd === lundiYYYY && heure >= 16)) {
+            console.log(2)
             setAfficherMenu(false);
             nextMenuText();
         }

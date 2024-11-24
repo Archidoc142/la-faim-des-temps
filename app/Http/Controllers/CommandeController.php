@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Resources\CommandeResource;
 use App\Http\Resources\CommandeProduitResource;
+use App\Jobs\SendCommandeEmail;
+use App\Jobs\SendCommandeQB;
+use App\Jobs\SendPaymentQB;
 use App\Mail\Order;
 use App\Models\Adresse;
 use App\Models\CommandeProduit;
@@ -190,13 +193,13 @@ class CommandeController extends Controller
 
     private function sendMail($request, $commande)
     {
-        Mail::to($request->user())->send(new Order($commande));
+        Mail::to($request->user())->queue(new Order($commande));
 
         $locale = config("app.locale");
         $admin = User::where("id_role", 2)->first();
 
         App::setLocale("fr");
-        Mail::to($admin)->send(new Order($commande));
+        Mail::to($admin)->queue(new Order($commande));
         App::setLocale($locale);
     }
 
@@ -209,7 +212,7 @@ class CommandeController extends Controller
         $commande = $this->sendCommandeBD($request, false);
 
         if(QBToken::exists())
-            $this->sendCommandeQB($commande, true);
+            SendCommandeQB::dispatch($commande);
 
         $this->sendMail($request, $commande);
 
@@ -328,7 +331,6 @@ class CommandeController extends Controller
 
     public function success(Request $request)
     {
-        $quickBooksService = new QuickBooksService();
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $sessionId = $request->get('session_id');
@@ -345,12 +347,11 @@ class CommandeController extends Controller
 
         $user = $commande->user()->first();
 
-        $this->sendMail($request, $commande);
 
         if(QBToken::exists())
         {
-            $this->sendCommandeQB($commande, false);
-            $quickBooksService->sendPayment($user, $commande);
+            SendCommandeQB::dispatch($commande);
+            SendPaymentQB::dispatch($user, $commande);
         }
 
         return redirect('/?commandePassee=1');
