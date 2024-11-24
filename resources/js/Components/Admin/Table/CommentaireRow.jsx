@@ -9,8 +9,10 @@ export default function CommentaireRow({ commentaire, toggledMenuId, setToggledM
         { label: "Supprimer", route: "/admin/commentaire/destroy/" + commentaire.id, type: "DELETE" },
     ]
 
+    const label = commentaire.masque ? "Cacher" : "Afficher"
+
     if (typeof commentaire.commentaire === "string") {
-        options.unshift({ label: "Afficher/Cacher", route: "/admin/commentaire/toggle/" + commentaire.id, type: "PATCH" })
+        options.unshift({ label: label, route: "/admin/commentaire/toggle/" + commentaire.id, type: "PATCH" })
     }
 
     const toggleVisibility = () => {

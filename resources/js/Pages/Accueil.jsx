@@ -226,7 +226,6 @@ export default function Accueil({ commentaires, images, qbValid }) {
             </div> : null}
 
             {images.data.length > 0 ? <Carrousel images={images.data} i18n={i18n} /> : null}
-
         </>
     );
 }
