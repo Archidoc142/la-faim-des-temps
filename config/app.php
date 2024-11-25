@@ -124,9 +124,9 @@ return [
     ],
 
     "stripe" => [
-        "key" => emv("STRIPE_KEY"),
-        "secret" => emv("STRIPE_SECRET"),
-        "wh_secret" => emv("STRIPE_WEBHOOK_SECRET"),
+        "key" => env("STRIPE_KEY"),
+        "secret" => env("STRIPE_SECRET"),
+        "wh_secret" => env("STRIPE_WEBHOOK_SECRET"),
     ],
 
     "quickbooks" => [
