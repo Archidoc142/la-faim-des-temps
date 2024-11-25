@@ -42,25 +42,25 @@ class ProfileController extends Controller
         ];
 
         $messages = [
-            'nom.required' => 'Veuillez entrer un nom de famille.',
-            'nom.max' => 'Le nom de famille ne peut pas dépasser 64 caractères.',
-            'nom.regex' => 'Le format du nom de famille entré est invalide.',
+            'nom.required' => __("auth.nom.required"),
+            'nom.max' => __("auth.nom.max"),
+            'nom.regex' => __("auth.nom.regex"),
 
-            'prenom.required' => 'Veuillez entrer un prénom.',
-            'prenom.max' => 'Le prénom ne peut pas dépasser 64 caractères.',
-            'prenom.regex' => 'Le format du prénom entré est invalide.',
+            'prenom.required' => __("auth.prenom.required"),
+            'prenom.max' => __("auth.prenom.max"),
+            'prenom.regex' => __("auth.prenom.regex"),
 
-            'telephone.digits' => 'Le numéro de téléphone doit contenir 10 chiffres.',
-            'telephone.numeric' => 'Le numéro de téléphone doit contenir 10 chiffres.'
+            'telephone.digits' => __("auth.telephone.digits"),
+            'telephone.numeric' => __("auth.telephone.digits")
         ];
 
         if($client->email != $request->email)
         {
             $rules['email'] = 'required|string|lowercase|regex:/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/|max:100|unique:'.User::class;
-            $messages['email.required'] = 'Veuillez entrer un courriel.';
-            $messages['email.email'] = 'Veuillez entrer un courriel valide.';
-            $messages['email.regex'] = 'Le format du courriel entré est invalide.';
-            $messages['email.unique'] = 'Le courriel appartient déjà à un autre client.';
+            $messages['email.required'] = __("auth.email.required");
+            $messages['email.email'] = __("auth.email.email");
+            $messages['email.regex'] = __("auth.email.regex");
+            $messages['email.unique'] = __("auth.email.unique");
         }
 
         $validation = Validator::make($request->all(), $rules, $messages);

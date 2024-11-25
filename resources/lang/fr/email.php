@@ -1,7 +1,7 @@
 <?php
 
 return [
-    "regards" => "au plaisir,",
+    "regards" => "Au plaisir,",
     "befbtn" => "Vous recevez ce courriel, car nous avons reçu une demande de changement de mot de passe pour votre compte.",
     "aftbtn" => "Ce lien de réinitialisation de mot de passe expirera dans 60 minutes.\n\n",
     "befsal" => "Si vous n'avez pas envoyé la demande de changement de mot de passe, vous pouvez ignorer ce courriel.",

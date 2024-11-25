@@ -42,23 +42,23 @@ class RegisteredUserController extends Controller
 
         $request->validate([
             'prenom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+(-[\p{Lu}][\p{Ll}]+)*$/u',
-            'nom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+(-[\p{Lu}][\p{Ll}]+)*$/u',
+            'nom' => 'required|max:64|regex:/^[\p{Lu}][\p{Ll}]+([ -][\p{Lu}][\p{Ll}]+)*$/u',
             'email' => 'required|string|regex:/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/|max:100|unique:'.User::class,
             'telephone' => 'nullable|numeric|digits:10',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ],[
-            'nom.required' => 'Veuillez entrer un nom de famille.',
-            'nom.max' => 'Le nom de famille ne peut pas dépasser 64 caractères.',
-            'nom.regex' => 'Le format du nom de famille entré est invalide.',
+            'nom.required' => __("auth.nom.required"),
+            'nom.max' => __("auth.nom.max"),
+            'nom.regex' => __("auth.nom.regex"),
 
-            'prenom.required' => 'Veuillez entrer un prénom.',
-            'prenom.max' => 'Le prénom ne peut pas dépasser 64 caractères.',
-            'prenom.regex' => 'Le format du prénom entré est invalide.',
+            'prenom.required' => __("auth.prenom.required"),
+            'prenom.max' => __("auth.prenom.max"),
+            'prenom.regex' => __("auth.prenom.regex"),
 
-            'email.required' => 'Veuillez entrer un courriel.',
-            'email.regex' => 'Le format du courriel entré est invalide.',
+            'email.required' => __("auth.email.required"),
+            'email.regex' => __("auth.email.regex"),
 
-            'telephone.digits' => 'Le numéro de téléphone doit respecter le format (xxx) xxx-xxxx.',
+            'telephone.digits' => __("auth.telephone.digits"),
         ]);
 
         $user = User::create([

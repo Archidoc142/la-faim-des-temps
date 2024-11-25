@@ -14,7 +14,7 @@ import ModifButton from '@/Components/Admin/ModifButton';
 import TextareaStatique from '@/Components/Admin/TextareaStatique';
 import MessageFlash from '@/Components/MessageFlash';
 
-export default function Accueil({ commentaires, images, qbValid }) {
+export default function Accueil({ commentaires, images, qbValid, idsImgs }) {
 
     const [t, i18n] = useTranslation("global");
     const user = usePage().props.auth.user;
@@ -35,17 +35,17 @@ export default function Accueil({ commentaires, images, qbValid }) {
             window.dispatchEvent(new Event("storage"));
         }
 
-        if(isLogout)
+        if (isLogout)
             setMessage(t("Login.logout"));
-        else if(loggedIn)
+        else if (loggedIn)
             setMessage(t("Login.bienvenue") + " " + user.data.prenom + "!");
-        else if(commandePassee)
+        else if (commandePassee)
             setMessage(t("Panier.commande_recue"));
-        else if(avisEnvoye)
+        else if (avisEnvoye)
             setMessage(t("Avis.submitted"));
 
 
-        if(user && user.data.role == "admin" && !qbValid) {
+        if (user && user.data.role == "admin" && !qbValid) {
             alert("AVERTISSEMENT: Authentification QuickBooks échouée.\n\nLes nouveaux clients et les commandes n'apparaîtront pas sur votre QuickBooks.\n\nReconnectez votre compte dans la section \"QuickBooks\" du menu administrateur pour régler le problème.")
         }
 
@@ -67,20 +67,28 @@ export default function Accueil({ commentaires, images, qbValid }) {
         setIndex(index)
     }
 
-    let imgV = images.data.filter(i => !i.is_paysage)   // les images height > width
-    const [plus2Img, setPlusPort] = useState(imgV.length > 1)
 
-    let idImg1 = Math.floor(Math.random() * (imgV.length))
-    let idImg2 = 0;
-    if (plus2Img) {
-        idImg2 = Math.floor(Math.random() * (imgV.length))
-        while (idImg2 == idImg1) {
-            idImg2 = Math.floor(Math.random() * (imgV.length))
-        }
-    }
+    console.log("-", idsImgs);
+    console.log(images.data);
+   // console.log(images);
 
-    let imgH = images.data.filter(i => i.is_paysage)   // les images width > height
-    let idImgH = Math.floor(Math.random() * (imgH.length))
+    // let imgV = images.data.filter(i => !i.is_paysage)   // les images height > width
+    const [plus2Img, setPlusPort] = useState(idsImgs[1] != null)
+    console.log("==", images.data[idsImgs[2]]['src']);
+
+    /* let idImg1 = Math.floor(Math.random() * (imgV.length))
+     let idImg2 = 0;
+     if (plus2Img) {
+         idImg2 = Math.floor(Math.random() * (imgV.length))
+         while (idImg2 == idImg1) {
+             idImg2 = Math.floor(Math.random() * (imgV.length))
+         }
+     }
+
+     let imgH = images.data.filter(i => i.is_paysage)   // les images width > height
+     let idImgH = Math.floor(Math.random() * (imgH.length))
+*/
+
 
 
     /* TEXTE STATIQUE "UNE CUISINE DE STYLE BISTRO" */
@@ -123,7 +131,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
                     visibility={messageVisibility}
                     setVisibility={setMessageVisibility}
                 />
-            : null}
+                : null}
 
             <Head title={t("Onglet.accueil")} />
 
@@ -135,13 +143,13 @@ export default function Accueil({ commentaires, images, qbValid }) {
                 path="/menu"
             />
 
-            <div className={'grid grid-cols-1 ' + (plus2Img ? 'md:grid-cols-2 lg:grid-cols-3' : (imgV.length > 0 ? 'lg:grid-cols-2' : null))}>
+            <div className={'grid grid-cols-1 ' + (plus2Img ? 'md:grid-cols-2 lg:grid-cols-3' : (idsImgs[0] ? 'lg:grid-cols-2' : null))}>
                 <AccueilImgSaison
                     classname="hidden lg:block"
                     condition={plus2Img}
-                    src={imgV[idImg2]['src']}
-                    alt={i18n.language === 'fr' ? imgV[idImg2]['legende']['fr'] : imgV[idImg2]['legende']['en']}
-                    legend={i18n.language === 'fr' ? imgV[idImg2]['legende']['fr'] : imgV[idImg2]['legende']['en']}
+                    src={images.data[idsImgs[1]]['src']}
+                    alt={i18n.language === 'fr' ? images.data[idsImgs[1]]['legende']['fr'] : images.data[idsImgs[1]]['legende']['en']}
+                    legend={i18n.language === 'fr' ? images.data[idsImgs[1]]['legende']['fr'] : images.data[idsImgs[1]]['legende']['en']}
                 />
 
                 <div className='py-12 px-8 items-center content-center'>
@@ -172,10 +180,10 @@ export default function Accueil({ commentaires, images, qbValid }) {
 
                 <AccueilImgSaison
                     classname=""
-                    condition={imgV.length > 0}
-                    src={imgV[idImg1]['src']}
-                    alt={i18n.language === 'fr' ? imgV[idImg1]['legende']['fr'] : imgV[idImg1]['legende']['en']}
-                    legend={i18n.language === 'fr' ? imgV[idImg1]['legende']['fr'] : imgV[idImg1]['legende']['en']}
+                    condition={idsImgs[0] != null}
+                    src={images.data[idsImgs[0]]['src']}
+                    alt={i18n.language === 'fr' ? images.data[idsImgs[0]]['legende']['fr'] : images.data[idsImgs[0]]['legende']['en']}
+                    legend={i18n.language === 'fr' ? images.data[idsImgs[0]]['legende']['fr'] : images.data[idsImgs[0]]['legende']['en']}
                 />
             </div>
 
@@ -188,7 +196,7 @@ export default function Accueil({ commentaires, images, qbValid }) {
 
             <div className='lg:flex flex-row-reverse lg:h-[40rem] '>
                 <TitleSection title={t("Accueil.assiette")} color="bg-rose-900" />
-                <AccueilImg src={imgH.length > 0 ? ('../../../img/' + imgH[idImgH]['src']) : assiette} alt="...à l'assiette!" legend={imgH.length > 0 ? (i18n.language === 'fr' ? imgH[idImgH]['legende']['fr'] : imgH[idImgH]['legende']['en']) : "...à l'assiette!"} />
+                <AccueilImg src={idsImgs[2] ? ('../../../img/' + images.data[idsImgs[2]]['src']) : assiette} alt="...à l'assiette!" legend={idsImgs[2] ? (i18n.language === 'fr' ? images.data[idsImgs[2]]['legende']['fr'] : images.data[idsImgs[2]]['legende']['en']) : "...à l'assiette!"} />
             </div>
 
             {commentaires && commentaires.data.length > 0 ? <div className='bg-[#041A37] pt-6 text-center'>
@@ -226,7 +234,6 @@ export default function Accueil({ commentaires, images, qbValid }) {
             </div> : null}
 
             {images.data.length > 0 ? <Carrousel images={images.data} i18n={i18n} /> : null}
-
         </>
     );
 }

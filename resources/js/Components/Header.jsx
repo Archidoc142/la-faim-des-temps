@@ -122,9 +122,9 @@ export default function Header() {
     return (
         <header className='border-b border-[#9b9b9b] sticky top-0 z-30'>
             <div className='flex bg-white'>
-                <Link href="/" className='content-center'><img className='hidden lg:block w-auto self-center max-h-[80px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" /></Link>
+                <Link href="/" className='content-center'><img className='hidden lg:block w-auto self-center max-h-[60px] lg:max-h-[70px]' src={logo} alt="logo-rect-img" /></Link>
 
-                <div className='flex py-10 items-center flex-nowrap justify-between w-full max-h-[80px] lg:max-h-[70px] bg-[#041a37] pl-6 xl:pl-8'>
+                <div className='flex py-2 md:py-10 items-center flex-nowrap justify-between w-full max-h-[60px] lg:max-h-[70px] bg-[#041a37] pl-6 xl:pl-8'>
                     {/* Menu*/}
                     <button onClick={toggleMenu} className='lg:hidden'>
                         <svg className='mx-4' width="34" height="34" viewBox="0 0 24 24" stroke="#fff" strokeWidth="2">
@@ -210,8 +210,8 @@ export default function Header() {
 
             {/* flash*/}
             {!noRedLabelURL.some(str => url.startsWith(str)) ?
-                <div className='py-3 text-sm text-white bg-[#BB285C] text-center'>
-                    <p><strong>{message}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
+                <div className='py-2 md:py-3 text-[12px] md:text-sm text-white bg-[#BB285C] text-center'>
+                    <p className=''><strong>{message}</strong> <span className='block sm:inline'>{date.toUpperCase()}</span></p>
                 </div> : ""
             }
         </header>

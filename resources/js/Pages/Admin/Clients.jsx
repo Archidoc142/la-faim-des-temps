@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 
 export default function Clients({clients}) {
 
-    console.log(clients)
-
     const { data, setData, post, processing, errors, reset } = useForm({
         page: clients.meta.current_page,
         id: '',
@@ -47,7 +45,6 @@ export default function Clients({clients}) {
             })
 
             alert(errorMsg);
-            console.log(errors);
         }
 
     }, [errors])
