@@ -34,8 +34,8 @@ class AccueilController extends Controller
         /* Images */
         $saison_actuelle = $this->getSaison();
         $images = Image::where('vitrine', true)
-            ->orWhere('saisonnier', true)
-            ->get();
+                 ->where('saisonnier', true)
+                 ->get();
 
         $filtered_images = $images->filter(function ($image) use ($saison_actuelle) {
             return $image->vitrine || !is_null($image->saison($saison_actuelle));
