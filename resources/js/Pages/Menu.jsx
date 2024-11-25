@@ -224,14 +224,11 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     }, [i18n.language])
 
     function checkIntervalleMenu() {
-        console.log(ajd)
         if ((ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12))/* && ()*/) {
-            console.log(1)
             changeDateBD(1, "prochain");
             setAfficherMenu(true);
         }
         else if (ajd > lundiYYYY || (ajd === lundiYYYY && heure >= 16)) {
-            console.log(2)
             setAfficherMenu(false);
             nextMenuText();
         }
