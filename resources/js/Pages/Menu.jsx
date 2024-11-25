@@ -70,22 +70,13 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             router.post('/dates-menu', dateData, {
                 preserveScroll: true,
                 onError: (errors) => { alert(errors[0]); },
-                /*onFinish: () => {
-                    if (isDeletion) {
-                        showMessageFlash(1, "La date de retour a été supprimée")
-                    } else {
-                        showMessageFlash(1, "La date de retour a été modifiée")
-                    }
-                    window.location.reload();
-                    history.replaceState(null, null, "#menuAncre");
-                },*/
                 onSuccess: () => {
                     window.location.reload();
                     history.replaceState(null, null, "#menuAncre");
                     if (isDeletion) {
                         showMessageFlash(1, "La date de retour a été supprimée")
                     } else {
-                        showMessageFlash(1, "La date de retour a été modifiée")
+                        showMessageFlash(1, "La date a été modifiée")
                     }
                 }
             });
