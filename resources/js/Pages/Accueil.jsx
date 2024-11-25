@@ -16,6 +16,9 @@ import MessageFlash from '@/Components/MessageFlash';
 
 export default function Accueil({ commentaires, images, qbValid, idsImgs }) {
 
+    console.log(idsImgs)
+    console.log(images)
+
     const [t, i18n] = useTranslation("global");
     const user = usePage().props.auth.user;
 

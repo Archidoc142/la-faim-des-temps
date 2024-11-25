@@ -73,7 +73,7 @@ class AccueilController extends Controller
     {
         $ids = [];
         $images = Image::where('vitrine', true)
-            ->orWhere('saisonnier', true)
+            ->where('saisonnier', true)
             ->get();
 
         $imgV = [];
