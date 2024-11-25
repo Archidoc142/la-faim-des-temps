@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\QBToken;
 use App\Services\QuickBooksService;
 use Illuminate\Console\Command;
 
@@ -26,7 +27,10 @@ class RefreshQBTokensCommand extends Command
      */
     public function handle()
     {
-        $qbService = new QuickBooksService();
-        $qbService->refreshTokens();
+        if(QBToken::exists())
+        {
+            $qbService = new QuickBooksService();
+            $qbService->refreshTokens();
+        }
     }
 }
