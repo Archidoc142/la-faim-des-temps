@@ -70,22 +70,13 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
             router.post('/dates-menu', dateData, {
                 preserveScroll: true,
                 onError: (errors) => { alert(errors[0]); },
-                /*onFinish: () => {
-                    if (isDeletion) {
-                        showMessageFlash(1, "La date de retour a été supprimée")
-                    } else {
-                        showMessageFlash(1, "La date de retour a été modifiée")
-                    }
-                    window.location.reload();
-                    history.replaceState(null, null, "#menuAncre");
-                },*/
                 onSuccess: () => {
                     window.location.reload();
                     history.replaceState(null, null, "#menuAncre");
                     if (isDeletion) {
                         showMessageFlash(1, "La date de retour a été supprimée")
                     } else {
-                        showMessageFlash(1, "La date de retour a été modifiée")
+                        showMessageFlash(1, "La date a été modifiée")
                     }
                 }
             });
@@ -133,7 +124,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
     const [t, i18n] = useTranslation("global");
 
-    let d = new Date();
+    let d = new Date(ajd);
 
     const [afficherMenu, setAfficherMenu] = useState(true);
 
@@ -233,7 +224,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
     }, [i18n.language])
 
     function checkIntervalleMenu() {
-        if (ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12)) {
+        if ((ajd > vendrediNextYYYY || (ajd == vendrediNextYYYY && heure >= 12))/* && ()*/) {
             changeDateBD(1, "prochain");
             setAfficherMenu(true);
         }

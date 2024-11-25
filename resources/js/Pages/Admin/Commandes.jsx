@@ -32,7 +32,7 @@ export default function Commandes({ commandes }) {
                 />
             </form>
             {commandes.data.length === 0 ? (
-                <div className="text-center py-4 text-lg text-gray-500 font-bold italic">Aucune commandes</div>
+                <div className="text-center py-4 text-lg text-gray-500 font-bold italic">Aucune commande</div>
             ) : (
                 <>
                     <table className="border w-full table-fixed">

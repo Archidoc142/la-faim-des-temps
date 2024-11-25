@@ -40,8 +40,8 @@ class PasswordResetLinkController extends Controller
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
 
-        $locale = session('locale', 'fr');
-        App::setLocale($locale);
+        /*$locale = session('locale', 'fr');
+        App::setLocale($locale);*/
 
         // On doit vérifier d'abord si l'utilisateur est créé avec un compte Google.
         // Si oui (type = 1), on ne peut pas reset le mot de passe. (connexion gérée par Google)

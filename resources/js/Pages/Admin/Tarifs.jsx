@@ -127,7 +127,7 @@ export default function Tarifs({ tarifs, formats }) {
                 </table>
             </form>
             <div className="flex justify-end mt-4">
-                <button onClick={() => setPopupActif(true)} className="p-2 w-60 rounded-md text-lg bg-[#7A163C] text-white font-bold hover:cursor-pointer hover:bg-slate-700">Ajouter un tarif</button>
+                <button disabled onClick={() => setPopupActif(true)} className="p-2 w-60 rounded-md text-lg bg-[#7A163C] text-white font-bold hover:cursor-pointer hover:bg-slate-700">Ajouter un tarif</button>
             </div>
 
             {popupActif ?
