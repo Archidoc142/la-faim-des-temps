@@ -73,28 +73,46 @@ class AccueilController extends Controller
     {
         $ids = [];
         $images = Image::where('vitrine', true)
-        ->orWhere('saisonnier', true)
-        ->get();
+            ->orWhere('saisonnier', true)
+            ->get();
 
-        do {
-            $ids[0] = rand(0, (count($images) - 1));
-        } while ($this->is_horizontal($images[$ids[0]]['nom_fichier']));
+        $imgV = [];
+        $imgH = [];
 
-        do {
-            $ids[1] = rand(0, (count($images) - 1));
-        } while ($this->is_horizontal($images[$ids[1]]['nom_fichier']) || $ids[1] == $ids[0]);
+        for ($i = 0; $i < count($images); $i++) {
+            if ($this->is_horizontal($images[$i]['nom_fichier']))
+                array_push($imgH, $i);
+            else
+                array_push($imgV, $i);
+        }
 
-        do {
-            $ids[2] = rand(0, (count($images) - 1));
-        } while (!$this->is_horizontal($images[$ids[2]]['nom_fichier']));
+        if (count($imgV) > 0) {
+            $ids[0] = $imgV[rand(0, (count($imgV) - 1))];
+        } else {
+            $ids[0] = null;
+        }
+
+        if (count($imgV) > 1) {
+            do {
+                $ids[1] = $imgV[rand(0, (count($imgV) - 1))];
+            } while ($ids[1] == $ids[0]);
+        } else {
+            $ids[1] = null;
+        }
+
+        if (count($imgH) > 0) {
+            $ids[2] = $imgH[rand(0, (count($imgH) - 1))];
+        } else {
+            $ids[2] = null;
+        }
 
         return $ids;
     }
 
     public function is_horizontal($nom_fichier)
     {
-        if ($nom_fichier != "default.jpg") { //#######################
-            $exif = exif_read_data(public_path('img/' . $nom_fichier), 'IFD0');
+        if (function_exists('exif_read_data')) {
+            $exif = @exif_read_data(public_path('img/' . $nom_fichier), 'IFD0');
 
             if ($exif && $exif['Orientation'] == 8 || $exif && $exif['Orientation'] == 6) {
                 list($height, $width, $type, $attr) = getimagesize(public_path('img/' . $nom_fichier));
