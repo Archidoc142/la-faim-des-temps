@@ -123,4 +123,22 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    "stripe" => [
+        "key" => emv("STRIPE_KEY"),
+        "secret" => emv("STRIPE_SECRET"),
+        "wh_secret" => emv("STRIPE_WEBHOOK_SECRET"),
+    ],
+
+    "quickbooks" => [
+        "client_id" => env("QB_CLIENT_ID"),
+        "client_secret" => env("QB_CLIENT_SECRET"),
+        "realm_id" => env("QB_REALM_ID"),
+    ],
+
+    "quickbooks" => [
+        "client_id" => env("QB_CLIENT_ID"),
+        "client_secret" => env("QB_CLIENT_SECRET"),
+        "realm_id" => env("QB_REALM_ID"),
+    ],
+
 ];

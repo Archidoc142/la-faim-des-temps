@@ -60,7 +60,7 @@ class CommandeController extends Controller
      */
     public function webhook(Request $request)
     {
-        $endpoint_secret = env('STRIPE_WEBHOOK_SECRET');
+        $endpoint_secret = config("app.stripe.wh_secret");
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
         $event = null;
@@ -268,8 +268,9 @@ class CommandeController extends Controller
         //dd($request);
         $quickBooksService = new QuickBooksService();
 
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config("app.stripe.secret"));
 
+    
         $items = [];
 
         foreach ($request->produits as $p) {
@@ -331,7 +332,7 @@ class CommandeController extends Controller
 
     public function success(Request $request)
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config("app.stripe.secret"));
 
         $sessionId = $request->get('session_id');
 
@@ -360,7 +361,7 @@ class CommandeController extends Controller
 
     public function cancel(Request $request)
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiKey(config("app.stripe.secret"));
 
         $sessionId = $request->get('session_id');
 

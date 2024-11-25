@@ -365,7 +365,7 @@ class QuickBooksService
             'RedirectURI' => $config['oauth_redirect_uri'],
             'scope' => $config['oauth_scope'],
             'baseUrl' => "development",
-            'QBORealmID' => env("QB_REALM_ID"),                 //valeur à changer pour déploiement
+            'QBORealmID' => config("app.quickbooks.realm_id"),                 //valeur à changer pour déploiement
             'accessTokenKey' => QBToken::getToken("access"),
             'refreshTokenKey' => QBToken::getToken("refresh")
         ));
