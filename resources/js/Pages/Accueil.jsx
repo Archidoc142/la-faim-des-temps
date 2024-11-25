@@ -121,7 +121,7 @@ export default function Accueil({ commentaires, images, qbValid, idsImgs }) {
                 path="/menu"
             />
 
-            <div className={'grid grid-cols-1 ' + (plus2Img ? 'md:grid-cols-2 lg:grid-cols-3' : (idsImgs[0] ? 'lg:grid-cols-2' : null))}>
+            <div className={'grid grid-cols-1 ' + (plus2Img ? 'md:grid-cols-2 lg:grid-cols-3' : (idsImgs[0] != null ? 'lg:grid-cols-2' : null))}>
                 {idsImgs[1] != null ?
                     <AccueilImgSaison
                         classname="hidden lg:block"
