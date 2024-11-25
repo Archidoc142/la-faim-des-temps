@@ -27,9 +27,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             AdminSeeder::class,
             SaisonSeeder::class,
-            ImageSeeder::class,
-            ImageSaisonSeeder::class,
-            ProducteurSeeder::class,
+            //ImageSeeder::class,
+            //ImageSaisonSeeder::class,
+            //ProducteurSeeder::class,
             LangueSeeder::class,
             FormatSeeder::class,
             FormatLangueSeeder::class,
@@ -41,13 +41,13 @@ class DatabaseSeeder extends Seeder
             SecteurSeeder::class,
             SecteurCodeSeeder::class,
             ProduitFormatSeeder::class,
-            AdresseSeeder::class,
-            ClientSeeder::class,
+            //AdresseSeeder::class,
+            //ClientSeeder::class,
             TypeCommandeSeeder::class,
-            CommandeSeeder::class,
+            //CommandeSeeder::class,
             DateRetourSeeder::class,
-            LegendeLangueSeeder::class,
-            ProducteurLangueSeeder::class
+            //LegendeLangueSeeder::class,
+            //ProducteurLangueSeeder::class
         ]);
     }
 }
