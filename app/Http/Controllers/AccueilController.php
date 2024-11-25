@@ -93,8 +93,8 @@ class AccueilController extends Controller
 
     public function is_horizontal($nom_fichier)
     {
-        if ($nom_fichier != "default.jpg") { //#######################
-            $exif = exif_read_data(public_path('img/' . $nom_fichier), 'IFD0');
+        if (function_exists('exif_read_data')) {
+            $exif = @exif_read_data(public_path('img/' . $nom_fichier), 'IFD0');
 
             if ($exif && $exif['Orientation'] == 8 || $exif && $exif['Orientation'] == 6) {
                 list($height, $width, $type, $attr) = getimagesize(public_path('img/' . $nom_fichier));
