@@ -8,10 +8,13 @@ echo "Deployment started ..."
 (php artisan down) || true
 
 # Pull the latest version of the app
+git reset --hard
 git pull origin main
 git push
 
 # Install composer dependencies
+npm i
+composer update --with-all-dependencies
 composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Clear the old cache
