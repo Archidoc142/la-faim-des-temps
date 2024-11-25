@@ -72,9 +72,14 @@ class AccueilController extends Controller
     public function randImg()
     {
         $ids = [];
-        $images = Image::where('vitrine', true)
-            ->where('saisonnier', true)
+        $imagesBD = Image::where('vitrine', true)
             ->get();
+
+        $saison_actuelle = $this->getSaison();
+
+        $images = $imagesBD->filter(function ($image) use ($saison_actuelle) {
+            return !$image->saisonnier || !is_null($image->saison($saison_actuelle));
+        });
 
         $imgV = [];
         $imgH = [];
