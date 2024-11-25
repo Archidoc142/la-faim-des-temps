@@ -67,29 +67,7 @@ export default function Accueil({ commentaires, images, qbValid, idsImgs }) {
         setIndex(index)
     }
 
-
-    console.log("-", idsImgs);
-    console.log(images.data);
-   // console.log(images);
-
-    // let imgV = images.data.filter(i => !i.is_paysage)   // les images height > width
     const [plus2Img, setPlusPort] = useState(idsImgs[1] != null)
-    console.log("==", images.data[idsImgs[2]]['src']);
-
-    /* let idImg1 = Math.floor(Math.random() * (imgV.length))
-     let idImg2 = 0;
-     if (plus2Img) {
-         idImg2 = Math.floor(Math.random() * (imgV.length))
-         while (idImg2 == idImg1) {
-             idImg2 = Math.floor(Math.random() * (imgV.length))
-         }
-     }
-
-     let imgH = images.data.filter(i => i.is_paysage)   // les images width > height
-     let idImgH = Math.floor(Math.random() * (imgH.length))
-*/
-
-
 
     /* TEXTE STATIQUE "UNE CUISINE DE STYLE BISTRO" */
     const [editBistroMode, setEditBistroMode] = useState(false);

@@ -34,7 +34,7 @@ class ProduitController extends Controller
         $token = csrf_token();
 
         $ajd = date("Y-m-d");
-        $heure = date("H", strtotime("2024-11-25 18:00:00"));
+        $heure = date("H");
 
         return Inertia::render('Menu', [
             'formats' => $formats,
