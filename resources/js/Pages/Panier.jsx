@@ -102,7 +102,7 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
                         <p className='mb-4 text-4xl font-bold'>{total}$</p>
 
                         <button
-                            className='bg-[#7A163C] text-2xl px-4 py-2 border-black border-[1px]'
+                            className='bg-[#7A163C] hover:border-white text-2xl px-4 py-2 border-black border-[1px]'
                             onClick={handleButtonClick}
                         >
                             {t("Panier.pass")}

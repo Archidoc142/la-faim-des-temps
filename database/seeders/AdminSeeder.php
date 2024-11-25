@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                "nom" => "Pelletier",
+                "nom" => "Pellerin",
                 "prenom" => "Yannick",
                 "email" => "admin@lafaimdestemps.ca",
                 "password" => Hash::make("admin"), // temporaire

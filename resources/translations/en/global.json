@@ -173,18 +173,18 @@
         "aventure": "An adventure"
     },
     "Onglet": {
-        "accueil" : "Home",
-        "histoire" : "Our story",
-        "avis" : "Your review",
+        "accueil": "Home",
+        "histoire": "Our story",
+        "avis": "Your review",
         "mdp": "Password",
         "resetmdp": "Reset Password"
     },
     "Mdp": {
         "message": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
-        "button" : "Send the email",
-        "title" : "Forget password?",
-        "mdp" : "Password :",
-        "confirm" : "Confirm Password :"
+        "button": "Send the email",
+        "title": "Forget password?",
+        "mdp": "Password :",
+        "confirm": "Confirm Password :"
     },
     "Footer": {
         "horaire": "Opening hours",
