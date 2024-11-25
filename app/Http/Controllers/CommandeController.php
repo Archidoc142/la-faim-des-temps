@@ -342,11 +342,11 @@ class CommandeController extends Controller
         }
 
         $commande = Commande::where('session_id', $sessionId)->first();
-
         $commande->save();
 
         $user = $commande->user()->first();
 
+        $this->sendMail($request, $commande);
 
         if(QBToken::exists())
         {
