@@ -19,10 +19,10 @@ export default function Carrousel({ images, i18n }) {
     }
 
     return (
-        <div className="bg-[#ba275b] pt-4">
-            <div className="flex justify-center items-center gap-4">
-                <button onClick={() => movePostLeft()}>
-                    <svg className='hidden md:block md:w-24 md:h-24 rounded-[50%]' viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
+        <div className="bg-[#ba275b] pt-4 h-fit relative">
+            <div className="flex justify-center items-center mx-[10%]">
+                <button className="absolute left-0 h-1/2 bg-[#ffffffb5] rounded-e-xl" onClick={() => movePostLeft()}>
+                    <svg className='min-w-12 md:max-w-24' viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>
                 </button>
 
                 {images.map((image, i) =>
@@ -30,13 +30,12 @@ export default function Carrousel({ images, i18n }) {
                         key={i}
                         src={`/img/${images[i].src}`}
                         alt={"img_plat_" + i}
-                        className={"max-h-[500px] max-w-[60%] md:max-w-[100%] mb-6 mt-4 border-4 border-white " + (index == i ? "block" : "hidden")}
+                        className={"max-h-[500px] xl:max-w-[60%] mb-6 mt-4 border-4 border-white " + (index == i ? "block" : "hidden")}
                     />
                 )}
 
-
-                <button onClick={() => movePostRight()}>
-                    <svg className='hidden md:block md:w-24 md:h-24 rounded-[50%]' viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
+                <button className="absolute right-0 h-1/2 bg-[#ffffffb5] rounded-s-xl" onClick={() => movePostRight()}>
+                    <svg className='min-w-12 md:max-w-24' viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
                 </button>
             </div>
 
