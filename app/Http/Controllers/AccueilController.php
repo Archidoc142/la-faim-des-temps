@@ -34,12 +34,12 @@ class AccueilController extends Controller
         /* Images */
         $saison_actuelle = $this->getSaison();
         $images = Image::where('vitrine', true)
-                 ->where('saisonnier', true)
                  ->get();
 
         $filtered_images = $images->filter(function ($image) use ($saison_actuelle) {
-            return $image->vitrine || !is_null($image->saison($saison_actuelle));
+            return !$image->saisonnier || !is_null($image->saison($saison_actuelle));
         });
+
         $imagesResource = ImageAccueilResource::collection($filtered_images);
 
         return Inertia::render('Accueil', [
@@ -72,9 +72,14 @@ class AccueilController extends Controller
     public function randImg()
     {
         $ids = [];
-        $images = Image::where('vitrine', true)
-            ->where('saisonnier', true)
+        $imagesBD = Image::where('vitrine', true)
             ->get();
+
+        $saison_actuelle = $this->getSaison();
+
+        $images = $imagesBD->filter(function ($image) use ($saison_actuelle) {
+            return !$image->saisonnier || !is_null($image->saison($saison_actuelle));
+        });
 
         $imgV = [];
         $imgH = [];
