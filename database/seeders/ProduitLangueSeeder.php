@@ -95,6 +95,11 @@ class ProduitLangueSeeder extends Seeder
                 'id_produit' => '15',
                 'description' => 'Porc en sauce description fr'
             ],
+            [
+                'id_langue' => '1',
+                'id_produit' => '16',
+                'description' => 'Plat végétarien description fr'
+            ],
         ]);
 
         DB::table('produit_langue')->insert([
@@ -177,6 +182,11 @@ class ProduitLangueSeeder extends Seeder
                 'id_langue' => '2',
                 'id_produit' => '15',
                 'description' => 'EN Porc en sauce description en'
+            ],
+            [
+                'id_langue' => '2',
+                'id_produit' => '16',
+                'description' => 'EN plat végétarien description en'
             ],
         ]);
 

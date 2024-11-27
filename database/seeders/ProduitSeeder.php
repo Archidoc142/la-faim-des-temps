@@ -74,6 +74,10 @@ class ProduitSeeder extends Seeder
                 'nom' => 'Porc en sauce',
                 'dansMenu' => false
             ],
+            [
+                'nom' => 'Plat végétarien',
+                'dansMenu' => false
+            ],
         ]);
     }
 }
