@@ -1,5 +1,4 @@
 import { Link } from "@inertiajs/react";
-import { space } from "postcss/lib/list";
 
 export default function PaginationBar({ links }) {
     return (

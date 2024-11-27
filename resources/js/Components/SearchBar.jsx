@@ -1,5 +1,3 @@
-import React, { useRef } from 'react';
-import InputLabel from './InputLabel';
 import TextInput from './TextInput';
 
 export default function SearchBar({ labelName, placeHolder, data, setData, error }) {
@@ -16,8 +14,8 @@ export default function SearchBar({ labelName, placeHolder, data, setData, error
                 placeholder={placeHolder}
                 onChange={(e) => setData('search', e.target.value)}
             />
-            <button 
-                type="submit" 
+            <button
+                type="submit"
                 className="p-2 rounded-md text-lg bg-[#7A163C] text-white font-bold hover:cursor-pointer hover:bg-slate-700 flex items-center">
                 Rechercher
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">

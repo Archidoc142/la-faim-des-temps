@@ -1,5 +1,3 @@
-import TextInput from '@/Components/TextInput';
-
 export default function EditableCell({value, name, setData}) {
   return (
     <td className="border even:bg-gray-100 text-center px-2">

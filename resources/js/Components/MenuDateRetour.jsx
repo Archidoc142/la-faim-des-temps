@@ -1,7 +1,3 @@
-import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from "react";
-import autoprefixer from 'autoprefixer';
-
 export default function MenuBase({ date_retour, dateMenuRetour, vendrediYYYY, dateMenuVend, dateMenuLund, changeDateBD }) {
 
     return (

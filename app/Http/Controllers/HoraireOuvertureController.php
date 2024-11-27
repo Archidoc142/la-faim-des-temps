@@ -22,38 +22,6 @@ class HoraireOuvertureController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(HoraireOuverture $HoraireOuverture)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(HoraireOuverture $HoraireOuverture)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request)
@@ -94,13 +62,5 @@ class HoraireOuvertureController extends Controller
         $date = HoraireOuverture::find($id);
         $date->ouvert = !$date->ouvert;
         $date->save();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(HoraireOuverture $HoraireOuverture)
-    {
-        //
     }
 }

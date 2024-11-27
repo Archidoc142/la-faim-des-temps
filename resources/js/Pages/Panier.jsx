@@ -1,7 +1,6 @@
-import { Link, Head, router, usePage } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 
-import Item from '../item'
 import MessageFlash from '@/Components/MessageFlash';
 import PanierItem from '@/Components/PanierItem';
 import PanierFinalisation from '@/Components/PanierFinalisation';

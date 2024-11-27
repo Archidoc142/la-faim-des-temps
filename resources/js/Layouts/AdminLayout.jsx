@@ -1,6 +1,3 @@
-import Header from '../Components/Header'
-import Footer from '../Components/Footer'
-import DefaultLayout from './DefaultLayout'
 import Menu from "../Components/Admin/Menu"
 import { Link, Head } from '@inertiajs/react'
 import back from '../../../public/icons/back.png'

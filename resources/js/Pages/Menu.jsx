@@ -2,7 +2,6 @@ import { Link, Head, usePage, useForm, router } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from "react";
 import Item from '../item'
-import FormatsMenu from '@/Components/FormatsMenu';
 import MenuBase from '@/Components/MenuBase';
 import MenuPrinc from '@/Components/MenuPrinc';
 import MenuDateRetour from '@/Components/MenuDateRetour';

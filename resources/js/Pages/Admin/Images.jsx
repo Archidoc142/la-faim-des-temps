@@ -1,7 +1,7 @@
 import React from 'react'
 import AdminLayout from "@/Layouts/AdminLayout";
 import ImageForm from "@/Components/Admin/ImageForm";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from '@/Components/Admin/Image';
 
 export default function Images({ res, token }) {
