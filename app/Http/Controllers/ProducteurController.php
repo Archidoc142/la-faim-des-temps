@@ -9,6 +9,7 @@ use App\Http\Resources\ProducteurResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\File;
 
 class ProducteurController extends Controller
 {
@@ -72,25 +73,31 @@ class ProducteurController extends Controller
      */
     public function update(Request $request)
     {
-        $file = $request->file('img');
-        $imageName = $file ? $file->getClientOriginalName() : "default.jpg";
-
-        if($imageName != "default.jpg" && Image::where('nom_fichier', $imageName)->exists()) {
-            return back()->withErrors("Ce nom de fichier existe déjà dans la liste d'images.");
-        }
-
-        if($imageName != "default.jpg")
-            $file->move(public_path('/img'), $imageName);
-
+        $imageName = "";
+        $lastInsertedId = 1;        //default.jpg
         $producteur = Producteur::find($request->id);
 
-        $lastInsertedId = 1;        //default.jpg
+        //Si une nouvelle image est ajoutée, on la stocke dans le dossier img. Sinon on garde l'ancienne image
+        if(!is_null($request->file('img'))) {
+            $file = $request->file('img');
 
-        if(Image::where('nom_fichier', $imageName)->exists()) {
-            $image = Image::where('nom_fichier', $imageName)->first();
+            File::delete(public_path('img/' . $imageName));
 
-            $lastInsertedId = $image->id;
+            $imageName = $file->getClientOriginalName();
+            $file->move(public_path('/img'), $imageName);
+
         } else {
+            $imageName = $request->filename;
+
+            if(Image::where('nom_fichier', $imageName)->exists()) {
+                $image = Image::where('nom_fichier', $imageName)->first();
+
+                $lastInsertedId = $image->id;
+            }
+        }
+
+        //Ajout de la nouvelle image associée au producteur
+        if(!is_null($request->file('img'))) {
             $lastInsertedId = DB::table('image')->insertGetId([
                 'nom_fichier' => $imageName,
                 'vitrine' => 0,
@@ -106,7 +113,6 @@ class ProducteurController extends Controller
                 unlink(public_path('/img/' . $image->nom_fichier));
             }
         }
-
 
         $producteur->nom = $request->nom;
         $producteur->url = $request->has('url') ? $request->url : null;
