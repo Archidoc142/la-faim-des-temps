@@ -22,4 +22,3 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 .vscode/
-public/build/manifest.json
