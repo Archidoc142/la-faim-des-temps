@@ -16,7 +16,7 @@ export default function FooterLink({ title }) {
             <p><Link className={`${url.includes('/producteurs') ? 'text-white font-bold' : 'text-[#D6D6D6] hover:text-gray-100 border-0 hover:border-b-2 border-[#BB285C]'}`} href='/producteurs'>{t("Header.producteurs")}</Link></p>
             <p><Link className={`${url.includes('/histoire') ? 'text-white font-bold' : 'text-[#D6D6D6] hover:text-gray-100 border-0 hover:border-b-2 border-[#BB285C]'}`} href='/histoire'>{t("Header.histoire")}</Link></p>
             {user ? user.data.role !== "admin" ? <p><Link className={`${url.includes('/avis') ? 'text-white font-bold' : 'text-[#D6D6D6] hover:text-gray-100 border-0 hover:border-b-2 border-[#BB285C]'}`} href='/avis'>{t("Header.avis")}</Link></p> : null : null}
-            <p><Link className='text-[#D6D6D6] hover:text-gray-100 border-0 hover:border-b-2 border-[#BB285C]' href='/confidentialite'>Politique de confidentialité</Link></p>
+            <p><Link className='text-[#D6D6D6] hover:text-gray-100 border-0 hover:border-b-2 border-[#BB285C]' href='/confidentialite'>{t("Privacy.privacy")}</Link></p>
         </div>
     )
 }
