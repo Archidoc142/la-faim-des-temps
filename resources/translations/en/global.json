@@ -191,5 +191,8 @@
         "adresse": "Address",
         "a_propos": "About us",
         "ruelle": "Enter our undiscovered alley"
+    },
+    "Privacy" : {
+        "privacy" : "Privacy policy"
     }
 }

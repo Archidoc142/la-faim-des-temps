@@ -191,5 +191,8 @@
         "adresse": "Adresse",
         "a_propos": "À propos",
         "ruelle": "Entrez dans notre ruelle méconnue"
+    },
+    "Privacy" : {
+        "privacy" : "Politique de confidentialité"
     }
 }
