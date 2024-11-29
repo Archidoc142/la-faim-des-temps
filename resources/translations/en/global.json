@@ -192,6 +192,9 @@
         "a_propos": "About us",
         "ruelle": "Enter our undiscovered alley"
     },
+    "Privacy" : {
+        "privacy" : "Privacy policy"
+    },
     "CookieConsent": {
         "message" : "This website uses cookies to enhance your user experience.",
         "decline" : "I decline",
