@@ -191,5 +191,10 @@
         "adresse": "Address",
         "a_propos": "About us",
         "ruelle": "Enter our undiscovered alley"
+    },
+    "CookieConsent": {
+        "message" : "This website uses cookies to enhance your user experience.",
+        "decline" : "I decline",
+        "accept" : "I accept"
     }
 }

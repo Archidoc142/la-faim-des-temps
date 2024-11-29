@@ -191,5 +191,10 @@
         "adresse": "Adresse",
         "a_propos": "À propos",
         "ruelle": "Entrez dans notre ruelle méconnue"
+    },
+    "CookieConsent": {
+        "message" : "Ce site utilise des cookies pour améliorer votre expérience utilisateur.",
+        "decline" : "Je décline",
+        "accept" : "J'accepte"
     }
 }

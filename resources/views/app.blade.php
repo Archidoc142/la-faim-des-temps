@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noindex">
 
-        <title inertia>{{ config('app.name', 'La faim des temps') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Montaga&display=swap" rel="stylesheet"> <!-- Font de titre-->
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"> <!-- Font de base-->
-        <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap" rel="stylesheet"> <!-- Font du menu -->
-        <link href="https://fonts.googleapis.com/css2?family=Angkor&display=swap" rel="stylesheet"> <!-- Font Nos valeurs -->
-        <link href="https://fonts.googleapis.com/css2?family=Stoke:wght@300;400&display=swap" rel="stylesheet"> <!-- Font de certains titres -->
-        <link href="https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <title inertia>{{ config('app.name', 'La faim des temps') }}</title>
 
-        <!-- Scripts -->
-        @routes
-        @viteReactRefresh
-        @vite(['resources/js/app.jsx'])
-        @inertiaHead
-    </head>
-    <body class="font-sans antialiased bg-[#031b3e]">
-        @inertia
-    </body>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montaga&display=swap" rel="stylesheet"> <!-- Font de titre-->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet"> <!-- Font de base-->
+    <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap" rel="stylesheet">
+    <!-- Font du menu -->
+    <link href="https://fonts.googleapis.com/css2?family=Angkor&display=swap" rel="stylesheet">
+    <!-- Font Nos valeurs -->
+    <link href="https://fonts.googleapis.com/css2?family=Stoke:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Font de certains titres -->
+    <link href="https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Scripts -->
+    @routes
+    @viteReactRefresh
+    @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
+    @inertiaHead
+</head>
+
+<body class="font-sans antialiased bg-[#031b3e]">
+    @inertia
+</body>
+
 </html>
