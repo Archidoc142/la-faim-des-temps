@@ -4,7 +4,7 @@ import PanierLivraison from "./PanierLivraison"
 import PanierFinal from "./PanierFinal"
 import EnvoiCommande from "./EnvoiCommande"
 import AddAddress from "./AddAddress"
-import { useForm, usePage } from "@inertiajs/react"
+import { useForm } from "@inertiajs/react"
 
 export default function PanierFinalisation({panier, prix, setBoxVisible, adresses, secteurs, codesValides, seuilGratuit}) {
 

@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\QBToken;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-use QuickBooksOnline\API\DataService\DataService;
 use App\Services\QuickBooksService;
 
 class QuickBooksController extends Controller

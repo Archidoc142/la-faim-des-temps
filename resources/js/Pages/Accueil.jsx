@@ -1,5 +1,5 @@
 import TitleSection from '@/Components/TitleSection';
-import { Link, Head, router, usePage } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import AccueilImg from '@/Components/AccueilImg';
 import AccueilImgSaison from '@/Components/AccueilImgSaison';

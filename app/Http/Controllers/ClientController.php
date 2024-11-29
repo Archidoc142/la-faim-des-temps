@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
-use Inertia\Response;
 
 class ClientController extends Controller
 {
@@ -21,22 +20,6 @@ class ClientController extends Controller
         return Inertia::render('Admin/Clients', [
             'clients' => ClientResource::collection($clients)
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -58,14 +41,6 @@ class ClientController extends Controller
                 'commandes' => $commandes,
                 'prevPage' => $prevPage
             ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
     }
 
     /**
@@ -117,13 +92,5 @@ class ClientController extends Controller
         $client->save();
 
         return redirect("/admin/clients?page=" . $request->page);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        //
     }
 }

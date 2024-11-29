@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "@inertiajs/react";
-import ActionIcon from "./ActionIcon";
 
 import ellipsis from "../../../../../public/icons/action.png";
 import exit from "../../../../../public/icons/exit.png";

@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 export default function StarComment({ note, setData, newNote, updatable }) {
     return (
         <div className="flex gap-2">

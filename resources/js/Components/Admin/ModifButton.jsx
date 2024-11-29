@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-
 export default function ModifButton({ afficher, editMode, setEditMode, changeText, elemChange, couleur }) {
     if(afficher)
     return (

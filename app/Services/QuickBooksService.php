@@ -3,10 +3,7 @@ namespace App\Services;
 
 use App\Models\QBToken;
 use App\Models\User;
-use App\Http\Models\Commande;
 use App\Models\ProduitFormat;
-use App\Models\QBId;
-use App\Models\TarifLivraison;
 use Exception;
 use Illuminate\Support\Facades\Crypt;
 use QuickBooksOnline\API\DataService\DataService;
@@ -14,9 +11,7 @@ use QuickBooksOnline\API\Facades\Customer;
 use QuickBooksOnline\API\Facades\Invoice;
 use QuickBooksOnline\API\Facades\Item;
 use QuickBooksOnline\API\Facades\Account;
-use Illuminate\Http\Request;
 use QuickBooksOnline\API\Exception\ServiceException;
-use QuickBooksOnline\API\Facades\Deposit;
 use QuickBooksOnline\API\Facades\Payment;
 use TypeError;
 

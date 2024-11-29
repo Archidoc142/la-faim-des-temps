@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import ActionCell from "./ActionCell"
 import Cell from "./Cell"
 import StarsComment from "@/Components/StarsComment";
