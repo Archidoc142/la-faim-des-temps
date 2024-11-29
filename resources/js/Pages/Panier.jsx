@@ -15,7 +15,7 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
     const canCommand = usePage().props.canCommand
 
     const calculateCost = () => {
-        const totalCost = panier.reduce((acc, item) => {
+        const totalCost = panier?.reduce((acc, item) => {
             const produit = produits.data.find(p => p.id === item.produitId)
             const format = produit.formats.find(f => f.id === item.formatId)
 
@@ -54,7 +54,7 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
         setMessageV(visibility)
     }
 
-    function resetPanier() {
+    const resetPanier = () => {
         setPanier({})
         localStorage.setItem("panier", JSON.stringify([]));
         window.dispatchEvent(new Event("storage"));

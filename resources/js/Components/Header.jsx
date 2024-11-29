@@ -29,6 +29,8 @@ export default function Header() {
 
     const [nbPanier, setNbPanier] = useState(0)
 
+    let userConsent = false
+
     const refreshNbPanier = () => {
         const panierStr = localStorage.getItem("panier");
 
@@ -84,7 +86,16 @@ export default function Header() {
 
     const handleChangeLanguage = (e) => {
         i18next.changeLanguage(e.target.value)
-        document.cookie = "lng=" + i18n.language + "; max-age=31536000";
+
+        // Cookie validation
+        if (!userConsent) {
+            const userConsentCookie = document.cookie.split('; ').find(row => row.startsWith('userConsent='))
+            userConsent = userConsentCookie ? userConsentCookie.split('=')[1] : false
+        }
+
+        if (userConsent && userConsent !== "false") {
+            document.cookie = "lng=" + i18n.language + "; max-age=31536000";
+        }
 
         Inertia.get(/changeLanguage/ + i18n.language)
     }
