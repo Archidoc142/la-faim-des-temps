@@ -27,9 +27,8 @@ use Inertia\Inertia;
 
 Route::get('/', [AccueilController::class, 'accueil'])->name('accueil');
 
-Route::get('/mail', function () {
-    $commande = Commande::latest()->first();
-    return new Order($commande);
+Route::get('/confidentialite', function () {
+    return Inertia::render('Confidentialite');
 });
 
 Route::get('/histoire', function () {
