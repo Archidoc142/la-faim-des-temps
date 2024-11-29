@@ -1,5 +1,5 @@
 import TitleSection from '@/Components/TitleSection';
-import { Link, Head, router, usePage } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import AccueilImg from '@/Components/AccueilImg';
 import AccueilImgSaison from '@/Components/AccueilImgSaison';
@@ -15,6 +15,9 @@ import TextareaStatique from '@/Components/Admin/TextareaStatique';
 import MessageFlash from '@/Components/MessageFlash';
 
 export default function Accueil({ commentaires, images, qbValid, idsImgs }) {
+
+    console.log(idsImgs)
+    console.log(images)
 
     const [t, i18n] = useTranslation("global");
     const user = usePage().props.auth.user;
@@ -67,29 +70,7 @@ export default function Accueil({ commentaires, images, qbValid, idsImgs }) {
         setIndex(index)
     }
 
-
-    console.log("-", idsImgs);
-    console.log(images.data);
-   // console.log(images);
-
-    // let imgV = images.data.filter(i => !i.is_paysage)   // les images height > width
     const [plus2Img, setPlusPort] = useState(idsImgs[1] != null)
-    console.log("==", images.data[idsImgs[2]]['src']);
-
-    /* let idImg1 = Math.floor(Math.random() * (imgV.length))
-     let idImg2 = 0;
-     if (plus2Img) {
-         idImg2 = Math.floor(Math.random() * (imgV.length))
-         while (idImg2 == idImg1) {
-             idImg2 = Math.floor(Math.random() * (imgV.length))
-         }
-     }
-
-     let imgH = images.data.filter(i => i.is_paysage)   // les images width > height
-     let idImgH = Math.floor(Math.random() * (imgH.length))
-*/
-
-
 
     /* TEXTE STATIQUE "UNE CUISINE DE STYLE BISTRO" */
     const [editBistroMode, setEditBistroMode] = useState(false);
@@ -143,14 +124,15 @@ export default function Accueil({ commentaires, images, qbValid, idsImgs }) {
                 path="/menu"
             />
 
-            <div className={'grid grid-cols-1 ' + (plus2Img ? 'md:grid-cols-2 lg:grid-cols-3' : (idsImgs[0] ? 'lg:grid-cols-2' : null))}>
-                <AccueilImgSaison
-                    classname="hidden lg:block"
-                    condition={plus2Img}
-                    src={images.data[idsImgs[1]]['src']}
-                    alt={i18n.language === 'fr' ? images.data[idsImgs[1]]['legende']['fr'] : images.data[idsImgs[1]]['legende']['en']}
-                    legend={i18n.language === 'fr' ? images.data[idsImgs[1]]['legende']['fr'] : images.data[idsImgs[1]]['legende']['en']}
-                />
+            <div className={'grid grid-cols-1 ' + (plus2Img ? 'md:grid-cols-2 lg:grid-cols-3' : (idsImgs[0] != null ? 'lg:grid-cols-2' : null))}>
+                {idsImgs[1] != null ?
+                    <AccueilImgSaison
+                        classname="hidden lg:block"
+                        condition={plus2Img}
+                        src={images.data[idsImgs[1]]['src']}
+                        alt={i18n.language === 'fr' ? images.data[idsImgs[1]]['legende']['fr'] : images.data[idsImgs[1]]['legende']['en']}
+                        legend={i18n.language === 'fr' ? images.data[idsImgs[1]]['legende']['fr'] : images.data[idsImgs[1]]['legende']['en']}
+                    /> : null}
 
                 <div className='py-12 px-8 items-center content-center'>
                     <ModifButton
@@ -178,13 +160,14 @@ export default function Accueil({ commentaires, images, qbValid, idsImgs }) {
 
                 </div>
 
-                <AccueilImgSaison
-                    classname=""
-                    condition={idsImgs[0] != null}
-                    src={images.data[idsImgs[0]]['src']}
-                    alt={i18n.language === 'fr' ? images.data[idsImgs[0]]['legende']['fr'] : images.data[idsImgs[0]]['legende']['en']}
-                    legend={i18n.language === 'fr' ? images.data[idsImgs[0]]['legende']['fr'] : images.data[idsImgs[0]]['legende']['en']}
-                />
+                {idsImgs[0] != null ?
+                    <AccueilImgSaison
+                        classname=""
+                        condition={idsImgs[0] != null}
+                        src={images.data[idsImgs[0]]['src']}
+                        alt={i18n.language === 'fr' ? images.data[idsImgs[0]]['legende']['fr'] : images.data[idsImgs[0]]['legende']['en']}
+                        legend={i18n.language === 'fr' ? images.data[idsImgs[0]]['legende']['fr'] : images.data[idsImgs[0]]['legende']['en']}
+                    /> : null}
             </div>
 
             {/* Carrousel images */}

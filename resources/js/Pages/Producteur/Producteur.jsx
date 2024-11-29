@@ -1,7 +1,6 @@
 import Title from "./InfoText/Title";
 import Text from "./InfoText/Text";
 import Image from "./InfoText/Image";
-import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import TextAreaInput from '@/Components/TextAreaInput';

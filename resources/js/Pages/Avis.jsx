@@ -1,4 +1,4 @@
-import { Head, useForm, router } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import StarsComment from "@/Components/starsComment";
 import { useEffect, useState } from "react";

@@ -25,14 +25,6 @@ class ProducteurController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -73,22 +65,6 @@ class ProducteurController extends Controller
         ]);
 
         return back();
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Producteur $producteur)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Producteur $producteur)
-    {
-        //
     }
 
     /**

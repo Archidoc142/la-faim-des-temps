@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ImageResource;
 use App\Models\Image;
 use App\Models\ImageSaison;
-use App\Models\LegendeLangue;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -25,14 +23,6 @@ class ImageController extends Controller
         return Inertia::render('Admin/Images', [
             'res' => $res,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -144,30 +134,6 @@ class ImageController extends Controller
                 'legende' => $request['descriptionEn'],
             ]);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(image $image)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(image $image)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, image $image)
-    {
-        //
     }
 
     /**

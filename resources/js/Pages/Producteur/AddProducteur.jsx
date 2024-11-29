@@ -2,8 +2,8 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import TextAreaInput from '@/Components/TextAreaInput';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { useState, useEffect } from 'react';
+import { useForm } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function AddProducteur({ className, toggleShowProducteur }) {
     const imgUrl = '/img/';
@@ -48,18 +48,18 @@ export default function AddProducteur({ className, toggleShowProducteur }) {
                 <form onSubmit={submit}>
                     <div className='lg:grid lg:grid-cols-2 lg:p-4'>
                         <div className='col-span-2'>
-                        <svg onClick={toggleShowProducteur} 
-                                fill="#ffffff" 
-                                height="200px" 
-                                width="200px" 
-                                className="h-fit max-w-8 hover:fill-[#BB285C] cursor-pointer ml-auto" 
-                                version="1.1" 
-                                id="Capa_1" 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                xmlnsXlink="http://www.w3.org/1999/xlink" 
-                                viewBox="0 0 460.775 460.775" 
-                                xmlSpace="preserve" 
-                                stroke="none" 
+                        <svg onClick={toggleShowProducteur}
+                                fill="#ffffff"
+                                height="200px"
+                                width="200px"
+                                className="h-fit max-w-8 hover:fill-[#BB285C] cursor-pointer ml-auto"
+                                version="1.1"
+                                id="Capa_1"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlnsXlink="http://www.w3.org/1999/xlink"
+                                viewBox="0 0 460.775 460.775"
+                                xmlSpace="preserve"
+                                stroke="none"
                             >
                                 <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z" />
                             </svg>
@@ -85,9 +85,9 @@ export default function AddProducteur({ className, toggleShowProducteur }) {
                         </div>
                         <div className='order-2'>
                             <div>
-                                <InputLabel 
-                                    htmlFor="nom" 
-                                    value="Nom du producteur:" 
+                                <InputLabel
+                                    htmlFor="nom"
+                                    value="Nom du producteur:"
                                     className='text-white'
                                 />
 
@@ -108,9 +108,9 @@ export default function AddProducteur({ className, toggleShowProducteur }) {
                             </div>
 
                             <div>
-                                <InputLabel 
-                                    htmlFor="url" 
-                                    value="Lien vers le site du producteur:" 
+                                <InputLabel
+                                    htmlFor="url"
+                                    value="Lien vers le site du producteur:"
                                     className='text-white'
                                 />
 
@@ -130,9 +130,9 @@ export default function AddProducteur({ className, toggleShowProducteur }) {
                             </div>
                             <div>
                                 <div>
-                                    <InputLabel 
-                                        htmlFor="descriptionFR" 
-                                        value="Description du producteur (Français):" 
+                                    <InputLabel
+                                        htmlFor="descriptionFR"
+                                        value="Description du producteur (Français):"
                                         className='text-white'
                                     />
 
@@ -152,9 +152,9 @@ export default function AddProducteur({ className, toggleShowProducteur }) {
                                     <InputError message={errors.descriptionFR} className="mt-2" />
                                 </div>
                                 <div>
-                                    <InputLabel 
-                                        htmlFor="descriptionEN" 
-                                        value="Description du producteur (Anglais):" 
+                                    <InputLabel
+                                        htmlFor="descriptionEN"
+                                        value="Description du producteur (Anglais):"
                                         className='text-white'
                                     />
 
@@ -175,9 +175,9 @@ export default function AddProducteur({ className, toggleShowProducteur }) {
                                 </div>
                             </div>
                             <div>
-                                <InputLabel 
-                                    htmlFor="adresse" 
-                                    value="Adresse du producteur:" 
+                                <InputLabel
+                                    htmlFor="adresse"
+                                    value="Adresse du producteur:"
                                     className='text-white'
                                 />
 

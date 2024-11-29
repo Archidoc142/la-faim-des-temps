@@ -1,7 +1,6 @@
-import { Link, Head, router, usePage } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 
-import Item from '../item'
 import MessageFlash from '@/Components/MessageFlash';
 import PanierItem from '@/Components/PanierItem';
 import PanierFinalisation from '@/Components/PanierFinalisation';
@@ -13,6 +12,7 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
     const [total, setTotal] = useState(0)
     const [boxVisible, setBoxVisible] = useState(false)
     const user = usePage().props.auth.user
+    const canCommand = usePage().props.canCommand
 
     const calculateCost = () => {
         const totalCost = panier.reduce((acc, item) => {
@@ -36,6 +36,11 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
             setBoxVisible(true);
             showMessageFlash(1, t("Login.bienvenue") + " " + user.data.prenom + "!");
         }
+
+
+        if (!canCommand && panier.length > 0) {
+            resetPanier()
+        }
     }, []);
 
     // Message Flash
@@ -49,7 +54,7 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
         setMessageV(visibility)
     }
 
-    const resetPanier = () => {
+    function resetPanier() {
         setPanier({})
         localStorage.setItem("panier", JSON.stringify([]));
         window.dispatchEvent(new Event("storage"));

@@ -7,7 +7,6 @@ import yannick from '../../../public/img/yannick.jpg'
 import HeadWithImage from '@/Components/HeadWithImage';
 import TextareaStatique from '@/Components/Admin/TextareaStatique';
 import ModifButton from '@/Components/Admin/ModifButton';
-import Line from "../Pages/Valeur/InfoText/Line";
 
 export default function Histoire() {
     const [t, i18n] = useTranslation("global");

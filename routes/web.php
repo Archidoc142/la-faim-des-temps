@@ -13,28 +13,22 @@ use App\Http\Controllers\ProducteurController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\PanierController;
 use App\Http\Controllers\QuickBooksController;
-use App\Http\Controllers\SaisonController;
 use App\Http\Controllers\TarifLivraisonController;
 use App\Http\Controllers\TexteStatique;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsLoggedIn;
-use App\Http\Resources\CommentaireResource;
 use App\Http\Controllers\FormatController;
 use App\Http\Controllers\HoraireOuvertureController;
 use App\Mail\Order;
 use App\Models\Commande;
-use App\Models\Commentaire;
-use App\Models\Produit;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [AccueilController::class, 'accueil'])->name('accueil');
 
-Route::get('/mail', function () {
-    $commande = Commande::latest()->first();
-    return new Order($commande);
+Route::get('/confidentialite', function () {
+    return Inertia::render('Confidentialite');
 });
 
 Route::get('/histoire', function () {
@@ -148,6 +142,5 @@ Route::get('/valeurs', function () {
 })->name('valeurs');
 
 Route::delete('/adresse/{id}', [AdresseController::class, 'destroy']);
-Route::post('/adresse', [AdresseController::class, 'store']);
 
 require __DIR__.'/auth.php';

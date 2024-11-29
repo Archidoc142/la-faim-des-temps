@@ -2,11 +2,10 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import PhoneInput, { format, normalize } from "react-phone-input-auto-format";
+import PhoneInput, { normalize } from "react-phone-input-auto-format";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,

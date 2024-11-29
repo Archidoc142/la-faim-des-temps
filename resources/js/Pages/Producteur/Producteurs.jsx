@@ -1,6 +1,6 @@
 import { Head, usePage, useForm } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Producteur from './Producteur';
 import AddProducteur from './AddProducteur';
@@ -90,7 +90,7 @@ export default function Producteurs( { producteurs }) {
                     <div>
                         <AddProducteur className={
                             showProducteur ? "block" : "hidden"}
-                            toggleShowProducteur={toggleShowProducteur} 
+                            toggleShowProducteur={toggleShowProducteur}
                         />
                         <AddProducteurButton
                             toggleShowProducteur={toggleShowProducteur}

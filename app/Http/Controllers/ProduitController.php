@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\FormatResource;
 use App\Http\Resources\ProduitRessource;
-use App\Http\Resources\ProduitsResource;
-use App\Models\DateRetour;
 use App\Models\DatesMenu;
 use App\Models\Format;
 use App\Models\FormatLangue;
 use App\Models\Produit;
-use App\Models\ProduitLangue;
 use App\Models\TarifLivraison;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
-use PhpParser\Node\Expr\Cast\Object_;
 
 class ProduitController extends Controller
 {
@@ -34,7 +29,7 @@ class ProduitController extends Controller
         $token = csrf_token();
 
         $ajd = date("Y-m-d");
-        $heure = date("H", strtotime("2024-11-25 18:00:00"));
+        $heure = date("H");
 
         return Inertia::render('Menu', [
             'formats' => $formats,
@@ -49,37 +44,6 @@ class ProduitController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Produit $produit)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Produit $produit)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -180,13 +144,5 @@ class ProduitController extends Controller
         }
 
         return redirect("/menu");
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Produit $produit)
-    {
-        //
     }
 }

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Resources\CommandeResource;
 use App\Http\Resources\CommandeProduitResource;
-use App\Jobs\SendCommandeEmail;
 use App\Jobs\SendCommandeQB;
 use App\Jobs\SendPaymentQB;
 use App\Mail\Order;
@@ -239,30 +238,6 @@ class CommandeController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Commande $commande)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Commande $commande)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Commande $commande)
-    {
-        //
-    }
-
     public function checkout(Request $request)
     {
         //dd($request);
@@ -342,11 +317,11 @@ class CommandeController extends Controller
         }
 
         $commande = Commande::where('session_id', $sessionId)->first();
-
         $commande->save();
 
         $user = $commande->user()->first();
 
+        $this->sendMail($request, $commande);
 
         if(QBToken::exists())
         {
