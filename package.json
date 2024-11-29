@@ -24,6 +24,7 @@
         "@inertiajs/inertia": "^0.11.1",
         "gsap": "^3.12.5",
         "i18next": "^23.15.1",
+        "react-cookie-consent": "^9.0.0",
         "react-i18next": "^15.0.2",
         "react-phone-input-auto-format": "^0.1.0",
         "react-photo-album": "^3.0.2"

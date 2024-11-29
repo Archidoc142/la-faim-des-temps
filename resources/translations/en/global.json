@@ -194,5 +194,10 @@
     },
     "Privacy" : {
         "privacy" : "Privacy policy"
+    },
+    "CookieConsent": {
+        "message" : "This website uses cookies to enhance your user experience.",
+        "decline" : "I decline",
+        "accept" : "I accept"
     }
 }
