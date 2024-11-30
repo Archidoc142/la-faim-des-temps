@@ -174,7 +174,8 @@ export default function Header() {
                                 </p>
 
                                 {menuUser ? <div ref={out} className='z-30 absolute bg-[#d4dbe8] text-white text-center top-10 w-[150px] rounded-lg shadow-xl'>
-                                    <Dropdown.Link href={user.data.role == "admin" ? route('admin.accueil') : route('profile.edit')} className='font-semibold rounded-t-lg'>{user.data.role == "admin" ? "Admin" : t("Header.compte")}</Dropdown.Link>
+                                    {user.data.role == "admin" ? <Dropdown.Link href={route('admin.accueil')} className='font-semibold rounded-t-lg'>Admin</Dropdown.Link> : null}
+                                    <Dropdown.Link href={route('profile.edit')} className='font-semibold rounded-t-lg'>{t("Header.compte")}</Dropdown.Link>
                                     <Dropdown.Link href={route('logout')} className='font-semibold rounded-b-lg' method="post" as="button">{t("Header.logout")}</Dropdown.Link>
                                 </div> : null}
                             </div> :
