@@ -40,12 +40,12 @@
     "src": "public/img/yannick.jpg"
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-D30_JYXW.js",
+    "file": "assets/app-B73adPlm.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
     "css": [
-      "assets/app-pzrbGqjS.css"
+      "assets/app-9gFsDFdS.css"
     ],
     "assets": [
       "assets/ferme-rtHq-f8z.jpg",
