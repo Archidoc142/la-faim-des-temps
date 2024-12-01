@@ -134,7 +134,7 @@ export default function Accueil({ commentaires, images, qbValid, idsImgs }) {
                         legend={i18n.language === 'fr' ? images.data[idsImgs[1]]['legende']['fr'] : images.data[idsImgs[1]]['legende']['en']}
                     /> : null}
 
-                <div className='py-12 px-8 items-center content-center'>
+                <div className='py-12 px-8 md:px-12 items-center content-center'>
                     <ModifButton
                         afficher={user && user.data.role == "admin"}
                         editMode={editBistroMode}
