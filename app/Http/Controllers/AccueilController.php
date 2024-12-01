@@ -84,8 +84,10 @@ class AccueilController extends Controller
         $imgV = [];
         $imgH = [];
 
-        for ($i = 0; $i < count($images); $i++) {
-            if ($this->is_horizontal($images[$i]['nom_fichier']))
+        // J'ai eu une erreur d'index dans ce code en ouvrant la page d'accueil une fois,
+        // donc j'ai remplacé for par foreach
+        foreach ($images as $i => $image) {
+            if ($this->is_horizontal($image['nom_fichier']))
                 array_push($imgH, $i);
             else
                 array_push($imgV, $i);

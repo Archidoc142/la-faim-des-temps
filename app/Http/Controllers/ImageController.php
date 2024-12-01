@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ImageResource;
 use App\Models\Image;
 use App\Models\ImageSaison;
+use App\Models\LegendeLangue;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
@@ -45,8 +46,37 @@ class ImageController extends Controller
                 $file->move(public_path('/img'), $image->nom_fichier);
             }
 
-            $image->langues()->updateExistingPivot(1, ["legende" => $request->descriptionFr]);
-            $image->langues()->updateExistingPivot(2, ["legende" => $request->descriptionEn]);
+            $formDescriptionsEmpty = is_null($request->descriptionFr) && is_null($request->descriptionFr);
+
+            // si une légende est déjà définie
+            if(LegendeLangue::where("id_image", $image->id)->exists())
+            {
+                // si on supprime la légende (descriptions vides)
+                if($formDescriptionsEmpty)
+                {
+                    LegendeLangue::where("id_image", $image->id)->delete();
+                }
+                // si c'est une simple mise à jour de la légende
+                else
+                {
+                    $image->langues()->updateExistingPivot(1, ["legende" => $request->descriptionFr]);
+                    $image->langues()->updateExistingPivot(2, ["legende" => $request->descriptionEn]);
+                }
+            }
+            else if(!$formDescriptionsEmpty)
+            {
+                DB::table('legende_langue')->insert([
+                    'id_image' => $image->id,
+                    'id_langue' => 1,
+                    'legende' => $request['descriptionFr'],
+                ]);
+
+                DB::table('legende_langue')->insert([
+                    'id_image' => $image->id,
+                    'id_langue' => 2,
+                    'legende' => $request['descriptionEn'],
+                ]);
+            }
 
             $image->saisonnier = intval($request->saisonnier);
 
@@ -85,8 +115,6 @@ class ImageController extends Controller
             }
 
             $rules = [
-                'descriptionFr' => 'required',
-                'descriptionEn' => 'required',
                 'saisons' => 'required',
                 'saisonnier' => 'required'
             ];
@@ -120,19 +148,25 @@ class ImageController extends Controller
                 }
             }
 
-            /* LÉGENDE FRANÇAISE */
-            DB::table('legende_langue')->insert([
-                'id_image' => $lastInsertedId,
-                'id_langue' => 1,
-                'legende' => $request['descriptionFr'],
-            ]);
+            $formDescriptionsEmpty = is_null($request->descriptionFr) && is_null($request->descriptionFr);
 
-            /* LÉGENDE ANGLAISE */
-            DB::table('legende_langue')->insert([
-                'id_image' => $lastInsertedId,
-                'id_langue' => 2,
-                'legende' => $request['descriptionEn'],
-            ]);
+            if(!$formDescriptionsEmpty)
+            {
+                /* LÉGENDE FRANÇAISE */
+                DB::table('legende_langue')->insert([
+                    'id_image' => $lastInsertedId,
+                    'id_langue' => 1,
+                    'legende' => $request['descriptionFr'],
+                ]);
+
+                /* LÉGENDE ANGLAISE */
+                DB::table('legende_langue')->insert([
+                    'id_image' => $lastInsertedId,
+                    'id_langue' => 2,
+                    'legende' => $request['descriptionEn'],
+                ]);
+            }
+
         }
     }
 

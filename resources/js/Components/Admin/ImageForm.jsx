@@ -39,9 +39,9 @@ export default function ImageForm({ image, setPopupActif }) {
     function submit(e) {
         e.preventDefault();
 
-        if(data.descriptionFr.trim().length === 0 || data.descriptionEn.trim().length === 0)
+        if((data.descriptionFr.trim().length > 0 && data.descriptionEn.trim().length === 0) || (data.descriptionFr.trim().length === 0 && data.descriptionEn.trim().length > 0))
         {
-            alert("Veuillez indiquer la description de l'image dans les deux langues.")
+            alert("Veuillez indiquer la description de l'image dans les deux langues OU n'indiquer aucune description.")
         }
         else
         {
@@ -118,7 +118,6 @@ export default function ImageForm({ image, setPopupActif }) {
                                 placeholder="Cette description s'affichera comme légende dans la page d'accueil en FRANÇAIS."
                                 value={data.descriptionFr}
                                 onChange={(e) => { setData("descriptionFr", e.target.value) }}
-                                required
                             ></textarea>
 
                             <label htmlFor={"desc_en"} className='font-bold'>Description <span className="text-[#2563eb]">anglaise</span> de l'image</label> <br />
@@ -126,7 +125,6 @@ export default function ImageForm({ image, setPopupActif }) {
                                 placeholder="Cette description s'affichera comme légende dans la page d'accueil en ANGLAIS."
                                 value={data.descriptionEn}
                                 onChange={(e) => { setData("descriptionEn", e.target.value) }}
-                                required
                             ></textarea>
 
 
