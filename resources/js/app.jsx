@@ -12,7 +12,6 @@ import { I18nextProvider } from 'react-i18next';
 import HttpApi from 'i18next-http-backend';
 
 i18next.use(HttpApi).init({
-    debug: true,
     interpolation: {escapeValue: true},
     lng: (document.cookie.split('; ').find(row => row.startsWith('lng=')) || 'lng=fr').split('=')[1],
     ns: ["global"],
