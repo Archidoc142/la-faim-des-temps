@@ -1,4 +1,12 @@
 {
+  "_browser-ponyfill-BmeN3lkJ.js": {
+    "file": "assets/browser-ponyfill-BmeN3lkJ.js",
+    "name": "browser-ponyfill",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
   "public/icons/action.png": {
     "file": "assets/action-D0bFb3G_.png",
     "src": "public/icons/action.png"
@@ -40,12 +48,15 @@
     "src": "public/img/yannick.jpg"
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-B73adPlm.js",
+    "file": "assets/app-DNz4Tq7S.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
+    "dynamicImports": [
+      "_browser-ponyfill-BmeN3lkJ.js"
+    ],
     "css": [
-      "assets/app-9gFsDFdS.css"
+      "assets/app-TmBnSTiD.css"
     ],
     "assets": [
       "assets/ferme-rtHq-f8z.jpg",
