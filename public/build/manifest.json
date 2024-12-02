@@ -1,6 +1,6 @@
 {
-  "_browser-ponyfill-tHkZIbJJ.js": {
-    "file": "assets/browser-ponyfill-tHkZIbJJ.js",
+  "_browser-ponyfill-D8cDzGyT.js": {
+    "file": "assets/browser-ponyfill-D8cDzGyT.js",
     "name": "browser-ponyfill",
     "isDynamicEntry": true,
     "imports": [
@@ -48,15 +48,15 @@
     "src": "public/img/yannick.jpg"
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-CUAekdnE.js",
+    "file": "assets/app-DCGvQXP0.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
     "dynamicImports": [
-      "_browser-ponyfill-tHkZIbJJ.js"
+      "_browser-ponyfill-D8cDzGyT.js"
     ],
     "css": [
-      "assets/app-TmBnSTiD.css"
+      "assets/app-CM-8QzKC.css"
     ],
     "assets": [
       "assets/ferme-rtHq-f8z.jpg",
