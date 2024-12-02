@@ -1,6 +1,6 @@
 {
-  "_browser-ponyfill-BmeN3lkJ.js": {
-    "file": "assets/browser-ponyfill-BmeN3lkJ.js",
+  "_browser-ponyfill-tHkZIbJJ.js": {
+    "file": "assets/browser-ponyfill-tHkZIbJJ.js",
     "name": "browser-ponyfill",
     "isDynamicEntry": true,
     "imports": [
@@ -48,12 +48,12 @@
     "src": "public/img/yannick.jpg"
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-DNz4Tq7S.js",
+    "file": "assets/app-CUAekdnE.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
     "dynamicImports": [
-      "_browser-ponyfill-BmeN3lkJ.js"
+      "_browser-ponyfill-tHkZIbJJ.js"
     ],
     "css": [
       "assets/app-TmBnSTiD.css"
