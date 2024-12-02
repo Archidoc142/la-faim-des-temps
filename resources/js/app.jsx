@@ -9,17 +9,17 @@ import global_fr from "../translations/fr/global.json";
 import global_en from "../translations/en/global.json";
 import i18next from 'i18next';
 import { I18nextProvider } from 'react-i18next';
+import HttpApi from 'i18next-http-backend';
 
-i18next.init({
+i18next.use(HttpApi).init({
+    debug: true,
     interpolation: {escapeValue: true},
     lng: (document.cookie.split('; ').find(row => row.startsWith('lng=')) || 'lng=fr').split('=')[1],
-    resources: {
-        fr: {
-            global: global_fr
-        },
-        en: {
-            global: global_en
-        }
+    ns: ["global"],
+    supportedLngs: ["fr", "en"],
+    preload: ["fr", "en"],
+    backend: {
+        loadPath: '/api/lang/{{lng}}/{{ns}}',
     }
 })
 
