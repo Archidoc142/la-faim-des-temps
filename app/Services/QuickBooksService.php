@@ -239,6 +239,7 @@ class QuickBooksService
             $salesTerm = current($salesTermQuery);
             $invoiceData = [
                 "Line" => $items,
+                "AutoDocNumber" => true,
                 "CustomerRef" => [
                     "value" => $commande->user->id_qb
                 ],
