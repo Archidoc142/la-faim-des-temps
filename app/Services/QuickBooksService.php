@@ -326,7 +326,7 @@ class QuickBooksService
             'ClientSecret' =>  $config['client_secret'],
             'RedirectURI' => $config['oauth_redirect_uri'],
             'scope' => $config['oauth_scope'],
-            'baseUrl' => "development"
+            'baseUrl' => "production"
         ));
 
         return $dataService->getOAuth2LoginHelper();
