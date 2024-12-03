@@ -211,8 +211,7 @@ class CommandeController extends Controller
         $commande = $this->sendCommandeBD($request, false);
 
         if(QBToken::exists())
-            $this->sendCommandeQB($commande, true);
-            //SendCommandeQB::dispatch($commande);
+            SendCommandeQB::dispatch($commande);
 
         $this->sendMail($request, $commande);
 
