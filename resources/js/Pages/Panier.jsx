@@ -39,7 +39,7 @@ export default function Panier({ produits, adresses, secteurs, codesValides, seu
 
 
         if (!canCommand && panier.length > 0) {
-            resetPanier()
+            //resetPanier()
         }
     }, []);
 
