@@ -273,6 +273,7 @@ class QuickBooksService
             $resultingInvoiceObj = $dataService->Add($invoiceObj);
 
             $error = $dataService->getLastError();
+            dump($resultingInvoiceObj);
 
             if(!$error)
             {
