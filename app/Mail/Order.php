@@ -15,7 +15,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 
-class Order extends Mailable
+class Order extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
