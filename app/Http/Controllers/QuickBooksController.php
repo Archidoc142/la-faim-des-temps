@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\QBRealmId;
 use App\Models\QBToken;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -39,19 +40,15 @@ class QuickBooksController extends Controller
             $authCode = $request->query('code');
             $realmId = $request->query('realmId');
 
+            QBRealmId::truncate();
+            QBRealmId::create(["id" => $realmId]);
+
             $OAuth2LoginHelper = $quickBooksService->initOAuth2LoginHelper();
 
             $accessTokenObj = $OAuth2LoginHelper->exchangeAuthorizationCodeForToken($authCode, $realmId);
 
             $quickBooksService->storeTokens($accessTokenObj);
             $quickBooksService->initItems();
-
-            /*$authUrl = $OAuth2LoginHelper->getAuthorizationCodeURL();
-
-            return Inertia::render('Admin/QuickBooksAuth', [
-                'url' => $authUrl,
-                'tokensValid' => true
-            ]);*/
         }
 
         return redirect("/admin/quickbooks");

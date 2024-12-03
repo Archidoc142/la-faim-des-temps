@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\QBToken;
 use App\Models\User;
 use App\Models\ProduitFormat;
+use App\Models\QBRealmId;
 use Exception;
 use Illuminate\Support\Facades\Crypt;
 use QuickBooksOnline\API\DataService\DataService;
@@ -17,6 +18,11 @@ use TypeError;
 
 class QuickBooksService
 {
+    public function getRealmId()
+    {
+        return QBRealmId::exists() ? QBRealmId::first()->id : "";
+    }
+
     public function sendCustomer(User $user)
     {
         $quickBooksService = new QuickBooksService();
@@ -360,7 +366,7 @@ class QuickBooksService
             'RedirectURI' => $config['oauth_redirect_uri'],
             'scope' => $config['oauth_scope'],
             'baseUrl' => "development",
-            'QBORealmID' => env("QB_REALM_ID"),                 //valeur à changer pour déploiement
+            'QBORealmID' => $this->getRealmId(),
             'accessTokenKey' => QBToken::getToken("access"),
             'refreshTokenKey' => QBToken::getToken("refresh")
         ));
