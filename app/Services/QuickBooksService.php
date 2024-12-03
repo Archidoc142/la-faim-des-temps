@@ -41,6 +41,7 @@ class QuickBooksService
         $error = $dataService->getLastError();
 
         if ($error) {
+            dump($dataService);
             dd($error);
         } else {
             if (is_array($accountArray) && sizeof($accountArray) > 0) {
@@ -365,7 +366,7 @@ class QuickBooksService
             'ClientSecret' =>  $config['client_secret'],
             'RedirectURI' => $config['oauth_redirect_uri'],
             'scope' => $config['oauth_scope'],
-            'baseUrl' => "development",
+            'baseUrl' => "production",
             'QBORealmID' => $this->getRealmId(),
             'accessTokenKey' => QBToken::getToken("access"),
             'refreshTokenKey' => QBToken::getToken("refresh")
