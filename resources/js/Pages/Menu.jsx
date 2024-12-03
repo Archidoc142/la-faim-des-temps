@@ -218,7 +218,7 @@ export default function Menu({ formats, langFormats, tarifs, produits, dates_men
 
         checkIntervalleMenu();
 
-        //setAfficherMenu(true);  // Toujours afficher menu (pour tests) #####-/--###-####-########
+        setAfficherMenu(true);  // Toujours afficher menu (pour tests) #####-/--###-####-########
 
     }, [i18n.language])
 
