@@ -81,8 +81,6 @@ class ClientController extends Controller
 
         $validation = Validator::make($request->all(), $rules, $messages);
 
-        dd($validation);
-
         if ($validation->fails())
             return back()->withErrors($validation->errors())->withInput();
 
