@@ -27,6 +27,7 @@ export default function Client({client, commandes, prevPage})
             <thead>
                 <tr>
                     <HeadCell title="Numéro de facture" width="96" />
+                    <HeadCell title="Numéro QuickBooks" width="96" />
                     <HeadCell title="Montant" width="48" />
                     <HeadCell title="Date de Vente" width="48" />
                     <HeadActionCell />

@@ -72,7 +72,7 @@ class ClientController extends Controller
 
         if($client->email != $request->email)
         {
-            $rules['email'] = 'required|string|lowercase|/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/|max:128|unique:'.User::class;
+            $rules['email'] = 'required|string|lowercase|regex:/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/|max:128|unique:'.User::class;
             $messages['email.required'] = 'Veuillez entrer un courriel.';
             $messages['email.email'] = 'Veuillez entrer un courriel valide.';
             $messages['email.regex'] = 'Le format du courriel entré est invalide.';
