@@ -1,4 +1,4 @@
-import { Link, usePage } from '@inertiajs/react'
+import { Link, router, usePage } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next'
 import { useEffect, useState, useRef } from 'react';
@@ -30,6 +30,7 @@ export default function Header() {
     const [nbPanier, setNbPanier] = useState(0)
 
     let userConsent = false
+    const langProp = usePage().props.lang;
 
     const refreshNbPanier = () => {
         const panierStr = localStorage.getItem("panier");
@@ -51,6 +52,11 @@ export default function Header() {
     useEffect(() => {
         refreshNbPanier();
 
+        const userConsentCookie = document.cookie.split('; ').find(row => row.startsWith('userConsent='));
+
+        if(!userConsentCookie || (userConsentCookie && userConsentCookie.split('=')[1] == "false"))
+            i18next.changeLanguage(langProp);
+
         function storageEventHandler(event) {
             refreshNbPanier();
         }
@@ -60,6 +66,7 @@ export default function Header() {
             // Remove the handler when the component unmounts
             window.removeEventListener("storage", storageEventHandler);
         };
+
     }, [])
 
     useEffect(() => {
@@ -97,7 +104,7 @@ export default function Header() {
             document.cookie = "lng=" + i18n.language + "; max-age=31536000";
         }
 
-        Inertia.get(/changeLanguage/ + i18n.language)
+        router.get("/changeLanguage/" + i18n.language)
     }
 
     const toggleMenu = () => {
@@ -202,7 +209,7 @@ export default function Header() {
                         </Link>
 
                         {/* Langue*/}
-                        <select className='m-4 bg-[#041a37] border-none text-white' onChange={(e) => handleChangeLanguage(e)} defaultValue={i18n.language}>
+                        <select className='m-4 bg-[#041a37] border-none text-white' onChange={(e) => handleChangeLanguage(e)} defaultValue={langProp}>
                             <option value="fr">FR</option>
                             <option value="en">EN</option>
                         </select>
