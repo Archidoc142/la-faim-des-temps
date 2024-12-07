@@ -78,7 +78,7 @@ class HandleInertiaRequests extends Middleware
             $user = new UserResource($request->user());
         }
 
-        if(isset($_COOKIE["lng"]))
+        if(isset($_COOKIE["lng"]) && isset($_COOKIE["userConsent"]) && $_COOKIE["userConsent"] == "true")
             App::setLocale($_COOKIE["lng"]);
         else
             App::setLocale(session("locale", config("app.locale")));
@@ -91,6 +91,7 @@ class HandleInertiaRequests extends Middleware
             'horaire' => HoraireOuverture::all(),
             'dateToShow' =>  date('c', $dateToShow),
             'canCommand' => $canCommand,
+            'lang' => session("locale", config("app.locale"))
         ];
     }
 }
