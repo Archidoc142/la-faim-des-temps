@@ -175,7 +175,7 @@ class QuickBooksService
         return $objId;
     }
 
-    //Cette fonction permet de faire une update des information client dans quickbooks
+    //Cette fonction permet de faire une update des informations client dans quickbooks
     public function updateCustomer(User $user)
     {
         $dataService = $this->configureDataService();
@@ -206,11 +206,11 @@ class QuickBooksService
         return !$error;
     }
 
+    //Cette fonction permet d'envoyer une facture par courriel au client
     private function sendInvoiceEmail($invoice, $email)
     {
         $dataService = $this->configureDataService();
-        $dataService->SendEmail($invoice, $email);   //Envoie de la facture par courriel au client, la personnalisation du courriel en question ce fais dans la configuration de QB
-        //$dataService->SendEmail($invoice, 'dragonwhites.minecraftgaming@gmail.com');   //Envoie de la même facture au propriétaire en guise de notification
+        $dataService->SendEmail($invoice, $email);   //Envoie de la facture par courriel au client, la personnalisation du courriel en question ce fait dans la configuration de QB
     }
 
     //Cette fonction permet de créer une facture dans QuickBooks
@@ -355,6 +355,7 @@ class QuickBooksService
         ]);
     }
 
+    //Cette fonction permet de configurer le service de QuickBooks pour l'envoi de données, elle est utilisé dés que des données doivent être envoyé/reçu à QuickBooks
     private function configureDataService()
     {
         $config = include(app_path() . '/config.php');
