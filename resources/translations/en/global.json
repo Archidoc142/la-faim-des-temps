@@ -27,7 +27,7 @@
         "prenom": "First name",
         "nom": "Last name",
         "courriel": "Email address",
-        "telephone": "Phone number",
+        "telephone": "Phone number (optional)",
         "mdp": "Password",
         "confirmer_mdp": "Confirm password",
         "deja_inscrit": "Already registered? (Login)",
