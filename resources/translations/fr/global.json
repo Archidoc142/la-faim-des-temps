@@ -27,7 +27,7 @@
         "prenom": "Prénom",
         "nom": "Nom de famille",
         "courriel": "Courriel",
-        "telephone": "Téléphone",
+        "telephone": "Téléphone (optionnel)",
         "mdp": "Mot de passe",
         "confirmer_mdp": "Confirmer le mot de passe",
         "deja_inscrit": "Déjà inscrit? (Se connecter)",
